@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">柚坛社区</string>
+    <string name="next">下一步</string>
+    <string name="title">标题</string>
+    <string name="describe">简介</string>
+    <string name="ok">确定</string>
+    <string name="cancel">取消</string>
+    <string name="edittext_hint_default">请在这里输入您的内容喵</string>
+    <string name="home">主页</string>
+    <string name="me">我的</string>
+    <string name="resource">资源库</string>
+    <string name="section">版块</string>
+    <string name="topic">话题</string>
+    <string name="view_count">浏览量</string>
+    <string name="comment_count">评论数</string>
+    <string name="search_all">搜索全站内容</string>
+    <string name="message">消息</string>
+</resources>

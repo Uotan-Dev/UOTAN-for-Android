@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Uotan</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="next">Next</string>
+
+    <string name="title">Title</string>
+    <string name="describe">Describe</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="edittext_hint_default">Please enter your content here</string>
+    <string name="home">Home</string>
+    <string name="me">Me</string>
+    <string name="resource">Resource</string>
+    <string name="section">Section</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="topic">Topic</string>
+    <string name="view_count">View Count</string>
+    <string name="comment_count">Comment Count</string>
+    <string name="search_all">Search for all forum content</string>
+    <string name="message">Message</string>
+    <!-- TODO: Remove or change this placeholder text -->
+</resources>

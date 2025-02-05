@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 基础颜色 -->
+    <color name="green">#FF1ABD5B</color>
+    <color name="red">#FFFF3B30</color>
+    <color name="blue">#FF007AFF</color>
+    <color name="black">#FF000000</color>
+    <color name="gray">#FF8E8E93</color>
+    <color name="gray_2">#FFAEAEB2</color>
+    <color name="gray_3">#FFC7C7CC</color>
+    <color name="gray_4">#FFD1D1D6</color>
+    <color name="gray_5">#FFE5E5EA</color>
+    <color name="gray_6">#FFF2F2F7</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- 背景颜色 -->
+    <color name="background_1">#FFF7F7F7</color>
+    <color name="background_2">#FFFFFFFF</color>
+    <color name="background_primary">#FFFFFFFF</color>
+    <color name="background_secondary">#FFF2F2F7</color>
+    <color name="background_tertiary">#FFFFFFFF</color>
+
+    <!-- 字体颜色 -->
+    <color name="label_primary">#FF000000</color>
+    <color name="label_secondary">#993C3C43</color>
+    <color name="label_tertiary">#4C3C3C43</color>
+    <color name="label_quarternary">#2D3C3C43</color>
+
+    <color name="blur_cover">#CCFFFFFF</color>
+
+    <color name="divider">#FFE4E4E4</color>
+
+</resources>
