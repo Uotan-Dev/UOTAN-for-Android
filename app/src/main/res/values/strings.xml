@@ -12,11 +12,12 @@
     <string name="me">Me</string>
     <string name="resource">Resource</string>
     <string name="section">Section</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="topic">Topic</string>
     <string name="view_count">View Count</string>
     <string name="comment_count">Comment Count</string>
     <string name="search_all">Search for all forum content</string>
     <string name="message">Message</string>
+    <string name="latest">Latest</string>
+    <string name="recommend">Recommend</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

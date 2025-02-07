@@ -1,11 +1,9 @@
 package com.gustate.uotan.parse.home
 
-import android.widget.Toast
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.jsoup.Jsoup
-import java.io.IOException
-import java.net.URL
+import java.net.SocketTimeoutException
 
 data class ForumRecommendItem(
     val title: String,
@@ -29,25 +27,34 @@ class RecommendParse {
     // 伴生对象
     companion object {
 
+        private const val BASE_URL = "https://www.uotan.cn/"
+        private const val USER_AGENT = "UotanAPP/1.0"
+        private const val TIMEOUT_MS = 30000
+
         suspend fun fetchRecommendData(pageCount: Int): FetchResult = withContext(Dispatchers.IO) {
 
             // 创建一个储存结果的对象
             val result = mutableListOf<ForumRecommendItem>()
-            var totalPage: Int = 1
+
+            var totalPage = 1
 
             try {
 
-                // 设置一个变量存储柚坛社区的网址
-                val basicUrl = "https://www.uotan.cn/"
+                val pageUrl = buildPageUrl(pageCount)
+
+
                 // 解析网页, document 返回的就是网页 Document 对象
-                val document = Jsoup.parse(URL(basicUrl + "ewr-porta/page-$pageCount"), 30000)
+                val document = Jsoup.connect(pageUrl)
+                    .userAgent(USER_AGENT)
+                    .timeout(TIMEOUT_MS)
+                    .get()
 
                 /** 爬取总页数 **/
                 // 获取总页数所在 class
-                val pageNavS = document.getElementsByClass("pageNav-page ").toList()
-                val pageNav = pageNavS.last()
+                val pageNavS = document.getElementsByClass("pageNav-main").first()
+                val pageNav = pageNavS!!.getElementsByTag("li").last()
                 // 提取 a 标签数据, 即总页数
-                totalPage = pageNav.getElementsByTag("a").first()!!.text().toInt()
+                totalPage = pageNav!!.getElementsByTag("a").first()!!.text().toInt()
 
 
                 // 查找 block  porta-masonry 类
@@ -56,19 +63,16 @@ class RecommendParse {
                 val elements = content!!.getElementsByClass("porta-article-item")
                 // 获取内容，这里的 element 就是每一个 div 元素
                 for (element in elements) {
+
                     // 爬取推荐每个元素
 
                     /** 获取文章标题 **/
-                    /** 获取文章标题 **/
-
                     // 获取标题所在 Element
                     val titleElement = element.getElementsByClass("porta-header-text").first()
                     // 获取其中 span 包裹的标题
                     val title = titleElement!!.getElementsByTag("span").first()!!.text()
 
                     /** 获取文章简介 **/
-                    /** 获取文章简介 **/
-
                     // 获取简介所在 Element
                     val describeElement = element.getElementsByClass("message-body").first()
                     // 获取其中 bbWrapper 类中包裹的简介
@@ -78,8 +82,6 @@ class RecommendParse {
 
 
                     /** 获取文章封面 **/
-                    /** 获取文章封面 **/
-
                     // 获取封面所在 Element
                     val coverElement = element.getElementsByClass("porta-header-image").first()
                     // 获取每个元素的 style 属性值, 这个属性值包含封面的 URL
@@ -90,8 +92,6 @@ class RecommendParse {
                     val coverUrl = urlPattern.find(styleAttr)!!.groupValues[1]
 
                     /** 获取作者头像 **/
-                    /** 获取作者头像 **/
-
                     // 获取头像所在的 Wrapper
                     val avatarElement = element.getElementsByClass("avatarWrapper").first()
                     // 作者头像分为两种，一种用户自定义了头像，一种用户未自定义头像使用其昵称的第一个字符
@@ -106,31 +106,25 @@ class RecommendParse {
                         // 如果不为空就获取其中的 attr : "srcset" (这里获取 src 可能会出错，因为采用的懒加载)
                         val src = imgElement.attr("srcset")
                         // 然后赋值到 avatar
-                        avatar = basicUrl + src
+                        avatar = BASE_URL + src
                     } else {
                         // 如果为空就获取 span 中的 span 所包裹的信息，然后把他赋值到 avatar
                         avatar = spanElement!!.getElementsByTag("span").first()!!.text()
                     }
 
                     /** 获取作者头昵称 **/
-                    /** 获取作者头昵称 **/
-
                     // 获取昵称所在的 Element
                     val authorElement = element.getElementsByClass("contentRow-header").first()
                     // 取 Element 中 u-concealed 类包裹的昵称, 并赋值到 author
                     val author = authorElement!!.getElementsByClass("u-concealed").first()!!.text()
 
                     /** 获取文章发布时间 **/
-                    /** 获取文章发布时间 **/
-
                     // 获取发布时间所在的 Element
                     val timeElement = element.getElementsByClass("contentRow-lesser").first()
                     // 取 Element 中 u-dt 类包裹的昵称, 并赋值到 time
                     val time = timeElement!!.getElementsByClass("u-dt").first()!!.text()
 
                     /** 获取话题、浏览量和评论数 **/
-                    /** 获取话题、浏览量和评论数 **/
-
                     // 获取话题、浏览量和评论数所在的 Element
                     val cellElement = element.getElementsByClass("message-attribution").first()
                     /* 获取话题 */
@@ -154,25 +148,34 @@ class RecommendParse {
                     val viewCount = viewCCount.replace(" $commentCount", "")
 
                     // 在结果中赋值
-                    result.add(
-                        ForumRecommendItem(
-                            title,
-                            describe,
-                            coverUrl,
-                            avatar,
-                            author,
-                            time,
-                            topic,
-                            viewCount,
-                            commentCount
-                        )
-                    )
+                    result.add(ForumRecommendItem(title, describe, coverUrl, avatar, author, time, topic, viewCount, commentCount))
+
                 }
-            } catch (e: IOException) {
+
+                return@withContext FetchResult(result, totalPage)
+
+            } catch (e: SocketTimeoutException) {
+
                 e.printStackTrace()
+
                 println("Error")
+
+                return@withContext FetchResult(result, totalPage)
+
             }
-            return@withContext FetchResult(result, totalPage)
+
+
+
         }
+
+        private fun buildPageUrl(pageCount: Int): String {
+            return if (pageCount == 1) {
+                BASE_URL
+            } else {
+                "$BASE_URL/ewr-porta/page-$pageCount"
+            }
+        }
+
     }
+
 }

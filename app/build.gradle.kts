@@ -49,6 +49,7 @@ dependencies {
     implementation(libs.shapeblurview)
     implementation(libs.jsoup)
     implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.androidx.activity)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

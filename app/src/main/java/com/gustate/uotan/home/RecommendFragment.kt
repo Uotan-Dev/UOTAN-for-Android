@@ -1,7 +1,6 @@
 package com.gustate.uotan.home
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,12 +15,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.gustate.uotan.R
+import com.gustate.uotan.parse.home.FetchResult
 import com.gustate.uotan.parse.home.ForumRecommendItem
 import com.gustate.uotan.parse.home.RecommendParse
 import kotlinx.coroutines.launch
 
 private lateinit var recyclerView: RecyclerView
-private lateinit var adapter: ForumRecommendItem
 
 class RecommendFragment : Fragment() {
 
@@ -29,6 +28,7 @@ class RecommendFragment : Fragment() {
     private var totalPages = 1
     private var isLoading = false
     private var isLastPage = false
+    private lateinit var fetchResult: FetchResult
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,11 +42,10 @@ class RecommendFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val layoutManager = LinearLayoutManager(context)
         // 初始化 RecyclerView
-        recyclerView = view.findViewById<RecyclerView>(R.id.recommendRecycler)
+        recyclerView = view.findViewById(R.id.recommendRecycler)
         recyclerView.layoutManager = layoutManager
         loadData()
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            private val visibleThreshold = 5  // 提前5项触发加载
             private var lastVisibleItem = 0
             private var totalItemCount = 0
 
@@ -57,8 +56,9 @@ class RecommendFragment : Fragment() {
                 totalItemCount = layoutManagerd.itemCount
                 lastVisibleItem = layoutManagerd.findLastVisibleItemPosition()
 
-                if (!isLoading && !isLastPage) {
+                if (!isLoading && !isLastPage && totalItemCount <= (lastVisibleItem + 5)) {
                     loadData()
+                    isLoading = true
                 }
             }
         })
@@ -74,20 +74,26 @@ class RecommendFragment : Fragment() {
         try {
             // 启动协程
             lifecycleScope.launch {
-                val fetchResult = RecommendParse.fetchRecommendData(currentPage)
+                fetchResult = RecommendParse.fetchRecommendData(currentPage)
                 val adapter = recyclerView.adapter as? RecommendAdapter
-
-                // 更新数据
-                fetchResult.items.let { newItems ->
-                    if (adapter == null) {
-                        recyclerView.adapter = RecommendAdapter(newItems.toMutableList())
-                    } else {
-                        adapter.addAll(newItems)
+                if (fetchResult.totalPage != 1) {
+                    // 更新数据
+                    fetchResult.items.let { newItems ->
+                        if (adapter == null) {
+                            recyclerView.adapter = RecommendAdapter(newItems.toMutableList())
+                        } else {
+                            adapter.addAll(newItems)
+                        }
+                        currentPage += 1
                     }
-                    currentPage += 1
+                    totalPages = fetchResult.totalPage
+                    isLastPage = currentPage > totalPages
+
+                } else {
+                    Toast.makeText(context,"请稍候再试",Toast.LENGTH_SHORT).show()
                 }
-                totalPages = fetchResult.totalPage
-                isLastPage = currentPage >= totalPages
+
+                isLoading = false
 
             }
         } finally {
@@ -102,7 +108,7 @@ class RecommendFragment : Fragment() {
 class RecommendAdapter(private val recommendList: MutableList<ForumRecommendItem>):
         RecyclerView.Adapter<RecommendAdapter.ViewHolder>() {
 
-    fun addAll(newItems: List<ForumRecommendItem>) {
+    fun addAll(newItems: MutableList<ForumRecommendItem>) {
         val startPosition = recommendList.size
         recommendList.addAll(newItems)
         notifyItemRangeInserted(startPosition, newItems.size)

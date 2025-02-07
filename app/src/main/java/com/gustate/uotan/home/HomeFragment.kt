@@ -1,21 +1,21 @@
 package com.gustate.uotan.home
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayout
 import com.gustate.uotan.R
 
 class HomeFragment : Fragment() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -40,6 +40,29 @@ class HomeFragment : Fragment() {
         }
         val homeViewPager: ViewPager2 = view.findViewById(R.id.homeViewPager)
         homeViewPager.adapter = HomeViewPagerAdapter(this)
+        homeViewPager.setCurrentItem(1,true)
+        val latestItem = view.findViewById<TextView>(R.id.latest)
+        val recommendItem = view.findViewById<TextView>(R.id.recommend)
+        latestItem.setOnClickListener{ homeViewPager.setCurrentItem(0, true) }
+        recommendItem.setOnClickListener{ homeViewPager.setCurrentItem(1, true) }
+        homeViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                when (position) {
+                    0 -> {
+                        latestItem.textSize = 16f
+                        latestItem.setTextColor(ContextCompat.getColor(requireContext(), R.color.label_primary))
+                        recommendItem.textSize = 14f
+                        recommendItem.setTextColor(ContextCompat.getColor(requireContext(), R.color.label_secondary))
+                    }
+                    1 -> {
+                        latestItem.textSize = 14f
+                        latestItem.setTextColor(ContextCompat.getColor(requireContext(), R.color.label_secondary))
+                        recommendItem.textSize = 16f
+                        recommendItem.setTextColor(ContextCompat.getColor(requireContext(), R.color.label_primary))
+                    }
+                }
+            }
+        })
     }
 
 }
@@ -47,6 +70,7 @@ class HomeFragment : Fragment() {
 class HomeViewPagerAdapter(fragment: Fragment):
     FragmentStateAdapter(fragment.childFragmentManager, fragment.lifecycle){
     private val fragments = listOf(
+        LatestFragment(),
         RecommendFragment()
     )
     override fun getItemCount(): Int = fragments.size

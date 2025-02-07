@@ -15,6 +15,7 @@ materialVersion = "1.12.0"
 navigationFragmentKtx = "2.6.0"
 navigationUiKtx = "2.6.0"
 shapeblurview = "1.0.5"
+activity = "1.9.3"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -31,6 +32,7 @@ androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navi
 androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
 material-v1120 = { module = "com.google.android.material:material", version.ref = "materialVersion" }
 shapeblurview = { module = "com.github.centerzx:ShapeBlurView", version.ref = "shapeblurview" }
+androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

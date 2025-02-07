@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -14,6 +14,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Uotan"
         tools:targetApi="31">
+        <activity
+            android:name=".resource.ResourceActivity"
+            android:exported="false" />
+        <activity
+            android:name=".article.ArticleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".plate.PlateActivity"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

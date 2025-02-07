@@ -16,4 +16,6 @@
     <string name="comment_count">评论数</string>
     <string name="search_all">搜索全站内容</string>
     <string name="message">消息</string>
+    <string name="latest">最新</string>
+    <string name="recommend">推荐</string>
 </resources>

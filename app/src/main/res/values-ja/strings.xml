@@ -16,4 +16,6 @@
     <string name="comment_count">コメント数</string>
     <string name="search_all">フォーラム全体の検索</string>
     <string name="message">メッセージ</string>
+    <string name="latest">最新</string>
+    <string name="recommend">推奨</string>
 </resources>

@@ -190,7 +190,7 @@
                 android:id="@+id/viewCountIco"
                 android:layout_width="13dp"
                 android:layout_height="13dp"
-                android:layout_marginStart="17dp"
+                android:layout_marginStart="14dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="14dp"
                 app:layout_constraintBottom_toBottomOf="parent"
