@@ -45,7 +45,7 @@ class LatestFragment : Fragment() {
         recyclerView.layoutManager = layoutManager
         ViewCompat.setOnApplyWindowInsetsListener(view.rootView) { _, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            recyclerView.setPadding(0, systemBars.top + Utils.dp2Px(114, context!!).toInt(), 0, systemBars.bottom + Utils.dp2Px(70, context!!).toInt())
+            recyclerView.setPadding(0, systemBars.top + Utils.dp2Px(114, requireContext()).toInt(), 0, systemBars.bottom + Utils.dp2Px(70, requireContext()).toInt())
             insets
         }
         // 启动协程
