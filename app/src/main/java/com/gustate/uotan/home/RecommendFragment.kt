@@ -9,7 +9,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
+import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,6 +21,7 @@ import com.gustate.uotan.R
 import com.gustate.uotan.parse.home.FetchResult
 import com.gustate.uotan.parse.home.ForumRecommendItem
 import com.gustate.uotan.parse.home.RecommendParse
+import com.gustate.uotan.utils.Utils
 import kotlinx.coroutines.launch
 
 private lateinit var recyclerView: RecyclerView
@@ -44,6 +48,11 @@ class RecommendFragment : Fragment() {
         // 初始化 RecyclerView
         recyclerView = view.findViewById(R.id.recommendRecycler)
         recyclerView.layoutManager = layoutManager
+        ViewCompat.setOnApplyWindowInsetsListener(view.rootView) { _, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            recyclerView.setPadding(0, systemBars.top + Utils.dp2Px(114, context!!).toInt(), 0, systemBars.bottom + Utils.dp2Px(70, context!!).toInt())
+            insets
+        }
         loadData()
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             private var lastVisibleItem = 0

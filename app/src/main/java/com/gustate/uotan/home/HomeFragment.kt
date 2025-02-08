@@ -1,6 +1,5 @@
 package com.gustate.uotan.home
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,10 +8,10 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.tabs.TabLayout
 import com.gustate.uotan.R
 
 class HomeFragment : Fragment() {
@@ -35,7 +34,10 @@ class HomeFragment : Fragment() {
         val rootView: View = view.findViewById(R.id.rootLayout)
         ViewCompat.setOnApplyWindowInsetsListener(rootView) { _, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            statusBarView.layoutParams.height = systemBars.top
+            //statusBarView.layoutParams.height = systemBars.top
+            statusBarView.updateLayoutParams<ViewGroup.LayoutParams> {
+                height = systemBars.top
+            }
             insets
         }
         val homeViewPager: ViewPager2 = view.findViewById(R.id.homeViewPager)

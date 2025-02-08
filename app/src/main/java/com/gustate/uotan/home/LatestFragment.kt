@@ -1,5 +1,6 @@
 package com.gustate.uotan.home
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,8 +10,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
-import androidx.core.view.marginLeft
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,6 +20,7 @@ import com.bumptech.glide.Glide
 import com.gustate.uotan.R
 import com.gustate.uotan.parse.home.ForumLatestItem
 import com.gustate.uotan.parse.home.LatestParse
+import com.gustate.uotan.utils.Utils
 import kotlinx.coroutines.launch
 
 private lateinit var recyclerView: RecyclerView
@@ -40,17 +43,21 @@ class LatestFragment : Fragment() {
         // 初始化 RecyclerView
         recyclerView = view.findViewById(R.id.recommendRecycler)
         recyclerView.layoutManager = layoutManager
+        ViewCompat.setOnApplyWindowInsetsListener(view.rootView) { _, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            recyclerView.setPadding(0, systemBars.top + Utils.dp2Px(114, context!!).toInt(), 0, systemBars.bottom + Utils.dp2Px(70, context!!).toInt())
+            insets
+        }
         // 启动协程
         lifecycleScope.launch {
             fetchResult = LatestParse.fetchLatestData()
-            val adapter = recyclerView.adapter as? RecommendAdapter
-            recyclerView.adapter = LatestAdapter(fetchResult)
+            recyclerView.adapter = context?.let { LatestAdapter(it, fetchResult) }
         }
     }
 
 }
 
-class LatestAdapter(private val latestList: MutableList<ForumLatestItem>):
+class LatestAdapter(private val context: Context, private val latestList: MutableList<ForumLatestItem>):
     RecyclerView.Adapter<LatestAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
@@ -78,12 +85,12 @@ class LatestAdapter(private val latestList: MutableList<ForumLatestItem>):
 
         if (content.cover.startsWith("http")) {
             holder.coverImage.isVisible = true
-            val userParams = holder.userLayout.layoutParams as ViewGroup.MarginLayoutParams
-            userParams.topMargin = 12
-            holder.userLayout.layoutParams = userParams
             Glide.with(holder.itemView.context)
                 .load(content.cover)
                 .into(holder.coverImage)
+            val userParams = holder.userLayout.layoutParams as ViewGroup.MarginLayoutParams
+            userParams.topMargin = Utils.dp2Px(12, context).toInt()
+            holder.userLayout.layoutParams = userParams
         } else {
             holder.coverImage.isVisible = false
             val userParams = holder.userLayout.layoutParams as ViewGroup.MarginLayoutParams
@@ -92,7 +99,6 @@ class LatestAdapter(private val latestList: MutableList<ForumLatestItem>):
         }
 
         holder.userAvatar.isVisible = false
-        holder.userName.marginLeft
 
         val nameParams = holder.userName.layoutParams as ViewGroup.MarginLayoutParams
         nameParams.leftMargin = 0

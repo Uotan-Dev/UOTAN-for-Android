@@ -28,6 +28,7 @@
     <color name="label_quarternary">#2D3C3C43</color>
 
     <color name="blur_cover">#CCFFFFFF</color>
+    <color name="header_bar_blur_cover">#CCF7F7F7</color>
 
     <color name="divider">#FFE4E4E4</color>
 
