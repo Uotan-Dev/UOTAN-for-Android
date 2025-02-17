@@ -108,9 +108,6 @@ class RecommendFragment : Fragment() {
         } finally {
             isLoading = false
         }
-
-
-
     }
 }
 

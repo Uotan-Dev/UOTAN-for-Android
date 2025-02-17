@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Uotan</string>
+    <string name="app_name">UOTAN</string>
     <!-- Strings used for fragments for navigation -->
     <string name="next">Next</string>
 
@@ -19,5 +19,40 @@
     <string name="message">Message</string>
     <string name="latest">Latest</string>
     <string name="recommend">Recommend</string>
+    <string name="user_name">User Name</string>
+    <string name="time">Time</string>
+    <string name="content">Content</string>
+    <string name="please_comment">Leave a comment</string>
+    <string name="share_count">Share Count</string>
+    <string name="favourite_count">Favourite Count</string>
+    <string name="follow">Follow</string>
+    <string name="welcome">Welcome to UOTAN Community</string>
+    <string name="welcome_describe">Your mobile phone flashing resource library</string>
+    <string name="no_login">Let\'s take a look first, don\'t log in for now</string>
+    <string name="first_login">I already have an account, go log in</string>
+    <string name="first_register">No account, go register</string>
+    <string name="allow_arguments">Agree to the Service Agreement, Privacy Policy, User Agreement, Disclaimer</string>
+    <string name="login">Log in</string>
+    <string name="username_or_email">Username or email address</string>
+    <string name="password">Password</string>
+    <string name="xiaomi">Xiaomi</string>
+    <string name="redmi">Redmi</string>
+    <string name="oneplus">Oneplus</string>
+    <string name="meizu">Meizu</string>
+    <string name="tablet_laptop">Tablet/Laptop</string>
+    <string name="smart_life">Smart Life</string>
+    <string name="systems_software">Systems Software</string>
+    <string name="forum_services">Forum Services</string>
+    <string name="please_press_username_password">Please enter your username or email and password</string>
+    <string name="please_press_username">Please enter your username or email</string>
+    <string name="please_press_password">Please enter your password</string>
+    <string name="password_incorrect">Your account password is incorrect or not registered</string>
+    <string name="my_follow">My Follow</string>
+    <!-- Preference Titles -->
+
+    <!-- Messages Preferences -->
+
+    <!-- Sync Preferences -->
+    <!-- TODO: Remove or change this placeholder text -->
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

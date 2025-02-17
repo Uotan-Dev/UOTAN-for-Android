@@ -1,8 +1,13 @@
 package com.gustate.uotan.parse.home
 
+import com.gustate.uotan.utils.Utils.Companion.BASE_URL
+import com.gustate.uotan.utils.Utils.Companion.Cookies
+import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
+import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.jsoup.Jsoup
+import org.jsoup.nodes.Element
 import java.net.SocketTimeoutException
 
 data class ForumRecommendItem(
@@ -27,10 +32,6 @@ class RecommendParse {
     // 伴生对象
     companion object {
 
-        private const val BASE_URL = "https://www.uotan.cn/"
-        private const val USER_AGENT = "UotanAPP/1.0"
-        private const val TIMEOUT_MS = 30000
-
         suspend fun fetchRecommendData(pageCount: Int): FetchResult = withContext(Dispatchers.IO) {
 
             // 创建一个储存结果的对象
@@ -47,6 +48,7 @@ class RecommendParse {
                 val document = Jsoup.connect(pageUrl)
                     .userAgent(USER_AGENT)
                     .timeout(TIMEOUT_MS)
+                    .cookies(Cookies)
                     .get()
 
                 /** 爬取总页数 **/
@@ -76,10 +78,7 @@ class RecommendParse {
                     // 获取简介所在 Element
                     val describeElement = element.getElementsByClass("message-body").first()
                     // 获取其中 bbWrapper 类中包裹的简介
-                    val describe = describeElement!!.getElementsByClass("bbWrapper").first()!!
-                        // 并将内容中的换行符替换为 Java 换行符
-                        .text().replace("<br>", "\n")
-
+                    val describe = describeElement!!.getElementsByClass("bbWrapper").first()!!.text().toString().replace("<br>", "\n")
 
                     /** 获取文章封面 **/
                     // 获取封面所在 Element

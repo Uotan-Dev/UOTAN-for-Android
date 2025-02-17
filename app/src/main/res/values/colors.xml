@@ -32,4 +32,12 @@
 
     <color name="divider">#FFE4E4E4</color>
 
+    <color name="gustatex_check_box">#FFE5E5EA</color>
+
+    <!-- 选项卡 -->
+    <!-- 默认背景色 -->
+    <color name="gustatex_option_background_normal">#FFFFFF</color>
+    <!-- 按下背景色 -->
+    <color name="gustatex_option_background_press">#E1E1E1</color>
+
 </resources>

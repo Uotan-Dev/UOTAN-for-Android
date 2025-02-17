@@ -1,10 +1,9 @@
 package com.gustate.uotan.parse.resource
 
-import com.gustate.uotan.parse.home.FetchResult
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
+import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
+import org.jsoup.Connection
 import org.jsoup.Jsoup
-import java.net.URL
 
 data class ResourceRecommendItem(
     val cover:  String,
@@ -12,7 +11,6 @@ data class ResourceRecommendItem(
     val title: String,
     val version: String,
     val updateTime: String,
-    val author: String,
     val downloadCount: String,
     val price: String,
     val link: String
@@ -58,31 +56,74 @@ class ResourceRecommendParse {
 }
 
 fun main() {
-    fetchResourceRecommendData()
-}
 
-fun fetchResourceRecommendData() {
+    // 获取推荐资源的网页 document 文档
+    val document = Jsoup.connect("https://www.uotan.cn/resources/featured")
+        .userAgent(USER_AGENT)
+        .timeout(TIMEOUT_MS)
+        .cookies(login("汩汩加热装置","20090714mzz"))
+        .get()
 
-    val result = mutableListOf<ResourceRecommendItem>()
 
-    // 设置一个变量存储柚坛社区的网址
-    val basicUrl = "https://www.uotan.cn/"
-    // 获取资源库推荐的 Document
-    val document = Jsoup.parse(URL("https://www.uotan.cn/resources/featured"),30000)
+    val rootElements = document.getElementsByClass("structItemContainer").first()
 
-    /*
-     *  爬取资源库推荐
-     *  @JiaGuZhuangZhi (LOVE JIANGXUN)
-     *  感谢 Jsoup 项目
-     */
+    val resElements = rootElements!!.getElementsByTag("div")
 
-    val element = document.getElementsByClass("structItemContainer").first()
-    val coverElements = element!!.getElementsByTag("img")
+    for (resElement in resElements) {
 
-    for (coverElement in coverElements) {
-
-        //result.add(ResourceRecommendItem(cover = "basicUrl + coverElement.attr(\"src\")"))
 
     }
+
+}
+
+fun login(account: String, password: String): Map<String, String> {
+
+    val loginUrl = "https://www.uotan.cn/login/login"
+
+    // 第一次请求获取CSRF令牌和Cookies
+    val firstResponse = Jsoup.connect(loginUrl)
+        .userAgent(USER_AGENT)
+        .header(
+            "Accept",
+            "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+        )
+        .header("Accept-Language", "zh-CN,zh;q=0.9")
+        .header("Connection", "keep-alive")
+        .method(Connection.Method.GET)
+        .timeout(TIMEOUT_MS)
+        .execute()
+
+    // 提取CSRF令牌（关键安全参数）
+    val xfToken = firstResponse.parse()
+        .select("input[name=_xfToken]")
+        .first()
+        ?.attr("value") ?: throw Exception("CSRF token not found")
+
+    // 构建登录参数（注意密码字段名称）
+    val params = mapOf(
+        "login" to account,
+        "password" to password,
+        "_xfToken" to xfToken,
+        "_xfRedirect" to "",
+        "remember" to "1",
+        "accept" to "1"
+    )
+
+    // 发送登录请求（携带初始Cookies）
+    val loginResponse = Jsoup.connect(loginUrl)
+        .userAgent(USER_AGENT)
+        .header("Content-Type", "application/x-www-form-urlencoded")
+        .header("Origin", "https://www.uotan.cn")
+        .header("Referer", loginUrl)
+        .cookies(firstResponse.cookies()) // 保持会话连续性
+        .data(params)
+        .method(Connection.Method.POST)
+        .timeout(TIMEOUT_MS)
+        .execute()
+
+    // 获取最终Cookies
+    val cookies = loginResponse.cookies()
+
+    return cookies
 
 }

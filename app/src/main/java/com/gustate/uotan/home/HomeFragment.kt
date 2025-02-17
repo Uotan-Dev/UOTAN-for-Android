@@ -34,7 +34,6 @@ class HomeFragment : Fragment() {
         val rootView: View = view.findViewById(R.id.rootLayout)
         ViewCompat.setOnApplyWindowInsetsListener(rootView) { _, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            //statusBarView.layoutParams.height = systemBars.top
             statusBarView.updateLayoutParams<ViewGroup.LayoutParams> {
                 height = systemBars.top
             }

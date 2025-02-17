@@ -1,5 +1,9 @@
 package com.gustate.uotan.parse.home
 
+import com.gustate.uotan.utils.Utils.Companion.BASE_URL
+import com.gustate.uotan.utils.Utils.Companion.Cookies
+import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
+import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.jsoup.Jsoup
@@ -20,19 +24,16 @@ class LatestParse {
     // 伴生对象
     companion object {
 
-        private const val BASE_URL = "https://www.uotan.cn/"
-        private const val USER_AGENT = "UotanAPP/1.0"
-        private const val TIMEOUT_MS = 30000
-
         // 协程函数
         suspend fun fetchLatestData(): MutableList<ForumLatestItem> = withContext(Dispatchers.IO) {
 
-            var result = mutableListOf<ForumLatestItem>()
+            val result = mutableListOf<ForumLatestItem>()
 
             // 解析网页, document 返回的就是网页 Document 对象
             val document = Jsoup.connect("$BASE_URL/whats-new/")
                 .userAgent(USER_AGENT)
                 .timeout(TIMEOUT_MS)
+                .cookies(Cookies)
                 .get()
 
             val rootElements = document.getElementsByClass("structItemContainer").first()

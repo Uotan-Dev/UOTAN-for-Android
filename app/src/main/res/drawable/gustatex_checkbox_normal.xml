@@ -1,0 +1,5 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:autoMirrored="true" android:height="20dp" android:viewportHeight="20" android:viewportWidth="20" android:width="20dp">
+
+    <path android:fillColor="@color/gustatex_check_box" android:pathData="M0,10a10,10 0,1 0,20 0a10,10 0,1 0,-20 0z" android:strokeWidth="1"/>
+
+</vector>

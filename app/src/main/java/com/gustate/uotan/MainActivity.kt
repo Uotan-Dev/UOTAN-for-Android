@@ -1,6 +1,8 @@
 package com.gustate.uotan
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.content.res.AppCompatResources
@@ -9,12 +11,24 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.gustate.uotan.databinding.ActivityMainBinding
 import com.gustate.uotan.home.HomeFragment
-import org.jsoup.Jsoup
-import java.net.URL
+import com.gustate.uotan.notice.NoticeFragment
+import com.gustate.uotan.plate.PlateFragment
+import com.gustate.uotan.resource.ResFragment
+import com.gustate.uotan.user.LoginActivity
+import com.gustate.uotan.user.MeFragment
+import com.gustate.uotan.utils.CookiesManager
+import com.gustate.uotan.utils.Utils.Companion.Cookies
+import com.gustate.uotan.utils.Utils.Companion.isLogin
+import com.gustate.uotan.utils.Utils.Companion.isXiaomi
+import com.gustate.uotan.utils.Utils.Companion.openImmersion
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,8 +39,30 @@ class MainActivity : AppCompatActivity() {
         // 启用边到边设计，也就是以前的把界面拓展到状态栏和导航栏
         enableEdgeToEdge()
 
+        // 从数据库中获取 Cookies，并判断是否登录
+        val cookiesManager = CookiesManager(this)
+        cookiesManager.cookiesFlow
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                cookiesManager.cookiesFlow.collect { cookies ->
+                    Cookies = cookies
+                    isLogin = cookies != mapOf<String,String>()
+                    if (!isLogin) {
+                        val intent = Intent(baseContext,LoginActivity::class.java)
+                        startActivity(intent)
+                    }
+                    Toast.makeText(baseContext, isLogin.toString(), Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.rootLayout)
+
+        openImmersion(window)
+
+        Toast.makeText(this, isXiaomi().toString(), Toast.LENGTH_SHORT).show()
 
         /*
          * 修改各个占位布局的高度
@@ -42,16 +78,26 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        binding.mianViewPager.adapter = MainViewPagerAdapter(this)
-        binding.mianViewPager.isUserInputEnabled = false
+        binding.mainViewPager.adapter = MainViewPagerAdapter(this)
+        binding.mainViewPager.isUserInputEnabled = false
+
+        binding.homeLayout.setOnClickListener { binding.mainViewPager.setCurrentItem(0,true) }
+        binding.plateLayout.setOnClickListener { binding.mainViewPager.setCurrentItem(1,true) }
+        binding.noticeLayout.setOnClickListener { binding.mainViewPager.setCurrentItem(2,true) }
+        binding.resLayout.setOnClickListener { binding.mainViewPager.setCurrentItem(3,true) }
+        binding.meLayout.setOnClickListener { binding.mainViewPager.setCurrentItem(4,true) }
+
         val buttonColor = ContextCompat.getColor(this, R.color.label_tertiary)
         val buttonSelectedColor = ContextCompat.getColor(this, R.color.label_primary)
-        binding.mianViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        binding.mainViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
+
                 val texts = arrayOf(binding.homeText, binding.plateText, binding.noticeText, binding.resText, binding.meText)
+
                 texts.forEachIndexed { index, textView ->
                     textView.setTextColor(if (index == position) buttonSelectedColor else buttonColor)
                 }
+
                 val icons = arrayOf(
                     binding.homeIcon to R.drawable.ic_nav_home,
                     binding.plateIcon to R.drawable.ic_nav_plate,
@@ -59,6 +105,7 @@ class MainActivity : AppCompatActivity() {
                     binding.resIcon to R.drawable.ic_nav_res,
                     binding.meIcon to R.drawable.ic_nav_me
                 )
+
                 val selectedIcons = arrayOf(
                     R.drawable.ic_nav_home_selected,
                     R.drawable.ic_nav_plate_selected,
@@ -68,10 +115,18 @@ class MainActivity : AppCompatActivity() {
                 )
 
                 icons.forEachIndexed { index, (icon, defaultResId) ->
-                    icon.setImageDrawable(AppCompatResources.getDrawable(baseContext, if (index == position) selectedIcons[index] else defaultResId))
+                    icon.setImageDrawable(AppCompatResources
+                        .getDrawable(
+                            baseContext,
+                            if (index == position) selectedIcons[index]
+                            else defaultResId
+                        )
+                    )
                 }
+
             }
         })
+
     }
 
 }
@@ -79,20 +134,12 @@ class MainActivity : AppCompatActivity() {
 class MainViewPagerAdapter(fragmentActivity: FragmentActivity):
     FragmentStateAdapter(fragmentActivity){
     private val fragments = listOf(
-        HomeFragment()
+        HomeFragment(),
+        PlateFragment(),
+        NoticeFragment(),
+        ResFragment(),
+        MeFragment()
     )
     override fun getItemCount(): Int = fragments.size
     override fun createFragment(position: Int): Fragment = fragments[position]
-}
-
-fun main() {
-    uotan()
-}
-
-fun uotan() {
-    // 解析网页, document 返回的就是网页 Document 对象
-    val document = Jsoup.parse(URL("https://www.uotan.cn/"),30000)
-    val pageNav = document.getElementsByClass("pageNav-page ").first()
-    val totalPage = pageNav!!.getElementsByTag("a").first()!!.text().toInt()
-    println(totalPage)
 }
