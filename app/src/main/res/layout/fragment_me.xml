@@ -5,65 +5,190 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".user.MeFragment">
+    tools:context=".fragment.user.MeFragment">
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/rootScrollView"
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background_1"
-        android:clipToPadding="true"
-        android:fillViewport="true"
+        android:clipToPadding="false"
         android:scrollbarThumbVertical="@drawable/gustatex_scrollbar_thumb_vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:srlEnablePureScrollMode="true">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/rootView"
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/rootScrollView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="64dp">
+            android:layout_height="match_parent"
+            android:background="@color/background_1"
+            android:clipToPadding="false"
+            android:fillViewport="true"
+            android:paddingTop="80dp"
+            android:scrollbarThumbVertical="@drawable/gustatex_scrollbar_thumb_vertical"
+            android:scrollbars="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/bigTittle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="28dp"
-                android:fontFamily="sans-serif"
-                android:textSize="30sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/rootView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="200dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                app:cardBackgroundColor="@color/background_2"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="0dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView3"
+                    android:layout_width="0dp"
+                    android:layout_height="280dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="16dp"
+                    app:cardBackgroundColor="@color/background_2"
+                    app:cardCornerRadius="18dp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/coverImage"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:scaleType="centerCrop"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:src="@tools:sample/backgrounds/scenic" />
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:layout_marginEnd="6dp"
+                            android:layout_marginBottom="6dp"
+                            app:cardBackgroundColor="@android:color/transparent"
+                            app:cardCornerRadius="18dp"
+                            app:cardElevation="0dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@+id/coverImage"
+                            app:layout_constraintStart_toStartOf="parent">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <view
+                                    android:id="@+id/loadingCardBlur"
+                                    class="net.center.blurview.ShapeBlurView"
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    app:blur_overlay_color="@color/blur_cover"
+                                    app:blur_radius="35dp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <androidx.cardview.widget.CardView
+                                    android:id="@+id/cardView"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginTop="16dp"
+                                    app:cardBackgroundColor="@android:color/transparent"
+                                    app:cardCornerRadius="99dp"
+                                    app:cardElevation="0dp"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent">
+
+                                    <ImageView
+                                        android:id="@+id/avatarImage"
+                                        android:layout_width="56dp"
+                                        android:layout_height="56dp"
+                                        android:src="@drawable/avatar_account" />
+                                </androidx.cardview.widget.CardView>
+
+                                <TextView
+                                    android:id="@+id/userNameText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginBottom="16dp"
+                                    android:fontFamily="sans-serif"
+                                    android:text="@string/user_name"
+                                    android:textColor="@color/label_primary"
+                                    android:textSize="30sp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="@+id/cardView"
+                                    app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+                                <TextView
+                                    android:id="@+id/loadingText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="16dp"
+                                    android:fontFamily="sans-serif-medium"
+                                    android:text="@string/content"
+                                    android:textColor="@color/label_secondary"
+                                    android:textSize="14sp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="@+id/cardView" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+                        </androidx.cardview.widget.CardView>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/settingsCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="12dp"
+                    app:cardBackgroundColor="@color/background_2"
+                    app:cardCornerRadius="18dp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cardView3">
+
+                    <com.gustate.uotan.gustatex.view.OptionView
+                        android:id="@+id/settingsOption"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:optionIcon="@drawable/ic_option_settings"
+                        app:optionTitle="@string/settings" />
+                </androidx.cardview.widget.CardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 
     <view
-        android:id="@+id/meTittleBarBlur"
+        android:id="@+id/titleBarBlur"
         class="net.center.blurview.ShapeBlurView"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         app:blur_radius="25dp"
-        app:layout_constraintBottom_toBottomOf="@+id/meTittleBarView"
+        app:layout_constraintBottom_toBottomOf="@+id/titleBarView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
-        android:id="@+id/meStatusBarView"
+        android:id="@+id/statusBarView"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -71,11 +196,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/meTittleBarView"
+        android:id="@+id/titleBarView"
         android:layout_width="match_parent"
-        android:layout_height="44dp"
+        android:layout_height="60dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/meStatusBarView">
+        app:layout_constraintTop_toBottomOf="@+id/statusBarView">
 
         <TextView
             android:id="@+id/title"
@@ -84,7 +209,7 @@
             android:fontFamily="sans-serif-medium"
             android:text="@string/me"
             android:textColor="@color/label_primary"
-            android:textSize="18sp"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

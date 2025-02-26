@@ -6,10 +6,11 @@
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/itemLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/gustatex_option_background"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -25,7 +26,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             app:cardBackgroundColor="@android:color/transparent"
-            app:cardCornerRadius="6dp"
+            app:cardCornerRadius="12dp"
             app:cardElevation="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -74,36 +75,12 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/avatar_account" />
 
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/spanCard"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        app:cardBackgroundColor="@color/red"
-                        app:cardCornerRadius="99dp"
-                        app:cardElevation="0dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:visibility="invisible">
-
-                        <TextView
-                            android:id="@+id/avatarSpan"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:fontFamily="sans-serif-medium"
-                            android:textColor="@color/white"
-                            android:textSize="20sp"
-                            tools:text="T" />
-                    </androidx.cardview.widget.CardView>
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.cardview.widget.CardView>
 
             <TextView
-                android:id="@+id/userName"
+                android:id="@+id/userNameText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -121,7 +98,7 @@
                 android:textColor="@color/label_secondary"
                 android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/userName" />
+                app:layout_constraintStart_toStartOf="@+id/userNameText" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

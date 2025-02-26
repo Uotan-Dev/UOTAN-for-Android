@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/dialogView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/gustatex_dialog_background"
+        android:paddingBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/title"
+            android:textColor="@color/label_primary"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/describe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/describe"
+            android:textColor="@color/label_secondary"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            tools:ignore="TextContrastCheck" />
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/gustatex_dialog_edittext_background"
+            android:fontFamily="@font/mi_sans_medium"
+            android:gravity="bottom"
+            android:hint="@string/edittext_hint_default"
+            android:inputType="text"
+            android:maxLines="1"
+            android:padding="15dp"
+            android:singleLine="true"
+            android:text=""
+            android:textAllCaps="false"
+            android:textColor="@color/label_primary"
+            android:textColorHint="@color/label_tertiary"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/describe"
+            tools:ignore="Autofill,TextContrastCheck,VisualLintTextFieldSize" />
+
+        <TextView
+            android:id="@+id/cancel"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="21dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="6dp"
+            android:background="@drawable/gustatex_button_gray"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:text="@string/cancel"
+            android:textColor="@color/gustatex_button_gray_text"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@+id/ok"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editText" />
+
+        <TextView
+            android:id="@+id/ok"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="21dp"
+            android:background="@drawable/gustatex_button_red"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:text="@string/ok"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cancel"
+            app:layout_constraintTop_toTopOf="@+id/cancel"
+            tools:ignore="TextContrastCheck" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

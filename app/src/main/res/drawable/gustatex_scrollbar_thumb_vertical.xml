@@ -4,7 +4,7 @@
         <shape>
             <corners android:radius="40dp" />
             <size android:width="4dp" />
-            <solid android:color="#1A000000" />
+            <solid android:color="@color/scrollbar_color" />
         </shape>
     </item>
 </layer-list>

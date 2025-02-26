@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rootLayout"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_1">
 
     <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/mainViewPager"
+        android:id="@+id/viewPager"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/background_1"
@@ -50,12 +49,12 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/homeLayout"
+            android:id="@+id/homeTab"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/plateLayout"
+            app:layout_constraintEnd_toStartOf="@+id/plateTab"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -84,12 +83,12 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/plateLayout"
+            android:id="@+id/plateTab"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/noticeLayout"
-            app:layout_constraintStart_toEndOf="@+id/homeLayout"
+            app:layout_constraintEnd_toStartOf="@+id/noticeTab"
+            app:layout_constraintStart_toEndOf="@+id/homeTab"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
@@ -117,12 +116,12 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/noticeLayout"
+            android:id="@+id/noticeTab"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/resLayout"
-            app:layout_constraintStart_toEndOf="@+id/plateLayout"
+            app:layout_constraintEnd_toStartOf="@+id/resTab"
+            app:layout_constraintStart_toEndOf="@+id/plateTab"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
@@ -150,12 +149,12 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/resLayout"
+            android:id="@+id/resTab"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/meLayout"
-            app:layout_constraintStart_toEndOf="@+id/noticeLayout"
+            app:layout_constraintEnd_toStartOf="@+id/meTab"
+            app:layout_constraintStart_toEndOf="@+id/noticeTab"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
@@ -183,13 +182,13 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/meLayout"
+            android:id="@+id/meTab"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/resLayout"
+            app:layout_constraintStart_toEndOf="@+id/resTab"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView

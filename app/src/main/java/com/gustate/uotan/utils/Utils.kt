@@ -2,8 +2,17 @@ package com.gustate.uotan.utils
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
+import android.content.res.Configuration
+import android.net.Uri
+import android.os.Build
+import android.os.Bundle
 import android.view.Window
 import android.view.WindowManager
+import androidx.fragment.app.Fragment
+import com.gustate.uotan.anim.TransitionAnimConfig
 
 /*
  * 这是一个工具（Utils）类
@@ -37,7 +46,16 @@ class Utils {
 
         }
 
-        fun isXiaomi(): Boolean {
+        fun openUrlInBrowser(context: Context, url: String) {
+            val intent = Intent(Intent.ACTION_VIEW).apply {
+                data = Uri.parse(url)
+                // 确保在新任务栈打开
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            }
+            context.startActivity(intent)
+        }
+
+        private fun isXiaomi(): Boolean {
             return checkSystemProperty("ro.miui.region") &&
                     checkSystemProperty("ro.miui.ui.version.code") &&
                     checkSystemProperty("ro.miui.ui.version.name")
@@ -52,6 +70,17 @@ class Utils {
             } catch (e: Exception) {
                 false
             }
+        }
+
+        //版本名
+        fun getVersionName(context: Context) = getPackageInfo(context).versionName
+        //版本名
+        fun getVersionCode(context: Context) = getPackageInfo(context).longVersionCode.toString()
+
+        private fun getPackageInfo(context: Context): PackageInfo {
+            val pm = context.packageManager
+            val pi = pm.getPackageInfo(context.packageName, PackageManager.GET_CONFIGURATIONS)
+            return  pi
         }
 
     }

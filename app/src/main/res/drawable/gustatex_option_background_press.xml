@@ -5,6 +5,6 @@
     <solid
         android:color="@color/gustatex_option_background_press"/>
 
-    <corners android:radius="10dp" />
+    <corners android:radius="18dp" />
 
 </shape>

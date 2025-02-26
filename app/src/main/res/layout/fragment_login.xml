@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_1"
-    tools:context=".user.LoginFragment">
+    tools:context=".fragment.login.LoginFragment">
 
     <View
         android:id="@+id/statusBarView"
@@ -19,7 +19,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/headerBarView"
         android:layout_width="match_parent"
-        android:layout_height="44dp"
+        android:layout_height="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/statusBarView">
@@ -47,7 +47,7 @@
         app:layout_constraintTop_toBottomOf="@+id/headerBarView">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/uo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -69,13 +69,15 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="30dp"
-        android:background="@drawable/gustatex_editbox"
+        android:background="@drawable/gustatex_edittext_background"
         android:ems="10"
+        android:fontFamily="@font/mi_sans"
         android:gravity="center"
         android:hint="@string/username_or_email"
         android:inputType="text"
         android:textColor="@color/label_primary"
         android:textColorHint="@color/label_tertiary"
+        android:textCursorDrawable="@drawable/gustatex_cursor_red"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -88,25 +90,28 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="30dp"
-        android:background="@drawable/gustatex_editbox"
+        android:background="@drawable/gustatex_edittext_background"
         android:ems="10"
+        android:fontFamily="@font/mi_sans"
         android:gravity="center"
         android:hint="@string/password"
         android:inputType="textPassword"
         android:textColor="@color/label_primary"
         android:textColorHint="@color/label_tertiary"
+        android:textCursorDrawable="@drawable/gustatex_cursor_red"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/username_email" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/arguments"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="30dp"
+        android:gravity="center_horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password">
@@ -115,55 +120,51 @@
             android:id="@+id/argumentsCheckBox"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:layout_centerHorizontal="false"
+            android:layout_centerVertical="true"
             android:background="@drawable/gustatex_checkbox"
             android:button="@null"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/argumentsText"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            tools:ignore="TouchTargetSizeCheck" />
 
         <TextView
             android:id="@+id/argumentsText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toEndOf="@+id/argumentsCheckBox"
             android:text="@string/allow_arguments"
             android:textColor="@color/label_secondary"
             android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/argumentsCheckBox"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            tools:ignore="TextContrastCheck" />
+    </RelativeLayout>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/loginCard"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/loginButton"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="36dp"
         android:layout_marginEnd="30dp"
         android:alpha="0.15"
-        app:cardBackgroundColor="@color/red"
-        app:cardCornerRadius="14dp"
-        app:cardElevation="0dp"
+        android:background="@drawable/gustatex_button_red"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/arguments" />
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout" >
 
-    <TextView
-        android:id="@+id/login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-medium"
-        android:text="@string/login"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/loginCard"
-        app:layout_constraintEnd_toEndOf="@+id/loginCard"
-        app:layout_constraintStart_toStartOf="@+id/loginCard"
-        app:layout_constraintTop_toTopOf="@+id/loginCard" />
+        <TextView
+            android:id="@+id/login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/login"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
         android:id="@+id/gestureView"

@@ -1,4 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <declare-styleable name="OptionView">
+        <attr name="optionIcon" format="reference" />
+        <attr name="optionTitle" format="string" />
+    </declare-styleable>
 
+    <declare-styleable name="OptionOnlyTitleView">
+        <attr name="optionTitle_onlyTitle" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="OptionTitleAndDescribeView">
+        <attr name="optionTitle_tiltleAndDescribe" format="string" />
+        <attr name="optionDescribe_tiltleAndDescribe" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="OptionUserView">
+        <attr name="optionAvatar_user" format="reference" />
+        <attr name="optionTitle_user" format="string" />
+        <attr name="optionDescribe_user" format="string" />
+    </declare-styleable>
 </resources>

@@ -2,6 +2,7 @@
 agp = "8.6.0"
 datastorePreferences = "1.1.2"
 githubGlide = "4.16.0"
+ioGithubScwang90RefreshLayoutKernel2 = "3.0.0-alpha"
 jsoup = "1.18.3"
 kotlin = "1.9.0"
 coreKtx = "1.10.1"
@@ -15,6 +16,8 @@ constraintlayout = "2.1.4"
 materialVersion = "1.12.0"
 navigationFragmentKtx = "2.6.0"
 navigationUiKtx = "2.6.0"
+okhttp = "4.12.0"
+seleniumJava = "4.28.1"
 shapeblurview = "1.0.5"
 activity = "1.9.3"
 legacySupportV4 = "1.0.0"
@@ -22,11 +25,13 @@ lifecycleLivedataKtx = "2.6.1"
 lifecycleViewmodelKtx = "2.6.1"
 fragmentKtx = "1.5.6"
 preference = "1.2.0"
+coreAnimation = "1.0.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
 com-github-bumptech-glide-glide = { module = "com.github.bumptech.glide:glide", version.ref = "githubGlide" }
+io-github-scwang90-refresh-layout-kernel3 = { module = "io.github.scwang90:refresh-layout-kernel", version.ref = "ioGithubScwang90RefreshLayoutKernel2" }
 jsoup = { module = "org.jsoup:jsoup", version.ref = "jsoup" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
@@ -38,6 +43,10 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
 androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
 material-v1120 = { module = "com.google.android.material:material", version.ref = "materialVersion" }
+okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+refresh-header-classics = { module = "io.github.scwang90:refresh-header-classics", version.ref = "ioGithubScwang90RefreshLayoutKernel2" }
+selenium-chrome-driver = { module = "org.seleniumhq.selenium:selenium-chrome-driver", version.ref = "seleniumJava" }
+selenium-java = { module = "org.seleniumhq.selenium:selenium-java", version.ref = "seleniumJava" }
 shapeblurview = { module = "com.github.centerzx:ShapeBlurView", version.ref = "shapeblurview" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-legacy-support-v4 = { group = "androidx.legacy", name = "legacy-support-v4", version.ref = "legacySupportV4" }
@@ -45,6 +54,7 @@ androidx-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecy
 androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
 androidx-fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragmentKtx" }
 androidx-preference = { group = "androidx.preference", name = "preference", version.ref = "preference" }
+androidx-core-animation = { group = "androidx.core", name = "core-animation", version.ref = "coreAnimation" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

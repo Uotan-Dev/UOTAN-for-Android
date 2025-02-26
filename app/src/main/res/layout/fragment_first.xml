@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_primary"
-    tools:context=".user.FirstFragment">
+    tools:context=".fragment.login.FirstFragment">
 
     <View
         android:id="@+id/statusBarView"
@@ -66,18 +66,27 @@
         app:layout_constraintTop_toBottomOf="@+id/welcome" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/registerCard"
+        android:id="@+id/registerFrame"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="20dp"
-        app:cardBackgroundColor="@color/red"
+        app:cardBackgroundColor="@android:color/transparent"
         app:cardCornerRadius="14dp"
         app:cardElevation="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/loginCard"
+        app:layout_constraintBottom_toTopOf="@+id/loginButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
+
+        <FrameLayout
+            android:id="@+id/registerCard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/gustatex_button_red">
+
+        </FrameLayout>
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/register"
@@ -87,26 +96,34 @@
         android:text="@string/first_register"
         android:textColor="@color/white"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/registerCard"
-        app:layout_constraintEnd_toEndOf="@+id/registerCard"
-        app:layout_constraintStart_toStartOf="@+id/registerCard"
-        app:layout_constraintTop_toTopOf="@+id/registerCard" />
+        app:layout_constraintBottom_toBottomOf="@+id/registerFrame"
+        app:layout_constraintEnd_toEndOf="@+id/registerFrame"
+        app:layout_constraintStart_toStartOf="@+id/registerFrame"
+        app:layout_constraintTop_toTopOf="@+id/registerFrame" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/loginCard"
+        android:id="@+id/loginButton"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="60dp"
         android:alpha="0.15"
-        app:cardBackgroundColor="@color/red"
         app:cardCornerRadius="14dp"
         app:cardElevation="0dp"
         app:layout_constraintBottom_toTopOf="@+id/noLogin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" >
+
+        <FrameLayout
+            android:id="@+id/loginCard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/gustatex_button_red">
+
+        </FrameLayout>
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/login"
@@ -116,10 +133,10 @@
         android:text="@string/first_login"
         android:textColor="@color/red"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/loginCard"
-        app:layout_constraintEnd_toEndOf="@+id/loginCard"
-        app:layout_constraintStart_toStartOf="@+id/loginCard"
-        app:layout_constraintTop_toTopOf="@+id/loginCard" />
+        app:layout_constraintBottom_toBottomOf="@+id/loginButton"
+        app:layout_constraintEnd_toEndOf="@+id/loginButton"
+        app:layout_constraintStart_toStartOf="@+id/loginButton"
+        app:layout_constraintTop_toTopOf="@+id/loginButton" />
 
     <TextView
         android:id="@+id/noLogin"
@@ -136,11 +153,10 @@
 
     <View
         android:id="@+id/gestureView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

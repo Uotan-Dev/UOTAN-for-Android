@@ -9,10 +9,10 @@ android {
 
     defaultConfig {
         applicationId = "com.gustate.uotan"
-        minSdk = 31
+        minSdk = 28
         targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 1004
+        versionName = "1.0.0.4 Beta"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -56,6 +56,10 @@ dependencies {
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.preference)
     implementation(libs.androidx.datastore.preferences)
+    implementation(libs.okhttp)
+    implementation(libs.androidx.core.animation)
+    implementation(libs.io.github.scwang90.refresh.layout.kernel3)      //核心必须依赖
+    implementation(libs.refresh.header.classics)    //经典刷新头
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

@@ -26,8 +26,10 @@
     <color name="label_secondary">#993C3C43</color>
     <color name="label_tertiary">#4C3C3C43</color>
     <color name="label_quarternary">#2D3C3C43</color>
+    <color name="label_s_title">#FF8C93B0</color>
 
     <color name="blur_cover">#CCFFFFFF</color>
+    <color name="personal_blur_cover">#5CFFFFFF</color>
     <color name="header_bar_blur_cover">#CCF7F7F7</color>
 
     <color name="divider">#FFE4E4E4</color>
@@ -39,5 +41,22 @@
     <color name="gustatex_option_background_normal">#FFFFFF</color>
     <!-- 按下背景色 -->
     <color name="gustatex_option_background_press">#E1E1E1</color>
+    <!-- 默认红色背景色 -->
+    <color name="gustatex_option_red_background_normal">#FFFF3B30</color>
+    <!-- 按下红色背景色 -->
+    <color name="gustatex_option_red_background_press">#FFE7362D</color>
+
+    <color name="scrollbar_color">#1A000000</color>
+
+    <!-- 弹窗 -->
+    <!-- 覆盖色 -->
+    <color name="gustatex_dialog_background">#FFFFFF</color>
+    <color name="gustatex_edittext_background">#EDEDED</color>
+    <color name="gustatex_button_blue_normal">#0C84FF</color>
+    <color name="gustatex_button_blue_press">#096CD1</color>
+    <color name="gustatex_button_blue_text">#FFFFFF</color>
+    <color name="gustatex_button_gray_normal">#F0F0F0</color>
+    <color name="gustatex_button_gray_press">#DCDCDC</color>
+    <color name="gustatex_button_gray_text">#606060</color>
 
 </resources>

@@ -48,11 +48,62 @@
     <string name="please_press_password">Please enter your password</string>
     <string name="password_incorrect">Your account password is incorrect or not registered</string>
     <string name="my_follow">My Follow</string>
-    <!-- Preference Titles -->
-
-    <!-- Messages Preferences -->
-
-    <!-- Sync Preferences -->
-    <!-- TODO: Remove or change this placeholder text -->
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="skip">Skip</string>
+    <string name="developing">Developing</string>
+    <string name="no_follow_plate">The section you may not have been following yet, Meow~</string>
+    <string name="logging_in">Logging in</string>
+    <string name="privacy_policy_update">Privacy Policy Update</string>
+    <string name="read_and_accept_the_privacy_policy">Read and accept the privacy policy</string>
+    <string name="last_updated">Last Updated</string>
+    <string name="accept">Accept</string>
+    <string name="thank_choice">Thank you for choosing UOTAN Community</string>
+    <string name="please_try_again_later">Please try again later</string>
+    <string name="unknown">Unknown</string>
+    <string name="ip_location">IP location</string>
+    <string name="login_successful">Login successful</string>
+    <string name="two_step_verification_toast">You have enabled two-step verification and a one-time code has been sent to your email</string>
+    <string name="login_failed">Login failed</string>
+    <string name="two_step_hint">We have already used service@uotan.cn I have sent an email to your email address containing a six digit one-time code. Please enter a one-time code to continue.</string>
+    <string name="one_time_code">One time code</string>
+    <string name="code_format_doesnt_match">One time code format does not match</string>
+    <string name="code_incorrect">The one-time code is incorrect</string>
+    <string name="received_likes">Received likes</string>
+    <string name="follow_me">Follow me</string>
+    <string name="system_message">System message</string>
+    <string name="at_my">\@ My</string>
+    <string name="settings">Settings</string>
+    <string name="about">About</string>
+    <string name="updater">Updater</string>
+    <string name="theme">Theme</string>
+    <string name="network">Network</string>
+    <string name="service">Service</string>
+    <string name="privacy">Privacy</string>
+    <string name="coreteam_01" translatable="false">明辉映梦</string>
+    <string name="coreteam_02" translatable="false">流年</string>
+    <string name="coreteam_03" translatable="false">暮间雾</string>
+    <string name="coreteam_04" translatable="false">yuzh</string>
+    <string name="coreteam_05" translatable="false">lemo</string>
+    <string name="coreteam_06" translatable="false">星鸿</string>
+    <string name="coreteam_07" translatable="false">zach</string>
+    <string name="coreteam_08" translatable="false">皓洋</string>
+    <string name="specialthanks_01" translatable="false">Rayzggz</string>
+    <string name="specialthanks_02" translatable="false">汩汩加热装置</string>
+    <string name="coreteam_describe_03">Co-Founder</string>
+    <string name="coreteam_describe_05">Product/Design</string>
+    <string name="coreteam_describe_06">Website DevOps</string>
+    <string name="coreteam_describe_01">Founder</string>
+    <string name="coreteam_describe_02">Co-Founder</string>
+    <string name="coreteam_describe_04">Community Development</string>
+    <string name="coreteam_describe_07">Website manpower</string>
+    <string name="coreteam_describe_08">Website Development</string>
+    <string name="specialthanks_describe_01">Technical support</string>
+    <string name="specialthanks_describe_02">Android APP development</string>
+    <string name="uotan_describe">Greetings! It is a pleasure to meet fellow digital enthusiasts like you in this vast tech ecosystem.\nWe have walked the same path - bewildered by fragmented online resources, wearied by scavenging across websites for usable information. Yet we have always envisioned building a Mi-fan-centric content community where valuable knowledge transcends isolated islands, creating a pure digital space for like-minded enthusiasts.\nOur core philosophy remains unchanged: to embrace a more open information ecosystem, maximize content value, and empower creators to foster a virtuous cycle.\nDespite financial constraints and staffing challenges, we have persevered.\nSince 2020, our web and app platforms have undergone strategic iterations, charting clearer development trajectories. This progress owes to our content team\'s dedication - your open-source spirit has enriched UOTAN Community with creative brilliance.\nThis is UOTAN Community: committed to building better device-enthusiast content ecosystems.\nThrough it all, we remain steadfast.</string>
+    <string name="version_code">Version Code</string>
+    <string name="version_name">Version Name</string>
+    <string name="core_team">Core Team - Our team comes from all over China.</string>
+    <string name="special_thanks">Special thanks - thank you to the developers who provided us with technical support behind the scenes.</string>
+    <string name="open_source_address">Open source address</string>
+    <string name="open_source_address_link" translatable="false">https://github.com/Uotan-Dev/UOTAN-for-Android</string>
+    <string name="github_name" translatable="false">UOTAN-for-Android</string>
 </resources>
