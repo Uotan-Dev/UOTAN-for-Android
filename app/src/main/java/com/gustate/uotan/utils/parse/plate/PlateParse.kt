@@ -1,5 +1,7 @@
 package com.gustate.uotan.utils.parse.plate
 
+import android.util.Log
+import androidx.annotation.RequiresApi
 import com.gustate.uotan.utils.Utils.Companion.BASE_URL
 import com.gustate.uotan.utils.Utils.Companion.Cookies
 import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
@@ -40,7 +42,7 @@ class PlateParse {
 
                     val itemElements = rootElement!!.select("div.node--forum")
 
-                    return@withContext fetchContent(itemElements)
+                    return@withContext fetchContent(itemElements, false)
 
                 } else if (content.startsWith("/categories/")) {
 
@@ -55,12 +57,12 @@ class PlateParse {
 
                     val itemElements = rootElement!!.select("div.node--forum")
 
-                    return@withContext fetchContent(itemElements)
+                    return@withContext fetchContent(itemElements, false)
 
                 } else {
 
                     // 获取关注板块的网页 document 文档
-                    val document = Jsoup.connect(BASE_URL + "/forums/")
+                    val document = Jsoup.connect("$BASE_URL/forums/")
                         .userAgent(USER_AGENT)
                         .timeout(TIMEOUT_MS)
                         .cookies(Cookies)
@@ -72,7 +74,7 @@ class PlateParse {
 
                     val itemElements = bodyElement!!.getElementsByTag("div")
 
-                    return@withContext fetchContent(itemElements)
+                    return@withContext fetchContent(itemElements, true)
 
                 }
             } catch (e: HttpStatusException) {
@@ -87,7 +89,7 @@ class PlateParse {
             }
         }
 
-        private fun fetchContent(itemElements: Elements): MutableList<PlateItem> {
+        private fun fetchContent(itemElements: Elements, del: Boolean): MutableList<PlateItem> {
 
             val result = mutableListOf<PlateItem>()
 
@@ -107,6 +109,8 @@ class PlateParse {
                 result.add(PlateItem(cover, title, url))
 
             }
+
+            if (del) result.removeAt(0)
 
             return result
 

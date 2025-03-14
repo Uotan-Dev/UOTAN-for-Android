@@ -1,5 +1,6 @@
 package com.gustate.uotan.fragment.login
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -17,15 +18,22 @@ import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.lifecycleScope
 import com.gustate.uotan.activity.MainActivity
 import com.gustate.uotan.R
+import com.gustate.uotan.activity.BindPhoneActivity
 import com.gustate.uotan.activity.LoginActivity
+import com.gustate.uotan.activity.UpdatePolicyActivity
 import com.gustate.uotan.gustatex.dialog.LoadingDialog
+import com.gustate.uotan.utils.Utils.Companion.BASE_URL
 import com.gustate.uotan.utils.parse.user.LoginParse
 import com.gustate.uotan.utils.parse.data.CookiesManager
 import com.gustate.uotan.utils.Utils.Companion.Cookies
+import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
+import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
 import com.gustate.uotan.utils.Utils.Companion.isLogin
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.jsoup.Jsoup
 
 /**
  * 登录页面 (Fragment)
@@ -51,6 +59,14 @@ class LoginFragment : Fragment() {
             false
         )
     }
+
+    data class StartupTypeData(
+        val isLogin: Boolean = false,
+        val isSmsVerify: Boolean = false,
+        val isAgreement: Boolean = false,
+        val updatePolicyActivityIntent: Intent? = null,
+        val cookies: Map<String, String>? = null
+    )
 
     /**
      * 视图加载完成时
@@ -214,8 +230,8 @@ class LoginFragment : Fragment() {
                                     ).show()
                                     // 关闭 LoadingDialog
                                     loadingDialog.cancel()
-                                    // 开启 MainActivity
-                                    startActivity(Intent(context, MainActivity::class.java))
+                                    // 开启
+                                    startupApp(requireContext())
                                     // 结束当前 Activity
                                     activity?.finish()
                                 }
@@ -281,5 +297,75 @@ class LoginFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private suspend fun startupApp(context: Context) = withContext(Dispatchers.IO) {
+        try {
+            val startupTypeData = startupTypeParse()
+            withContext(Dispatchers.Main) {
+                if (startupTypeData.isAgreement) {
+                    startActivity(startupTypeData.updatePolicyActivityIntent)
+                    activity?.finish()
+                } else if (startupTypeData.isSmsVerify) {
+                    Toast.makeText(
+                        context,
+                        R.string.china_mainland_verify,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    startActivity(Intent(context, BindPhoneActivity::class.java))
+                    activity?.finish()
+                } else {
+                    startActivity(Intent(context, MainActivity::class.java))
+                    activity?.finish()
+                }
+            }
+        } catch (e: Exception) {
+            withContext(Dispatchers.Main) {
+                // 处理网络错误
+                Toast.makeText(
+                    context,
+                    R.string.network_request_failed,
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
+
+    private suspend fun startupTypeParse(): StartupTypeData = withContext(Dispatchers.IO) {
+        // 解析网页, document 返回的就是网页 Document 对象
+        val response = Jsoup.connect(BASE_URL)
+            .userAgent(USER_AGENT)
+            .timeout(TIMEOUT_MS)
+            .cookies(Cookies)
+            .execute()
+        val document = response
+            .parse()
+        val noticeTitle = document
+            .getElementsByClass("notice-content")
+            .first()
+            ?.ownText()
+            ?: ""
+        val pageTitle = document
+            .select("#main-header > div > div > div > h1")
+            .first()
+            ?.text()
+            ?: ""
+        val xfToken = document
+            .select("input[name=_xfToken]")
+            .first()
+            ?.attr("value") ?: throw Exception("CSRF token not found")
+        val isAgreement = pageTitle == "隐私政策" || pageTitle == "服务协议"
+        val isSmsVerify = noticeTitle == "您需要验证手机号才能使用全部功能（仅限中国大陆）"
+        val updatePolicyActivityIntent =
+            Intent(requireContext(), UpdatePolicyActivity::class.java)
+                .putExtra("xfToken", xfToken)
+                .putExtra("url", response.url().toString())
+        return@withContext StartupTypeData(
+            true,
+            isSmsVerify,
+            isAgreement,
+            updatePolicyActivityIntent,
+            Cookies
+        )
     }
 }

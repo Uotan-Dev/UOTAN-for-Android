@@ -28,4 +28,10 @@
         <item name="cardCornerRadius">18dp</item>
     </style>
 
+    <style name="CollapsedTitleStyle" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/label_primary</item>
+    </style>
+
 </resources>

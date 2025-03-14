@@ -23,115 +23,178 @@ import com.gustate.uotan.utils.Utils
 import com.gustate.uotan.utils.parse.home.FetchResult
 import com.gustate.uotan.utils.parse.home.ForumRecommendItem
 import com.gustate.uotan.utils.parse.home.RecommendParse
-import com.scwang.smart.refresh.footer.ClassicsFooter
-import com.scwang.smart.refresh.header.ClassicsHeader
 import com.scwang.smart.refresh.layout.api.RefreshLayout
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.net.SocketTimeoutException
 
 
 /**
  * 推荐内容 (Fragment)
  * JiaGuZhuangZhi Miles
- * Gustate 02/23/2025
+ * Gustate 03/02/2025
  * I Love Jiang’Xun
  */
 
 class RecommendFragment : Fragment() {
 
+    /** 定义全类可变变量 **/
+    // 推荐列表框
     private lateinit var recyclerView: RecyclerView
-
-    private var currentPage = 1
-    private var totalPages = 1
-    private var isLoading = false
-    private var isLastPage = false
+    // 抓取内容结果
     private lateinit var fetchResult: FetchResult
+    // 当前页面
+    private var currentPage = 1
+    // 总页面
+    private var totalPages = 1
+    // 是否正在加载
+    private var isLoading = false
+    // 是否最后一页
+    private var isLastPage = false
 
+    /** 定义全类非可变变量 **/
+    // 一个空 adapter, 防止 No adapter attached; skipping layout ERROR
+    private val nullAdapter = RecommendAdapter(mutableListOf())
+
+    /**
+     * 加载视图时
+     */
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_recommend, container, false)
+        // 加载布局
+        return inflater.inflate(
+            R.layout.fragment_recommend,
+            container,
+            false
+        )
     }
 
+    /**
+     * 视图加载完成时
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val refreshLayout: RefreshLayout = view.findViewById(R.id.refreshLayout)
-        //refreshLayout.setRefreshHeader(ClassicsHeader(requireContext()))
-        //refreshLayout.setRefreshFooter(ClassicsFooter(requireContext()))
-
+        /** 从布局中取出需要调用的视图 **/
         // 初始化 RecyclerView
         recyclerView = view.findViewById(R.id.recommendRecycler)
-        recyclerView.layoutManager = LinearLayoutManager(context)
+        // 刷新布局
+        val refreshLayout: RefreshLayout = view.findViewById(R.id.refreshLayout)
+
+        /** 获取系统栏高度并同步到占位布局 **/
+        // 使用 ViewCompact 设置 insets 监听器
         ViewCompat.setOnApplyWindowInsetsListener(view.rootView) { _, insets ->
+            // 获取系统栏高度 (包含 top, bottom, left 和 right)
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            refreshLayout.layout.setPadding(0, systemBars.top + Utils.dp2Px(114, requireContext()).toInt(), 0, systemBars.bottom + Utils.dp2Px(70, requireContext()).toInt())
+            // 为 refreshLayout 设置必要的 padding
+            refreshLayout.layout.setPadding(
+                0,
+                systemBars.top + Utils.dp2Px(114, requireContext()).toInt(),
+                0,
+                systemBars.bottom + Utils.dp2Px(70, requireContext()).toInt()
+            )
+            // 返回 insets
             insets
         }
+
+        /** 初始加载 **/
+        // 初始加载数据
         loadData()
+
+        /** recyclerView 设置 **/
+        // 创建线性布局管理器
+        val linearLayout = LinearLayoutManager(requireContext())
+        // 设置方向为纵向
+        linearLayout.orientation = LinearLayoutManager.VERTICAL
+        // 为 recyclerView 设置布局管理器
+        recyclerView.layoutManager = linearLayout
+        // 设置 adapter 适配器
+        recyclerView.adapter = nullAdapter
+        // 为 recyclerView 设置滚动监听
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            // recyclerView 当前序号
             private var lastVisibleItem = 0
+            // recyclerView 列表总数
             private var totalItemCount = 0
 
+            /**
+             * recyclerView 滚动时
+             */
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
-                val layoutManagerd = recyclerView.layoutManager as LinearLayoutManager
-                totalItemCount = layoutManagerd.itemCount
-                lastVisibleItem = layoutManagerd.findLastVisibleItemPosition()
-
+                // 获取 recyclerView 的线性布局管理器
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                // 获取当前 recyclerView 的项目总数
+                totalItemCount = layoutManager.itemCount
+                // 获取 recyclerView 滚动到的项目
+                lastVisibleItem = layoutManager.findLastVisibleItemPosition()
+                // 当没有在加载、不是最后一页、项目总数 - 5 小于当前项目数
                 if (!isLoading && !isLastPage && totalItemCount <= (lastVisibleItem + 5)) {
+                    // 加载数据
                     loadData()
-                    isLoading = true
                 }
             }
         })
     }
 
-
+    /**
+     * 数据加载的方法
+     */
     private fun loadData() {
 
+        // 如果正在加载或在最后一页不执行该方法
         if (isLoading || isLastPage) return
 
+        // 设置为正在加载
         isLoading = true
 
+        // 使用 try catch 方法健壮代码
         try {
             // 启动协程
             lifecycleScope.launch {
-                fetchResult = RecommendParse.fetchRecommendData(currentPage)
-                val adapter = recyclerView.adapter as? RecommendAdapter
-                if (fetchResult.totalPage != 1) {
-                    fetchResult.items.let { newItems ->
-                        if (adapter == null) {
-                            // 创建新Adapter时设置点击监听
-                            val newAdapter = RecommendAdapter(newItems.toMutableList()).apply {
-                                onItemClick = { selectedItem ->
-                                    // 安全上下文检查
-                                    context?.let {
-                                        startActivity(Intent(it, ArticleActivity::class.java).apply {
-                                            putExtra("url", selectedItem.url)
-                                        })
+                // 切换到 IO 线程执行
+                withContext(Dispatchers.IO) {
+                    // 获取推荐数据
+                    fetchResult = RecommendParse.fetchRecommendData(currentPage)
+                    val adapter = recyclerView.adapter as RecommendAdapter
+                    // 切换到 Main 线程执行
+                    withContext(Dispatchers.Main) {
+                        if (fetchResult.totalPage != 1) {
+                            fetchResult.items.let { newItems ->
+                                if (adapter == nullAdapter) {
+                                    // 创建新Adapter时设置点击监听
+                                    val newAdapter = RecommendAdapter(newItems.toMutableList()).apply {
+                                        onItemClick = { selectedItem ->
+                                            // 安全上下文检查
+                                            context?.let {
+                                                startActivity(Intent(it, ArticleActivity::class.java).apply {
+                                                    putExtra("url", selectedItem.url)
+                                                })
+                                            }
+                                        }
                                     }
+                                    recyclerView.adapter = newAdapter
+                                } else {
+                                    adapter.addAll(newItems)
                                 }
+                                currentPage += 1
                             }
-                            recyclerView.adapter = newAdapter
+                            totalPages = fetchResult.totalPage
+                            isLastPage = currentPage > totalPages
                         } else {
-                            adapter.addAll(newItems)
+                            Toast.makeText(context,"请稍候再试",Toast.LENGTH_SHORT).show()
                         }
-                        currentPage += 1
+                        isLoading = false
                     }
-                    totalPages = fetchResult.totalPage
-                    isLastPage = currentPage > totalPages
-                } else {
-                    Toast.makeText(context,"请稍候再试",Toast.LENGTH_SHORT).show()
                 }
-
-                isLoading = false
-
             }
-        } finally {
-            isLoading = false
+        } catch (e: SocketTimeoutException) {
+            e.printStackTrace()
         }
     }
 }
@@ -192,7 +255,7 @@ class RecommendAdapter(private val recommendList: MutableList<ForumRecommendItem
         }
 
         holder.viewCount.text = content.viewCount
-        holder.commentCount.text =content.commentCount
+        holder.commentCount.text = content.commentCount
 
         holder.itemLayout.setOnClickListener {
             onItemClick?.invoke(content)

@@ -27,7 +27,8 @@ class FirstFragment : Fragment() {
      * 加载视图时
      */
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // 加载布局

@@ -10,7 +10,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
@@ -33,9 +32,10 @@ import com.gustate.uotan.utils.Utils.Companion.openImmersion
 
 class MainActivity : AppCompatActivity() {
 
-    /** 全类变量 **/
+    /** 可变变量 **/
     // 初始化视图绑定
     private lateinit var binding: ActivityMainBinding
+    private lateinit var adapter: MainViewPagerAdapter
 
     /**
      * 视图被创建
@@ -44,14 +44,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         /** 窗体设置 **/
-        // 启用边到边设计
-        enableEdgeToEdge()
-        // 针对部分系统的系统栏沉浸
-        openImmersion(window)
         // 实例化 binding
         binding = ActivityMainBinding.inflate(layoutInflater)
         // 绑定视图
         setContentView(binding.main)
+        // 基础设置
+        setWindow()
 
         /** 常量设置 **/
         // 底栏按钮默认颜色
@@ -59,23 +57,11 @@ class MainActivity : AppCompatActivity() {
         // 底栏按钮选择颜色
         val navSelectedColor = ContextCompat.getColor(this, R.color.label_primary)
 
-        /** 获取系统栏高度并同步到占位布局 **/
-        // 使用 ViewCompat 的回调函数
-        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { _, insets ->
-            // 获取系统栏高度 (包含 top, bottom, left 和 right)
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            // 同步导航栏占位布局高度
-            binding.gestureView
-                .updateLayoutParams<ViewGroup.LayoutParams> {
-                    height = systemBars.bottom
-                }
-            // 返回 insets
-            insets
-        }
-
         /** 设置适配器 **/
         // 实例化 MainViewPagerAdapter()
-        binding.viewPager.adapter = MainViewPagerAdapter(this)
+        adapter = MainViewPagerAdapter(this)
+        binding.viewPager.adapter = adapter
+        binding.viewPager.isSaveEnabled = false
 
         /** 设置组件 **/
         // 关闭 viewPager 用户滑动
@@ -145,17 +131,39 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * 窗体基本设置
+     */
+    private fun setWindow() {
+        // 启用边到边设计
+        enableEdgeToEdge()
+        // 针对部分系统的系统栏沉浸
+        openImmersion(window)
+        // 使用 ViewCompat 的回调函数
+        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { _, insets ->
+            // 获取系统栏高度 (包含 top, bottom, left 和 right)
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            // 同步导航栏占位布局高度
+            binding.gestureView
+                .updateLayoutParams<ViewGroup.LayoutParams> {
+                    height = systemBars.bottom
+                }
+            // 返回 insets
+            insets
+        }
+    }
+
 }
 
 class MainViewPagerAdapter(fragmentActivity: FragmentActivity):
     FragmentStateAdapter(fragmentActivity){
-    private val fragments = listOf(
-        HomeFragment(),
-        PlateFragment(),
-        NoticeFragment(),
-        ResFragment(),
-        MeFragment()
-    )
-    override fun getItemCount(): Int = fragments.size
-    override fun createFragment(position: Int): Fragment = fragments[position]
+    override fun getItemCount(): Int = 5
+    override fun createFragment(position: Int) = when(position) {
+        0 -> HomeFragment()
+        1 -> PlateFragment()
+        2 -> NoticeFragment()
+        3 -> ResFragment()
+        4 -> MeFragment()
+        else -> throw IllegalArgumentException()
+    }
 }

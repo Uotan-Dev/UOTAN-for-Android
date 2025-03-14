@@ -1,14 +1,30 @@
 {
   "latest_version_name": "1.0.0.4 Beta",
   "latest_version_code": 1004,
+  "latest_version_download_url": "https://cdn.example.com/app-v2.1.0.apk",
   "version_channel": "Beta",
   "versions": 
   [
     {
+      "version_name": "1.0.0.5 Beta",
+      "version_code": 1005,
+      "update_date": "2025-02-27",
+      "update_log": [
+        {
+          "type": "Beta 版说明",
+          "content": "欢迎使用柚坛社区安卓端 Beta 版。请注意，Beta 版的功能和体验可能与正式版存在差异，如果在使用过程中遇到任何问题，欢迎随时前往柚坛社区反馈。"
+        },
+        {
+          "type": "UI 界面",
+          "content": "适配 Activity 嵌入式 Pad 平行视界"
+        }
+      ]
+    },
+    {
       "version_name": "1.0.0.4 Beta",
       "version_code": 1004,
       "update_date": "2025-02-26",
-      "notes": [
+      "update_log": [
         {
           "type": "Beta 版说明", 
           "content": "欢迎使用柚坛社区安卓端 Beta 版。请注意，Beta 版的功能和体验可能与正式版存在差异，如果在使用过程中遇到任何问题，欢迎随时前往柚坛社区反馈。"
@@ -21,14 +37,13 @@
           "type": "设置", 
           "content": "新增 关于页面\n新增 更新页面在线更新"
         }
-      ],
-      "download_url": "https://cdn.example.com/app-v2.1.0.apk"
+      ]
     },
     {
       "version": "1.0.0.3 Beta",
       "code": 1003,
-      "release_date": "2025-02-23",
-      "notes": [
+      "update_date": "2025-02-23",
+      "update_log": [
         {
           "type": "Beta 版说明", 
           "content": "欢迎使用柚坛社区安卓端 Beta 版。请注意，Beta 版的功能和体验可能与正式版存在差异，如果在使用过程中遇到任何问题，欢迎随时前往柚坛社区反馈。"

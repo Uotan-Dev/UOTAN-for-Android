@@ -6,68 +6,206 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_weight="400"
-    android:background="@color/background_2"
+    android:background="@color/background_1"
     tools:context=".activity.ArticleActivity">
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/rootScrollView"
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/background_primary"
-        android:clipToPadding="false"
-        android:fillViewport="true"
-        android:paddingTop="80dp"
-        android:scrollbarThumbVertical="@drawable/gustatex_scrollbar_thumb_vertical"
-        android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/headerBarBlur"
-        tools:ignore="SpeakableTextPresentCheck">
+        app:layout_constraintTop_toTopOf="parent"
+        app:srlEnablePureScrollMode="true" >
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/rootView"
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/rootScrollView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/background_1"
+            android:clipToPadding="false"
+            android:fillViewport="true"
+            android:paddingTop="80dp"
+            android:scrollbarThumbVertical="@drawable/gustatex_scrollbar_thumb_vertical"
+            android:scrollbars="vertical"
+            tools:ignore="SpeakableTextPresentCheck">
 
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="16dp"
-                android:text="@string/title"
-                android:textColor="@color/label_primary"
-                android:textFontWeight="500"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/rootView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <WebView
-                android:id="@+id/webView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="8dp"
-                android:background="@color/background_primary"
-                android:backgroundTint="@color/background_primary"
-                android:scrollbarThumbVertical="@drawable/gustatex_scrollbar_thumb_vertical"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/title" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/articleLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@drawable/gustatex_option_background_normal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/bigTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/bigUserAvatarCard"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            app:cardBackgroundColor="@android:color/transparent"
+                            app:cardCornerRadius="99dp"
+                            app:cardElevation="0dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <ImageView
+                                android:id="@+id/bigUserAvatar"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                app:srcCompat="@drawable/avatar_account" />
+
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                            android:id="@+id/bigUserNameText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="@string/user_name"
+                            android:textColor="@color/label_primary"
+                            android:textFontWeight="400"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toEndOf="@+id/bigUserAvatarCard"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/bigTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="@string/time"
+                            android:textColor="@color/label_secondary"
+                            android:textFontWeight="400"
+                            android:textSize="10sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/bigUserAvatarCard" />
+
+                        <TextView
+                            android:id="@+id/bigIpLocation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="@string/ip_location"
+                            android:textColor="@color/label_secondary"
+                            android:textFontWeight="400"
+                            android:textSize="10sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/bigTime" />
+
+                        <TextView
+                            android:id="@+id/bigFollow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:background="@drawable/gustatex_button_red"
+                            android:gravity="center"
+                            android:paddingLeft="24dp"
+                            android:paddingRight="24dp"
+                            android:text="@string/follow"
+                            android:textColor="@color/white"
+                            android:textFontWeight="500"
+                            android:textSize="12sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.333" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/bigTitleText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="@string/title"
+                        android:textColor="@color/label_primary"
+                        android:textFontWeight="500"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/bigTitle" />
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/bilibiliCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:visibility="gone"
+                        app:cardBackgroundColor="@color/background_2"
+                        app:cardCornerRadius="18dp"
+                        app:cardElevation="0dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/bigTitleText">
+
+                        <WebView
+                            android:id="@+id/bilibiliWebView"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/background_2"
+                            android:backgroundTint="@color/background_2"
+                            android:scrollbarThumbVertical="@drawable/gustatex_scrollbar_thumb_vertical"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/cardView2" />
+                    </androidx.cardview.widget.CardView>
+
+                    <WebView
+                        android:id="@+id/webView"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="2dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/background_2"
+                        android:backgroundTint="@color/background_2"
+                        android:scrollbarThumbVertical="@drawable/gustatex_scrollbar_thumb_vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/bilibiliCard" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 
     <view
         android:id="@+id/headerBarBlur"
         class="net.center.blurview.ShapeBlurView"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        app:blur_overlay_color="@color/blur_cover"
+        app:blur_overlay_color="@color/header_bar_blur_cover"
         app:blur_radius="25dp"
         app:layout_constraintBottom_toBottomOf="@+id/headerBarView"
         app:layout_constraintEnd_toEndOf="parent"
@@ -101,86 +239,90 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_back" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/userAvatarCard"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="17dp"
-            app:cardBackgroundColor="@android:color/transparent"
-            app:cardCornerRadius="99dp"
-            app:cardElevation="0dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/collect"
             app:layout_constraintStart_toEndOf="@+id/back"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/userAvatar"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:srcCompat="@drawable/avatar_account" />
+            <androidx.cardview.widget.CardView
+                android:id="@+id/userAvatarCard"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                app:cardBackgroundColor="@android:color/transparent"
+                app:cardCornerRadius="99dp"
+                app:cardElevation="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-        </androidx.cardview.widget.CardView>
+                <ImageView
+                    android:id="@+id/userAvatar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/avatar_account" />
 
-        <TextView
-            android:id="@+id/userNameText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:fontFamily="sans-serif-medium"
-            android:text="@string/user_name"
-            android:textColor="@color/label_primary"
-            android:textFontWeight="400"
-            android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/userAvatarCard"
-            app:layout_constraintTop_toTopOf="@+id/userAvatarCard" />
+            </androidx.cardview.widget.CardView>
 
-        <TextView
-            android:id="@+id/time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/time"
-            android:textColor="@color/label_secondary"
-            android:textFontWeight="400"
-            android:textSize="10sp"
-            app:layout_constraintBottom_toBottomOf="@+id/userAvatarCard"
-            app:layout_constraintStart_toStartOf="@+id/userNameText" />
+            <TextView
+                android:id="@+id/userNameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/user_name"
+                android:textColor="@color/label_primary"
+                android:textFontWeight="400"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@+id/userAvatarCard"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/ipLocation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
-            android:text="@string/ip_location"
-            android:textColor="@color/label_secondary"
-            android:textFontWeight="400"
-            android:textSize="10sp"
-            app:layout_constraintBottom_toBottomOf="@+id/userAvatarCard"
-            app:layout_constraintStart_toEndOf="@+id/time" />
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/time"
+                android:textColor="@color/label_secondary"
+                android:textFontWeight="400"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/userAvatarCard" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/followCard"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_marginEnd="17dp"
-            app:cardBackgroundColor="@color/red"
-            app:cardCornerRadius="99dp"
-            app:cardElevation="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/collect"
-            app:layout_constraintTop_toTopOf="parent">
+            <TextView
+                android:id="@+id/ipLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/ip_location"
+                android:textColor="@color/label_secondary"
+                android:textFontWeight="400"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/time" />
 
             <TextView
                 android:id="@+id/follow"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:background="@drawable/gustatex_button_red"
                 android:gravity="center"
-                android:paddingLeft="18dp"
-                android:paddingRight="18dp"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
                 android:text="@string/follow"
                 android:textColor="@color/white"
                 android:textFontWeight="500"
-                android:textSize="12sp" />
-        </androidx.cardview.widget.CardView>
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView
             android:id="@+id/collect"
@@ -219,7 +361,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
-        android:layout_height="52dp"
+        android:layout_height="65dp"
         app:layout_constraintBottom_toTopOf="@+id/gestureView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_SETTINGS" />
@@ -8,16 +9,41 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Uotan" >
+        android:theme="@style/Theme.Uotan">
+        <activity
+            android:name=".activity.BindPhoneActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.PlaceholderActivity"
+            android:exported="false" />
+
+        <property
+            android:name="android.window.PROPERTY_ACTIVITY_EMBEDDING_SPLITS_ENABLED"
+            android:value="true" />
+
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="com.gustate.uotan.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+
+            <!-- Make SplitInitializer discoverable by InitializationProvider. -->
+            <meta-data
+                android:name="com.gustate.uotan.activity.SplitInitializer"
+                android:value="androidx.startup" />
+        </provider>
+
         <activity
             android:name=".activity.StartupActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -38,6 +64,9 @@
             android:exported="false" />
         <activity
             android:name=".activity.AboutActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ResourceActivity"
             android:exported="false" />
     </application>
 

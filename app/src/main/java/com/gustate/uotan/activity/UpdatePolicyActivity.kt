@@ -70,6 +70,7 @@ class UpdatePolicyActivity : AppCompatActivity() {
         ViewCompat.setOnApplyWindowInsetsListener(binding.main) { _, insets ->
             // 获取系统栏高度 (包含 top, bottom, left 和 right)
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            // 同步状态栏高度
             binding.statusBarView
                 .updateLayoutParams<ViewGroup.LayoutParams> {
                     height = systemBars.top
@@ -117,9 +118,15 @@ class UpdatePolicyActivity : AppCompatActivity() {
             // 开启协程
             lifecycleScope.launch {
                 // 获取隐私政策更新的信息
-                val policyUpdateInfo = PolicyParse.readPolicy()
+                val policyUpdateInfo = PolicyParse.readPolicy(this@UpdatePolicyActivity)
                 // 切回主线程
                 withContext(Dispatchers.Main) {
+                    // 设置标题
+                    binding.title.text = if (policyUpdateInfo.type == 1) {
+                        getString(R.string.privacy_policy_update)
+                    } else {
+                        getString(R.string.service_agreement_update)
+                    }
                     // 设置更新时间
                     binding.lastUpdatedTime.text = policyUpdateInfo.updateTime
                     // 加载 HTML 内容
@@ -133,8 +140,8 @@ class UpdatePolicyActivity : AppCompatActivity() {
                 }
             }
         }
-        // 模拟同意隐私协议的 WebView
-        cookieManager.setAcceptCookie(true) // 允许接受Cookie
+        // 允许接受Cookie
+        cookieManager.setAcceptCookie(true)
         // 允许第三方 Cookies
         cookieManager.setAcceptThirdPartyCookies(binding.web, true)
         // 设置自定义Cookies
@@ -276,7 +283,7 @@ class UpdatePolicyActivity : AppCompatActivity() {
 
     /**
      * 为指定域名设置多个Cookies
-     * @param domain 目标域名（如：www.uotan.cn）
+     * @param domain 目标域名
      * @param cookiesMap Cookie键值对集合
      */
     private fun setCookiesForDomain(domain: String, cookiesMap: Map<String, String>) {

@@ -1,18 +1,28 @@
 package com.gustate.uotan.utils.parse.user
 
+import android.util.Log
 import com.gustate.uotan.utils.Utils.Companion.BASE_URL
 import com.gustate.uotan.utils.Utils.Companion.Cookies
 import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
 import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
+import com.gustate.uotan.utils.Utils.Companion.isLogin
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import org.json.JSONObject
+import org.jsoup.Connection
 import org.jsoup.Jsoup
 
 data class MeInfo(
     val userName: String,
     val cover: String,
     val avatar: String,
-    val signature: String
+    val signature: String,
+    val auth: String,
+    val postCount: String,
+    val resCount: String,
+    val userId: String,
+    val points: String,
+    val uCoin: String
 )
 
 
@@ -30,36 +40,203 @@ class MeParse {
                 .cookies(Cookies)
                 .get()
 
-            val pageContent = document.getElementsByClass("p-body-pageContent").first()
+            val pageContent = document
+                .getElementsByClass("p-body-pageContent")
+                .first()
 
-            val blockBody = pageContent!!.getElementsByClass("block-body").first()
+            val blockBody = pageContent!!
+                .getElementsByClass("block-body")
+                .first()
 
-            val formRows = blockBody!!.getElementsByClass("formRow")
+            val formRows = blockBody!!
+                .getElementsByClass("formRow")
 
-            val userName = formRows[0].getElementsByTag("dd").first()!!.ownText()
+            var userNamePosition = 0
+            var phoneNumberPosition = 1
+            var emailPosition = 2
+            var emailChoicePosition = 3
+            var avatarPosition = 4
+            var coverPosition = 5
+            var birthdayPosition = 6
+            var addressPosition = 7
+            var homePosition = 8
+            var devicePosition = 9
+            var describePosition = 10
 
-            val avatarUrl = BASE_URL + formRows[3].getElementsByTag("img").first()!!.attr("srcset")
+            for (index in formRows.indices) {
+                val title = formRows[index]
+                    .getElementsByTag("dt")
+                    .first()
+                    ?.getElementsByClass("formRow-label")
+                    ?.first()
+                    ?.text()
+                    ?: ""
 
-            val coverStyle = formRows[4].getElementsByTag("dd").first()!!.getElementsByTag("div").first()!!.attr("style")
+                when (title) {
+                    "用户名" -> userNamePosition = index
+                    "手机号码" -> phoneNumberPosition = index
+                    "邮件" -> emailPosition = index
+                    "邮件选项" -> emailChoicePosition = index
+                    "头像" -> avatarPosition = index
+                    "个人空间背景" -> coverPosition = index
+                    "出生日期" -> birthdayPosition = index
+                    "所在地" -> addressPosition = index
+                    "主页" -> homePosition = index
+                    "设备" -> devicePosition = index
+                    "个性签名" -> describePosition = index
+                }
+            }
+
+            val userName = formRows[userNamePosition]
+                .getElementsByTag("dd")
+                .first()
+                ?.ownText()
+                ?: ""
+
+            val avatarUrl = formRows[avatarPosition]
+                .getElementsByTag("img")
+                .first()
+                ?.attr("srcset")
+                ?: ""
+
+            val userId = formRows[avatarPosition]
+                .getElementsByTag("a")
+                .first()
+                ?.attr("data-user-id")
+                ?: ""
+
+            val coverStyle = formRows[coverPosition]
+                .getElementsByTag("dd")
+                .first()
+                ?.getElementsByTag("div")
+                ?.first()
+                ?.attr("style")
+                ?: ""
 
             val regex = Regex("""url\(([^)]+)""")
 
             val matchResult = regex.find(coverStyle)
 
-            val coverUrl = (BASE_URL + matchResult?.groupValues?.get(1))
+            val coverUrl = matchResult
+                ?.groupValues
+                ?.get(1)
+                ?: ""
 
-            val signatureElement = formRows[11].getElementsByClass("input")
+            val signature = formRows[describePosition]
+                .getElementsByClass("input")[1].text()
 
-            val signature = if (signatureElement.size == 1) {
-                formRows[12].getElementsByClass("input")[1].text()
-            } else {
-                formRows[11].getElementsByClass("input")[1].text()
+            val perDocument = Jsoup.connect("$BASE_URL/members/$userId")
+                .userAgent(USER_AGENT)
+                .timeout(TIMEOUT_MS)
+                .cookies(Cookies)
+                .get()
+
+            val authDocuments = perDocument
+                .getElementsByClass("memberHeader-banners")
+                .first()
+                ?.getElementsByTag("em")
+
+            var auth = ""
+            if (authDocuments != null) {
+                for (index in authDocuments.indices) {
+                    auth = if (index == 0) {
+                        authDocuments[index]
+                            .getElementsByTag("strong")
+                            .text()
+                    } else {
+                        auth + "  " + authDocuments[index].getElementsByTag("strong").first()?.text()
+                    }
+                }
             }
 
-            return@withContext MeInfo(userName, coverUrl, avatarUrl, signature)
+            val countDocuments = perDocument
+                .getElementsByClass("pairJustifier")
+                .first()
+                ?.getElementsByTag("dl")
+
+            val postCount = countDocuments
+                ?.get(0)
+                ?.getElementsByTag("a")
+                ?.first()
+                ?.text()
+                ?: "0"
+
+            val resCount = countDocuments
+                ?.get(1)
+                ?.getElementsByTag("a")
+                ?.first()
+                ?.text()
+                ?: "0"
+
+            val pointsElement = document
+                .getElementsByClass("menu-row menu-row--highlighted")
+                .first()
+
+            val points = pointsElement
+                ?.getElementsByTag("dd")
+                ?.get(0)
+                ?.text()
+                ?: "0"
+
+            val uCoin = pointsElement
+                ?.getElementsByTag("dd")
+                ?.get(1)
+                ?.text()
+                ?: "0"
+
+            return@withContext MeInfo(userName, coverUrl, avatarUrl, signature, auth, postCount, resCount, userId, points, uCoin)
 
         }
 
-    }
+        suspend fun doClockIn(): Boolean = withContext(Dispatchers.IO) {
+            try {
+                // 1. 先获取CSRF Token（从任意页面获取）
+                val firstResponse = Jsoup.connect(BASE_URL)
+                    .cookies(Cookies) // 需要先登录获取
+                    .execute()
 
+                val xfToken = firstResponse.parse()
+                    .select("input[name=_xfToken]")
+                    .first()
+                    ?.attr("value")
+                    ?: ""
+
+                // 2. 发送签到请求
+                Jsoup.connect("https://www.uotan.cn/mjc-credits/clock")
+                    .method(Connection.Method.POST)
+                    .userAgent(USER_AGENT)
+                    .timeout(TIMEOUT_MS)
+                    .header("Content-Type", "application/x-www-form-urlencoded")
+                    .header("Origin", BASE_URL)
+                    .header("Referer", BASE_URL)
+                    .cookies(firstResponse.cookies()) // 保持会话
+                    .data("_xfToken", xfToken)
+                    .execute()
+                return@withContext isClockIn()
+            } catch (e: Exception) {
+                Log.e("Clock", e.toString())
+                return@withContext false
+            }
+        }
+
+        suspend fun isClockIn(): Boolean = withContext(Dispatchers.IO) {
+            try {
+                val document = Jsoup.connect(BASE_URL)
+                    .userAgent(USER_AGENT)
+                    .timeout(TIMEOUT_MS)
+                    .cookies(Cookies)
+                    .get()
+                val buttonText = document
+                    .getElementsByClass("block-body block-row")
+                    .last()
+                    ?.getElementsByTag("span")
+                    ?.text()
+                    ?: ""
+                val isClockIn = buttonText == "今日已签到"
+                return@withContext isClockIn
+            } catch (e: Exception) {
+                return@withContext false
+            }
+        }
+    }
 }

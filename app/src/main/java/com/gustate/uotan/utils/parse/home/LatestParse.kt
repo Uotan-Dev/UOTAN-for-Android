@@ -4,6 +4,7 @@ import com.gustate.uotan.utils.Utils.Companion.BASE_URL
 import com.gustate.uotan.utils.Utils.Companion.Cookies
 import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
 import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
+import com.gustate.uotan.utils.parse.user.LoginParse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.jsoup.Jsoup
@@ -16,7 +17,7 @@ data class ForumLatestItem(
     val topic: String,
     val viewCount: String,
     val commentCount: String,
-    val link: String
+    val url: String
 )
 
 class LatestParse {
@@ -54,7 +55,7 @@ class LatestParse {
 
                 val titleCell = element.getElementsByClass("structItem-title").first()
 
-                val link = BASE_URL + titleCell!!.attr("uix-href")
+                val link = titleCell!!.attr("uix-href").replace("/unread", "")
 
                 val title = titleCell.getElementsByTag("a").first()!!.text()
                 val topic = if (titleCell.getElementsByTag("span").first() != null) {
@@ -82,8 +83,5 @@ class LatestParse {
             return@withContext result
 
         }
-
-
     }
-
 }

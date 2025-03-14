@@ -1,6 +1,7 @@
 package com.gustate.uotan.fragment.home
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -18,11 +19,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.gustate.uotan.R
+import com.gustate.uotan.activity.ArticleActivity
 import com.gustate.uotan.utils.parse.home.ForumLatestItem
 import com.gustate.uotan.utils.parse.home.LatestParse
 import com.gustate.uotan.utils.Utils
 import com.scwang.smart.refresh.layout.api.RefreshLayout
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 private lateinit var recyclerView: RecyclerView
 
@@ -40,11 +44,12 @@ class LatestFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val layoutManager = LinearLayoutManager(context)
         val refreshLayout: RefreshLayout = view.findViewById(R.id.refreshLayout)
         // 初始化 RecyclerView
         recyclerView = view.findViewById(R.id.recommendRecycler)
-        recyclerView.layoutManager = layoutManager
+        val linearLayout = LinearLayoutManager(requireContext())
+        linearLayout.orientation = LinearLayoutManager.VERTICAL
+        recyclerView.layoutManager = linearLayout
         ViewCompat.setOnApplyWindowInsetsListener(view.rootView) { _, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             refreshLayout.layout.setPadding(0, systemBars.top + Utils.dp2Px(114, requireContext()).toInt(), 0, systemBars.bottom + Utils.dp2Px(70, requireContext()).toInt())
@@ -53,7 +58,20 @@ class LatestFragment : Fragment() {
         // 启动协程
         lifecycleScope.launch {
             fetchResult = LatestParse.fetchLatestData()
-            recyclerView.adapter = context?.let { LatestAdapter(it, fetchResult) }
+            withContext(Dispatchers.Main) {
+                // 创建新Adapter时设置点击监听
+                val newAdapter = LatestAdapter(requireContext(), fetchResult.toMutableList()).apply {
+                    onItemClick = { selectedItem ->
+                        // 安全上下文检查
+                        context?.let {
+                            startActivity(Intent(it, ArticleActivity::class.java).apply {
+                                putExtra("url", selectedItem.url)
+                            })
+                        }
+                    }
+                }
+                recyclerView.adapter = newAdapter
+            }
         }
     }
 
@@ -62,7 +80,11 @@ class LatestFragment : Fragment() {
 class LatestAdapter(private val context: Context, private val latestList: MutableList<ForumLatestItem>):
     RecyclerView.Adapter<LatestAdapter.ViewHolder>() {
 
+    // 点击监听接口
+    var onItemClick: ((ForumLatestItem) -> Unit)? = null
+
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
+        val itemLayout: View = view.findViewById(R.id.itemLayout)
         val coverImage: ImageView = view.findViewById(R.id.coverImage)
         val userLayout: ConstraintLayout = view.findViewById(R.id.userLayout)
         val userAvatar: CardView = view.findViewById(R.id.userAvatarCard)
@@ -121,6 +143,11 @@ class LatestAdapter(private val context: Context, private val latestList: Mutabl
 
         holder.viewCount.text = content.viewCount
         holder.commentCount.text =content.commentCount
+
+        holder.itemLayout.setOnClickListener {
+            onItemClick?.invoke(content)
+        }
+
     }
 
     override fun getItemCount(): Int = latestList.size

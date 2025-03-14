@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.gustate.uotan.R
+import com.gustate.uotan.anim.TitleAnim
+import com.gustate.uotan.gustatex.dialog.LoadingDialog
 import com.gustate.uotan.utils.parse.plate.PlateItem
 import com.gustate.uotan.utils.parse.plate.PlateParse
 import com.gustate.uotan.utils.Utils
@@ -30,6 +32,7 @@ class PlateFragment : Fragment() {
     // 所有选项卡的TextView集合
     private val tabTextViews = mutableListOf<TextView>()
     private var currentSelectedIndex = 0 // 默认选中第一个
+    private lateinit var loadingDialog: LoadingDialog
 
     // 假设网页和element每个 tab 对应的 content 参数
     private val tabContents = listOf(
@@ -56,17 +59,35 @@ class PlateFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         tip = view.findViewById(R.id.tip)
+        loadingDialog = LoadingDialog(requireContext())
 
         loadInitialData()
         setupTabs(view)
 
-        val rootLayout = view.findViewById<View>(R.id.main)
-        val rootView = view.findViewById<View>(R.id.rootView)
+        val title = view.findViewById<View>(R.id.title)
+        val bigTitle = view.findViewById<View>(R.id.bigTitle)
         val statusBarView = view.findViewById<View>(R.id.statusBarView)
-        ViewCompat.setOnApplyWindowInsetsListener(rootLayout) { _, insets ->
+        val rootLayout = view.findViewById<View>(R.id.rootlayout)
+        ViewCompat.setOnApplyWindowInsetsListener(view.rootView) { _, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             statusBarView.updateLayoutParams<ViewGroup.LayoutParams> { height = systemBars.top }
-            rootView.setPadding(0, systemBars.top + Utils.dp2Px(44, requireContext()).toInt(), 0, systemBars.bottom + Utils.dp2Px(70, requireContext()).toInt())
+            rootLayout.setPadding(
+                systemBars.left,
+                systemBars.top + Utils.dp2Px(60, requireContext()).toInt(),
+                systemBars.right,
+                systemBars.bottom
+            )
+            recyclerView.setPadding(
+                0, 0, 0,
+                systemBars.bottom + Utils.dp2Px(65, requireContext()).toInt()
+            )
+            // 创建 SimonEdgeIllusion 实例
+            TitleAnim(
+                title,
+                bigTitle,
+                Utils.dp2Px(60, requireContext()) + systemBars.top.toFloat(),
+                systemBars.top.toFloat()
+            )
             insets
         }
 
@@ -96,23 +117,22 @@ class PlateFragment : Fragment() {
 
     private fun onTabClicked(index: Int) {
         if (index == currentSelectedIndex) return
-
+        // 更新样式
+        updateTabStyle(index)
+        currentSelectedIndex = index
+        loadingDialog.show()
         lifecycleScope.launch {
             // 获取新数据
             val newData = PlateParse.fetchPlateData(tabContents[index])
 
             if (newData != mutableListOf<PlateItem>()) {
                 tip.isVisible = false
-                recyclerView.isVisible = true
                 recyclerView.adapter = PlateAdapter(newData)
             } else {
                 tip.isVisible = true
-                recyclerView.isVisible = false
+                recyclerView.adapter = PlateAdapter(newData)
             }
-
-            // 更新样式
-            updateTabStyle(index)
-            currentSelectedIndex = index
+            loadingDialog.cancel()
         }
     }
 
@@ -123,11 +143,10 @@ class PlateFragment : Fragment() {
 
             if (initialData != mutableListOf<PlateItem>()) {
                 tip.isVisible = false
-                recyclerView.isVisible = true
                 recyclerView.adapter = PlateAdapter(initialData)
             } else {
                 tip.isVisible = true
-                recyclerView.isVisible = false
+                recyclerView.adapter = PlateAdapter(initialData)
             }
             updateTabStyle(currentSelectedIndex) // 初始选中第一个
         }
@@ -166,7 +185,7 @@ class PlateAdapter(private var data: MutableList<PlateItem>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.recycler_plate, parent, false)
+            .inflate(R.layout.recycler_plate_item, parent, false)
         return ViewHolder(view)
     }
 

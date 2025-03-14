@@ -106,4 +106,48 @@
     <string name="open_source_address">Open source address</string>
     <string name="open_source_address_link" translatable="false">https://github.com/Uotan-Dev/UOTAN-for-Android</string>
     <string name="github_name" translatable="false">UOTAN-for-Android</string>
+    <string name="private_message">Private message</string>
+    <string name="trends">Trends</string>
+    <string name="categorize">Categorize</string>
+    <string name="sell_resource_improve_points">Your points have increased due to the sale of resources</string>
+    <string name="attendance_improve_points">Your points have increased due to daily check-in</string>
+    <string name="liked_the_article">Liked the article</string>
+    <string name="replied_to_the_article">Replied to the article</string>
+    <string name="resource_update">Resource update</string>
+    <string name="points_change">Points change</string>
+    <string name="post_improve_points">Your points have increased due to posting</string>
+    <string name="buy_resource_lower_points">Your points have decreased due to the purchase of the online storage link</string>
+    <string name="selected_recommendations">Selected recommendations</string>
+    <string name="new_post">New</string>
+    <string name="service_agreement_update">Service Agreement Update</string>
+    <string name="network_request_failed">Network request failed</string>
+    <string name="china_mainland_verify">Users in Chinese Mainland need to bind their mobile phone number to use all functions</string>
+    <string name="bind_phone_number">Bind phone number</string>
+    <string name="p86" translatable="false">🇨🇳 +86</string>
+    <string name="phone_number">Phone number</string>
+    <string name="binding">Binding</string>
+    <string name="send">Send</string>
+    <string name="binding_phone_number_hint">Please enter your phone number and send the verification code. We will send a text message containing a six digit one-time code to the phone number you entered. Please enter the one-time code to bind your phone number.</string>
+    <string name="enter_valid_phone_number">Please enter a valid +86 phone number</string>
+    <string name="del_comment_lower_points">Your points have decreased due to deleting comments</string>
+    <string name="register_improve_points">Your points have increased due to registering an account</string>
+    <string name="authentication">Authentication</string>
+    <string name="total_posts">Total posts</string>
+    <string name="number_of_resources">Number of resources</string>
+    <string name="num_zero" translatable="false">0</string>
+    <string name="collect">Collect</string>
+    <string name="applicable_equipment">Applicable equipment</string>
+    <string name="download_channel">Download channel</string>
+    <string name="file_size">File size</string>
+    <string name="extracted_code">Extracted code</string>
+    <string name="author">Author</string>
+    <string name="view">View</string>
+    <string name="download">Download</string>
+    <string name="first_release">First release</string>
+    <string name="last_update">Last update</string>
+    <string name="daily_attendance">Daily Attendance</string>
+    <string name="signed_in_today">Signed in today</string>
+    <string name="sign_in_successful">Sign in successful</string>
+    <string name="check_in_failed">Check in failed</string>
+    <string name="you_have_checked_in_today">You have checked in today</string>
 </resources>

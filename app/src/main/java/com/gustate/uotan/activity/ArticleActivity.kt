@@ -3,6 +3,9 @@ package com.gustate.uotan.activity
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.MotionEvent
+import android.view.View
+import android.webkit.PermissionRequest
+import android.webkit.WebChromeClient
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -11,12 +14,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.bumptech.glide.Glide
 import com.gustate.uotan.R
+import com.gustate.uotan.anim.TitleAnim
 import com.gustate.uotan.databinding.ActivityArticleBinding
+import com.gustate.uotan.gustatex.dialog.LoadingDialog
 import com.gustate.uotan.utils.parse.article.ArticleParse
 import com.gustate.uotan.utils.Utils
 import com.gustate.uotan.utils.Utils.Companion.BASE_URL
@@ -26,6 +33,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class ArticleActivity : AppCompatActivity() {
+
+    private lateinit var loadingDialog: LoadingDialog
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -37,6 +47,8 @@ class ArticleActivity : AppCompatActivity() {
 
         // 针对部分系统的小白条沉浸
         openImmersion(window)
+
+        loadingDialog = LoadingDialog(this)
 
         /*
          * 修改各个占位布局的高度
@@ -54,10 +66,16 @@ class ArticleActivity : AppCompatActivity() {
                     systemBars.left,
                     systemBars.top + Utils.dp2Px(60, this).toInt(),
                     systemBars.right,
-                    systemBars.bottom + Utils.dp2Px(52, this).toInt()
+                    systemBars.bottom + Utils.dp2Px(70, this).toInt()
                 )
             // 设置小白条占位布局高度
             binding.gestureView.layoutParams.height = systemBars.bottom
+            // 创建 SimonEdgeIllusion 实例
+            TitleAnim(
+                binding.title,
+                binding.bigTitle,
+                Utils.dp2Px(60, this) + systemBars.top.toFloat(),
+                systemBars.top.toFloat())
             // 返回 insets
             insets
         }
@@ -68,21 +86,53 @@ class ArticleActivity : AppCompatActivity() {
 
     @SuppressLint("ClickableViewAccessibility", "SetJavaScriptEnabled", "SetTextI18n")
     private fun loadData(binding: ActivityArticleBinding, url: String) {
+        loadingDialog.show()
         lifecycleScope.launch {
             val content = ArticleParse.articleParse(baseContext, url)
             withContext(Dispatchers.Main) {
-                if (content.authorUrl.startsWith("http")) {
+                if (content.authorUrl.isNotEmpty()) {
                     Glide.with(baseContext)
                         .load(BASE_URL + content.avatarUrl)
                         .into(binding.userAvatar)
+                    Glide.with(baseContext)
+                        .load(BASE_URL + content.avatarUrl)
+                        .into(binding.bigUserAvatar)
                 }
+                binding.bilibiliCard.isGone = !content.isBilibili
+                binding.bigUserNameText.text = content.authorName
                 binding.userNameText.text = content.authorName
+                binding.bigTime.text = content.time
                 binding.time.text = content.time
+                binding.bigIpLocation.text = getString(R.string.ip_location) + ": " + content.ipAddress
                 binding.ipLocation.text = getString(R.string.ip_location) + ": " + content.ipAddress
-                binding.title.text = content.title
+                binding.bigTitleText.text = content.title
                 binding.favouriteCount.text = content.numberOfLikes
                 binding.commentCount.text = content.numberOfComments
+                loadingDialog.cancel()
                 binding.webView.isVerticalScrollBarEnabled = false
+                binding.bilibiliWebView.settings.javaScriptEnabled = true // 启用JS
+                binding.bilibiliWebView.settings.domStorageEnabled = true // 支持HTML5本地存储
+                binding.bilibiliWebView.settings.mediaPlaybackRequiresUserGesture = false // 自动播放音频/视频
+                binding.bilibiliWebView.settings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
+                binding.bilibiliWebView.settings.allowContentAccess = true
+                binding.bilibiliWebView.settings.allowFileAccess = true
+                binding.bilibiliWebView.settings.userAgentString = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+                // 需要添加的配置：
+                binding.bilibiliWebView.webChromeClient = object : WebChromeClient() {
+                    // 处理全屏和权限请求
+                    override fun onPermissionRequest(request: PermissionRequest?) {
+                        request?.grant(request.resources) // 必须授予权限才能播放视频
+                    }
+
+                    override fun onShowCustomView(view: View?, callback: CustomViewCallback?) {
+                        // 实现全屏逻辑（参考原回答的方案）
+                    }
+
+                    override fun onHideCustomView() {
+                        // 退出全屏逻辑
+                    }
+                }
+                if (content.isBilibili) binding.bilibiliWebView.loadUrl("https:" + content.bilibiliVideoLink)
                 binding.webView.apply {
                     // 允许 JavaScript
                     settings.apply {
@@ -120,7 +170,11 @@ class ArticleActivity : AppCompatActivity() {
                         // 加载HTML内容
                         loadDataWithBaseURL(
                             null,
-                            content.article, // 你的HTML字符串
+                            content.article.replace(
+                                Regex("""<span data-guineapigclub-mediaembed="bilibili">.*?</span>""",
+                                    RegexOption.DOT_MATCHES_ALL),
+                        ""
+                            ), // 你的HTML字符串
                             "text/html",
                             "UTF-8",
                             null
@@ -147,7 +201,7 @@ class ArticleActivity : AppCompatActivity() {
         val context = webView.context
 
         val colors = mapOf(
-            "bg" to ContextCompat.getColor(context, R.color.background_primary),
+            "bg" to ContextCompat.getColor(context, R.color.background_2),
             "text" to ContextCompat.getColor(context, R.color.label_primary),
             "accent" to ContextCompat.getColor(context, R.color.red),
             "warning" to ContextCompat.getColor(context, R.color.red)
@@ -178,21 +232,21 @@ class ArticleActivity : AppCompatActivity() {
             max-width: 100% !important;
             height: auto !important;
             display: block;
-            border-radius: 5px !important;
+            border-radius: 12px !important;
         }
         .bbImageWrapper { 
             max-width: 100% !important; 
-            border-radius: 5px !important; 
+            border-radius: 18px !important; 
         }
         .bbImage { 
             max-width: 100% !important; 
             height: auto !important; 
-            border-radius: 5px !important; 
+            border-radius: 12px !important; 
         }
         .contentRow { 
             margin:10px 0; 
             border:1px solid #eee; 
-            border-radius:5px; 
+            border-radius:12px; 
         }
         a { 
             color: var(--accent) !important; 

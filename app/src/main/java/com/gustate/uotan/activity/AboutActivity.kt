@@ -61,7 +61,7 @@ class AboutActivity : AppCompatActivity() {
             // 创建 TitleAnim 实例
             TitleAnim(
                 binding.title,
-                binding.bigTitle,
+                binding.bigTitleText,
                 Utils.dp2Px(60, this) + systemBars.top.toFloat(),
                 systemBars.top.toFloat()
             )

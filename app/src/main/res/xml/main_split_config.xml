@@ -1,0 +1,52 @@
+<resources
+    xmlns:window="http://schemas.android.com/apk/res-auto">
+
+    <!-- Define a split for the named activities. -->
+    <SplitPairRule
+        window:splitRatio="0.38"
+        window:splitLayoutDirection="locale"
+        window:splitMinWidthDp="840"
+        window:splitMaxAspectRatioInPortrait="alwaysAllow"
+        window:finishPrimaryWithSecondary="never"
+        window:finishSecondaryWithPrimary="always"
+        window:clearTop="false">
+        <SplitPairFilter
+            window:primaryActivityName=".activity.MainActivity"
+            window:secondaryActivityName=".activity.ArticleActivity"/>
+    </SplitPairRule>
+
+    <SplitPairRule
+        window:splitRatio="0.38"
+        window:splitMinWidthDp="840"
+        window:splitMaxAspectRatioInPortrait="alwaysAllow"
+        window:finishPrimaryWithSecondary="never"
+        window:finishSecondaryWithPrimary="always"
+        window:clearTop="false">
+        <SplitPairFilter
+            window:primaryActivityName=".activity.SettingsActivity"
+            window:secondaryActivityName=".activity.AboutActivity" />
+    </SplitPairRule>
+
+    <!-- Specify a placeholder for the secondary container when content is
+         not available. -->
+    <SplitPlaceholderRule
+        window:placeholderActivityName=".activity.PlaceholderActivity"
+        window:splitRatio="0.38"
+        window:splitLayoutDirection="locale"
+        window:splitMinWidthDp="840"
+        window:splitMaxAspectRatioInPortrait="alwaysAllow"
+        window:stickyPlaceholder="false">
+        <ActivityFilter
+            window:activityName=".activity.MainActivity"/>
+    </SplitPlaceholderRule>
+
+    <!-- Define activities that should never be part of a split. Note: Takes
+         precedence over other split rules for the activity named in the
+         rule. -->
+    <ActivityRule
+        window:alwaysExpand="true">
+        <ActivityFilter
+            window:activityName=".StartupActivity"/>
+    </ActivityRule>
+
+</resources>

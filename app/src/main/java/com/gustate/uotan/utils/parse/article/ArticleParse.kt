@@ -35,7 +35,9 @@ data class ForumArticle(
     val time: String,
     val ipAddress: String,
     val article: String,
-    val numberOfLikes: String
+    val numberOfLikes: String,
+    val isBilibili: Boolean,
+    val bilibiliVideoLink: String
 )
 
 class ArticleParse {
@@ -164,12 +166,16 @@ class ArticleParse {
                 ?.getElementsByTag("a")
                 ?.first()
 
-            val authorName = author!!.text()
-            val authorUrl = BASE_URL + author.attr("href")
+            val authorName = author
+                ?.text()
+                ?: ""
+            val authorUrl = author
+                ?.attr("href")
+                ?: ""
 
             val contentRowLesserElement = articleElement
-                .getElementsByClass("contentRow-lesser")
-                .first()
+                ?.getElementsByClass("contentRow-lesser")
+                ?.first()
 
             val time = contentRowLesserElement!!
                 .getElementsByTag("time")
@@ -186,7 +192,26 @@ class ArticleParse {
                 ?.text()
                 ?: getString(context, R.string.unknown)
 
-            val article = articleElement.getElementsByClass("bbWrapper").first()!!.html()
+            val articleHtml = articleElement
+                .getElementsByClass("bbWrapper")
+                .first()
+                ?.html()!!
+
+            val article = articleElement
+                .getElementsByClass("bbWrapper")
+                .first()
+
+            val isBilibiliVideo = article
+                ?.getElementsByTag("span")
+                ?.first()
+                ?.attr("data-guineapigclub-mediaembed") ==
+                    "bilibili"
+
+            val bilibiliLink = article
+                ?.getElementsByTag("iframe")
+                ?.first()
+                ?.attr("data-guineapigclub-mediaembed-src")
+                ?: "noBilibili"
 
             val loveLink = articleElement
                 .getElementsByClass("reactionsBar-link")
@@ -204,8 +229,6 @@ class ArticleParse {
                 loveString!!.replace("[^0-9]".toRegex(), "")
             } else "0"
 
-            println(article)
-
             return@withContext ForumArticle(
                 topic,
                 title,
@@ -219,12 +242,12 @@ class ArticleParse {
                 authorUrl,
                 time,
                 ipAddress,
-                article,
-                numberOfLikes
+                articleHtml,
+                numberOfLikes,
+                isBilibiliVideo,
+                bilibiliLink
             )
 
         }
-
     }
-
 }

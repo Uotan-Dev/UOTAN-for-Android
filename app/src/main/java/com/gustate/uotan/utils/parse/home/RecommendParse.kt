@@ -164,8 +164,6 @@ class RecommendParse {
 
                 e.printStackTrace()
 
-                println("Error")
-
                 return@withContext FetchResult(result, totalPage)
 
             }

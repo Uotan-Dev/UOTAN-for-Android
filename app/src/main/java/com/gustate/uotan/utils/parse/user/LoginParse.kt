@@ -1,6 +1,6 @@
 package com.gustate.uotan.utils.parse.user
 
-import android.util.Log
+import com.gustate.uotan.utils.Utils.Companion.BASE_URL
 import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
 import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
 import kotlinx.coroutines.Dispatchers
@@ -24,7 +24,7 @@ class LoginParse {
 
         suspend fun login(account: String, password: String): FirstLoginData = withContext(Dispatchers.IO) {
 
-            val loginUrl = "https://www.uotan.cn/login/login"
+            val loginUrl = "$BASE_URL/login/login"
 
             // 第一次请求获取CSRF令牌和Cookies
             val firstResponse = Jsoup.connect(loginUrl)
@@ -56,8 +56,6 @@ class LoginParse {
             )
 
             cookiesFirst = firstResponse.cookies()
-
-            Log.e("cookie", cookiesFirst.toString())
 
             // 发送登录请求（携带初始Cookies）
             val loginResponse = Jsoup.connect(loginUrl)

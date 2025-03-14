@@ -1,5 +1,8 @@
 package com.gustate.uotan.utils.parse.user
 
+import android.content.Context
+import androidx.core.content.ContextCompat
+import com.gustate.uotan.R
 import com.gustate.uotan.utils.Utils.Companion.BASE_URL
 import com.gustate.uotan.utils.Utils.Companion.Cookies
 import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
@@ -17,6 +20,7 @@ import org.jsoup.Jsoup
 
 data class PolicyUpdateInfo(
     val updateTime: String,
+    val type: Int,
     val content: String
 )
 
@@ -35,7 +39,7 @@ class PolicyParse {
         /**
          * 读新版隐私政策
          */
-        suspend fun readPolicy(): PolicyUpdateInfo = withContext(Dispatchers.IO) {
+        suspend fun readPolicy(context: Context): PolicyUpdateInfo = withContext(Dispatchers.IO) {
 
             /** 获取网页 Document 文档 **/
             val document = Jsoup.connect(BASE_URL)
@@ -60,13 +64,31 @@ class PolicyParse {
                 ?.attr("data-date-string")
                 ?: ""
 
+            val titleText = document
+                .select("#main-header > div > div > div > h1")
+                .first()
+                ?.text()
+                ?: ""
+
+            val type = when (titleText) {
+                "隐私政策" -> 1
+                "服务协议" -> 2
+                else -> 3
+            }
+
             /** 获取隐私政策更新内容 **/
-            val content = document
-                .select("#yesSideBar > div > div > div.block > div > div > div")
-                .html()
+            val content = if (type == 1) {
+                document
+                    .select("#yesSideBar > div > div > div.block > div > div > div")
+                    .html()
+            } else {
+                document
+                    .select("#yesSideBar > div > div > div.block > div > div")
+                    .html()
+            }
 
             /** 返回值 **/
-            return@withContext PolicyUpdateInfo(time, content)
+            return@withContext PolicyUpdateInfo(time, type, content)
 
         }
     }

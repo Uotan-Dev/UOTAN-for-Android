@@ -11,6 +11,7 @@ junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 appcompat = "1.6.1"
 kotlinxCoroutinesAndroid = "1.8.0"
+kotlinxSerializationJson = "1.6.0"
 material = "1.10.0"
 constraintlayout = "2.1.4"
 materialVersion = "1.12.0"
@@ -26,10 +27,13 @@ lifecycleViewmodelKtx = "2.6.1"
 fragmentKtx = "1.5.6"
 preference = "1.2.0"
 coreAnimation = "1.0.0"
+startupRuntime = "1.2.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
+androidx-startup-runtime = { module = "androidx.startup:startup-runtime", version.ref = "startupRuntime" }
+androidx-window = { module = "androidx.window:window", version = "1.3.0" }
 com-github-bumptech-glide-glide = { module = "com.github.bumptech.glide:glide", version.ref = "githubGlide" }
 io-github-scwang90-refresh-layout-kernel3 = { module = "io.github.scwang90:refresh-layout-kernel", version.ref = "ioGithubScwang90RefreshLayoutKernel2" }
 jsoup = { module = "org.jsoup:jsoup", version.ref = "jsoup" }
@@ -38,6 +42,7 @@ androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "j
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesAndroid" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
