@@ -20,18 +20,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.gustate.uotan.R
 import com.gustate.uotan.activity.ArticleActivity
+import com.gustate.uotan.utils.Utils
 import com.gustate.uotan.utils.parse.home.ForumLatestItem
 import com.gustate.uotan.utils.parse.home.LatestParse
-import com.gustate.uotan.utils.Utils
+import com.gustate.uotan.utils.Utils.Companion.dpToPx
+import com.gustate.uotan.utils.Utils.Companion.idToAvatar
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-
-private lateinit var recyclerView: RecyclerView
+import kotlin.math.roundToInt
 
 class LatestFragment : Fragment() {
 
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var nullAdapter: LatestAdapter
     private lateinit var fetchResult: MutableList<ForumLatestItem>
 
     override fun onCreateView(
@@ -50,9 +53,16 @@ class LatestFragment : Fragment() {
         val linearLayout = LinearLayoutManager(requireContext())
         linearLayout.orientation = LinearLayoutManager.VERTICAL
         recyclerView.layoutManager = linearLayout
+        nullAdapter = LatestAdapter(requireContext(), mutableListOf())
+        recyclerView.adapter = nullAdapter
         ViewCompat.setOnApplyWindowInsetsListener(view.rootView) { _, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            refreshLayout.layout.setPadding(0, systemBars.top + Utils.dp2Px(114, requireContext()).toInt(), 0, systemBars.bottom + Utils.dp2Px(70, requireContext()).toInt())
+            refreshLayout.layout.setPadding(
+                0,
+                (systemBars.top + 100f.dpToPx(requireContext())).roundToInt(),
+                0,
+                (systemBars.bottom + 70f.dpToPx(requireContext())).roundToInt()
+            )
             insets
         }
         // 启动协程
@@ -87,7 +97,7 @@ class LatestAdapter(private val context: Context, private val latestList: Mutabl
         val itemLayout: View = view.findViewById(R.id.itemLayout)
         val coverImage: ImageView = view.findViewById(R.id.coverImage)
         val userLayout: ConstraintLayout = view.findViewById(R.id.userLayout)
-        val userAvatar: CardView = view.findViewById(R.id.userAvatarCard)
+        val userAvatar: ImageView = view.findViewById(R.id.userAvatar)
         val userName: TextView = view.findViewById(R.id.userNameText)
         val time: TextView = view.findViewById(R.id.time)
         val title: TextView = view.findViewById(R.id.title)
@@ -113,7 +123,7 @@ class LatestAdapter(private val context: Context, private val latestList: Mutabl
                 .load(content.cover)
                 .into(holder.coverImage)
             val userParams = holder.userLayout.layoutParams as ViewGroup.MarginLayoutParams
-            userParams.topMargin = Utils.dp2Px(12, context).toInt()
+            userParams.topMargin = 12f.dpToPx(holder.itemView.context).roundToInt()
             holder.userLayout.layoutParams = userParams
         } else {
             holder.coverImage.isVisible = false
@@ -122,11 +132,11 @@ class LatestAdapter(private val context: Context, private val latestList: Mutabl
             holder.userLayout.layoutParams = userParams
         }
 
-        holder.userAvatar.isVisible = false
-
-        val nameParams = holder.userName.layoutParams as ViewGroup.MarginLayoutParams
-        nameParams.leftMargin = 0
-        holder.userName.layoutParams = nameParams
+        val avatarUrl = idToAvatar(content.userId)
+        Glide.with(holder.itemView.context)
+            .load(avatarUrl)
+            .error(R.drawable.avatar_account)
+            .into(holder.userAvatar)
 
         holder.userName.text = content.author
         holder.time.text = content.time

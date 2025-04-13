@@ -5,7 +5,6 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_1"
     tools:context=".fragment.login.LoginFragment">
 
     <View
@@ -75,8 +74,8 @@
         android:gravity="center"
         android:hint="@string/username_or_email"
         android:inputType="text"
-        android:textColor="@color/label_primary"
-        android:textColorHint="@color/label_tertiary"
+        android:textColor="?attr/colorOnCardPrimary"
+        android:textColorHint="?attr/colorOnCardSecondary"
         android:textCursorDrawable="@drawable/gustatex_cursor_red"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -96,8 +95,8 @@
         android:gravity="center"
         android:hint="@string/password"
         android:inputType="textPassword"
-        android:textColor="@color/label_primary"
-        android:textColorHint="@color/label_tertiary"
+        android:textColor="?attr/colorOnCardPrimary"
+        android:textColorHint="?attr/colorOnCardSecondary"
         android:textCursorDrawable="@drawable/gustatex_cursor_red"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -134,7 +133,7 @@
             android:layout_marginLeft="10dp"
             android:layout_toEndOf="@+id/argumentsCheckBox"
             android:text="@string/allow_arguments"
-            android:textColor="@color/label_secondary"
+            android:textColor="?attr/colorOnBackgroundSecondary"
             android:textSize="12sp"
             tools:ignore="TextContrastCheck" />
     </RelativeLayout>
@@ -147,7 +146,7 @@
         android:layout_marginTop="36dp"
         android:layout_marginEnd="30dp"
         android:alpha="0.15"
-        android:background="@drawable/gustatex_button_red"
+        android:background="@drawable/gustatex_button_filled"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout" >
@@ -158,7 +157,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
             android:text="@string/login"
-            android:textColor="@color/white"
+            android:textColor="?attr/colorOnFilledButton"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -3,7 +3,7 @@
     android:shape="rectangle">
 
     <solid
-        android:color="@color/gustatex_option_background_press"/>
+        android:color="?attr/colorCardPress"/>
 
     <corners android:radius="18dp" />
 

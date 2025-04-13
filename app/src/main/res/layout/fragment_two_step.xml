@@ -5,7 +5,6 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_1"
     tools:context=".fragment.login.TwoStepFragment">
 
     <View
@@ -75,8 +74,8 @@
         android:gravity="center"
         android:hint="@string/one_time_code"
         android:inputType="number|numberPassword"
-        android:textColor="@color/label_primary"
-        android:textColorHint="@color/label_tertiary"
+        android:textColor="?attr/colorOnCardPrimary"
+        android:textColorHint="?attr/colorOnCardSecondary"
         android:textCursorDrawable="@drawable/gustatex_cursor_red"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -91,7 +90,7 @@
         android:layout_marginTop="36dp"
         android:layout_marginEnd="30dp"
         android:alpha="0.15"
-        android:background="@drawable/gustatex_button_red"
+        android:background="@drawable/gustatex_button_filled"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/two_step_edittext">
@@ -102,7 +101,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
             android:text="@string/next"
-            android:textColor="@color/white"
+            android:textColor="?attr/colorOnFilledButton"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -128,7 +127,7 @@
         android:layout_marginEnd="30dp"
         android:fontFamily="sans-serif-medium"
         android:text="@string/two_step_hint"
-        android:textColor="@color/label_primary"
+        android:textColor="?attr/colorOnBackgroundPrimary"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -2,9 +2,9 @@ package com.gustate.uotan.activity
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
+import com.gustate.uotan.BaseActivity
 import com.gustate.uotan.R
 import com.gustate.uotan.anim.TransitionAnimConfig
 import com.gustate.uotan.fragment.login.FirstFragment
@@ -17,7 +17,7 @@ import com.gustate.uotan.utils.Utils.Companion.openImmersion
  * I Love Jiang’Xun
  */
 
-class LoginActivity : AppCompatActivity(), FragmentNavigation {
+class LoginActivity : BaseActivity(), FragmentNavigation {
 
     /**
      * 加载视图后
@@ -64,9 +64,7 @@ class LoginActivity : AppCompatActivity(), FragmentNavigation {
             setReorderingAllowed(true)
         }
     }
-
 }
-
 // 导航接口
 interface FragmentNavigation {
     fun switchFragment(
@@ -76,3 +74,4 @@ interface FragmentNavigation {
         animConfig: TransitionAnimConfig? = TransitionAnimConfig()
     )
 }
+

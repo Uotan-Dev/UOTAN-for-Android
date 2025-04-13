@@ -17,19 +17,19 @@
             android:id="@+id/appbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/background_1">
+            android:background="?attr/colorBackground">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/toolbar_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:collapsedTitleGravity="center"
-                app:collapsedTitleTextColor="@color/label_primary"
-                app:contentScrim="@color/background_1"
+                app:collapsedTitleTextColor="?attr/colorOnBackgroundPrimary"
+                app:contentScrim="?attr/colorBackground"
                 app:expandedTitleGravity="left|bottom"
                 app:expandedTitleTextColor="@android:color/transparent"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-                app:statusBarScrim="@color/background_1"
+                app:statusBarScrim="?attr/colorBackground"
                 app:title="@string/user_name"
                 app:toolbarId="@id/toolbar">
 
@@ -108,6 +108,27 @@
                         android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+                    <View
+                        android:id="@+id/statusBarView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageButton
+                        android:id="@+id/btnSettings"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="18dp"
+                        android:background="@null"
+                        android:paddingTop="18dp"
+                        android:paddingBottom="18dp"
+                        app:tint="@color/white"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/statusBarView2"
+                        app:srcCompat="@drawable/ic_settings" />
 
                     <TextView
                         android:id="@+id/signatureText"
@@ -233,11 +254,11 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="-18dp"
             android:background="@drawable/gustatex_me_top_background"
             android:clipToPadding="false"
             android:fillViewport="true"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:behavior_overlapTop="18dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -278,7 +299,7 @@
                             android:layout_marginTop="8dp"
                             android:fontFamily="sans-serif-medium"
                             android:text="@string/collect"
-                            android:textColor="@color/label_primary"
+                            android:textColor="?attr/colorOnCardPrimary"
                             android:textSize="12sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -321,7 +342,7 @@
                             android:layout_marginTop="8dp"
                             android:fontFamily="sans-serif-medium"
                             android:text="@string/resource"
-                            android:textColor="@color/label_primary"
+                            android:textColor="?attr/colorOnCardPrimary"
                             android:textSize="12sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -357,7 +378,7 @@
                         android:layout_marginStart="16dp"
                         android:fontFamily="sans-serif-medium"
                         android:text="@string/num_zero"
-                        android:textColor="@color/label_primary"
+                        android:textColor="?attr/colorOnCardPrimary"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="@+id/pointsIcon"
                         app:layout_constraintStart_toEndOf="@+id/pointsIcon"
@@ -380,7 +401,7 @@
                         android:layout_marginStart="16dp"
                         android:fontFamily="sans-serif-medium"
                         android:text="@string/num_zero"
-                        android:textColor="@color/label_primary"
+                        android:textColor="?attr/colorOnCardPrimary"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="@+id/uCoinsIcon"
                         app:layout_constraintStart_toEndOf="@+id/uCoinsIcon"
@@ -395,11 +416,11 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/gustatex_button_red"
+                    android:background="@drawable/gustatex_button_filled"
                     android:fontFamily="sans-serif-medium"
                     android:gravity="center"
                     android:text="@string/daily_attendance"
-                    android:textColor="@color/white"
+                    android:textColor="?attr/colorOnFilledButton"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="@+id/pointsLayout"
                     app:layout_constraintEnd_toEndOf="@+id/pointsLayout"
@@ -426,7 +447,7 @@
         android:id="@+id/headerBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/background_1"
+        android:background="?attr/colorBackground"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -453,12 +474,25 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-medium"
                 android:text="@string/me"
-                android:textColor="@color/label_primary"
+                android:textColor="?attr/colorOnBackgroundPrimary"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/btnSettings2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="18dp"
+                android:background="@null"
+                android:paddingTop="18dp"
+                android:paddingBottom="18dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_settings" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

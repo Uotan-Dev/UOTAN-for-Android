@@ -1,6 +1,10 @@
 package com.gustate.uotan.fragment.home
 
+import android.annotation.SuppressLint
+import android.app.ActivityOptions
+import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +24,7 @@ import com.bumptech.glide.Glide
 import com.gustate.uotan.R
 import com.gustate.uotan.activity.ArticleActivity
 import com.gustate.uotan.utils.Utils
+import com.gustate.uotan.utils.Utils.Companion.dpToPx
 import com.gustate.uotan.utils.parse.home.FetchResult
 import com.gustate.uotan.utils.parse.home.ForumRecommendItem
 import com.gustate.uotan.utils.parse.home.RecommendParse
@@ -28,6 +33,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.net.SocketTimeoutException
+import kotlin.math.roundToInt
+import androidx.core.content.withStyledAttributes
+import com.gustate.uotan.utils.Utils.Companion.idToAvatar
 
 
 /**
@@ -93,9 +101,9 @@ class RecommendFragment : Fragment() {
             // 为 refreshLayout 设置必要的 padding
             refreshLayout.layout.setPadding(
                 0,
-                systemBars.top + Utils.dp2Px(114, requireContext()).toInt(),
+                (systemBars.top + 100f.dpToPx(requireContext())).roundToInt(),
                 0,
-                systemBars.bottom + Utils.dp2Px(70, requireContext()).toInt()
+                (systemBars.bottom + 70f.dpToPx(requireContext())).roundToInt()
             )
             // 返回 insets
             insets
@@ -169,13 +177,12 @@ class RecommendFragment : Fragment() {
                                 if (adapter == nullAdapter) {
                                     // 创建新Adapter时设置点击监听
                                     val newAdapter = RecommendAdapter(newItems.toMutableList()).apply {
-                                        onItemClick = { selectedItem ->
-                                            // 安全上下文检查
-                                            context?.let {
-                                                startActivity(Intent(it, ArticleActivity::class.java).apply {
-                                                    putExtra("url", selectedItem.url)
-                                                })
-                                            }
+                                        onItemClick = { selectedItem, itemLayout ->
+                                            val intent = Intent(
+                                                requireContext(),
+                                                ArticleActivity::class.java
+                                            ).putExtra("url", selectedItem.url)
+                                            startActivity(intent)
                                         }
                                     }
                                     recyclerView.adapter = newAdapter
@@ -203,7 +210,7 @@ class RecommendAdapter(private val recommendList: MutableList<ForumRecommendItem
         RecyclerView.Adapter<RecommendAdapter.ViewHolder>() {
 
     // 点击监听接口
-    var onItemClick: ((ForumRecommendItem) -> Unit)? = null
+    var onItemClick: ((ForumRecommendItem, View) -> Unit)? = null
 
     fun addAll(newItems: MutableList<ForumRecommendItem>) {
         val startPosition = recommendList.size
@@ -236,11 +243,12 @@ class RecommendAdapter(private val recommendList: MutableList<ForumRecommendItem
         Glide.with(holder.itemView.context)
             .load(content.cover)
             .into(holder.coverImage)
-        if (content.authorAvatar.startsWith("http")) {
-            Glide.with(holder.itemView.context)
-                .load(content.authorAvatar)
-                .into(holder.userAvatar)
-        }
+
+        val avatarUrl = idToAvatar(content.userId)
+        Glide.with(holder.itemView.context)
+            .load(avatarUrl)
+            .error(R.drawable.avatar_account)
+            .into(holder.userAvatar)
 
         holder.userName.text = content.author
         holder.time.text = content.time
@@ -258,7 +266,7 @@ class RecommendAdapter(private val recommendList: MutableList<ForumRecommendItem
         holder.commentCount.text = content.commentCount
 
         holder.itemLayout.setOnClickListener {
-            onItemClick?.invoke(content)
+            onItemClick?.invoke(content, holder.itemLayout)
         }
 
     }

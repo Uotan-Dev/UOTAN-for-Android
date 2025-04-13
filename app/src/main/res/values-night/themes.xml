@@ -1,7 +1,148 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
     <style name="Base.Theme.Uotan" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+
+        <item name="android:enforceStatusBarContrast">false</item>
+        <item name="android:enforceNavigationBarContrast">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowBackground">@color/colorBackgroundBasic</item>
+
+        <!-- Window Background -->
+        <item name="colorBackground">@color/colorBackgroundBasic</item>
+        <!-- On Window Background Primary -->
+        <item name="colorOnBackgroundPrimary">@color/colorOnBackgroundPrimaryBasic</item>
+        <!-- On Window Background Secondary -->
+        <item name="colorOnBackgroundSecondary">@color/colorOnBackgroundSecondaryBasic</item>
+        <!-- On Window Background Tertiary -->
+        <item name="colorOnBackgroundTertiary">@color/colorOnBackgroundTertiaryBasic</item>
+
+        <!-- Filled Button Normal -->
+        <item name="colorFilledButtonNormal">@color/colorFilledButtonNormalBasic</item>
+        <!-- Filled Button Press -->
+        <item name="colorFilledButtonPress">@color/colorFilledButtonPressBasic</item>
+        <!-- On Filled Button -->
+        <item name="colorOnFilledButton">@color/colorOnFilledButtonBasic</item>
+
+        <!-- Filled Tonal Button Normal -->
+        <item name="colorFilledTonalButtonNormal" format="color">@color/colorFilledTonalButtonNormalBasic</item>
+        <!-- Filled Tonal Button Press -->
+        <item name="colorFilledTonalButtonPress" format="color">@color/colorFilledTonalButtonPressBasic</item>
+        <!-- On Filled Tonal Button -->
+        <item name="colorOnFilledTonalButton" format="color">@color/colorOnFilledTonalButtonBasic</item>
+
+        <!-- Card Normal -->
+        <item name="colorCardNormal">@color/colorCardNormalBasic</item>
+        <!-- Card Press -->
+        <item name="colorCardPress">@color/colorCardPressBasic</item>
+        <!-- On Card Primary -->
+        <item name="colorOnCardPrimary">@color/colorOnCardPrimaryBasic</item>
+        <!-- On Card Secondary -->
+        <item name="colorOnCardSecondary">@color/colorOnCardSecondaryBasic</item>
+
+        <!-- Error Card -->
+        <item name="colorErrorCard">@color/colorErrorCardBasic</item>
+        <!-- On Error Card -->
+        <item name="colorOnErrorCard">@color/colorOnErrorCardBasic</item>
+
+        <!-- Switch Unchecked Track -->
+        <item name="colorSwitchTrackUnchecked">@color/colorSwitchTrackUncheckedBasic</item>
+        <!-- Switch Checked Track -->
+        <item name="colorSwitchTrackChecked">@color/colorSwitchTrackCheckedBasic</item>
+        <!-- Switch Unchecked Thumb -->
+        <item name="colorSwitchThumbUnchecked">@color/colorSwitchThumbUncheckedBasic</item>
+        <!-- Switch Checked Thumb -->
+        <item name="colorSwitchThumbChecked">@color/colorSwitchThumbCheckedBasic</item>
+
+        <!-- Dialog Background -->
+        <item name="colorDialogBackground">@color/colorDialogBackgroundBasic</item>
+        <!-- On Dialog Normal -->
+        <item name="colorOnDialogNormal">@color/colorOnDialogNormalBasic</item>
+        <!-- On Dialog Press -->
+        <item name="colorOnDialogPress">@color/colorOnDialogPressBasic</item>
+        <!-- Dialog Tap -->
+        <item name="colorDialogTap">@color/colorDialogTapBasic</item>
+
+        <!-- Bottom Navigation Bar Background (Blur Cover) -->
+        <item name="colorBottomNavigationBarBackground">@color/colorBottomNavigationBarBackgroundBasic</item>
+        <!-- Bottom Navigation Bar On Background Primary -->
+        <item name="colorBottomNavigationBarOnBackgroundPrimary">@color/colorBottomNavigationBarOnBackgroundPrimaryBasic</item>
+        <!-- Bottom Navigation Bar On Background Secondary -->
+        <item name="colorBottomNavigationBarOnBackgroundSecondary">@color/colorBottomNavigationBarOnBackgroundSecondaryBasic</item>
+
     </style>
+
+    <style name="Monet.Theme.Uotan" parent="Theme.Material3.DayNight.NoActionBar">
+
+        <item name="android:enforceStatusBarContrast">false</item>
+        <item name="android:enforceNavigationBarContrast">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowBackground">@color/colorBackgroundMonet</item>
+
+        <!-- Window Background -->
+        <item name="colorBackground">@color/colorBackgroundMonet</item>
+        <!-- On Window Background Primary -->
+        <item name="colorOnBackgroundPrimary">@color/colorOnBackgroundPrimaryMonet</item>
+        <!-- On Window Background Secondary -->
+        <item name="colorOnBackgroundSecondary">@color/colorOnBackgroundSecondaryMonet</item>
+        <!-- On Window Background Tertiary -->
+        <item name="colorOnBackgroundTertiary">@color/colorOnBackgroundTertiaryMonet</item>
+
+        <!-- Filled Button Normal -->
+        <item name="colorFilledButtonNormal">@color/colorFilledButtonNormalMonet</item>
+        <!-- Filled Button Press -->
+        <item name="colorFilledButtonPress">@color/colorFilledButtonPressMonet</item>
+        <!-- On Filled Button -->
+        <item name="colorOnFilledButton">@color/colorOnFilledButtonMonet</item>
+
+        <!-- Filled Tonal Button Normal -->
+        <item name="colorFilledTonalButtonNormal" format="color">@color/colorFilledTonalButtonNormalMonet</item>
+        <!-- Filled Tonal Button Press -->
+        <item name="colorFilledTonalButtonPress" format="color">@color/colorFilledTonalButtonPressMonet</item>
+        <!-- On Filled Tonal Button -->
+        <item name="colorOnFilledTonalButton" format="color">@color/colorOnFilledTonalButtonMonet</item>
+
+        <!-- Card Normal -->
+        <item name="colorCardNormal">@color/colorCardNormalMonet</item>
+        <!-- Card Press -->
+        <item name="colorCardPress">@color/colorCardPressMonet</item>
+        <!-- On Card Primary -->
+        <item name="colorOnCardPrimary">@color/colorOnCardPrimaryMonet</item>
+        <!-- On Card Secondary -->
+        <item name="colorOnCardSecondary">@color/colorOnCardSecondaryMonet</item>
+
+        <!-- Error Card -->
+        <item name="colorErrorCard">@color/colorErrorCardMonet</item>
+        <!-- On Error Card -->
+        <item name="colorOnErrorCard">@color/colorOnErrorCardMonet</item>
+
+        <!-- Switch Unchecked Track -->
+        <item name="colorSwitchTrackUnchecked">@color/colorSwitchTrackUncheckedMonet</item>
+        <!-- Switch Checked Track -->
+        <item name="colorSwitchTrackChecked">@color/colorSwitchTrackCheckedMonet</item>
+        <!-- Switch Unchecked Thumb -->
+        <item name="colorSwitchThumbUnchecked">@color/colorSwitchThumbUncheckedMonet</item>
+        <!-- Switch Checked Thumb -->
+        <item name="colorSwitchThumbChecked">@color/colorSwitchThumbCheckedMonet</item>
+
+        <!-- Dialog Background -->
+        <item name="colorDialogBackground">@color/colorDialogBackgroundMonet</item>
+        <!-- On Dialog Normal -->
+        <item name="colorOnDialogNormal">@color/colorOnDialogNormalMonet</item>
+        <!-- On Dialog Press -->
+        <item name="colorOnDialogPress">@color/colorOnDialogPressMonet</item>
+        <!-- Dialog Tap -->
+        <item name="colorDialogTap">@color/colorDialogTapMonet</item>
+
+        <!-- Bottom Navigation Bar Background (Blur Cover) -->
+        <item name="colorBottomNavigationBarBackground">@color/colorBottomNavigationBarBackgroundMonet</item>
+        <!-- Bottom Navigation Bar On Background Primary -->
+        <item name="colorBottomNavigationBarOnBackgroundPrimary">@color/colorBottomNavigationBarOnBackgroundPrimaryMonet</item>
+        <!-- Bottom Navigation Bar On Background Secondary -->
+        <item name="colorBottomNavigationBarOnBackgroundSecondary">@color/colorBottomNavigationBarOnBackgroundSecondaryMonet</item>
+
+    </style>
+
 </resources>

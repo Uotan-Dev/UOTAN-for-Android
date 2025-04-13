@@ -236,7 +236,7 @@ class TwoStepFragment : Fragment() {
             val startupTypeData = startupTypeParse()
             withContext(Dispatchers.Main) {
                 if (startupTypeData.isAgreement) {
-                    startActivity(startupTypeData.updatePolicyActivityIntent)
+                    startActivity(startupTypeData.updatePolicyActivityIntent!!)
                     activity?.finish()
                 } else if (startupTypeData.isSmsVerify) {
                     Toast.makeText(

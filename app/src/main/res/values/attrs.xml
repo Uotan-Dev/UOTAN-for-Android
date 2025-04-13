@@ -1,5 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- Window Background -->
+    <attr name="colorBackground" format="color" />
+    <!-- On Window Background Primary -->
+    <attr name="colorOnBackgroundPrimary" format="color" />
+    <!-- On Window Background Secondary -->
+    <attr name="colorOnBackgroundSecondary" format="color" />
+    <!-- On Window Background Tertiary -->
+    <attr name="colorOnBackgroundTertiary" format="color" />
+
+    <!-- Filled Button Normal -->
+    <attr name="colorFilledButtonNormal" format="color" />
+    <!-- Filled Button Press -->
+    <attr name="colorFilledButtonPress" format="color" />
+    <!-- On Filled Button -->
+    <attr name="colorOnFilledButton" format="color" />
+
+    <!-- Filled Tonal Button Normal -->
+    <attr name="colorFilledTonalButtonNormal" format="color" />
+    <!-- Filled Tonal Button Press -->
+    <attr name="colorFilledTonalButtonPress" format="color" />
+    <!-- On Filled Tonal Button -->
+    <attr name="colorOnFilledTonalButton" format="color" />
+
+    <!-- Card Normal -->
+    <attr name="colorCardNormal" format="color" />
+    <!-- Card Press -->
+    <attr name="colorCardPress" format="color" />
+    <!-- On Card Primary -->
+    <attr name="colorOnCardPrimary" format="color"/>
+    <!-- On Card Secondary -->
+    <attr name="colorOnCardSecondary" format="color"/>
+
+    <!-- Error Card -->
+    <attr name="colorErrorCard" format="color"/>
+    <!-- On Error Card -->
+    <attr name="colorOnErrorCard" format="color"/>
+
+    <!-- Switch Unchecked Track -->
+    <attr name="colorSwitchTrackUnchecked" format="color" />
+    <!-- Switch Checked Track -->
+    <attr name="colorSwitchTrackChecked" format="color" />
+    <!-- Switch Unchecked Thumb -->
+    <attr name="colorSwitchThumbUnchecked" format="color" />
+    <!-- Switch Checked Thumb -->
+    <attr name="colorSwitchThumbChecked" format="color" />
+
+    <!-- Dialog Background -->
+    <attr name="colorDialogBackground" format="color" />
+    <!-- On Dialog Normal -->
+    <attr name="colorOnDialogNormal" format="color" />
+    <!-- On Dialog Press -->
+    <attr name="colorOnDialogPress" format="color" />
+    <!-- Dialog Tap -->
+    <attr name="colorDialogTap" format="color" />
+
+    <!-- Bottom Navigation Bar Background (Blur Cover) -->
+    <attr name="colorBottomNavigationBarBackground" format="color" />
+    <!-- Bottom Navigation Bar On Background Primary -->
+    <attr name="colorBottomNavigationBarOnBackgroundPrimary" format="color" />
+    <!-- Bottom Navigation Bar On Background Secondary -->
+    <attr name="colorBottomNavigationBarOnBackgroundSecondary" format="color" />
+
     <declare-styleable name="OptionView">
         <attr name="optionIcon" format="reference" />
         <attr name="optionTitle" format="string" />

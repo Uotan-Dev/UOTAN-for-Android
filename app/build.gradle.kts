@@ -1,18 +1,18 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.devtools.ksp)
 }
 
 android {
     namespace = "com.gustate.uotan"
     compileSdk = 35
-
     defaultConfig {
         applicationId = "com.gustate.uotan"
-        minSdk = 28
+        minSdk = 31
         targetSdk = 35
-        versionCode = 1019
-        versionName = "1.0.1.9 Beta"
+        versionCode = 1021
+        versionName = "1.0.2.1 Beta"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -40,16 +40,25 @@ android {
 
 dependencies {
 
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.core.animation)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.window)
     implementation(libs.androidx.startup.runtime)
-    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
+
     implementation(libs.material)
-    implementation(libs.material.v1120)
-    implementation(libs.com.github.bumptech.glide.glide)
+    implementation(libs.glide)
     implementation(libs.androidx.constraintlayout)
+
+    // ShapeBlurView (https://github.com/centerzx/ShapeBlurView)
     implementation(libs.shapeblurview)
+
+    // Jsoup (https://github.com/jhy/jsoup)
     implementation(libs.jsoup)
+
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.legacy.support.v4)
@@ -58,11 +67,32 @@ dependencies {
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.preference)
     implementation(libs.androidx.datastore.preferences)
+
+    // OkHttp (https://github.com/square/okhttp)
     implementation(libs.okhttp)
-    implementation(libs.androidx.core.animation)
-    implementation(libs.io.github.scwang90.refresh.layout.kernel3)      //核心必须依赖
-    implementation(libs.refresh.header.classics)    //经典刷新头
+
+
+
+    // SmartRefreshLayout (https://github.com/scwang90/SmartRefreshLayout)
+    implementation(libs.refreshlayout)
+    implementation(libs.refreshlayout.classicsheader)
+
     implementation(libs.kotlinx.serialization.json)
+
+    // DialogX (https://github.com/kongzue/DialogX)
+    implementation(libs.dialogx)
+    implementation(libs.dialogx.materialyou)
+
+    // EasyAndroid (https://github.com/easyandroidgroup/EasyAndroid)
+    implementation(libs.easyandroid)
+
+    // Fetch (https://github.com/tonyofrancis/Fetch)
+    implementation(libs.fetch)
+
+    implementation(libs.volley)
+    implementation(libs.gson)
+    implementation(libs.google.flexbox)
+    implementation(libs.firebase.messaging.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

@@ -1,81 +1,113 @@
 package com.gustate.uotan.utils.parse.update
 
+import android.content.Context
+import com.google.gson.Gson
+import com.google.gson.annotations.SerializedName
+import com.google.gson.reflect.TypeToken
+import com.gustate.uotan.utils.Utils
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.Json
-import org.jsoup.Jsoup
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
+import java.io.IOException
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
 
-@Serializable
-data class VersionResponse(
-    @SerialName("latest_version_name")
-    val latestVersionName: String,
-    @SerialName("latest_version_code")
-    val latestVersionCode: Int,
-    @SerialName("version_channel")
-    val versionChannel: String,
-    @SerialName("versions")
-    val versions: MutableList<VersionInfo>,
-    @SerialName("min_support_version")
-    val minSupportVersion: Int,
-    @SerialName("force_update_versions")
-    val forceUpdateVersions: MutableList<Int>
+data class UpdateLog(
+    @SerializedName("type") val category: String,
+    @SerializedName("content") val description: String
 )
 
-@Serializable
 data class VersionInfo(
-    @SerialName("version_name") val versionName: String? = null,
-    @SerialName("version") val versionAlt: String? = null,  // 处理字段名不一致
-    @SerialName("version_code") val versionCode: Int? = null,
-    @SerialName("code") val codeAlt: Int? = null,  // 备用字段
-    @SerialName("update_date") val updateDate: String,
-    @SerialName("update_log") val updateLog: List<UpdateLog>,
-    @SerialName("download_url") val downloadUrl: String? = null
-) {
-    // 合并不同字段名获取最终值
-    val finalVersionName: String get() = versionName ?: versionAlt ?: ""
-    val finalVersionCode: Int get() = versionCode ?: codeAlt ?: 0
-}
+    @SerializedName("latest_version_name") val latestVersionName: String,
+    @SerializedName("latest_version_code") val latestVersionCode: Int,
+    @SerializedName("latest_version_download_url") val downloadUrl: String,
+    @SerializedName("version_channel") val channel: String,
+    @SerializedName("versions") val historyVersions: MutableList<Version>,
+    @SerializedName("min_support_version") val minSupportedVersion: Int,
+    @SerializedName("force_update_versions") val forceUpdateVersions: List<Int>
+)
 
-@Serializable
-data class UpdateLog(
-    val type: String,
-    val content: String
+data class Version(
+    @SerializedName("version_name") val versionName: String,
+    @SerializedName("version_code") val code: Int,
+    @SerializedName("update_date") val releaseDate: String,
+    @SerializedName("update_log") val changelog: MutableList<UpdateLog>
+)
+
+data class NewVersion(
+    val newVersionName: String,
+    val newVersionCode: Int,
+    val newVersionLog: MutableList<UpdateLog>,
+    val newVersionLink: String,
+    val updateDate: String
 )
 
 class UpdateParse {
-    // 3. Jsoup网络请求 + JSON解析
-    suspend fun fetchVersionInfo(url: String): VersionResponse? = withContext(Dispatchers.IO) {
-        try {
-            // 使用Jsoup获取原始JSON
-            val response = Jsoup.connect(url)
-                .ignoreContentType(true)  // 关键参数：允许非HTML内容
-                .timeout(15000)
-                .execute()
+    companion object {
+        private val gson = Gson() // 复用 Gson 实例
 
-            // 使用Kotlinx序列化解析JSON
-            Json.decodeFromString<VersionResponse>(response.body())
-        } catch (e: Exception) {
-            e.printStackTrace()
-            null
+        suspend fun isVerLow(context: Context): Boolean = withContext(Dispatchers.IO) {
+            val currentVerCode = Utils.getVersionCode(context)
+            val latestVerCode = fetchUpdateLog().latestVersionCode
+            return@withContext currentVerCode.toInt() < latestVerCode
         }
-    }
-}
 
-fun main() {
-    try {
-        // 使用Jsoup获取原始JSON
-        val response = Jsoup
-            .connect("https://raw.githubusercontent.com/Uotan-Dev/UOTAN-for-Android/refs/heads/main/update.json")
-            .ignoreContentType(true)  // 关键参数：允许非 HTML 内容
-            .timeout(15000)
-            .get()
+        suspend fun fetchNewVersion(): NewVersion = withContext(Dispatchers.IO) {
+            val latestVerInfo = fetchUpdateLog()
+            val latestVerName = latestVerInfo.latestVersionName
+            val latestVerCode = latestVerInfo.latestVersionCode
+            val latestVerLog = latestVerInfo.historyVersions[0].changelog
+            val latestVerLink = latestVerInfo.downloadUrl
+            val latestVerData = latestVerInfo.historyVersions[0].releaseDate
+            return@withContext NewVersion(
+                latestVerName,
+                latestVerCode,
+                latestVerLog,
+                latestVerLink,
+                latestVerData
+            )
+        }
 
-        // 使用Kotlinx序列化解析JSON
-        Json.decodeFromString<VersionResponse>(response.allElements.first().text().toString())
-        println(Json.decodeFromString<VersionResponse>(response.allElements.first().text().toString()))
-    } catch (e: Exception) {
-        e.printStackTrace()
+        suspend fun fetchUpdateLog(): VersionInfo = withContext(Dispatchers.IO) {
+            try {
+                val client = OkHttpClient()
+                val request = Request.Builder()
+                    .url("https://wds.ecsxs.com/232072.json")
+                    .build()
+
+                suspendCancellableCoroutine { continuation ->
+                    client.newCall(request).enqueue(object : Callback {
+                        override fun onResponse(call: Call, response: Response) {
+                            response.use {
+                                if (!it.isSuccessful) {
+                                    continuation.resumeWithException(IOException("HTTP ${it.code}"))
+                                    return
+                                }
+
+                                try {
+                                    val body = it.body ?: throw IOException("Empty response")
+                                    val json = body.string()
+                                    val versionInfo: VersionInfo = gson.fromJson(json, object : TypeToken<VersionInfo>() {}.type)
+                                    continuation.resume(versionInfo)
+                                } catch (e: Exception) {
+                                    continuation.resumeWithException(e)
+                                }
+                            }
+                        }
+
+                        override fun onFailure(call: Call, e: IOException) {
+                            continuation.resumeWithException(e)
+                        }
+                    })
+                }
+            } catch (e: Exception) {
+                throw IOException("Network request failed", e)
+            }
+        }
     }
 }

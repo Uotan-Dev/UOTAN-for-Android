@@ -1,11 +1,14 @@
 package com.gustate.uotan.fragment.home
 
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
@@ -13,6 +16,8 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.gustate.uotan.R
+import com.gustate.uotan.SearchActivity
+import com.gustate.uotan.activity.PostArticleActivity
 
 class HomeFragment : Fragment() {
 
@@ -23,6 +28,7 @@ class HomeFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_home, container,false)
     }
 
+    @SuppressLint("Recycle", "ResourceType")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         /*
@@ -46,26 +52,43 @@ class HomeFragment : Fragment() {
         val recommendItem = view.findViewById<TextView>(R.id.recommend)
         latestItem.setOnClickListener{ homeViewPager.setCurrentItem(0, true) }
         recommendItem.setOnClickListener{ homeViewPager.setCurrentItem(1, true) }
+        val typedArray = requireContext().obtainStyledAttributes(intArrayOf(R.attr.colorOnBackgroundPrimary, R.attr.colorOnBackgroundSecondary))
+        // 底栏按钮默认颜色
+        val normalColor = typedArray.getColor(1, Color.RED)
+        // 底栏按钮选择颜色
+        val selectedColor = typedArray.getColor(0, Color.RED)
+        typedArray.recycle()
         homeViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 when (position) {
                     0 -> {
                         latestItem.textSize = 16f
-                        latestItem.setTextColor(ContextCompat.getColor(requireContext(), R.color.label_primary))
+                        latestItem.setTextColor(selectedColor)
+                        latestItem.typeface = Typeface.create("sans-serif-medium", Typeface.NORMAL)
                         recommendItem.textSize = 14f
-                        recommendItem.setTextColor(ContextCompat.getColor(requireContext(), R.color.label_secondary))
+                        recommendItem.setTextColor(normalColor)
+                        recommendItem.typeface = Typeface.create("sans-serif", Typeface.NORMAL)
                     }
                     1 -> {
                         latestItem.textSize = 14f
-                        latestItem.setTextColor(ContextCompat.getColor(requireContext(), R.color.label_secondary))
+                        latestItem.setTextColor(normalColor)
+                        latestItem.typeface = Typeface.create("sans-serif", Typeface.NORMAL)
                         recommendItem.textSize = 16f
-                        recommendItem.setTextColor(ContextCompat.getColor(requireContext(), R.color.label_primary))
+                        recommendItem.setTextColor(selectedColor)
+                        recommendItem.typeface = Typeface.create("sans-serif-medium", Typeface.NORMAL)
                     }
                 }
             }
         })
+        val btnNew = view.findViewById<View>(R.id.btnNew)
+        btnNew.setOnClickListener {
+            startActivity(Intent(requireContext(), PostArticleActivity::class.java))
+        }
+        val searchBox = view.findViewById<View>(R.id.searchBox)
+        searchBox.setOnClickListener {
+            startActivity(Intent(requireContext(), SearchActivity::class.java))
+        }
     }
-
 }
 
 class HomeViewPagerAdapter(fragment: Fragment):

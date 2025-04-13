@@ -2,11 +2,11 @@ package com.gustate.uotan.activity
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
+import com.gustate.uotan.BaseActivity
 import com.gustate.uotan.R
 import com.gustate.uotan.utils.Utils.Companion.openImmersion
 
-class PlaceholderActivity : AppCompatActivity() {
+class PlaceholderActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

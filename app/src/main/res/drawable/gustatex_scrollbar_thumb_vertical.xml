@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:right="4dp">
+    <item
+        android:right="4dp">
         <shape>
             <corners android:radius="40dp" />
             <size android:width="4dp" />
-            <solid android:color="@color/scrollbar_color" />
+            <solid
+                android:color="?attr/colorBottomNavigationBarBackground"
+                android:alpha="0.5"/>
         </shape>
     </item>
 </layer-list>

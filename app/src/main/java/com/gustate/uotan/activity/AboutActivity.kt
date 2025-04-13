@@ -5,15 +5,16 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.gustate.uotan.BaseActivity
 import com.gustate.uotan.anim.TitleAnim
 import com.gustate.uotan.databinding.ActivityAboutBinding
-import com.gustate.uotan.utils.Utils
+import com.gustate.uotan.utils.Utils.Companion.dpToPx
 import com.gustate.uotan.utils.Utils.Companion.getVersionCode
 import com.gustate.uotan.utils.Utils.Companion.getVersionName
 import com.gustate.uotan.utils.Utils.Companion.openImmersion
+import kotlin.math.roundToInt
 
 /**
  * 关于页面 (Activity)
@@ -22,7 +23,7 @@ import com.gustate.uotan.utils.Utils.Companion.openImmersion
  * I Love Jiang’Xun
  */
 
-class AboutActivity : AppCompatActivity() {
+class AboutActivity : BaseActivity() {
 
     /** 全类变量 **/
     // 初始化视图绑定
@@ -54,15 +55,15 @@ class AboutActivity : AppCompatActivity() {
             // 设置滚动布局内的根布局的边距
             binding.refreshLayout.setPadding(
                 systemBars.left,
-                Utils.dp2Px(60, this).toInt() + systemBars.top,
+                (systemBars.top + 60f.dpToPx(this)).roundToInt(),
                 systemBars.right,
-                Utils.dp2Px(10, this).toInt() + systemBars.bottom
+                (systemBars.bottom + 10f.dpToPx(this)).roundToInt()
             )
             // 创建 TitleAnim 实例
             TitleAnim(
                 binding.title,
                 binding.bigTitleText,
-                Utils.dp2Px(60, this) + systemBars.top.toFloat(),
+                (systemBars.top + 60f.dpToPx(this)),
                 systemBars.top.toFloat()
             )
             // 返回 insets
@@ -83,7 +84,7 @@ class AboutActivity : AppCompatActivity() {
         openUrl(binding.coreteam8, "https://www.uotan.cn/members/haoyang.2377/")
         openUrl(binding.specialthanks1, "https://www.uotan.cn/pages/about/")
         openUrl(binding.specialthanks2, "https://www.uotan.cn/members/3059/")
-        openUrl(binding.openSourceOption, "https://github.com/Uotan-Dev/UOTAN-for-Android/")
+        openUrl(binding.openSourceCard, "https://github.com/Uotan-Dev/UOTAN-for-Android/")
 
         binding.back.setOnClickListener{
             finish()

@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package com.gustate.uotan.utils
 
 import android.annotation.SuppressLint
@@ -5,14 +7,24 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
-import android.content.res.Configuration
-import android.net.Uri
-import android.os.Build
-import android.os.Bundle
+import android.util.Log
 import android.view.Window
 import android.view.WindowManager
-import androidx.fragment.app.Fragment
-import com.gustate.uotan.anim.TransitionAnimConfig
+import android.widget.TextView
+import androidx.core.net.toUri
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.Target
+import com.gustate.uotan.R
+import com.haoge.easyandroid.easy.EasyImageGetter
+import kotlin.math.roundToInt
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import java.io.File
+import java.io.FileOutputStream
+import java.net.HttpURLConnection
+import java.net.URL
 
 /*
  * 这是一个工具（Utils）类
@@ -22,33 +34,37 @@ import com.gustate.uotan.anim.TransitionAnimConfig
 class Utils {
 
     companion object {
-
-        const val BASE_URL = "https://www.uotan.cn/"
+        const val REQUEST_CODE_PERMISSION = 100
+        const val BASE_URL = "https://www.uotan.cn"
         const val USER_AGENT = "UotanAPP/1.0"
         const val TIMEOUT_MS = 30000
 
         var Cookies = mapOf<String,String>()
         var isLogin = false
 
-        fun dp2Px(dp: Int, context: Context): Float {
-            val density = context.resources.displayMetrics.density
-            return dp * density
-        }
+        private val Context.density: Float
+            get() = resources.displayMetrics.density
+
+        private val Context.fontScale: Float
+            get() = resources.configuration.fontScale
+
+        fun Float.dpToPx(context: Context): Float = this * context.density
+        fun Float.spToPx(context: Context): Float = this * context.density * context.fontScale
+        fun Float.pxToDp(context: Context): Float = this / context.density
+        fun Float.pxToSp(context: Context): Float = this / (context.density * context.fontScale)
 
         fun openImmersion(window: Window) {
-
             if (isXiaomi()) {
                 //设置沉浸式状态栏，在金凡的狗屎系统中，状态栏背景透明。原生系统中，状态栏背景半透明。
-                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-                window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-                window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+                window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+                window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
             }
-
         }
 
         fun openUrlInBrowser(context: Context, url: String) {
             val intent = Intent(Intent.ACTION_VIEW).apply {
-                data = Uri.parse(url)
+                data = url.toUri()
                 // 确保在新任务栈打开
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK
             }
@@ -66,14 +82,14 @@ class Utils {
             return try {
                 val systemProperties = Class.forName("android.os.SystemProperties")
                 val getMethod = systemProperties.getMethod("get", String::class.java)
-                getMethod.invoke(systemProperties, propName)?.toString()?.isNotEmpty() ?: false
+                getMethod.invoke(systemProperties, propName)?.toString()?.isNotEmpty() == true
             } catch (e: Exception) {
                 false
             }
         }
 
         //版本名
-        fun getVersionName(context: Context) = getPackageInfo(context).versionName
+        fun getVersionName(context: Context) = getPackageInfo(context).versionName.toString()
         //版本名
         fun getVersionCode(context: Context) = getPackageInfo(context).longVersionCode.toString()
 
@@ -83,6 +99,79 @@ class Utils {
             return  pi
         }
 
-    }
+        fun idToAvatar(id: String): String {
+            val urlPrefix = "$BASE_URL/data/avatars/o/"
+            val path = if (id.length >= 4) {
+                id.dropLast(3)
+            } else {
+                "0"
+            }
+            val avatarUrl = "${urlPrefix}${path}/${id}.jpg"
+            return avatarUrl
+        }
 
+        fun htmlToSpan(textView: TextView, html: String) {
+            EasyImageGetter.create()
+                .setPlaceHolder(R.drawable.ic_uo)
+                .setLoader { url ->
+                    if (textView.width == 0) return@setLoader null
+
+                    // 计算目标宽度（减去左右padding）
+                    val targetWidth = textView.width - textView.paddingLeft - textView.paddingRight
+                    if (targetWidth <= 0) return@setLoader null
+
+                    // 使用Glide加载并调整尺寸
+                    try {
+                        Glide.with(textView.context)
+                            .load(url)
+                            .apply(RequestOptions().transform(RoundedCorners(18f.dpToPx(textView.context).roundToInt())))
+                            .override(targetWidth, Target.SIZE_ORIGINAL)
+                            .fitCenter()
+                            .submit()
+                            .get()
+                    } catch (e: Exception) {
+                        null
+                    }
+                }
+                .loadHtml(html, textView)
+        }
+        suspend fun saveToExternalPrivateDir(
+            context: Context,
+            urlString: String,
+            dirType: String, // 子目录路径（如 "Documents/Images"）
+            fileName: String // 可选自定义文件名
+        ): File? = withContext(Dispatchers.IO) {
+            try {
+                // 0. 检查外部存储是否可用
+                if (context.getExternalFilesDir(null) == null) {
+                    Log.e("FileSave", "External storage not available")
+                    return@withContext null
+                }
+
+                // 1. 创建自定义子目录
+                val targetDir = File(context.getExternalFilesDir(null), dirType).apply {
+                    if (!exists()) mkdirs() // 递归创建目录
+                }
+
+                // 3. 创建目标文件
+                val outputFile = File(targetDir, fileName)
+
+                // 4. 下载并保存文件
+                val url = URL(urlString)
+                val connection = url.openConnection() as HttpURLConnection
+                connection.connectTimeout = TIMEOUT_MS
+                connection.connect()
+
+                connection.inputStream.use { input ->
+                    FileOutputStream(outputFile).use { output ->
+                        input.copyTo(output)
+                    }
+                }
+                outputFile
+            } catch (e: Exception) {
+                Log.e("err", e.toString())
+                null
+            }
+        }
+    }
 }

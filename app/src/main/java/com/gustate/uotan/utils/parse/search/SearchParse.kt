@@ -33,8 +33,8 @@ data class FetchResult(
 class SearchParse {
     companion object {
 
-        suspend fun searchInfoParse(content: String, page: String): FetchResult = withContext(Dispatchers.IO) {
-            val document = getDocument(content, page)
+        suspend fun searchInfoParse(content: String, page: String, isMePage: Boolean = false): FetchResult = withContext(Dispatchers.IO) {
+            val document = getDocument(content, page, isMePage)
             val result = searchParse(document)
             return@withContext result
         }
@@ -55,14 +55,22 @@ class SearchParse {
             return@withContext document
         }
 
-        private suspend fun getDocument(search: String, page: String): Document = withContext(Dispatchers.IO) {
-            val document = Jsoup
-                .connect("$BASE_URL/search/$search/?page=$page")
-                .userAgent(USER_AGENT)
-                .timeout(TIMEOUT_MS)
-                .cookies(Cookies)
-                .get()
-            return@withContext document
+        private suspend fun getDocument(search: String, page: String, isMePage: Boolean): Document = withContext(Dispatchers.IO) {
+            return@withContext if (isMePage) {
+                Jsoup
+                    .connect("$BASE_URL/search/$search/?page=$page")
+                    .userAgent(USER_AGENT)
+                    .timeout(TIMEOUT_MS)
+                    .cookies(Cookies)
+                    .get()
+            } else {
+                Jsoup
+                    .connect("${BASE_URL}search/${(10000..99999).random()}/?page=$page&q=$search&t=post&o=relevance")
+                    .userAgent(USER_AGENT)
+                    .timeout(TIMEOUT_MS)
+                    .cookies(Cookies)
+                    .get()
+            }
         }
 
         private fun searchParse(document: Document): FetchResult {

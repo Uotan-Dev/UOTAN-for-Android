@@ -5,7 +5,7 @@
     android:viewportWidth="20"
     android:width="20dp">
     <path
-        android:fillColor="@color/gustatex_check_box"
+        android:fillColor="?attr/colorCardNormal"
         android:pathData="M0,10a10,10 0,1 0,20 0a10,10 0,1 0,-20 0z"
         android:strokeWidth="1"/>
 

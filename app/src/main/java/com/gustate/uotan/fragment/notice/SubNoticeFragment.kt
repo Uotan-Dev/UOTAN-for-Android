@@ -20,11 +20,13 @@ import com.gustate.uotan.R
 import com.gustate.uotan.anim.TitleAnim
 import com.gustate.uotan.utils.Utils
 import com.gustate.uotan.utils.Utils.Companion.BASE_URL
+import com.gustate.uotan.utils.Utils.Companion.dpToPx
 import com.gustate.uotan.utils.parse.notice.NoticeItem
 import com.gustate.uotan.utils.parse.notice.NoticeParse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlin.math.roundToInt
 
 class SubNoticeFragment : Fragment() {
 
@@ -46,16 +48,17 @@ class SubNoticeFragment : Fragment() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             recyclerView.setPadding(
                 0,0,0,
-                systemBars.bottom + Utils.dp2Px(70, requireContext()).toInt()
+                (systemBars.bottom + 70f.dpToPx(requireContext())).roundToInt()
             )
             insets
         }
+        linearLayout.orientation = LinearLayoutManager.VERTICAL
+        recyclerView.layoutManager = linearLayout
+        recyclerView.adapter = NoticeAdapter(mutableListOf())
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
                 val noticeData = NoticeParse.fetchNoticeData()
                 withContext(Dispatchers.Main) {
-                    linearLayout.orientation = LinearLayoutManager.VERTICAL
-                    recyclerView.layoutManager = linearLayout
                     val noticeAdapter = NoticeAdapter(noticeData)
                     recyclerView.adapter = noticeAdapter
                 }

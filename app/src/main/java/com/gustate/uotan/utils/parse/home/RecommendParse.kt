@@ -13,7 +13,7 @@ data class ForumRecommendItem(
     val title: String,
     val describe: String,
     val cover: String,
-    val authorAvatar: String,
+    val userId: String,
     val author: String,
     val time: String,
     val topic: String,
@@ -89,34 +89,28 @@ class RecommendParse {
 
                     /** 获取文章封面 **/
                     // 获取封面所在 Element
-                    val coverElement = element.getElementsByClass("porta-header-image").first()
-                    // 获取每个元素的 style 属性值, 这个属性值包含封面的 URL
-                    val styleAttr = coverElement!!.attr("style")
+                    val coverStyle = element
+                        .getElementsByClass("porta-header-image")
+                        .first()
+                        ?.attr("style")
+                        ?: ""
                     // 定义一个正则表达式，用来匹配 style 属性中的 URL
                     val urlPattern = "url\\('(.*?)'\\)".toRegex()
                     // 在 style 属性值中查找符合正则表达式的内容
-                    val coverUrl = urlPattern.find(styleAttr)!!.groupValues[1]
+                    val coverUrl = urlPattern
+                        .find(coverStyle)
+                        ?.groupValues[1]
+                        ?.removeSuffix("/")
+                        ?: ""
 
-                    /** 获取作者头像 **/
-                    // 获取头像所在的 Wrapper
-                    val avatarElement = element.getElementsByClass("avatarWrapper").first()
-                    // 作者头像分为两种，一种用户自定义了头像，一种用户未自定义头像使用其昵称的第一个字符
-                    // 存储有头像用户的头像，无头像用户没有这个 tag
-                    val imgElement = avatarElement!!.getElementsByTag("img").first()
-                    // 这个 span 中还有一个 span 包裹了用户昵称的第一个字符，但所有用户都有这个 span
-                    val spanElement = avatarElement.getElementsByTag("span").first()
-                    // 建立一个储存头像的变量
-                    val avatar: String
-                    // 综上，我们判断用户是否有头像的条件是 imgElement 是否为空
-                    if (imgElement != null) {
-                        // 如果不为空就获取其中的 attr : "srcset" (这里获取 src 可能会出错，因为采用的懒加载)
-                        val src = imgElement.attr("srcset")
-                        // 然后赋值到 avatar
-                        avatar = BASE_URL + src
-                    } else {
-                        // 如果为空就获取 span 中的 span 所包裹的信息，然后把他赋值到 avatar
-                        avatar = spanElement!!.getElementsByTag("span").first()!!.text()
-                    }
+                    /** 获取作者 ID **/
+                    val userId = element
+                        .getElementsByClass("avatarWrapper")
+                        .first()
+                        ?.getElementsByClass("avatar avatar--s")
+                        ?.first()
+                        ?.attr("data-user-id")
+                        ?: ""
 
                     /** 获取作者头昵称 **/
                     // 获取昵称所在的 Element
@@ -154,7 +148,7 @@ class RecommendParse {
                     val viewCount = viewCCount.replace(" $commentCount", "")
 
                     // 在结果中赋值
-                    result.add(ForumRecommendItem(title, describe, coverUrl, avatar, author, time, topic, viewCount, commentCount, url))
+                    result.add(ForumRecommendItem(title, describe, coverUrl, userId, author, time, topic, viewCount, commentCount, url))
 
                 }
 

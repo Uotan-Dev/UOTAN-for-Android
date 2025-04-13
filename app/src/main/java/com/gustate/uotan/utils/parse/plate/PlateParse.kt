@@ -1,7 +1,5 @@
 package com.gustate.uotan.utils.parse.plate
 
-import android.util.Log
-import androidx.annotation.RequiresApi
 import com.gustate.uotan.utils.Utils.Companion.BASE_URL
 import com.gustate.uotan.utils.Utils.Companion.Cookies
 import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
@@ -14,108 +12,73 @@ import org.jsoup.select.Elements
 import java.io.IOException
 
 data class PlateItem(
-    val cover:  String,
+    val cover: String,
     val title: String,
     val link: String
 )
 
 class PlateParse {
-
-    // 伴生对象
     companion object {
-
-        // 协程函数
         suspend fun fetchPlateData(content: String): MutableList<PlateItem> = withContext(Dispatchers.IO) {
-
             try {
-                // 我的关注  小米手机  红米手机  爬取
-                if (content.startsWith("/watched/")) {
-
-                    // 获取关注板块的网页 document 文档
-                    val document = Jsoup.connect(BASE_URL + content)
+                if (content.startsWith("/watched") || content.startsWith("/categories")) {
+                    val document = Jsoup
+                        .connect(BASE_URL + content)
                         .userAgent(USER_AGENT)
                         .timeout(TIMEOUT_MS)
                         .cookies(Cookies)
                         .get()
-
-                    val rootElement = document.getElementsByClass("block-body").first()
-
-                    val itemElements = rootElement!!.select("div.node--forum")
-
+                    val itemElements = document
+                        .getElementsByClass("block-body")
+                        .first()
+                        ?.select("div.node--forum")
                     return@withContext fetchContent(itemElements, false)
-
-                } else if (content.startsWith("/categories/")) {
-
-                    // 获取关注板块的网页 document 文档
-                    val document = Jsoup.connect(BASE_URL + content)
-                        .userAgent(USER_AGENT)
-                        .timeout(TIMEOUT_MS)
-                        .cookies(Cookies)
-                        .get()
-
-                    val rootElement = document.getElementsByClass("block-body").first()
-
-                    val itemElements = rootElement!!.select("div.node--forum")
-
-                    return@withContext fetchContent(itemElements, false)
-
                 } else {
-
-                    // 获取关注板块的网页 document 文档
-                    val document = Jsoup.connect("$BASE_URL/forums/")
+                    val document = Jsoup
+                        .connect("$BASE_URL/forums/")
                         .userAgent(USER_AGENT)
                         .timeout(TIMEOUT_MS)
                         .cookies(Cookies)
                         .get()
-
-                    val rootElement = document.getElementsByClass("block block--category block--category" + content).first()
-
-                    val bodyElement = rootElement!!.getElementsByClass("block-body").first()
-
-                    val itemElements = bodyElement!!.getElementsByTag("div")
-
-                    return@withContext fetchContent(itemElements, true)
-
+                    val itemElements = document
+                        .getElementsByClass("block block--category block--category$content")
+                        .first()
+                        ?.getElementsByClass("block-body")
+                        ?.first()
+                        ?.select("div.block-body > div")
+                    if (content == "251 ") {
+                        return@withContext fetchContent(itemElements, true)
+                    } else {
+                        return@withContext fetchContent(itemElements, false)
+                    }
                 }
             } catch (e: HttpStatusException) {
-                // 专门处理 HTTP 状态异常
                 return@withContext mutableListOf<PlateItem>()
             } catch (e: IOException) {
-                // 处理网络异常
                 return@withContext mutableListOf<PlateItem>()
             } catch (e: Exception) {
-                // 兜底异常处理
                 return@withContext mutableListOf<PlateItem>()
             }
         }
 
-        private fun fetchContent(itemElements: Elements, del: Boolean): MutableList<PlateItem> {
-
+        private fun fetchContent(itemElements: Elements?, del: Boolean): MutableList<PlateItem> {
             val result = mutableListOf<PlateItem>()
-
-            for (itemElement in itemElements) {
-
-                val aElements = itemElement.getElementsByTag("a")
-
-                // 版块图标
-                val cover = BASE_URL + aElements[0].getElementsByTag("img").attr("src")
-
-                // 版块文字
-                val title = aElements[1].text()
-
-                // 版块链接
-                val url = BASE_URL + aElements[1].attr("href")
-
-                result.add(PlateItem(cover, title, url))
-
+            if (itemElements != null) {
+                for (itemElement in itemElements) {
+                    val aElements = itemElement
+                        .getElementsByTag("a")
+                    val cover = aElements[0]
+                        .getElementsByTag("img")
+                        .attr("src")
+                    val title = aElements[1]
+                        .text()
+                    val url = aElements[1]
+                        .attr("href")
+                    result.add(PlateItem(cover, title, url))
+                }
             }
-
             if (del) result.removeAt(0)
-
             return result
-
         }
-
     }
-
 }

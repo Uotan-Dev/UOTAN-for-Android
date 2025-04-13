@@ -2,6 +2,7 @@ package com.gustate.uotan.activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.ViewGroup
 import android.webkit.CookieManager
@@ -10,22 +11,22 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.lifecycleScope
+import com.gustate.uotan.BaseActivity
 import com.gustate.uotan.R
 import com.gustate.uotan.databinding.ActivityUpdatePolicyBinding
 import com.gustate.uotan.gustatex.dialog.LoadingDialog
 import com.gustate.uotan.utils.parse.user.PolicyParse
-import com.gustate.uotan.utils.Utils
 import com.gustate.uotan.utils.Utils.Companion.Cookies
+import com.gustate.uotan.utils.Utils.Companion.dpToPx
 import com.gustate.uotan.utils.Utils.Companion.openImmersion
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlin.math.roundToInt
 
 /**
  * 隐私政策更新页面 (Activity)
@@ -34,7 +35,7 @@ import kotlinx.coroutines.withContext
  * I Love Jiang’Xun
  */
 
-class UpdatePolicyActivity : AppCompatActivity() {
+class UpdatePolicyActivity : BaseActivity() {
 
     /** 全类变量 **/
     // 初始化视图绑定
@@ -83,9 +84,9 @@ class UpdatePolicyActivity : AppCompatActivity() {
             // 同步系统栏高度到 webView 边距
             binding.webView.setPadding(
                 systemBars.left,
-                systemBars.top + Utils.dp2Px(60, this).toInt(),
+                (systemBars.top + 60f.dpToPx(this)).roundToInt(),
                 systemBars.right,
-                systemBars.bottom + binding.bottomBar.height
+                (systemBars.bottom + binding.bottomBar.height)
             )
             // 立即触发 CSS 更新
             applyThemeColors(binding.webView)
@@ -306,21 +307,26 @@ class UpdatePolicyActivity : AppCompatActivity() {
     /**
      * 自定义 WebView 样式
      */
+    @SuppressLint("ResourceType")
     private fun applyThemeColors(webView: WebView) {
         val context = webView.context
-
+        val typedArray = context.obtainStyledAttributes(intArrayOf(R.attr.colorCardNormal, R.attr.colorOnCardPrimary, R.attr.colorFilledButtonNormal))
+        val colorCardNormal = typedArray.getColor(0, Color.RED)
+        val colorOnCardPrimary = typedArray.getColor(1, Color.RED)
+        val colorFilledButtonNormal = typedArray.getColor(2, Color.RED)
+        typedArray.recycle()
         val colors = mapOf(
-            "bg" to ContextCompat.getColor(context, R.color.background_1),
-            "text" to ContextCompat.getColor(context, R.color.label_primary),
-            "accent" to ContextCompat.getColor(context, R.color.red),
-            "warning" to ContextCompat.getColor(context, R.color.red)
+            "bg" to colorCardNormal,
+            "text" to colorOnCardPrimary,
+            "accent" to colorFilledButtonNormal,
+            "warning" to colorFilledButtonNormal
         ).mapValues { "#${Integer.toHexString(it.value).substring(2)}" }
 
         val css = """
         :root {
-            --sys-padding-left: ${ Utils.dp2Px(12, context) / 3 }px;
+            --sys-padding-left: ${ (12f.dpToPx(this)).roundToInt() / 3 }px;
             --sys-padding-top: ${ webView.paddingTop / 3 }px;
-            --sys-padding-right: ${ Utils.dp2Px(12, context) / 3 }px;
+            --sys-padding-right: ${ (60f.dpToPx(this)).roundToInt() / 3 }px;
             --sys-padding-bottom: ${ webView.paddingBottom / 3 }px;
             --bg: ${colors["bg"]};
             --text: ${colors["text"]};

@@ -14,7 +14,7 @@
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="12dp"
         android:text="@string/describe"
-        android:textColor="@color/label_primary"
+        android:textColor="?attr/colorOnCardSecondary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/arrow_right"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,7 +29,7 @@
         android:layout_marginTop="12dp"
         android:fontFamily="sans-serif-medium"
         android:text="@string/title"
-        android:textColor="@color/label_primary"
+        android:textColor="?attr/colorOnCardPrimary"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

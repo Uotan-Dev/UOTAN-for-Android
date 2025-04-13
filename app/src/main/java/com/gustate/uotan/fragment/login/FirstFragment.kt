@@ -53,9 +53,9 @@ class FirstFragment : Fragment() {
         // 返回按钮
         val back = view.findViewById<View>(R.id.back)
         // 注册按钮
-        val register = view.findViewById<View>(R.id.registerCard)
+        val register = view.findViewById<View>(R.id.register)
         // 登录按钮
-        val login = view.findViewById<View>(R.id.loginCard)
+        val login = view.findViewById<View>(R.id.login)
         // 先看看按钮
         val lookFirst = view.findViewById<View>(R.id.noLogin)
 

@@ -138,6 +138,7 @@ class NoticeParse {
                     "出售资源" -> "sell"
                     "注册送积分" -> "register"
                     "回复内容被删除" -> "del"
+                    "帖子被删除" -> "del"
                     else -> "noIntegral"
                 }
                 val integralContent = element

@@ -3,18 +3,21 @@ package com.gustate.uotan.activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.gustate.uotan.AgreementPolicyActivity
+import com.gustate.uotan.BaseActivity
 import com.gustate.uotan.R
+import com.gustate.uotan.ThemeActivity
 import com.gustate.uotan.anim.TitleAnim
-import com.gustate.uotan.gustatex.dialog.InputDialog
-import com.gustate.uotan.utils.Utils
+import com.gustate.uotan.utils.Utils.Companion.BASE_URL
+import com.gustate.uotan.utils.Utils.Companion.dpToPx
 import com.gustate.uotan.utils.Utils.Companion.openImmersion
+import com.gustate.uotan.utils.Utils.Companion.openUrlInBrowser
+import kotlin.math.roundToInt
 
-class SettingsActivity : AppCompatActivity(), InputDialog.InputDialogListener {
+class SettingsActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -37,47 +40,52 @@ class SettingsActivity : AppCompatActivity(), InputDialog.InputDialogListener {
         ViewCompat.setOnApplyWindowInsetsListener(rootView) { _, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             statusBarView.layoutParams.height = systemBars.top
-            val topPadding = Utils.dp2Px(60, this).toInt() + systemBars.top
+            val topPadding = (systemBars.top + 60f.dpToPx(this)).roundToInt()
             val bottomPadding = systemBars.bottom
             rootView.setPadding(0, topPadding, 0, bottomPadding)
 
             // 初始化视图
-            val title: View = findViewById(R.id.tittle)
-            val bigTitle: View = findViewById(R.id.bigTittle)
+            val title: View = findViewById(R.id.title)
+            val bigTitle: View = findViewById(R.id.bigTitle)
             // 创建 SimonEdgeIllusion 实例
-            TitleAnim(title, bigTitle, Utils.dp2Px(60, this) + systemBars.top.toFloat(), systemBars.top.toFloat())
-
+            TitleAnim(
+                title,
+                bigTitle,
+                (systemBars.top + 60f.dpToPx(this)),
+                systemBars.top.toFloat()
+            )
             insets
         }
 
         /** 设置监听 **/
         // 为关于选项卡设置点击监听
-        findViewById<View?>(R.id.aboutOption).setOnClickListener {
+        findViewById<View>(R.id.aboutOption).setOnClickListener {
             val intent = Intent(this, AboutActivity::class.java)
             startActivity(intent)
         }
 
-        /*findViewById<View?>(R.id.updaterOption).setOnClickListener {
-            val dialog = InputDialog(this, 1, this)
-            dialog.show()
-            dialog.updateContent("1", "1")
+        findViewById<View>(R.id.setThemeOption).setOnClickListener {
+            val intent = Intent(this, ThemeActivity::class.java)
+            startActivity(intent)
         }
 
-        findViewById<View?>(R.id.setInterfaceOption).setOnClickListener {
-            val intent = Intent(this, InterfaceSettingsActivity::class.java)
+        findViewById<View>(R.id.updaterOption).setOnClickListener {
+            val intent = Intent(this, UpdaterActivity::class.java)
             startActivity(intent)
-        }*/
+        }
 
+        findViewById<View>(R.id.privacyOption).setOnClickListener {
+            val intent = Intent(this, AgreementPolicyActivity::class.java)
+            startActivity(intent)
+        }
+
+        findViewById<View>(R.id.setUserOption).setOnClickListener {
+            openUrlInBrowser(this, "$BASE_URL/account/account-details")
+        }
 
         val backButton: View = findViewById(R.id.backButton)
         backButton.setOnClickListener {
             finish()
-        }
-    }
-
-    override fun onInputSubmitted(dialogId: Int, input: String) {
-        when(dialogId){
-            1 -> Toast.makeText(this, input, Toast.LENGTH_LONG).show()
         }
     }
 }

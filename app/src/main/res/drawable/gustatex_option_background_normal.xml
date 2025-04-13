@@ -3,7 +3,7 @@
     android:shape="rectangle">
 
     <solid
-        android:color="@color/gustatex_option_background_normal"/>
+        android:color="?attr/colorCardNormal"/>
 
     <corners android:radius="18dp" />
 

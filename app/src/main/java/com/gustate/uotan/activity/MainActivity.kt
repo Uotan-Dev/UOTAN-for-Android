@@ -1,18 +1,22 @@
 package com.gustate.uotan.activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.gustate.uotan.BaseActivity
 import com.gustate.uotan.R
 import com.gustate.uotan.databinding.ActivityMainBinding
 import com.gustate.uotan.fragment.home.HomeFragment
@@ -22,15 +26,14 @@ import com.gustate.uotan.fragment.resource.ResFragment
 import com.gustate.uotan.fragment.user.MeFragment
 import com.gustate.uotan.utils.Utils.Companion.isLogin
 import com.gustate.uotan.utils.Utils.Companion.openImmersion
+import com.gustate.uotan.utils.room.UserViewModel
+import kotlinx.coroutines.launch
 
 /**
  * 主页面 (Activity)
- * JiaGuZhuangZhi Miles
- * Gustate 02/23/2025
- * I Love Jiang’Xun
  */
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     /** 可变变量 **/
     // 初始化视图绑定
@@ -40,6 +43,7 @@ class MainActivity : AppCompatActivity() {
     /**
      * 视图被创建
      */
+    @SuppressLint("Recycle", "ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -51,11 +55,14 @@ class MainActivity : AppCompatActivity() {
         // 基础设置
         setWindow()
 
+
         /** 常量设置 **/
+        val typedArray = this.obtainStyledAttributes(intArrayOf(R.attr.colorOnBackgroundPrimary, R.attr.colorOnBackgroundSecondary))
         // 底栏按钮默认颜色
-        val navColor = ContextCompat.getColor(this, R.color.label_tertiary)
+        val navColor = typedArray.getColor(1, Color.RED)
         // 底栏按钮选择颜色
-        val navSelectedColor = ContextCompat.getColor(this, R.color.label_primary)
+        val navSelectedColor = typedArray.getColor(0, Color.RED)
+        typedArray.recycle()
 
         /** 设置适配器 **/
         // 实例化 MainViewPagerAdapter()
@@ -80,13 +87,13 @@ class MainActivity : AppCompatActivity() {
             binding.resTab
         ).forEachIndexed { index, layout ->
             layout.setOnClickListener {
-                binding.viewPager.setCurrentItem(index, true)
+                binding.viewPager.setCurrentItem(index, false)
             }
         }
 
         // 个人中心单独处理登录逻辑
         binding.meTab.setOnClickListener {
-            if (isLogin) binding.viewPager.setCurrentItem(4, true)
+            if (isLogin) binding.viewPager.setCurrentItem(4, false)
             else startActivity(Intent(baseContext, LoginActivity::class.java))
         }
 
@@ -119,7 +126,7 @@ class MainActivity : AppCompatActivity() {
                 icons.forEachIndexed { index, (icon, defaultResId) ->
                     icon.setImageDrawable(AppCompatResources
                         .getDrawable(
-                            baseContext,
+                            this@MainActivity,
                             if (index == position) selectedIcons[index]
                             else defaultResId
                         )
@@ -152,18 +159,16 @@ class MainActivity : AppCompatActivity() {
             insets
         }
     }
-
-}
-
-class MainViewPagerAdapter(fragmentActivity: FragmentActivity):
-    FragmentStateAdapter(fragmentActivity){
-    override fun getItemCount(): Int = 5
-    override fun createFragment(position: Int) = when(position) {
-        0 -> HomeFragment()
-        1 -> PlateFragment()
-        2 -> NoticeFragment()
-        3 -> ResFragment()
-        4 -> MeFragment()
-        else -> throw IllegalArgumentException()
+    class MainViewPagerAdapter(fragmentActivity: FragmentActivity):
+        FragmentStateAdapter(fragmentActivity){
+        override fun getItemCount(): Int = 5
+        override fun createFragment(position: Int) = when(position) {
+            0 -> HomeFragment()
+            1 -> PlateFragment()
+            2 -> NoticeFragment()
+            3 -> ResFragment()
+            4 -> MeFragment()
+            else -> throw IllegalArgumentException()
+        }
     }
 }

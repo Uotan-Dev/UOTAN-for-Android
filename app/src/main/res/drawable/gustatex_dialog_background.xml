@@ -2,6 +2,6 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
     <!--left to right-->
-    <solid android:color="@color/gustatex_dialog_background"/>
+    <solid android:color="?attr/colorDialogBackground"/>
     <corners android:radius="28dp"/>
 </shape>

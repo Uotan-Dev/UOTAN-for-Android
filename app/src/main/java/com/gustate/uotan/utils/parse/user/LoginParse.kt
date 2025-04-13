@@ -112,7 +112,5 @@ class LoginParse {
             return@withContext loginResponse.cookies()
 
         }
-
     }
-
 }

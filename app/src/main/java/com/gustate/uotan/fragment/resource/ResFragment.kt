@@ -1,12 +1,13 @@
 package com.gustate.uotan.fragment.resource
 
+import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
-import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
@@ -17,7 +18,8 @@ import com.gustate.uotan.R
 import com.gustate.uotan.anim.TitleAnim
 import com.gustate.uotan.fragment.notice.PrivateMessageFragment
 import com.gustate.uotan.utils.Utils
-import com.scwang.smart.refresh.layout.api.RefreshLayout
+import com.gustate.uotan.utils.Utils.Companion.dpToPx
+import kotlin.math.roundToInt
 
 class ResFragment : Fragment() {
 
@@ -29,6 +31,7 @@ class ResFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_res, container, false)
     }
 
+    @SuppressLint("Recycle", "ResourceType")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val statusBarView: View = view.findViewById(R.id.statusBarView)
@@ -40,7 +43,7 @@ class ResFragment : Fragment() {
             statusBarView.updateLayoutParams<ViewGroup.LayoutParams> { height = systemBars.top }
             coordinatorLayout.setPadding(
                 systemBars.left,
-                systemBars.top + Utils.dp2Px(60, requireContext()).toInt(),
+                (systemBars.top + 60f.dpToPx(requireContext())).roundToInt(),
                 systemBars.right,
                 0
             )
@@ -48,7 +51,7 @@ class ResFragment : Fragment() {
             TitleAnim(
                 title,
                 bigTitle,
-                Utils.dp2Px(60, requireContext()) + systemBars.top.toFloat(),
+                (systemBars.top + 60f.dpToPx(requireContext())),
                 systemBars.top.toFloat()
             )
             insets
@@ -63,21 +66,26 @@ class ResFragment : Fragment() {
         bigTitleCategorize.setOnClickListener{ viewPager.setCurrentItem(1, true) }
         titleTrends.setOnClickListener{ viewPager.setCurrentItem(0, true) }
         titleCategorize.setOnClickListener{ viewPager.setCurrentItem(1, true) }
-        viewPager.isUserInputEnabled = false
+        val typedArray = requireContext().obtainStyledAttributes(intArrayOf(R.attr.colorOnBackgroundPrimary, R.attr.colorOnBackgroundSecondary))
+        // 底栏按钮默认颜色
+        val normalColor = typedArray.getColor(1, Color.RED)
+        // 底栏按钮选择颜色
+        val selectedColor = typedArray.getColor(0, Color.RED)
+        typedArray.recycle()
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 when (position) {
                     0 -> {
-                        bigTitleTrends.setTextColor(ContextCompat.getColor(requireContext(), R.color.label_primary))
-                        bigTitleCategorize.setTextColor(ContextCompat.getColor(requireContext(), R.color.label_secondary))
-                        titleTrends.setTextColor(ContextCompat.getColor(requireContext(), R.color.label_primary))
-                        titleCategorize.setTextColor(ContextCompat.getColor(requireContext(), R.color.label_secondary))
+                        bigTitleTrends.setTextColor(selectedColor)
+                        bigTitleCategorize.setTextColor(normalColor)
+                        titleTrends.setTextColor(selectedColor)
+                        titleCategorize.setTextColor(normalColor)
                     }
                     1 -> {
-                        bigTitleTrends.setTextColor(ContextCompat.getColor(requireContext(), R.color.label_secondary))
-                        bigTitleCategorize.setTextColor(ContextCompat.getColor(requireContext(), R.color.label_primary))
-                        titleTrends.setTextColor(ContextCompat.getColor(requireContext(), R.color.label_secondary))
-                        titleCategorize.setTextColor(ContextCompat.getColor(requireContext(), R.color.label_primary))
+                        bigTitleTrends.setTextColor(normalColor)
+                        bigTitleCategorize.setTextColor(selectedColor)
+                        titleTrends.setTextColor(normalColor)
+                        titleCategorize.setTextColor(selectedColor)
                     }
                 }
             }

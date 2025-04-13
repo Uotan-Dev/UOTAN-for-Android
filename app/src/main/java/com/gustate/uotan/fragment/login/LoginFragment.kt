@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import android.widget.Toast
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.gustate.uotan.activity.MainActivity
 import com.gustate.uotan.R
@@ -29,8 +31,11 @@ import com.gustate.uotan.utils.Utils.Companion.Cookies
 import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
 import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
 import com.gustate.uotan.utils.Utils.Companion.isLogin
+import com.gustate.uotan.utils.Utils.Companion.saveToExternalPrivateDir
+import com.gustate.uotan.utils.parse.user.MeParse.Companion.fetchMeData
+import com.gustate.uotan.utils.room.User
+import com.gustate.uotan.utils.room.UserViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.jsoup.Jsoup
@@ -43,6 +48,8 @@ import org.jsoup.Jsoup
  */
 
 class LoginFragment : Fragment() {
+
+    private lateinit var viewModel: UserViewModel
 
     /**
      * 加载视图时
@@ -91,6 +98,7 @@ class LoginFragment : Fragment() {
         /** 变量 **/
         // 创建一个变量判断是否正在进行登录操作
         var isLoggingIn = false
+        viewModel = ViewModelProvider(this)[UserViewModel::class.java]
 
         /** 常量 **/
         // 实例化 CookiesManager
@@ -220,6 +228,20 @@ class LoginFragment : Fragment() {
                                 isLogin = true
                                 // 结束正在登录状态
                                 isLoggingIn = false
+                                // 获取当前用户的基本信息
+                                val userData = fetchMeData()
+                                // 缓存基本信息链接
+                                viewModel.insert(User(0, userData.userName, userData.cover,
+                                    userData.avatar, userData.signature, userData.auth,
+                                    userData.postCount, userData.resCount, userData.userId,
+                                    userData.points, userData.uCoin, userData.ipAddress)
+                                )
+                                // 缓存头像文件
+                                saveToExternalPrivateDir(requireContext(),
+                                    BASE_URL + userData.avatar, "user/", "avatar.jpg")
+                                // 缓存封面文件
+                                saveToExternalPrivateDir(requireContext(),
+                                    BASE_URL + userData.cover, "user/", "cover.jpg")
                                 // 回到 UI 线程
                                 withContext(Dispatchers.Main) {
                                     // 弹出登录成功提示
@@ -281,6 +303,7 @@ class LoginFragment : Fragment() {
                         catch (e: Exception) {
                             // 结束正在登录状态
                             isLoggingIn = false
+                            Log.e("err", e.toString())
                             // 回到 UI 线程
                             withContext(Dispatchers.Main) {
                                 // 弹出登录失败提示
@@ -304,7 +327,7 @@ class LoginFragment : Fragment() {
             val startupTypeData = startupTypeParse()
             withContext(Dispatchers.Main) {
                 if (startupTypeData.isAgreement) {
-                    startActivity(startupTypeData.updatePolicyActivityIntent)
+                    startActivity(startupTypeData.updatePolicyActivityIntent!!)
                     activity?.finish()
                 } else if (startupTypeData.isSmsVerify) {
                     Toast.makeText(
@@ -319,7 +342,7 @@ class LoginFragment : Fragment() {
                     activity?.finish()
                 }
             }
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             withContext(Dispatchers.Main) {
                 // 处理网络错误
                 Toast.makeText(

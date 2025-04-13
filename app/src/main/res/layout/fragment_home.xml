@@ -5,7 +5,6 @@
     android:id="@+id/rootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_1"
     tools:context=".fragment.home.HomeFragment">
 
 
@@ -23,9 +22,19 @@
         class="net.center.blurview.ShapeBlurView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:blur_overlay_color="@color/header_bar_blur_cover"
-        app:blur_radius="30dp"
+        app:blur_radius="64dp"
         app:layout_constraintBottom_toBottomOf="@id/view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/titleBarCover"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:alpha="0.6"
+        android:background="?attr/colorBackground"
+        app:layout_constraintBottom_toBottomOf="@+id/headerBlur"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -45,35 +54,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/statusBarView">
 
-        <androidx.cardview.widget.CardView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/searchBox"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="6dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="6dp"
             android:alpha="0.6"
-            app:cardBackgroundColor="@color/background_2"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="0dp"
+            android:background="@drawable/gustatex_option_background"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/newButton"
+            app:layout_constraintEnd_toStartOf="@+id/btnNew"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView
             android:id="@+id/searchIcon"
-            android:layout_width="14dp"
-            android:layout_height="14dp"
-            android:layout_marginStart="13dp"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="16dp"
             android:src="@drawable/ic_search"
             app:layout_constraintBottom_toBottomOf="@+id/searchBox"
             app:layout_constraintStart_toStartOf="@+id/searchBox"
@@ -83,48 +85,47 @@
             android:id="@+id/searchHint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="7dp"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/mi_sans_medium"
             android:text="@string/search_all"
-            android:textColor="@color/label_tertiary"
+            android:textColor="?attr/colorOnCardSecondary"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@+id/searchBox"
             app:layout_constraintStart_toEndOf="@+id/searchIcon"
             app:layout_constraintTop_toTopOf="@+id/searchBox" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/newButton"
-            android:layout_width="40dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/btnNew"
+            android:layout_width="48dp"
             android:layout_height="0dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="6dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="6dp"
             android:alpha="0.6"
-            app:cardBackgroundColor="@color/background_2"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="0dp"
+            android:background="@drawable/gustatex_option_background"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-        </androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView
-            android:id="@+id/newIcon"
+            android:id="@+id/icoNew"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:src="@drawable/ic_new"
-            app:layout_constraintBottom_toBottomOf="@+id/newButton"
-            app:layout_constraintEnd_toEndOf="@+id/newButton"
-            app:layout_constraintStart_toStartOf="@+id/newButton"
-            app:layout_constraintTop_toTopOf="@+id/newButton" />
+            app:layout_constraintBottom_toBottomOf="@+id/btnNew"
+            app:layout_constraintEnd_toEndOf="@+id/btnNew"
+            app:layout_constraintStart_toStartOf="@+id/btnNew"
+            app:layout_constraintTop_toTopOf="@+id/btnNew" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="34dp"
+        android:layout_height="36dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/headerBarView">
@@ -133,9 +134,10 @@
             android:id="@+id/latest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="28dp"
+            android:fontFamily="sans-serif"
             android:text="@string/latest"
-            android:textColor="@color/label_secondary"
+            android:textColor="?attr/colorOnBackgroundSecondary"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -146,8 +148,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:fontFamily="sans-serif-medium"
             android:text="@string/recommend"
-            android:textColor="@color/label_primary"
+            android:textColor="?attr/colorOnBackgroundPrimary"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/latest"
@@ -157,7 +160,7 @@
     <View
         android:id="@+id/view"
         android:layout_width="wrap_content"
-        android:layout_height="8dp"
+        android:layout_height="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />

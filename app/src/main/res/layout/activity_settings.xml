@@ -23,7 +23,6 @@
             android:id="@+id/rootScrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/background_1"
             android:clipToPadding="true"
             android:fillViewport="true"
             android:scrollbarThumbVertical="@drawable/gustatex_scrollbar_thumb_vertical"
@@ -39,162 +38,123 @@
                 android:paddingTop="80dp">
 
                 <TextView
-                    android:id="@+id/bigTittle"
+                    android:id="@+id/bigTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="28dp"
                     android:fontFamily="sans-serif"
                     android:text="@string/settings"
-                    android:textColor="@color/label_primary"
+                    android:textColor="?attr/colorOnBackgroundPrimary"
                     android:textSize="30sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/AppCard"
-                    style="@style/Gustatex.Card"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/setAppLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
                     android:layout_marginTop="18dp"
                     android:layout_marginEnd="12dp"
-                    app:cardBackgroundColor="@color/background_2"
+                    android:background="@drawable/gustatex_option_background_normal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/bigTittle">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <com.gustate.uotan.gustatex.view.OptionView
-                            android:id="@+id/aboutOption"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:optionIcon="@drawable/ic_option_myapp"
-                            app:optionTitle="@string/about" />
-
-                        <com.gustate.uotan.gustatex.view.OptionView
-                            android:id="@+id/updaterOption"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/aboutOption"
-                            app:optionIcon="@drawable/ic_option_updater"
-                            app:optionTitle="@string/updater" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/themeCard"
-                    style="@style/Gustatex.Card"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="12dp"
-                    app:cardBackgroundColor="@color/background_2"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/AppCard">
+                    app:layout_constraintTop_toBottomOf="@+id/bigTitle">
 
                     <com.gustate.uotan.gustatex.view.OptionView
-                        android:id="@+id/setThemeOption"
-                        android:layout_width="match_parent"
+                        android:id="@+id/aboutOption"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        app:optionIcon="@drawable/ic_option_theme"
-                        app:optionTitle="@string/theme" />
-                </androidx.cardview.widget.CardView>
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:optionIcon="@drawable/ic_option_myapp"
+                        app:optionTitle="@string/about" />
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/setPageCard"
-                    style="@style/Gustatex.Card"
+                    <com.gustate.uotan.gustatex.view.OptionView
+                        android:id="@+id/updaterOption"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/aboutOption"
+                        app:optionIcon="@drawable/ic_option_updater"
+                        app:optionTitle="@string/updater" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.gustate.uotan.gustatex.view.OptionView
+                    android:id="@+id/setThemeOption"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="12dp"
-                    app:cardBackgroundColor="@color/background_2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/themeCard">
+                    app:layout_constraintTop_toBottomOf="@+id/setAppLayout"
+                    app:optionIcon="@drawable/ic_option_theme"
+                    app:optionTitle="@string/theme" />
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/setPageLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <com.gustate.uotan.gustatex.view.OptionView
-                            android:id="@+id/setHomeOption"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:optionIcon="@drawable/ic_option_home"
-                            app:optionTitle="@string/home" />
-
-                        <com.gustate.uotan.gustatex.view.OptionView
-                            android:id="@+id/setSearchOption"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/setHomeOption"
-                            app:optionIcon="@drawable/ic_option_search"
-                            app:optionTitle="@string/network" />
-
-                        <com.gustate.uotan.gustatex.view.OptionView
-                            android:id="@+id/setPlayerOption"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/setSearchOption"
-                            app:optionIcon="@drawable/ic_option_service"
-                            app:optionTitle="@string/service" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/setInterfaceCard"
-                    style="@style/Gustatex.Card"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/setPageLayout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="12dp"
-                    app:cardBackgroundColor="@color/background_2"
+                    android:background="@drawable/gustatex_option_background_normal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/setPageCard">
+                    app:layout_constraintTop_toBottomOf="@+id/setThemeOption">
 
                     <com.gustate.uotan.gustatex.view.OptionView
-                        android:id="@+id/setInterfaceOption"
-                        android:layout_width="match_parent"
+                        android:id="@+id/setUserOption"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        app:optionIcon="@drawable/ic_option_privacy"
-                        app:optionTitle="@string/privacy" />
-                </androidx.cardview.widget.CardView>
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:optionIcon="@drawable/ic_option_service"
+                        app:optionTitle="@string/user_settings" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.gustate.uotan.gustatex.view.OptionView
+                    android:id="@+id/privacyOption"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="12dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/setPageLayout"
+                    app:optionIcon="@drawable/ic_option_privacy"
+                    app:optionTitle="@string/user_agreement_policy" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
     </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 
     <view
-        android:id="@+id/tittleBarBlur"
+        android:id="@+id/titleBarBlur"
         class="net.center.blurview.ShapeBlurView"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        app:blur_overlay_color="@color/header_bar_blur_cover"
         app:blur_radius="25dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tittleBarView"
+        app:layout_constraintBottom_toBottomOf="@+id/titleBarView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/titleBarCover"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:alpha="0.6"
+        android:background="?attr/colorBackground"
+        app:layout_constraintBottom_toBottomOf="@+id/titleBarBlur"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -207,7 +167,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/tittleBarView"
+        android:id="@+id/titleBarView"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -224,12 +184,12 @@
             app:srcCompat="@drawable/ic_back" />
 
         <TextView
-            android:id="@+id/tittle"
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
             android:text="@string/settings"
-            android:textColor="@color/label_primary"
+            android:textColor="?attr/colorOnBackgroundPrimary"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -11,7 +11,6 @@
         android:id="@+id/webView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background_1"
         android:paddingTop="80dp"
         android:scrollbarThumbVertical="@drawable/gustatex_scrollbar_thumb_vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -25,11 +24,22 @@
         class="net.center.blurview.ShapeBlurView"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        app:blur_overlay_color="@color/header_bar_blur_cover"
+        app:blur_overlay_color="@android:color/transparent"
         app:blur_radius="25dp"
         app:layout_constraintBottom_toBottomOf="@+id/titleBarView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/titleBarCover"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:alpha="0.6"
+        android:background="?attr/colorBackground"
+        app:layout_constraintBottom_toBottomOf="@+id/titleBarBlur"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -64,7 +74,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
             android:text="@string/privacy_policy_update"
-            android:textColor="@color/label_primary"
+            android:textColor="?attr/colorOnBackgroundPrimary"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -77,12 +87,23 @@
         class="net.center.blurview.ShapeBlurView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:blur_overlay_color="@color/blur_cover"
+        app:blur_overlay_color="@android:color/transparent"
         app:blur_radius="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/bottomBar" />
+
+    <View
+        android:id="@+id/bottomBarCover"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:alpha="0.6"
+        android:background="?attr/colorBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/bottomBarBlur" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bottomBar"
@@ -99,7 +120,7 @@
             android:layout_marginStart="16dp"
             android:fontFamily="sans-serif-medium"
             android:text="@string/last_updated"
-            android:textColor="@color/label_primary"
+            android:textColor="?attr/colorOnBackgroundPrimary"
             android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@id/last_updated_time"
             app:layout_constraintStart_toStartOf="parent"
@@ -111,7 +132,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
             android:text="@string/time"
-            android:textColor="@color/label_primary"
+            android:textColor="?attr/colorOnBackgroundSecondary"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/agreeButton"
             app:layout_constraintStart_toStartOf="@+id/last_updated_text"
@@ -124,7 +145,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="15dp"
-            android:background="@drawable/gustatex_button_red"
+            android:background="@drawable/gustatex_button_filled"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -135,7 +156,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-medium"
                 android:text="@string/accept"
-                android:textColor="@color/white"
+                android:textColor="?attr/colorOnFilledButton"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

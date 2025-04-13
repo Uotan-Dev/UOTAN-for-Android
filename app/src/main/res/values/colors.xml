@@ -1,62 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- 基础颜色 -->
-    <color name="green">#FF1ABD5B</color>
-    <color name="red">#FFFF3B30</color>
-    <color name="blue">#FF007AFF</color>
-    <color name="black">#FF000000</color>
-    <color name="gray">#FF8E8E93</color>
-    <color name="gray_2">#FFAEAEB2</color>
-    <color name="gray_3">#FFC7C7CC</color>
-    <color name="gray_4">#FFD1D1D6</color>
-    <color name="gray_5">#FFE5E5EA</color>
-    <color name="gray_6">#FFF2F2F7</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- On Window Background -->
+    <color name="colorBackgroundBasic">#FFF7F7F7</color>
+    <color name="colorBackgroundMonet">@color/m3_ref_palette_dynamic_neutral_variant98</color>
+    <!-- On Window Background Primary -->
+    <color name="colorOnBackgroundPrimaryBasic">#FF000000</color>
+    <color name="colorOnBackgroundPrimaryMonet">@android:color/system_neutral1_900</color>
+    <!-- On Window Background Secondary -->
+    <color name="colorOnBackgroundSecondaryBasic">#993C3C43</color>
+    <color name="colorOnBackgroundSecondaryMonet">@android:color/system_neutral1_600</color>
+    <!-- On Window Background Tertiary -->
+    <color name="colorOnBackgroundTertiaryBasic">#FF8C93B0</color>
+    <color name="colorOnBackgroundTertiaryMonet">@android:color/system_neutral1_400</color>
 
-    <!-- 背景颜色 -->
-    <color name="background_1">#FFF7F7F7</color>
-    <color name="background_2">#FFFFFFFF</color>
-    <color name="background_primary">#FFFFFFFF</color>
-    <color name="background_secondary">#FFF2F2F7</color>
-    <color name="background_tertiary">#FFFFFFFF</color>
+    <!-- Filled Button Normal -->
+    <color name="colorFilledButtonNormalBasic">#FFFF3B30</color>
+    <color name="colorFilledButtonNormalMonet">@android:color/system_accent1_600</color>
+    <!-- Filled Button Press -->
+    <color name="colorFilledButtonPressBasic">#FFE7362D</color>
+    <color name="colorFilledButtonPressMonet">@android:color/system_accent1_700</color>
+    <!-- On Filled Button -->
+    <color name="colorOnFilledButtonBasic">#FFFFFFFF</color>
+    <color name="colorOnFilledButtonMonet">@android:color/system_accent1_0</color>
 
-    <!-- 字体颜色 -->
-    <color name="label_primary">#FF000000</color>
-    <color name="label_secondary">#993C3C43</color>
-    <color name="label_tertiary">#4C3C3C43</color>
-    <color name="label_quarternary">#2D3C3C43</color>
-    <color name="label_s_title">#FF8C93B0</color>
+    <!-- Filled Tonal Button Normal -->
+    <color name="colorFilledTonalButtonNormalBasic">#26FF3B30</color>
+    <color name="colorFilledTonalButtonNormalMonet">@android:color/system_accent2_100</color>
+    <!-- Filled Tonal Button Press -->
+    <color name="colorFilledTonalButtonPressBasic">#42E7362D</color>
+    <color name="colorFilledTonalButtonPressMonet">@android:color/system_accent2_200</color>
+    <!-- On Filled Tonal Button -->
+    <color name="colorOnFilledTonalButtonBasic">#FFFF3B30</color>
+    <color name="colorOnFilledTonalButtonMonet">@android:color/system_accent2_900</color>
 
-    <color name="blur_cover">#CCFFFFFF</color>
-    <color name="personal_blur_cover">#5CFFFFFF</color>
-    <color name="header_bar_blur_cover">#CCF7F7F7</color>
+    <!-- Card Normal -->
+    <color name="colorCardNormalBasic">#FFFFFFFF</color>
+    <color name="colorCardNormalMonet">@android:color/system_neutral2_100</color>
+    <!-- Card Press -->
+    <color name="colorCardPressBasic">#FFE1E1E1</color>
+    <color name="colorCardPressMonet">@android:color/system_neutral2_200</color>
+    <!-- On Card Primary -->
+    <color name="colorOnCardPrimaryBasic">#FF000000</color>
+    <color name="colorOnCardPrimaryMonet">@android:color/system_neutral2_700</color>
+    <!-- On Card Secondary -->
+    <color name="colorOnCardSecondaryBasic">#993C3C43</color>
+    <color name="colorOnCardSecondaryMonet">@android:color/system_neutral2_500</color>
 
-    <color name="divider">#FFE4E4E4</color>
+    <!-- Error Card -->
+    <color name="colorErrorCardBasic">#FFF9DEDC</color>
+    <color name="colorErrorCardMonet">@color/m3_ref_palette_error90</color>
+    <!-- On Error Card -->
+    <color name="colorOnErrorCardBasic">#FF410E0B</color>
+    <color name="colorOnErrorCardMonet">@color/m3_ref_palette_error10</color>
 
-    <color name="gustatex_check_box">#FFE5E5EA</color>
+    <!-- Switch Unchecked Track -->
+    <color name="colorSwitchTrackUncheckedBasic">#FFE6E6E6</color>
+    <color name="colorSwitchTrackUncheckedMonet">@android:color/system_neutral2_300</color>
+    <!-- Switch Checked Track -->
+    <color name="colorSwitchTrackCheckedBasic">#FF3482FF</color>
+    <color name="colorSwitchTrackCheckedMonet">@android:color/system_accent1_600</color>
+    <!-- Switch Unchecked Thumb -->
+    <color name="colorSwitchThumbUncheckedBasic">#FFFFFFFF</color>
+    <color name="colorSwitchThumbUncheckedMonet">@android:color/system_neutral2_500</color>
+    <!-- Switch Checked Thumb -->
+    <color name="colorSwitchThumbCheckedBasic">#FFFFFFFF</color>
+    <color name="colorSwitchThumbCheckedMonet">@android:color/system_accent1_0</color>
 
-    <!-- 选项卡 -->
-    <!-- 默认背景色 -->
-    <color name="gustatex_option_background_normal">#FFFFFF</color>
-    <!-- 按下背景色 -->
-    <color name="gustatex_option_background_press">#E1E1E1</color>
-    <!-- 默认红色背景色 -->
-    <color name="gustatex_option_red_background_normal">#FFFF3B30</color>
-    <!-- 按下红色背景色 -->
-    <color name="gustatex_option_red_background_press">#FFE7362D</color>
+    <!-- Bottom Navigation Bar Background (Blur Cover) -->
+    <color name="colorBottomNavigationBarBackgroundBasic">#FFE4E4E4</color>
+    <color name="colorBottomNavigationBarBackgroundMonet">@color/m3_ref_palette_dynamic_neutral_variant94</color>
+    <!-- Bottom Navigation Bar On Background Primary -->
+    <color name="colorBottomNavigationBarOnBackgroundPrimaryBasic">#FF000000</color>
+    <color name="colorBottomNavigationBarOnBackgroundPrimaryMonet">@android:color/system_neutral1_900</color>
+    <!-- Bottom Navigation Bar On Background Secondary -->
+    <color name="colorBottomNavigationBarOnBackgroundSecondaryBasic">#4C3C3C43</color>
+    <color name="colorBottomNavigationBarOnBackgroundSecondaryMonet">@android:color/system_accent2_600</color>
 
-    <color name="scrollbar_color">#1A000000</color>
-
-    <!-- 弹窗 -->
-    <!-- 覆盖色 -->
-    <color name="gustatex_dialog_background">#FFFFFF</color>
-    <color name="gustatex_edittext_background">#EDEDED</color>
-    <color name="gustatex_button_blue_normal">#0C84FF</color>
-    <color name="gustatex_button_blue_press">#096CD1</color>
-    <color name="gustatex_button_blue_text">#FFFFFF</color>
-    <color name="gustatex_button_gray_normal">#F0F0F0</color>
-    <color name="gustatex_button_gray_press">#DCDCDC</color>
-    <color name="gustatex_button_gray_text">#606060</color>
+    <!-- Dialog Background -->
+    <color name="colorDialogBackgroundBasic">#FFF7F7F7</color>
+    <color name="colorDialogBackgroundMonet">@color/m3_ref_palette_dynamic_neutral_variant98</color>
+    <!-- On Dialog Normal -->
+    <color name="colorOnDialogNormalBasic">#FFFFFFFF</color>
+    <color name="colorOnDialogNormalMonet">@android:color/system_neutral2_100</color>
+    <!-- On Dialog Press -->
+    <color name="colorOnDialogPressBasic">#FFE1E1E1</color>
+    <color name="colorOnDialogPressMonet">@android:color/system_neutral2_200</color>
+    <!-- Dialog Tap -->
+    <color name="colorDialogTapBasic">#FFDBDBDB</color>
+    <color name="colorDialogTapMonet">@android:color/system_neutral2_100</color>
 
 </resources>

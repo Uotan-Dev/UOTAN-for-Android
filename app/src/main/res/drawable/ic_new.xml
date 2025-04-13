@@ -5,5 +5,5 @@
     android:viewportHeight="14">
   <path
       android:pathData="M6,6L6,0L8,0L8,6L14,6L14,8L8,8L8,14L6,14L6,8L0,8L0,6L6,6Z"
-      android:fillColor="@color/red"/>
+      android:fillColor="?attr/colorFilledButtonNormal"/>
 </vector>

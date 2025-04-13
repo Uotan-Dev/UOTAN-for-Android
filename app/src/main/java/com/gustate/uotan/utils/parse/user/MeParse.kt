@@ -5,10 +5,8 @@ import com.gustate.uotan.utils.Utils.Companion.BASE_URL
 import com.gustate.uotan.utils.Utils.Companion.Cookies
 import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
 import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
-import com.gustate.uotan.utils.Utils.Companion.isLogin
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.json.JSONObject
 import org.jsoup.Connection
 import org.jsoup.Jsoup
 
@@ -22,9 +20,14 @@ data class MeInfo(
     val resCount: String,
     val userId: String,
     val points: String,
-    val uCoin: String
+    val uCoin: String,
+    val ipAddress: String
 )
 
+data class ClockIn(
+    val isClockIn: Boolean,
+    val points: String
+)
 
 class MeParse {
 
@@ -32,6 +35,8 @@ class MeParse {
     companion object {
 
         suspend fun fetchMeData(): MeInfo = withContext(Dispatchers.IO) {
+
+            Log.e("1", "111")
 
             // 获取推荐资源的网页 document 文档
             val document = Jsoup.connect("$BASE_URL/account/account-details/")
@@ -125,7 +130,8 @@ class MeParse {
             val signature = formRows[describePosition]
                 .getElementsByClass("input")[1].text()
 
-            val perDocument = Jsoup.connect("$BASE_URL/members/$userId")
+            Log.e("url", "$BASE_URL/members/$userId/")
+            val perDocument = Jsoup.connect("$BASE_URL/members/$userId/")
                 .userAgent(USER_AGENT)
                 .timeout(TIMEOUT_MS)
                 .cookies(Cookies)
@@ -148,6 +154,14 @@ class MeParse {
                     }
                 }
             }
+
+            val ipAddress = perDocument
+                .getElementsByClass("memberHeader-blurb user-login-ip")
+                .first()
+                ?.getElementsByTag("li")
+                ?.last()
+                ?.text()
+                ?: ""
 
             val countDocuments = perDocument
                 .getElementsByClass("pairJustifier")
@@ -184,11 +198,12 @@ class MeParse {
                 ?.text()
                 ?: "0"
 
-            return@withContext MeInfo(userName, coverUrl, avatarUrl, signature, auth, postCount, resCount, userId, points, uCoin)
+            return@withContext MeInfo(userName, coverUrl, avatarUrl, signature, auth, postCount,
+                resCount, userId, points, uCoin, ipAddress)
 
         }
 
-        suspend fun doClockIn(): Boolean = withContext(Dispatchers.IO) {
+        suspend fun doClockIn(): ClockIn = withContext(Dispatchers.IO) {
             try {
                 // 1. 先获取CSRF Token（从任意页面获取）
                 val firstResponse = Jsoup.connect(BASE_URL)
@@ -213,13 +228,12 @@ class MeParse {
                     .data("_xfToken", xfToken)
                     .execute()
                 return@withContext isClockIn()
-            } catch (e: Exception) {
-                Log.e("Clock", e.toString())
-                return@withContext false
+            } catch (_: Exception) {
+                return@withContext ClockIn(false, "")
             }
         }
 
-        suspend fun isClockIn(): Boolean = withContext(Dispatchers.IO) {
+        suspend fun isClockIn(): ClockIn = withContext(Dispatchers.IO) {
             try {
                 val document = Jsoup.connect(BASE_URL)
                     .userAgent(USER_AGENT)
@@ -232,10 +246,17 @@ class MeParse {
                     ?.getElementsByTag("span")
                     ?.text()
                     ?: ""
+                val points = document
+                    .getElementsByClass("menu-row menu-row--highlighted")
+                    .first()
+                    ?.getElementsByTag("dd")
+                    ?.get(0)
+                    ?.text()
+                    ?: "0"
                 val isClockIn = buttonText == "今日已签到"
-                return@withContext isClockIn
-            } catch (e: Exception) {
-                return@withContext false
+                return@withContext ClockIn(isClockIn, points)
+            } catch (_: Exception) {
+                return@withContext ClockIn(false, "")
             }
         }
     }

@@ -1,8 +1,6 @@
 package com.gustate.uotan.utils.parse.user
 
 import android.content.Context
-import androidx.core.content.ContextCompat
-import com.gustate.uotan.R
 import com.gustate.uotan.utils.Utils.Companion.BASE_URL
 import com.gustate.uotan.utils.Utils.Companion.Cookies
 import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS

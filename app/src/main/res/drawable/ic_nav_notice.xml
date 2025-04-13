@@ -5,5 +5,5 @@
     android:viewportHeight="24">
   <path
       android:pathData="M2 8.99374C2 5.68349 4.67654 3 8.00066 3L15.9993 3C19.3134 3 22 5.69478 22 8.99374L22 21L8.00066 21C4.68659 21 2 18.3052 2 15.0063L2 8.99374ZM14 11L14 13L16 13L16 11L14 11ZM8 11L8 13L10 13L10 11L8 11Z"
-      android:fillColor="@color/label_tertiary"/>
+      android:fillColor="?attr/colorBottomNavigationBarOnBackgroundSecondary"/>
 </vector>

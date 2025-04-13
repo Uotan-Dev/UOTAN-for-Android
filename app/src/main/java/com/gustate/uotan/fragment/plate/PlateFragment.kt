@@ -1,50 +1,102 @@
 package com.gustate.uotan.fragment.plate
 
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewGroup.MarginLayoutParams
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.gustate.uotan.R
-import com.gustate.uotan.anim.TitleAnim
+import com.gustate.uotan.activity.PlateActivity
 import com.gustate.uotan.gustatex.dialog.LoadingDialog
+import com.gustate.uotan.utils.Utils.Companion.BASE_URL
 import com.gustate.uotan.utils.parse.plate.PlateItem
 import com.gustate.uotan.utils.parse.plate.PlateParse
-import com.gustate.uotan.utils.Utils
+import com.gustate.uotan.utils.Utils.Companion.dpToPx
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import kotlin.math.roundToInt
 
 class PlateFragment : Fragment() {
 
-    private lateinit var tip: View
+    class PlateAdapter : ListAdapter<PlateItem, PlateAdapter.ViewHolder>(DiffCallback()) {
+
+        var onItemClick: ((String, String, String) -> Unit)? = null
+
+        class DiffCallback : DiffUtil.ItemCallback<PlateItem>() {
+            override fun areItemsTheSame(old: PlateItem, new: PlateItem) = old.cover == new.cover
+            override fun areContentsTheSame(old: PlateItem, new: PlateItem) = old == new
+        }
+
+        inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
+            val item: View = view.findViewById(R.id.item)
+            val cover: ImageView = view.findViewById(R.id.coverImage)
+            val title: TextView = view.findViewById(R.id.title)
+        }
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+            val view = LayoutInflater.from(parent.context)
+                .inflate(R.layout.recycler_plate_item, parent, false)
+            return ViewHolder(view)
+        }
+
+        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+            val content = getItem(position)
+            Glide.with(holder.itemView.context)
+                .load(BASE_URL + content.cover)
+                .error(R.drawable.ic_uo)
+                .into(holder.cover)
+            holder.title.text = content.title
+            holder.item.setOnClickListener {
+                onItemClick?.invoke(content.link, content.cover, content.title)
+            }
+        }
+
+        fun updateList(newData: List<PlateItem>) {
+            submitList(newData.toMutableList())
+        }
+    }
+
     private lateinit var recyclerView: RecyclerView
     // 所有选项卡的TextView集合
     private val tabTextViews = mutableListOf<TextView>()
     private var currentSelectedIndex = 0 // 默认选中第一个
     private lateinit var loadingDialog: LoadingDialog
+    private lateinit var plateAdapter: PlateAdapter
 
     // 假设网页和element每个 tab 对应的 content 参数
     private val tabContents = listOf(
-        "/watched/forums/", // 我的关注
-        "/categories/21/", // 小米手机
-        "/categories/533/", // 红米手机
-        "565 ", // 一加手机
-        "494 ", // 魅族手机
-        "56 ", // 平板/笔记本电脑
-        "93 ", // 智能生活
-        "251 ", // 系统软件
-        "13 " // 站务专区
+        "/watched/forums/",
+        "/categories/21/",
+        "/categories/533/",
+        "/categories/oneplus/",
+        "/categories/499/",
+        "/categories/385/",
+        "/categories/redmi-pad.546/ ",
+        "/categories/539/",
+        "/categories/219/",
+        "/categories/403/",
+        "/categories/94/",
+        "/categories/95/",
+        "/categories/Win/",
+        "251 ",
+        "13 "
     )
 
     override fun onCreateView(
@@ -58,61 +110,65 @@ class PlateFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        tip = view.findViewById(R.id.tip)
         loadingDialog = LoadingDialog(requireContext())
 
         loadInitialData()
         setupTabs(view)
 
-        val title = view.findViewById<View>(R.id.title)
-        val bigTitle = view.findViewById<View>(R.id.bigTitle)
         val statusBarView = view.findViewById<View>(R.id.statusBarView)
-        val rootLayout = view.findViewById<View>(R.id.rootlayout)
+        val statusBarBlurView = view.findViewById<View>(R.id.statusBarBlurView)
+        val appBarLayout = view.findViewById<View>(R.id.appBarLayout)
+        recyclerView = view.findViewById(R.id.recyclerView)
         ViewCompat.setOnApplyWindowInsetsListener(view.rootView) { _, insets ->
+            // 获取系统栏高度 (包含 top, bottom, left 和 right)
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             statusBarView.updateLayoutParams<ViewGroup.LayoutParams> { height = systemBars.top }
-            rootLayout.setPadding(
-                systemBars.left,
-                systemBars.top + Utils.dp2Px(60, requireContext()).toInt(),
-                systemBars.right,
-                systemBars.bottom
-            )
+            statusBarBlurView.updateLayoutParams<ViewGroup.LayoutParams> { height = systemBars.top }
+            appBarLayout.updateLayoutParams<MarginLayoutParams> { topMargin = systemBars.top }
             recyclerView.setPadding(
-                0, 0, 0,
-                systemBars.bottom + Utils.dp2Px(65, requireContext()).toInt()
+                0,
+                (126f.dpToPx(requireContext()).roundToInt()),
+                0,
+                (70f.dpToPx(requireContext()).roundToInt() + systemBars.top + systemBars.bottom)
             )
-            // 创建 SimonEdgeIllusion 实例
-            TitleAnim(
-                title,
-                bigTitle,
-                Utils.dp2Px(60, requireContext()) + systemBars.top.toFloat(),
-                systemBars.top.toFloat()
-            )
+            // 返回 insets
             insets
         }
-
-        recyclerView = view.findViewById(R.id.recyclerView)
-        recyclerView.adapter = PlateAdapter(mutableListOf())
+        plateAdapter = PlateAdapter().apply {
+            onItemClick = { link, cover, title ->
+                startActivity(
+                    Intent(
+                        requireContext(),
+                        PlateActivity::class.java
+                    ).apply {
+                        putExtra("link", link)
+                        putExtra("cover", cover)
+                        putExtra("title", title)
+                    }
+                )
+            }
+        }
+        recyclerView.adapter = plateAdapter
         recyclerView.layoutManager = LinearLayoutManager(context)
-
     }
 
     private fun setupTabs(view: View) {
-
         tabTextViews.add(view.findViewById(R.id.follow))
         tabTextViews.add(view.findViewById(R.id.xiaomi))
         tabTextViews.add(view.findViewById(R.id.redmi))
         tabTextViews.add(view.findViewById(R.id.oneplus))
         tabTextViews.add(view.findViewById(R.id.meizu))
-        tabTextViews.add(view.findViewById(R.id.tablet_laptop))
-        tabTextViews.add(view.findViewById(R.id.smart_life))
+        tabTextViews.add(view.findViewById(R.id.mipad))
+        tabTextViews.add(view.findViewById(R.id.redmipad))
+        tabTextViews.add(view.findViewById(R.id.lenovopad))
+        tabTextViews.add(view.findViewById(R.id.xiaomi_laptop))
+        tabTextViews.add(view.findViewById(R.id.mijia))
+        tabTextViews.add(view.findViewById(R.id.miband))
+        tabTextViews.add(view.findViewById(R.id.miwatch))
+        tabTextViews.add(view.findViewById(R.id.windows))
         tabTextViews.add(view.findViewById(R.id.system_app))
         tabTextViews.add(view.findViewById(R.id.forum_services))
-
-        for (index in tabTextViews.indices) {
-            tabTextViews[index].setOnClickListener { onTabClicked(index) }
-        }
-
+        for (index in tabTextViews.indices) { tabTextViews[index].setOnClickListener { onTabClicked(index) } }
     }
 
     private fun onTabClicked(index: Int) {
@@ -124,15 +180,14 @@ class PlateFragment : Fragment() {
         lifecycleScope.launch {
             // 获取新数据
             val newData = PlateParse.fetchPlateData(tabContents[index])
-
-            if (newData != mutableListOf<PlateItem>()) {
-                tip.isVisible = false
-                recyclerView.adapter = PlateAdapter(newData)
-            } else {
-                tip.isVisible = true
-                recyclerView.adapter = PlateAdapter(newData)
+            withContext(Dispatchers.Main) {
+                if (newData != mutableListOf<PlateItem>()) {
+                    plateAdapter.updateList(newData)
+                } else {
+                    plateAdapter.updateList(mutableListOf(PlateItem("", getString(R.string.no_follow_plate), "")))
+                }
+                loadingDialog.cancel()
             }
-            loadingDialog.cancel()
         }
     }
 
@@ -140,23 +195,26 @@ class PlateFragment : Fragment() {
         lifecycleScope.launch {
             // 加载默认数据（第一个tab）
             val initialData = PlateParse.fetchPlateData(tabContents[0])
-
-            if (initialData != mutableListOf<PlateItem>()) {
-                tip.isVisible = false
-                recyclerView.adapter = PlateAdapter(initialData)
-            } else {
-                tip.isVisible = true
-                recyclerView.adapter = PlateAdapter(initialData)
+            withContext(Dispatchers.Main) {
+                if (initialData != mutableListOf<PlateItem>()) {
+                    plateAdapter.updateList(initialData)
+                } else {
+                    plateAdapter.updateList(mutableListOf(PlateItem("", getString(R.string.no_follow_plate), "")))
+                }
+                updateTabStyle(currentSelectedIndex) // 初始选中第一个
             }
-            updateTabStyle(currentSelectedIndex) // 初始选中第一个
         }
     }
 
+    @SuppressLint("Recycle", "ResourceType")
     private fun updateTabStyle(selectedIndex: Int) {
 
-        val normalColor = ContextCompat.getColor(requireContext(), R.color.label_secondary)
-        val selectedColor = ContextCompat.getColor(requireContext(), R.color.label_primary)
-
+        val typedArray = requireContext().obtainStyledAttributes(intArrayOf(R.attr.colorOnBackgroundPrimary, R.attr.colorOnBackgroundSecondary))
+        // 底栏按钮默认颜色
+        val normalColor = typedArray.getColor(1, Color.RED)
+        // 底栏按钮选择颜色
+        val selectedColor = typedArray.getColor(0, Color.RED)
+        typedArray.recycle()
         // 重置所有样式
         tabTextViews.forEach { tv ->
             tv.setTypeface(null, Typeface.NORMAL)
@@ -172,30 +230,4 @@ class PlateFragment : Fragment() {
         }
     }
 
-}
-
-class PlateAdapter(private var data: MutableList<PlateItem>) :
-    RecyclerView.Adapter<PlateAdapter.ViewHolder>() {
-
-    inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
-        val item: View = view.findViewById(R.id.item)
-        val cover: ImageView = view.findViewById(R.id.coverImage)
-        val title: TextView = view.findViewById(R.id.title)
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.recycler_plate_item, parent, false)
-        return ViewHolder(view)
-    }
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val content = data[position]
-        Glide.with(holder.itemView.context)
-            .load(content.cover)
-            .into(holder.cover)
-        holder.title.text = content.title
-    }
-
-    override fun getItemCount(): Int = data.size
 }

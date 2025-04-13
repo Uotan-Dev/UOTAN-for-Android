@@ -5,7 +5,6 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_1"
     tools:context=".activity.PlaceholderActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,7 +25,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_uo"
-            app:tint="@color/label_quarternary"
             tools:ignore="ImageContrastCheck" />
 
         <ImageView
@@ -37,14 +35,13 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/uo"
             app:srcCompat="@drawable/ic_tan"
-            app:tint="@color/label_quarternary"
             tools:ignore="ImageContrastCheck" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <FrameLayout
         android:layout_width="0.5dp"
         android:layout_height="0dp"
-        android:background="@color/divider"
+        android:background="?attr/colorOnBackgroundSecondary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">

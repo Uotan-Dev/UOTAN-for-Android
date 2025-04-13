@@ -5,7 +5,6 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_primary"
     tools:context=".fragment.login.FirstFragment">
 
     <View
@@ -45,7 +44,7 @@
         android:layout_marginEnd="16dp"
         android:fontFamily="sans-serif-medium"
         android:text="@string/welcome"
-        android:textColor="@color/label_primary"
+        android:textColor="?attr/colorOnBackgroundPrimary"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,84 +58,45 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="16dp"
         android:text="@string/welcome_describe"
-        android:textColor="@color/label_secondary"
+        android:textColor="?attr/colorOnBackgroundSecondary"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/welcome" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/registerFrame"
+    <TextView
+        android:id="@+id/register"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="20dp"
-        app:cardBackgroundColor="@android:color/transparent"
-        app:cardCornerRadius="14dp"
-        app:cardElevation="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/loginButton"
+        android:background="@drawable/gustatex_button_filled"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:text="@string/first_register"
+        android:textColor="?attr/colorOnFilledButton"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/login"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <FrameLayout
-            android:id="@+id/registerCard"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/gustatex_button_red">
-
-        </FrameLayout>
-    </androidx.cardview.widget.CardView>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/register"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-medium"
-        android:text="@string/first_register"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/registerFrame"
-        app:layout_constraintEnd_toEndOf="@+id/registerFrame"
-        app:layout_constraintStart_toStartOf="@+id/registerFrame"
-        app:layout_constraintTop_toTopOf="@+id/registerFrame" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/loginButton"
+        android:id="@+id/login"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="60dp"
-        android:alpha="0.15"
-        app:cardCornerRadius="14dp"
-        app:cardElevation="0dp"
+        android:background="@drawable/gustatex_button_filled_tonal"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:text="@string/first_login"
+        android:textColor="?attr/colorOnFilledTonalButton"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/noLogin"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" >
-
-        <FrameLayout
-            android:id="@+id/loginCard"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/gustatex_button_red">
-
-        </FrameLayout>
-    </androidx.cardview.widget.CardView>
-
-    <TextView
-        android:id="@+id/login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-medium"
-        android:text="@string/first_login"
-        android:textColor="@color/red"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/loginButton"
-        app:layout_constraintEnd_toEndOf="@+id/loginButton"
-        app:layout_constraintStart_toStartOf="@+id/loginButton"
-        app:layout_constraintTop_toTopOf="@+id/loginButton" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/noLogin"
@@ -145,7 +105,7 @@
         android:layout_marginBottom="30dp"
         android:fontFamily="sans-serif-medium"
         android:text="@string/no_login"
-        android:textColor="@color/red"
+        android:textColor="?attr/colorFilledButtonNormal"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/gestureView"
         app:layout_constraintEnd_toEndOf="parent"

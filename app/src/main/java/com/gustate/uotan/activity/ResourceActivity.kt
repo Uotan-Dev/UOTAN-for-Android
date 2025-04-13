@@ -2,23 +2,24 @@ package com.gustate.uotan.activity
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isGone
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
+import com.gustate.uotan.BaseActivity
 import com.gustate.uotan.databinding.ActivityResourceBinding
 import com.gustate.uotan.gustatex.dialog.LoadingDialog
-import com.gustate.uotan.utils.Utils
 import com.gustate.uotan.utils.Utils.Companion.BASE_URL
+import com.gustate.uotan.utils.Utils.Companion.dpToPx
 import com.gustate.uotan.utils.Utils.Companion.openImmersion
 import com.gustate.uotan.utils.parse.resource.ResourceArticleParse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlin.math.roundToInt
 
-class ResourceActivity : AppCompatActivity() {
+class ResourceActivity : BaseActivity() {
 
     private lateinit var loadingDialog: LoadingDialog
 
@@ -50,9 +51,9 @@ class ResourceActivity : AppCompatActivity() {
             binding.rootScrollView
                 .setPadding(
                     systemBars.left,
-                    systemBars.top + Utils.dp2Px(60, this).toInt(),
+                    (systemBars.top + 60f.dpToPx(this)).roundToInt(),
                     systemBars.right,
-                    systemBars.bottom + Utils.dp2Px(70, this).toInt()
+                    (systemBars.top + 70f.dpToPx(this)).roundToInt()
                 )
             // 设置小白条占位布局高度
             binding.gestureView.layoutParams.height = systemBars.bottom

@@ -1,12 +1,13 @@
 package com.gustate.uotan.fragment.notice
 
+import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
-import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
@@ -15,8 +16,8 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.gustate.uotan.R
 import com.gustate.uotan.anim.TitleAnim
-import com.gustate.uotan.utils.Utils
-import com.scwang.smart.refresh.layout.api.RefreshLayout
+import com.gustate.uotan.utils.Utils.Companion.dpToPx
+import kotlin.math.roundToInt
 
 class NoticeFragment : Fragment() {
 
@@ -28,6 +29,7 @@ class NoticeFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_notice, container, false)
     }
 
+    @SuppressLint("Recycle", "ResourceType")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val statusBarView: View = view.findViewById(R.id.statusBarView)
@@ -39,7 +41,7 @@ class NoticeFragment : Fragment() {
             statusBarView.updateLayoutParams<ViewGroup.LayoutParams> { height = systemBars.top }
             coordinatorLayout.setPadding(
                 systemBars.left,
-                systemBars.top + Utils.dp2Px(60, requireContext()).toInt(),
+                (systemBars.top + 60f.dpToPx(requireContext())).roundToInt(),
                 systemBars.right,
                 0
             )
@@ -47,14 +49,14 @@ class NoticeFragment : Fragment() {
             TitleAnim(
                 title,
                 bigTitle,
-                Utils.dp2Px(60, requireContext()) + systemBars.top.toFloat(),
+                (systemBars.top + 60f.dpToPx(requireContext())),
                 systemBars.top.toFloat()
             )
             insets
         }
         val viewPager: ViewPager2 = view.findViewById(R.id.viewPager)
         viewPager.adapter = NoticeViewPagerAdapter(this)
-        val bigTitleNotice: TextView = view.findViewById(R.id.bigTitleNotice)
+        val bigTitleNotice: TextView = view.findViewById(R.id.bigTitle)
         val bigTitleMessage: TextView = view.findViewById(R.id.bigTitleMessage)
         val titleNotice: TextView = view.findViewById(R.id.titleNotice)
         val titleMessage: TextView = view.findViewById(R.id.titleMessage)
@@ -62,20 +64,26 @@ class NoticeFragment : Fragment() {
         bigTitleMessage.setOnClickListener{ viewPager.setCurrentItem(1, true) }
         titleNotice.setOnClickListener{ viewPager.setCurrentItem(0, true) }
         titleMessage.setOnClickListener{ viewPager.setCurrentItem(1, true) }
+        val typedArray = requireContext().obtainStyledAttributes(intArrayOf(R.attr.colorOnBackgroundPrimary, R.attr.colorOnBackgroundSecondary))
+        // 底栏按钮默认颜色
+        val normalColor = typedArray.getColor(1, Color.RED)
+        // 底栏按钮选择颜色
+        val selectedColor = typedArray.getColor(0, Color.RED)
+        typedArray.recycle()
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 when (position) {
                     0 -> {
-                        bigTitleNotice.setTextColor(ContextCompat.getColor(requireContext(), R.color.label_primary))
-                        bigTitleMessage.setTextColor(ContextCompat.getColor(requireContext(), R.color.label_secondary))
-                        titleNotice.setTextColor(ContextCompat.getColor(requireContext(), R.color.label_primary))
-                        titleMessage.setTextColor(ContextCompat.getColor(requireContext(), R.color.label_secondary))
+                        bigTitleNotice.setTextColor(selectedColor)
+                        bigTitleMessage.setTextColor(normalColor)
+                        titleNotice.setTextColor(selectedColor)
+                        titleMessage.setTextColor(normalColor)
                     }
                     1 -> {
-                        bigTitleNotice.setTextColor(ContextCompat.getColor(requireContext(), R.color.label_secondary))
-                        bigTitleMessage.setTextColor(ContextCompat.getColor(requireContext(), R.color.label_primary))
-                        titleNotice.setTextColor(ContextCompat.getColor(requireContext(), R.color.label_secondary))
-                        titleMessage.setTextColor(ContextCompat.getColor(requireContext(), R.color.label_primary))
+                        bigTitleNotice.setTextColor(normalColor)
+                        bigTitleMessage.setTextColor(selectedColor)
+                        titleNotice.setTextColor(normalColor)
+                        titleMessage.setTextColor(selectedColor)
                     }
                 }
             }

@@ -4,16 +4,13 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.os.Handler
-import android.os.Looper
-import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
+import com.gustate.uotan.BaseActivity
 import com.gustate.uotan.R
 import com.gustate.uotan.utils.parse.data.CookiesManager
 import com.gustate.uotan.utils.Utils.Companion.BASE_URL
@@ -35,7 +32,7 @@ import org.jsoup.Jsoup
  * I Love Jiang’Xun
  */
 
-class StartupActivity : AppCompatActivity() {
+class StartupActivity : BaseActivity() {
 
     data class StartupTypeData(
         val isLogin: Boolean = false,
@@ -85,21 +82,16 @@ class StartupActivity : AppCompatActivity() {
             }
         }.start()
 
-        // 获取跳过按钮
-        val skipCard: View = findViewById(R.id.skipCard)
-
         // 点击跳过直接跳转
-        skipCard.setOnClickListener {
+        skip.setOnClickListener {
             lifecycleScope.launch {
                 if (!isClick) {
                     startupApp(this@StartupActivity)
                     isClick = true
                     countDownTimer.cancel()
                 }
-
             }
         }
-
     }
 
     private suspend fun startupApp(context: Context) = withContext(Dispatchers.IO) {
@@ -143,11 +135,6 @@ class StartupActivity : AppCompatActivity() {
 
 
     private suspend fun startupTypeParse(): StartupTypeData = withContext(Dispatchers.IO) {
-        val cookiesManager = CookiesManager(this@StartupActivity)
-        // 将数据库中的 Cookies 赋值到全局变量中
-        Cookies = cookiesManager.cookiesFlow.first()
-        // 修改全局变量 isLogin
-        isLogin = Cookies != mapOf<String, String>()
         if (isLogin) {
             // 解析网页, document 返回的就是网页 Document 对象
             val response = Jsoup.connect(BASE_URL)

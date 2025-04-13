@@ -1,54 +1,197 @@
 package com.gustate.uotan.activity
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Intent
 import android.os.Bundle
-import android.view.MotionEvent
+import android.text.method.LinkMovementMethod
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.view.animation.LinearInterpolator
+import android.webkit.CookieManager
 import android.webkit.PermissionRequest
 import android.webkit.WebChromeClient
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
+import androidx.core.animation.ValueAnimator
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isGone
-import androidx.core.view.isVisible
-import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.gustate.uotan.BaseActivity
 import com.gustate.uotan.R
 import com.gustate.uotan.anim.TitleAnim
 import com.gustate.uotan.databinding.ActivityArticleBinding
+import com.gustate.uotan.gustatex.dialog.InfoDialog
 import com.gustate.uotan.gustatex.dialog.LoadingDialog
-import com.gustate.uotan.utils.parse.article.ArticleParse
 import com.gustate.uotan.utils.Utils
 import com.gustate.uotan.utils.Utils.Companion.BASE_URL
+import com.gustate.uotan.utils.Utils.Companion.Cookies
+import com.gustate.uotan.utils.Utils.Companion.dpToPx
+import com.gustate.uotan.utils.Utils.Companion.htmlToSpan
+import com.gustate.uotan.utils.Utils.Companion.idToAvatar
 import com.gustate.uotan.utils.Utils.Companion.openImmersion
+import com.gustate.uotan.utils.parse.article.ArticleParse
+import com.gustate.uotan.utils.parse.article.ArticleParse.Companion.addReplyPost
+import com.gustate.uotan.utils.parse.article.ArticleParse.Companion.addReaction
+import com.gustate.uotan.utils.parse.article.ArticleParse.Companion.deleteArticle
+import com.gustate.uotan.utils.parse.article.ArticleParse.Companion.fetchComments
+import com.gustate.uotan.utils.parse.article.ArticleParse.Companion.getAuthorIp
+import com.gustate.uotan.utils.parse.article.CommentItem
+import com.gustate.uotan.utils.room.UserViewModel
+import com.kongzue.dialogx.dialogs.BottomDialog
+import com.kongzue.dialogx.interfaces.OnBindView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.jsoup.Jsoup
+import java.sql.Time
+import java.time.Instant
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import kotlin.math.roundToInt
 
-class ArticleActivity : AppCompatActivity() {
+/**
+ * 文章页面 (Activity)
+ * 2025-04-04
+ */
 
+class ArticleActivity : BaseActivity() {
+
+    /**
+     * 评论列表框适配器 (Adapter)
+     * @param commentsList 列表内容
+     * 2025-04-04
+     */
+    class CommentAdapter() : RecyclerView.Adapter<CommentAdapter.ViewHolder>() {
+        private val commentsList = mutableListOf<CommentItem>()
+        private val filterSet = mutableSetOf<String>()
+        inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
+            val avatar: ImageView = view.findViewById(R.id.userAvatar)
+            val userName: TextView = view.findViewById(R.id.userNameText)
+            val time: TextView = view.findViewById(R.id.time)
+            val ip: TextView = view.findViewById(R.id.tvIp)
+            val content: TextView = view.findViewById(R.id.content)
+        }
+        override fun onCreateViewHolder(
+            parent: ViewGroup,
+            viewType: Int
+        ): ViewHolder {
+            val view = LayoutInflater.from(parent.context)
+                .inflate(R.layout.recycler_comment_item, parent, false)
+            return ViewHolder(view)
+        }
+        override fun onBindViewHolder(
+            holder: ViewHolder,
+            position: Int
+        ) {
+            val content = commentsList[position]
+            val avatarUrl = idToAvatar(content.userId)
+            Glide.with(holder.itemView.context)
+                .load(avatarUrl)
+                .error(R.drawable.avatar_account)
+                .into(holder.avatar)
+            holder.userName.text = content.userName
+            holder.time.text = content.time
+            holder.ip.text = content.userIp
+            htmlToSpan(holder.content, content.content)
+        }
+
+        override fun getItemCount(): Int = commentsList.size
+
+        fun addAll(newItems: MutableList<CommentItem>) {
+            val filteredList = newItems.filter {
+                !filterSet.contains(it.postTime) && !commentsList.any { existing -> existing.postTime == it.postTime }
+            }
+            val startPosition = commentsList.size
+            commentsList.addAll(filteredList)
+            notifyItemRangeInserted(startPosition, filteredList.size)
+        }
+
+        fun addNewReply(comment: CommentItem) {
+            filterSet.add(comment.content)
+            commentsList.add(0, comment)
+            notifyItemInserted(0)
+        }
+    }
+
+    private lateinit var binding: ActivityArticleBinding
     private lateinit var loadingDialog: LoadingDialog
+    private lateinit var adapter: CommentAdapter
+    private lateinit var cookieManager: CookieManager
+    private lateinit var viewModel: UserViewModel
+    private var isReacting = false
+    private var isLocked = false
+    private var isReact = false
+    private var isJingHua = false
+    private var totalPage = 1
+    private var currentPage = 1
+    private var title = ""
+    private var url = ""
+    private var reactUrl = ""
+    private var reportUrl = ""
+    private var editUrl = ""
+    private var deleteUrl = ""
+    private var ipUrl = ""
+    private var changeAuthorUrl = ""
+    private var xfToken = ""
+    private var attachmentHash = ""
+    private var attachmentHashCombined = ""
+    private var lastCommentDate = ""
+    private var cookieString = ""
+    private var ip = ""
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
 
-        enableEdgeToEdge()
-
-        val binding = ActivityArticleBinding.inflate(layoutInflater)
+        binding = ActivityArticleBinding.inflate(layoutInflater)
         setContentView(binding.rootLayout)
 
         // 针对部分系统的小白条沉浸
         openImmersion(window)
 
         loadingDialog = LoadingDialog(this)
+        viewModel = ViewModelProvider(this)[UserViewModel::class.java]
+        val loadingAnimator = ObjectAnimator.ofFloat(
+            binding.btnReact,
+            "rotation",
+            0f,
+            360f
+        ).apply {
+            duration = 1000
+            repeatCount = ValueAnimator.INFINITE
+            interpolator = LinearInterpolator()
+            addListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator) {
+                    binding.btnReact.rotation = 0f
+                }
+                override fun onAnimationCancel(animation: Animator) {
+                    binding.btnReact.rotation = 0f
+                }
+            })
+        }
+
+        // 下拉刷新
+        binding.refreshLayout.setEnableRefresh(true)
+        // 上拉加载
+        binding.refreshLayout.setEnableLoadMore(true)
+        // 越界回弹
+        binding.refreshLayout.setEnableOverScrollBounce(true)
 
         /*
          * 修改各个占位布局的高度
@@ -60,35 +203,332 @@ class ArticleActivity : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             // 设置状态栏占位布局高度
             binding.statusBarView.layoutParams.height = systemBars.top
-            // 修改滚动布局的边距
-            binding.rootScrollView
-                .setPadding(
-                    systemBars.left,
-                    systemBars.top + Utils.dp2Px(60, this).toInt(),
-                    systemBars.right,
-                    systemBars.bottom + Utils.dp2Px(70, this).toInt()
-                )
+            //修改滚动布局的边距
+            binding.rootScrollView.setPadding(
+                systemBars.left,
+                (systemBars.top + 60f.dpToPx(this)).roundToInt(),
+                systemBars.right,
+                (systemBars.bottom + 70f.dpToPx(this)).roundToInt()
+            )
+            binding.refreshLayout.setHeaderInsetStartPx((systemBars.top + 60f.dpToPx(this@ArticleActivity)).roundToInt())
+            binding.refreshLayout.setFooterInsetStartPx((systemBars.bottom + 70f.dpToPx(this@ArticleActivity)).roundToInt())
             // 设置小白条占位布局高度
             binding.gestureView.layoutParams.height = systemBars.bottom
             // 创建 SimonEdgeIllusion 实例
             TitleAnim(
                 binding.title,
                 binding.bigTitle,
-                Utils.dp2Px(60, this) + systemBars.top.toFloat(),
-                systemBars.top.toFloat())
+                (systemBars.top + 60f.dpToPx(this)),
+                systemBars.top.toFloat()
+            )
             // 返回 insets
             insets
         }
 
-        loadData(binding, intent.getStringExtra("url")!!)
+        // 配置 Cookie 管理器
+        cookieManager = CookieManager.getInstance()
+        // 配置 WebView
+        configureWebView()
+        // 允许接受Cookie
+        cookieManager.setAcceptCookie(true)
+        // 允许第三方 Cookies
+        cookieManager.setAcceptThirdPartyCookies(binding.invisibleWebView, true)
+        setCookiesForDomain(BASE_URL + url, Cookies)
 
+        url = intent.getStringExtra("url")!!
+        // 加载隐藏页面
+        binding.invisibleWebView.loadUrl(BASE_URL + url)
+
+        binding.invisibleWebView.webViewClient = object : WebViewClient() {
+            override fun onPageFinished(view: WebView, url: String?) {
+                super.onPageFinished(view, url)
+                binding.invisibleWebView.evaluateJavascript("document.documentElement.outerHTML") { html ->
+                    val unescapedHtml = html.unescapeHtml()
+                    val document = Jsoup.parse(unescapedHtml)
+                    cookieString = cookieManager.getCookie(url)
+                    xfToken = document
+                        .select("input[name=_xfToken]")
+                        .first()
+                        ?.attr("value") ?: throw Exception("Xf token not found")
+                    attachmentHash = document
+                        .select("input[name=attachment_hash]")
+                        .first()
+                        ?.attr("value") ?: throw Exception("Attachment hash not found")
+                    attachmentHashCombined  = document
+                        .select("input[name=attachment_hash_combined]")
+                        .first()
+                        ?.attr("value") ?: throw Exception("Attachment hash combined not found")
+                    lastCommentDate = document
+                        .getElementsByTag("time")
+                        .first()
+                        ?.attr("data-time") ?: throw Exception("Data time not found")
+                }
+            }
+            fun String.unescapeHtml(): String {
+                return this.replace("\\u003C", "<")
+                    .replace("\\\"", "\"")
+                    .replace("\\'", "'")
+                    .replace("\\\\", "\\")
+            }
+        }
+
+        loadArticle(url)
+
+        binding.tvContent.movementMethod = LinkMovementMethod.getInstance()
+
+        loadComments(url, true)
+
+        binding.refreshLayout.setOnRefreshListener {
+            loadArticle(url)
+            loadComments(url, true)
+        }
+
+        binding.refreshLayout.setOnLoadMoreListener {
+            loadComments(url, false)
+        }
+
+        binding.btnComment.setOnClickListener {
+            if (isLocked) {
+                Toast.makeText(
+                    this,
+                    R.string.locked_post,
+                    Toast.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
+            }
+            BottomDialog.show(object : OnBindView<BottomDialog?>(R.layout.dialogx_add_reply) {
+                override fun onBind(dialog: BottomDialog?, v: View?) {
+                    val btnClose = v?.findViewById<View>(R.id.close)
+                    btnClose?.setOnClickListener {
+                        dialog?.dismiss()
+                    }
+                    val btnPost = v?.findViewById<View>(R.id.btnPost)
+                    val edtContent = v?.findViewById<EditText>(R.id.edtContent)
+                    btnPost?.setOnClickListener {
+                        loadingDialog.show()
+                        val message = edtContent?.text.toString()
+                        lifecycleScope.launch {
+                            val addReply = addReplyPost(
+                                url,
+                                message,
+                                xfToken,
+                                attachmentHash,
+                                attachmentHashCombined,
+                                lastCommentDate,
+                                cookieString
+                            )
+                            withContext(Dispatchers.Main) {
+                                if (addReply.isSuccessful) {
+                                    dialog?.dismiss()
+                                    withContext(Dispatchers.IO) {
+                                        val userData = viewModel.getUser()
+                                        val instant = Instant.ofEpochMilli(addReply.postTime
+                                            .toLong())
+                                        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+                                            .withZone(ZoneId.systemDefault()) // 系统默认时区
+                                        val formattedDate = formatter.format(instant)
+                                        withContext(Dispatchers.Main) {
+                                            adapter.addNewReply(CommentItem(userData?.userId ?:"",
+                                                userData?.userName ?:"", userData?.ipAddress ?:"",
+                                                formattedDate, message, addReply.postTime))
+                                            val commentCount = binding.commentCount.text.toString()
+                                                .toInt() + 1
+                                            binding.commentCount.text = commentCount.toString()
+                                            loadingDialog.cancel()
+                                            Toast.makeText(this@ArticleActivity, "发布成功", Toast.LENGTH_SHORT).show()
+                                        }
+                                    }
+                                } else {
+                                    loadingDialog.cancel()
+                                    Toast.makeText(this@ArticleActivity, "发布失败", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        }
+                    }
+                }
+            })
+        }
+        binding.btnReact.setOnClickListener {
+            if (reactUrl.isEmpty()) {
+                Toast.makeText(
+                    this,
+                    "自己的文章不可点赞",
+                    Toast.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
+            }
+            if (isReacting) {
+                Toast.makeText(
+                    this,
+                    "正在点赞中，请稍后",
+                    Toast.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
+            }
+            isReacting = true
+            val oldImg  = binding.btnReact.drawable
+            binding.btnReact.setImageDrawable(getDrawable(R.drawable.ic_loading))
+            loadingAnimator.start()
+            lifecycleScope.launch {
+                val changeReact = addReaction(
+                    reactUrl,
+                    cookieString,
+                    xfToken
+                )
+                if (changeReact) {
+                    if (isReact) {
+                        isReact = false
+                        binding.btnReact.setImageDrawable(getDrawable(R.drawable.ic_favourite))
+                        val reactCount = binding.favouriteCount.text.toString().toInt() - 1
+                        binding.favouriteCount.text = reactCount.toString()
+                    } else {
+                        isReact = true
+                        binding.btnReact.setImageDrawable(getDrawable(R.drawable.ic_is_react))
+                        val reactCount = binding.favouriteCount.text.toString().toInt() + 1
+                        binding.favouriteCount.text = reactCount.toString()
+                    }
+                } else {
+                    Toast.makeText(
+                        this@ArticleActivity,
+                        "操作失败",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    binding.btnReact.setImageDrawable(oldImg)
+                }
+                isReacting = false
+                loadingAnimator.cancel()
+            }
+        }
+        binding.btnShare.setOnClickListener {
+            val share = Intent.createChooser(Intent().apply {
+                action = Intent.ACTION_SEND
+                type = "text/plain"
+                putExtra(Intent.EXTRA_TEXT, BASE_URL.replace(".cn/", ".cn") + url)
+                putExtra(Intent.EXTRA_TITLE, title)
+            }, null)
+            startActivity(share)
+        }
+        binding.btnMore.setOnClickListener {
+            BottomDialog.show(object : OnBindView<BottomDialog?>(R.layout.dialogx_article_more) {
+                override fun onBind(dialog: BottomDialog?, v: View?) {
+                    val btnClose = v?.findViewById<View>(R.id.close)
+                    btnClose?.setOnClickListener {
+                        dialog?.dismiss()
+                    }
+                    val btnCopyLink = v?.findViewById<View>(R.id.btnCopyLink)
+                    btnCopyLink?.setOnClickListener {
+                        // 获取 ClipboardManager 实例
+                        val clipboard = this@ArticleActivity.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
+                        // 创建 ClipData 对象（带标签和内容）
+                        val clipData = ClipData.newPlainText(title, BASE_URL.replace(".cn/", ".cn") + url)
+                        // 设置到系统剪贴板
+                        clipboard.setPrimaryClip(clipData)
+                        Toast.makeText(
+                            this@ArticleActivity,
+                            R.string.link_copied_clipboard,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        dialog?.dismiss()
+                    }
+                    val btnDelete = v?.findViewById<View>(R.id.btnDelete)
+                    val tvDelete = v?.findViewById<View>(R.id.tvDelete)
+                    btnDelete?.isGone = deleteUrl.isEmpty()
+                    tvDelete?.isGone = deleteUrl.isEmpty()
+                    btnDelete?.setOnClickListener {
+                        dialog?.dismiss()
+                        val deleteDialog = InfoDialog(this@ArticleActivity)
+                        deleteDialog
+                            .setTitle(getString(R.string.permanently_delete))
+                            .setDescription(getString(R.string.dialog_permanently_delete))
+                            .setConfirmText(getString(R.string.ok))
+                            .setCancelText(getString(R.string.cancel))
+                            .withOnConfirm {
+                                loadingDialog.show()
+                                lifecycleScope.launch {
+                                    val isDelete = deleteArticle(url, deleteUrl, cookieString, xfToken)
+                                    withContext(Dispatchers.Main) {
+                                        if (isDelete) {
+                                            Toast.makeText(
+                                                this@ArticleActivity,
+                                                R.string.delete_successfully,
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        } else {
+                                            Toast.makeText(
+                                                this@ArticleActivity,
+                                                R.string.delete_failed,
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        }
+                                        deleteDialog.dismiss()
+                                        loadingDialog.cancel()
+                                    }
+                                }
+                            }
+                            .withOnCancel { deleteDialog.dismiss() }
+                            .show()
+                    }
+                    val btnIp = v?.findViewById<View>(R.id.btnIp)
+                    val tvIp = v?.findViewById<View>(R.id.tvIp)
+                    btnIp?.isGone = ipUrl.isEmpty()
+                    tvIp?.isGone = ipUrl.isEmpty()
+                    btnIp?.setOnClickListener {
+                        lifecycleScope.launch {
+                            ip = if (ip.isEmpty()) {
+                                getAuthorIp(ipUrl)
+                            } else ip
+                            withContext(Dispatchers.Main) {
+                                dialog?.dismiss()
+                                val deleteDialog = InfoDialog(this@ArticleActivity)
+                                deleteDialog
+                                    .setTitle(getString(R.string.IP))
+                                    .setDescription(ip)
+                                    .setConfirmText(getString(R.string.query))
+                                    .setCancelText(getString(R.string.cancel))
+                                    .withOnConfirm {
+                                        Utils.openUrlInBrowser(this@ArticleActivity,
+                                            "$BASE_URL/misc/ip-info?ip=$ip"
+                                        )
+                                        deleteDialog.dismiss()
+                                    }
+                                    .withOnCancel { deleteDialog.dismiss() }
+                                    .show()
+                            }
+                        }
+                    }
+                }
+            })
+        }
     }
 
-    @SuppressLint("ClickableViewAccessibility", "SetJavaScriptEnabled", "SetTextI18n")
-    private fun loadData(binding: ActivityArticleBinding, url: String) {
+    @SuppressLint("ClickableViewAccessibility", "SetJavaScriptEnabled", "SetTextI18n",
+        "UseCompatLoadingForDrawables"
+    )
+    private fun loadArticle(url: String) {
         loadingDialog.show()
+        isReact = false
+        isLocked = false
+        isJingHua = false
+        title = ""
+        reactUrl = ""
+        reportUrl = ""
+        editUrl = ""
+        deleteUrl = ""
+        ipUrl = ""
+        changeAuthorUrl = ""
+        ip = ""
         lifecycleScope.launch {
-            val content = ArticleParse.articleParse(baseContext, url)
+            val content = ArticleParse.articleParse(url)
+            isReact = content.isReact
+            isLocked = content.isLocked
+            isJingHua = content.isJingTie
+            title = content.title
+            reactUrl = content.reactUrl
+            reportUrl = content.reportUrl
+            editUrl = content.editUrl
+            deleteUrl = content.deleteUrl
+            ipUrl = content.ipUrl
+            changeAuthorUrl = content.changeAuthorUrl
             withContext(Dispatchers.Main) {
                 if (content.authorUrl.isNotEmpty()) {
                     Glide.with(baseContext)
@@ -103,13 +543,14 @@ class ArticleActivity : AppCompatActivity() {
                 binding.userNameText.text = content.authorName
                 binding.bigTime.text = content.time
                 binding.time.text = content.time
-                binding.bigIpLocation.text = getString(R.string.ip_location) + ": " + content.ipAddress
-                binding.ipLocation.text = getString(R.string.ip_location) + ": " + content.ipAddress
-                binding.bigTitleText.text = content.title
+                binding.bigIpLocation.text = content.ipAddress
+                binding.ipLocation.text = content.ipAddress
+                binding.bigTitleText.text = title
+                binding.cardJingTie.isGone = !isJingHua
+                binding.cardPostLocked.isGone = !isLocked
+                if (isReact) binding.btnReact.setImageDrawable(getDrawable(R.drawable.ic_is_react)) else binding.btnReact.setImageDrawable(getDrawable(R.drawable.ic_favourite))
                 binding.favouriteCount.text = content.numberOfLikes
                 binding.commentCount.text = content.numberOfComments
-                loadingDialog.cancel()
-                binding.webView.isVerticalScrollBarEnabled = false
                 binding.bilibiliWebView.settings.javaScriptEnabled = true // 启用JS
                 binding.bilibiliWebView.settings.domStorageEnabled = true // 支持HTML5本地存储
                 binding.bilibiliWebView.settings.mediaPlaybackRequiresUserGesture = false // 自动播放音频/视频
@@ -133,134 +574,75 @@ class ArticleActivity : AppCompatActivity() {
                     }
                 }
                 if (content.isBilibili) binding.bilibiliWebView.loadUrl("https:" + content.bilibiliVideoLink)
-                binding.webView.apply {
-                    // 允许 JavaScript
-                    settings.apply {
-                        javaScriptEnabled = true // 启用 JavaScript
-                        domStorageEnabled = true // 启用 DOM 存储
-                        loadWithOverviewMode = true // 适应屏幕
-                        mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW // 允许混合内容
-                    }
-
-                    // 处理链接点击
-                    webViewClient = object : WebViewClient() {
-                        @Deprecated("Deprecated in Java", ReplaceWith("false"))
-                        override fun shouldOverrideUrlLoading(
-                            view: WebView?,
-                            url: String?
-                        ): Boolean {
-                            // 自定义链接处理逻辑
-                            return false // 在 WebView 内部打开
-                        }
-
-                        override fun onPageFinished(view: WebView, url: String?) {
-                            super.onPageFinished(view, url)
-                            applyThemeColors(binding.webView)
-                            // 延迟确保内容加载完成
-                            binding.webView.postDelayed({
-                                val params = binding.webView.layoutParams
-                                params.height = (binding.webView.contentHeight * resources.displayMetrics.density).toInt()
-                                binding.webView.layoutParams = params
-                            }, 500)
-                        }
-
-                    }
-
-                    repeatOnLifecycle(Lifecycle.State.STARTED) {
-                        // 加载HTML内容
-                        loadDataWithBaseURL(
-                            null,
-                            content.article.replace(
-                                Regex("""<span data-guineapigclub-mediaembed="bilibili">.*?</span>""",
-                                    RegexOption.DOT_MATCHES_ALL),
+                loadingDialog.cancel()
+                binding.refreshLayout.finishRefresh()
+                htmlToSpan(binding.tvContent, content.article.replace(
+                    Regex(
+                        """<span data-guineapigclub-mediaembed="bilibili">.*?</span>""",
+                        RegexOption.DOT_MATCHES_ALL),
                         ""
-                            ), // 你的HTML字符串
-                            "text/html",
-                            "UTF-8",
-                            null
-                        )
-                    }
-                }
-                binding.webView.setOnTouchListener { v, event ->
-                    when (event.action) {
-                        MotionEvent.ACTION_DOWN -> {
-                            // 禁用父容器拦截事件
-                            v.parent.requestDisallowInterceptTouchEvent(true)
-                        }
-                        MotionEvent.ACTION_UP -> {
-                            v.parent.requestDisallowInterceptTouchEvent(false)
-                        }
-                    }
-                    false
-                }
+                    ).replace(
+                    Regex(
+                        """<script class="js-extraPhrases" type="application/json">.*?</script>""",
+                        RegexOption.DOT_MATCHES_ALL),
+                    ""
+                ))
             }
         }
     }
+    @SuppressLint("SetJavaScriptEnabled")
+    private fun configureWebView() {
+        binding.invisibleWebView.settings.apply {
+            javaScriptEnabled = true
+            domStorageEnabled = true
+            javaScriptCanOpenWindowsAutomatically = true
+        }
+    }
 
-    private fun applyThemeColors(webView: WebView) {
-        val context = webView.context
+    private fun setCookiesForDomain(url: String, cookiesMap: Map<String, String>) {
+        // 设置 CookieManager
+        val cookieManager = CookieManager.getInstance()
+        // 构建 Cookie
+        cookiesMap.forEach { (key, value) ->
+            // 构建符合规范的 Cookie 字符串
+            val cookieString = buildString {
+                // 基础键值对
+                append("$key=$value")
+            }
+            // 设置 Cookie
+            cookieManager.setCookie(url, cookieString)
+        }
+        // 同步 Cookies
+        cookieManager.flush()
+    }
 
-        val colors = mapOf(
-            "bg" to ContextCompat.getColor(context, R.color.background_2),
-            "text" to ContextCompat.getColor(context, R.color.label_primary),
-            "accent" to ContextCompat.getColor(context, R.color.red),
-            "warning" to ContextCompat.getColor(context, R.color.red)
-        ).mapValues { "#${Integer.toHexString(it.value).substring(2)}" }
-
-        val css = """
-        :root {
-            --sys-padding-left: 0px;
-            --sys-padding-top: ${ webView.paddingTop / 3 }px;
-            --sys-padding-right: 0px;
-            --sys-padding-bottom: ${ webView.paddingBottom / 3 }px;
-            --bg: ${colors["bg"]};
-            --text: ${colors["text"]};
-            --accent: ${colors["accent"]};
-            --warning: ${colors["warning"]};
+    private fun loadComments(url: String, first: Boolean) {
+        if (first) {
+            currentPage = 1
+            totalPage = 1
+            adapter = CommentAdapter()
+            binding.commentRecyclerView.adapter = adapter
+            binding.commentRecyclerView.layoutManager = LinearLayoutManager(this)
         }
-        body {
-            padding: 
-                var(--sys-padding-top) 
-                var(--sys-padding-right) 
-                var(--sys-padding-bottom) 
-                var(--sys-padding-left) !important;
-            background: var(--bg) !important;
-            color: var(--text) !important;
-            overflow-x: hidden !important;  // 新增禁止横向滚动
+        // 加载评论
+        lifecycleScope.launch {
+            try {
+                val comments = fetchComments(url, currentPage.toString())
+                withContext(Dispatchers.Main) {
+                    adapter.addAll(comments.commentItem)
+                    currentPage++
+                    totalPage = comments.totalPage.toInt()
+                }
+            } finally {
+                withContext(Dispatchers.Main) {
+                    if (currentPage <= totalPage) {
+                        binding.refreshLayout.finishLoadMore()
+                    } else {
+                        binding.refreshLayout.setNoMoreData(true)
+                        binding.refreshLayout.finishLoadMoreWithNoMoreData()
+                    }
+                }
+            }
         }
-        img, iframe, video {
-            max-width: 100% !important;
-            height: auto !important;
-            display: block;
-            border-radius: 12px !important;
-        }
-        .bbImageWrapper { 
-            max-width: 100% !important; 
-            border-radius: 18px !important; 
-        }
-        .bbImage { 
-            max-width: 100% !important; 
-            height: auto !important; 
-            border-radius: 12px !important; 
-        }
-        .contentRow { 
-            margin:10px 0; 
-            border:1px solid #eee; 
-            border-radius:12px; 
-        }
-        a { 
-            color: var(--accent) !important; 
-            word-break: break-word !important;  // 长链接换行
-            overflow-wrap: anywhere !important;
-        }
-        span[style*="#b22c46"] { color: var(--warning) !important; }
-    """.trimIndent()
-
-        webView.evaluateJavascript("""
-        var style = document.getElementById('dynamic-theme') || document.createElement('style');
-        style.id = 'dynamic-theme';
-        style.innerHTML = `$css`;
-        document.head.appendChild(style);
-    """.trimIndent(), null)
     }
 }

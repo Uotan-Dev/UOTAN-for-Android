@@ -19,8 +19,8 @@
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/background_1"
-            app:liftOnScrollColor="@color/background_1">
+            android:background="?attr/colorBackground"
+            app:liftOnScrollColor="?attr/colorBackground">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/bigTitleText"
@@ -32,12 +32,12 @@
                 app:layout_scrollFlags="scroll|snap">
 
                 <TextView
-                    android:id="@+id/bigTitleNotice"
+                    android:id="@+id/bigTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif"
                     android:text="@string/message"
-                    android:textColor="@color/label_primary"
+                    android:textColor="?attr/colorOnBackgroundPrimary"
                     android:textSize="30sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -49,9 +49,9 @@
                     android:layout_marginStart="20dp"
                     android:fontFamily="sans-serif"
                     android:text="@string/private_message"
-                    android:textColor="@color/label_secondary"
+                    android:textColor="?attr/colorOnBackgroundSecondary"
                     android:textSize="30sp"
-                    app:layout_constraintStart_toEndOf="@+id/bigTitleNotice"
+                    app:layout_constraintStart_toEndOf="@+id/bigTitle"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.appbar.AppBarLayout>
@@ -60,7 +60,7 @@
             android:id="@+id/refreshLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/background_1"
+            android:background="?attr/colorBackground"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:srlEnablePureScrollMode="true">
 
@@ -92,13 +92,24 @@
         class="net.center.blurview.ShapeBlurView"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        app:blur_overlay_color="@color/header_bar_blur_cover"
         app:blur_radius="25dp"
         app:layout_constraintBottom_toBottomOf="@+id/headerBarView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="UnknownIdInLayout" />
+
+    <View
+        android:id="@+id/headerBarCover"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:alpha="0.6"
+        android:background="?attr/colorBackground"
+        app:layout_constraintBottom_toBottomOf="@+id/headerBarBlur"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <View
         android:id="@+id/statusBarView"
         android:layout_width="wrap_content"
@@ -128,7 +139,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-medium"
                 android:text="@string/message"
-                android:textColor="@color/label_primary"
+                android:textColor="?attr/colorOnBackgroundPrimary"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -140,7 +151,7 @@
                 android:layout_marginStart="20dp"
                 android:fontFamily="sans-serif-medium"
                 android:text="@string/private_message"
-                android:textColor="@color/label_secondary"
+                android:textColor="?attr/colorOnBackgroundSecondary"
                 android:textSize="20sp"
                 app:layout_constraintStart_toEndOf="@+id/titleNotice"
                 app:layout_constraintTop_toTopOf="parent" />

@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.ViewGroup
 import android.webkit.CookieManager
 import android.webkit.JavascriptInterface
@@ -14,11 +13,11 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.lifecycleScope
+import com.gustate.uotan.BaseActivity
 import com.gustate.uotan.R
 import com.gustate.uotan.databinding.ActivityBindPhoneBinding
 import com.gustate.uotan.gustatex.dialog.LoadingDialog
@@ -39,7 +38,7 @@ import org.jsoup.Jsoup
  * I Love Jiang’Xun
  */
 
-class BindPhoneActivity : AppCompatActivity() {
+class BindPhoneActivity : BaseActivity() {
 
     /** 全类变量 **/
     // 初始化视图绑定
@@ -86,8 +85,6 @@ class BindPhoneActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 // 获取手机号编辑框的内容
                 val phoneNumber = binding.phoneEdit.text.toString()
-                // 获取验证码编辑框的内容
-                val code = binding.codeEdit.text.toString()
                 // 检查是否为 +86 手机号
                 if (validatePhoneNumber(phoneNumber)) {
                     // 设置发送按钮透明度为 1.0 (Float)
@@ -159,7 +156,7 @@ class BindPhoneActivity : AppCompatActivity() {
         // 允许第三方 Cookies
         cookieManager.setAcceptThirdPartyCookies(binding.webView, true)
         // 设置自定义 Cookies
-        setCookiesForDomain(url, Cookies)
+        setCookiesForDomain(Cookies)
         // 加载验证页面
         binding.webView.loadUrl(url)
 
@@ -313,6 +310,24 @@ class BindPhoneActivity : AppCompatActivity() {
         """, null)
     }
 
+    @JavascriptInterface
+    fun updatePhoneNumber(number: String) {
+        runOnUiThread {
+            if (!binding.phoneEdit.isFocused) {
+                binding.phoneEdit.setText(number.replace("+86", ""))
+            }
+        }
+    }
+
+    @JavascriptInterface
+    fun updateVerificationCode(code: String) {
+        runOnUiThread {
+            if (!binding.codeEdit.isFocused) {
+                binding.codeEdit.setText(code)
+            }
+        }
+    }
+
     private fun validatePhoneNumber(phone: String): Boolean {
         return phone.matches(Regex("^\\+86[1-9]\\d{9}\$")) || phone.matches(Regex("^1[3-9]\\d{9}\$"))
     }
@@ -335,30 +350,11 @@ class BindPhoneActivity : AppCompatActivity() {
         return@withContext !isSmsVerify
     }
 
-    @JavascriptInterface
-    fun updatePhoneNumber(number: String) {
-        runOnUiThread {
-            if (!binding.phoneEdit.isFocused) {
-                binding.phoneEdit.setText(number.replace("+86", ""))
-            }
-        }
-    }
-
-    @JavascriptInterface
-    fun updateVerificationCode(code: String) {
-        runOnUiThread {
-            if (!binding.codeEdit.isFocused) {
-                binding.codeEdit.setText(code)
-            }
-        }
-    }
-
     /**
      * 为指定域名设置多个Cookies
-     * @param domain 目标域名
      * @param cookiesMap Cookie键值对集合
      */
-    private fun setCookiesForDomain(domain: String, cookiesMap: Map<String, String>) {
+    private fun setCookiesForDomain(cookiesMap: Map<String, String>) {
         // 设置 CookieManager
         val cookieManager = CookieManager.getInstance()
         // 构建 Cookie
@@ -369,7 +365,7 @@ class BindPhoneActivity : AppCompatActivity() {
                 append("$key=$value")
             }
             // 设置 Cookie
-            cookieManager.setCookie(domain, cookieString)
+            cookieManager.setCookie(BASE_URL + "account/sms-verification", cookieString)
         }
         // 同步 Cookies
         cookieManager.flush()

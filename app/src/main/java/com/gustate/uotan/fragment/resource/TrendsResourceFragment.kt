@@ -2,7 +2,6 @@ package com.gustate.uotan.fragment.resource
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,11 +14,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.gustate.uotan.R
 import com.gustate.uotan.activity.ResourceActivity
 import com.gustate.uotan.utils.Utils
 import com.gustate.uotan.utils.Utils.Companion.BASE_URL
+import com.gustate.uotan.utils.Utils.Companion.dpToPx
 import com.gustate.uotan.utils.parse.resource.FetchResult
 import com.gustate.uotan.utils.parse.resource.ResourceItem
 import com.gustate.uotan.utils.parse.resource.ResourceParse
@@ -29,6 +30,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.net.SocketTimeoutException
+import kotlin.math.roundToInt
 
 class TrendsResourceFragment : Fragment() {
 
@@ -70,6 +72,9 @@ class TrendsResourceFragment : Fragment() {
         val reLinearLayout = LinearLayoutManager(requireContext())
         laRecyclerView = view.findViewById(R.id.laRecyclerView)
         laRecyclerView.adapter = laNullAdapter
+        reLinearLayout.orientation = LinearLayoutManager.HORIZONTAL
+        reRecyclerView.layoutManager = reLinearLayout
+        reRecyclerView.adapter = TrendsResourceAdapter(mutableListOf())
         val laLinearLayout = LinearLayoutManager(requireContext())
         laLinearLayout.orientation = LinearLayoutManager.VERTICAL
         laRecyclerView.layoutManager = laLinearLayout
@@ -78,7 +83,7 @@ class TrendsResourceFragment : Fragment() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             rootScrollView.setPadding(
                 0,0,0,
-                systemBars.bottom + Utils.dp2Px(70, requireContext()).toInt()
+                (systemBars.bottom + 70f.dpToPx(requireContext())).roundToInt()
             )
             insets
         }
@@ -88,8 +93,6 @@ class TrendsResourceFragment : Fragment() {
             withContext(Dispatchers.IO) {
                 val trendsResourceData = ResourceRecommendParse.fetchResourceRecommendData()
                 withContext(Dispatchers.Main) {
-                    reLinearLayout.orientation = LinearLayoutManager.HORIZONTAL
-                    reRecyclerView.layoutManager = reLinearLayout
                     val trendsResourceAdapter = TrendsResourceAdapter(trendsResourceData).apply {
                         onItemClick = { selectedItem ->
                             // 安全上下文检查
@@ -104,18 +107,64 @@ class TrendsResourceFragment : Fragment() {
                 }
             }
         }
-        // 为 recyclerView 设置滚动监听
-        laRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        // 修改滚动监听部分
+        rootScrollView.setOnScrollChangeListener { v, _, scrollY, _, oldScrollY ->
+            if (isAtBottom(v)) {
+                // 到达底部逻辑（考虑空安全）
+                if (!isLaLoading && !isLaLastPage) {
+                    // 加载数据
+                    loadLatestData()
+                }
+            }
+        }
+        reRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                when (newState) {
+                    RecyclerView.SCROLL_STATE_IDLE -> {
+                        // 滚动完全停止时触发
+                        (parentFragment as? ResFragment)?.apply {
+                            // 直接访问父 Fragment 的绑定对象
+                            val viewPager = parentFragment?.view?.findViewById<ViewPager2>(R.id.viewPager)
+                            viewPager?.isUserInputEnabled = true
+                        }
+
+                    }
+                    RecyclerView.SCROLL_STATE_DRAGGING -> {
+                        // 用户手指拖动列表时的状态
+                        (parentFragment as? ResFragment)?.apply {
+                            // 直接访问父 Fragment 的绑定对象
+                            val viewPager = parentFragment?.view?.findViewById<ViewPager2>(R.id.viewPager)
+                            viewPager?.isUserInputEnabled = false
+                        }
+                    }
+                    RecyclerView.SCROLL_STATE_SETTLING -> {
+                        // 列表自动惯性滚动时的状态
+                        (parentFragment as? ResFragment)?.apply {
+                            // 直接访问父 Fragment 的绑定对象
+                            val viewPager = parentFragment?.view?.findViewById<ViewPager2>(R.id.viewPager)
+                            viewPager?.isUserInputEnabled = true
+                        }
+                    }
+                }
+            }
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+            }
+        })
+        /*laRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             // recyclerView 当前序号
             private var lastVisibleItem = 0
             // recyclerView 列表总数
             private var totalItemCount = 0
+            private var scrolledDistance = 0
 
             /**
              * recyclerView 滚动时
              */
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
+                scrolledDistance += dy
+                Log.e("666", scrolledDistance.toString())
 
                 // 获取 recyclerView 的线性布局管理器
                 val layoutManager = laRecyclerView.layoutManager as LinearLayoutManager
@@ -124,13 +173,12 @@ class TrendsResourceFragment : Fragment() {
                 // 获取 recyclerView 滚动到的项目
                 lastVisibleItem = layoutManager.findLastVisibleItemPosition()
                 // 当没有在加载、不是最后一页、项目总数 - 5 小于当前项目数
-                if (!isLaLoading && !isLaLastPage && totalItemCount <= (lastVisibleItem + 5)) {
-                    Log.e("666", lastVisibleItem.toString())
+                if (scrolledDistance > 0 && !isLaLoading && !isLaLastPage && totalItemCount <= (lastVisibleItem + 5)) {
                     // 加载数据
                     loadLatestData()
                 }
             }
-        })
+        })*/
     }
     /**
      * 数据加载的方法
@@ -147,45 +195,46 @@ class TrendsResourceFragment : Fragment() {
         try {
             // 启动协程
             lifecycleScope.launch {
-                // 切换到 IO 线程执行
-                withContext(Dispatchers.IO) {
-                    // 获取推荐数据
-                    laFetchResult = ResourceParse.fetchResourceData(laCurrentPage.toString())
-                    val adapter = laRecyclerView.adapter as LatestResourceAdapter
-                    // 切换到 Main 线程执行
-                    withContext(Dispatchers.Main) {
-                        if (laFetchResult.totalPage != 1) {
-                            laFetchResult.items.let { newItems ->
-                                if (adapter == laNullAdapter) {
-                                    // 创建新Adapter时设置点击监听
-                                    val newAdapter = LatestResourceAdapter(newItems.toMutableList()).apply {
-                                        onItemClick = { selectedItem ->
-                                            // 安全上下文检查
-                                            context?.let {
-                                                startActivity(Intent(it, ResourceActivity::class.java).apply {
-                                                    putExtra("url", selectedItem.link)
-                                                })
-                                            }
+                // 获取推荐数据
+                laFetchResult = ResourceParse.fetchResourceData(laCurrentPage.toString())
+                val adapter = laRecyclerView.adapter as LatestResourceAdapter
+                // 切换到 Main 线程执行
+                withContext(Dispatchers.Main) {
+                    if (laFetchResult.totalPage != 1) {
+                        laFetchResult.items.let { newItems ->
+                            if (adapter == laNullAdapter) {
+                                // 创建新Adapter时设置点击监听
+                                val newAdapter = LatestResourceAdapter(newItems.toMutableList()).apply {
+                                    onItemClick = { selectedItem ->
+                                        // 安全上下文检查
+                                        context?.let {
+                                            startActivity(Intent(it, ResourceActivity::class.java).apply {
+                                                putExtra("url", selectedItem.link)
+                                            })
                                         }
                                     }
-                                    laRecyclerView.adapter = newAdapter
-                                } else {
-                                    adapter.addAll(newItems)
                                 }
-                                laCurrentPage += 1
+                                laRecyclerView.adapter = newAdapter
+                            } else {
+                                adapter.addAll(newItems)
+                                laRecyclerView.adapter = adapter
                             }
-                            laTotalPages = laFetchResult.totalPage
-                            isLaLastPage = laCurrentPage > laTotalPages
-                        } else {
-                            Toast.makeText(context,"请稍候再试", Toast.LENGTH_SHORT).show()
+                            laCurrentPage += 1
                         }
-                        isLaLoading = false
+                        laTotalPages = laFetchResult.totalPage
+                        isLaLastPage = laCurrentPage > laTotalPages
+                    } else {
+                        Toast.makeText(context,"请稍候再试", Toast.LENGTH_SHORT).show()
                     }
+                    isLaLoading = false
                 }
             }
         } catch (e: SocketTimeoutException) {
             e.printStackTrace()
         }
+    }
+    private fun isAtBottom(view: View): Boolean {
+        return !view.canScrollVertically(1) // 检查是否无法继续向下滚动
     }
 }
 

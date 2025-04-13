@@ -5,8 +5,6 @@
     android:id="@+id/rootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_weight="400"
-    android:background="@color/background_1"
     tools:context=".activity.ArticleActivity">
 
     <com.scwang.smart.refresh.layout.SmartRefreshLayout
@@ -17,16 +15,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srlEnablePureScrollMode="true" >
+        app:srlEnablePreviewInEditMode="false"
+        app:srlEnableNestedScrolling="true">
+
+        <com.scwang.smart.refresh.header.ClassicsHeader
+            android:id="@+id/refreshHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/rootScrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/background_1"
+            android:clipChildren="false"
             android:clipToPadding="false"
             android:fillViewport="true"
-            android:paddingTop="80dp"
             android:scrollbarThumbVertical="@drawable/gustatex_scrollbar_thumb_vertical"
             android:scrollbars="vertical"
             tools:ignore="SpeakableTextPresentCheck">
@@ -45,15 +48,16 @@
                     android:background="@drawable/gustatex_option_background_normal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="WebViewLayout">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/bigTitle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginEnd="12dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toStartOf="parent"
@@ -85,7 +89,7 @@
                             android:layout_marginStart="8dp"
                             android:fontFamily="sans-serif-medium"
                             android:text="@string/user_name"
-                            android:textColor="@color/label_primary"
+                            android:textColor="?attr/colorOnBackgroundPrimary"
                             android:textFontWeight="400"
                             android:textSize="16sp"
                             app:layout_constraintStart_toEndOf="@+id/bigUserAvatarCard"
@@ -97,11 +101,12 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
                             android:text="@string/time"
-                            android:textColor="@color/label_secondary"
+                            android:textColor="?attr/colorOnBackgroundSecondary"
                             android:textFontWeight="400"
                             android:textSize="10sp"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/bigUserAvatarCard" />
+                            app:layout_constraintStart_toEndOf="@+id/bigUserAvatarCard"
+                            tools:ignore="SmallSp" />
 
                         <TextView
                             android:id="@+id/bigIpLocation"
@@ -109,7 +114,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
                             android:text="@string/ip_location"
-                            android:textColor="@color/label_secondary"
+                            android:textColor="?attr/colorOnBackgroundSecondary"
                             android:textFontWeight="400"
                             android:textSize="10sp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -119,13 +124,13 @@
                             android:id="@+id/bigFollow"
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
-                            android:background="@drawable/gustatex_button_red"
+                            android:background="@drawable/gustatex_button_filled"
+                            android:fontFamily="sans-serif-medium"
                             android:gravity="center"
                             android:paddingLeft="24dp"
                             android:paddingRight="24dp"
                             android:text="@string/follow"
                             android:textColor="@color/white"
-                            android:textFontWeight="500"
                             android:textSize="12sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -138,12 +143,12 @@
                         android:id="@+id/bigTitleText"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginStart="12dp"
                         android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
+                        android:layout_marginEnd="12dp"
                         android:fontFamily="sans-serif-medium"
                         android:text="@string/title"
-                        android:textColor="@color/label_primary"
+                        android:textColor="?attr/colorOnBackgroundPrimary"
                         android:textFontWeight="500"
                         android:textSize="20sp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -158,7 +163,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="10dp"
                         android:visibility="gone"
-                        app:cardBackgroundColor="@color/background_2"
+                        app:cardBackgroundColor="?attr/colorCardNormal"
                         app:cardCornerRadius="18dp"
                         app:cardElevation="0dp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -169,8 +174,8 @@
                             android:id="@+id/bilibiliWebView"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@color/background_2"
-                            android:backgroundTint="@color/background_2"
+                            android:background="?attr/colorCardNormal"
+                            android:backgroundTint="?attr/colorCardNormal"
                             android:scrollbarThumbVertical="@drawable/gustatex_scrollbar_thumb_vertical"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -178,26 +183,125 @@
                             app:layout_constraintTop_toBottomOf="@+id/cardView2" />
                     </androidx.cardview.widget.CardView>
 
-                    <WebView
-                        android:id="@+id/webView"
+                    <TextView
+                        android:id="@+id/tvContent"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="2dp"
+                        android:layout_marginStart="12dp"
                         android:layout_marginTop="10dp"
-                        android:layout_marginEnd="2dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="@color/background_2"
-                        android:backgroundTint="@color/background_2"
-                        android:scrollbarThumbVertical="@drawable/gustatex_scrollbar_thumb_vertical"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginEnd="12dp"
+                        android:layout_marginBottom="12dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:lineSpacingExtra="6dp"
+                        android:textColor="?attr/colorOnBackgroundPrimary"
+                        android:textIsSelectable="true"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toTopOf="@+id/cardJingTie"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/bilibiliCard" />
 
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardJingTie"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginBottom="12dp"
+                        android:visibility="gone"
+                        app:cardBackgroundColor="?attr/colorFilledTonalButtonNormal"
+                        app:cardCornerRadius="16dp"
+                        app:cardElevation="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvContent">
+
+                        <TextView
+                            android:id="@+id/tvJingTie"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-medium"
+                            android:gravity="start"
+                            android:paddingStart="16dp"
+                            android:paddingTop="8dp"
+                            android:paddingEnd="16dp"
+                            android:paddingBottom="8dp"
+                            android:text="@string/essence"
+                            android:textColor="?attr/colorOnFilledTonalButton"
+                            android:textSize="14sp" />
+                    </androidx.cardview.widget.CardView>
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/tvComment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="22dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/discussion_area"
+                    android:textColor="?attr/colorOnBackgroundPrimary"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/articleLayout" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardPostLocked"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="12dp"
+                    android:visibility="gone"
+                    app:cardBackgroundColor="?attr/colorErrorCard"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvComment">
+
+                    <TextView
+                        android:id="@+id/tvPostLocked"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="start"
+                        android:paddingStart="20dp"
+                        android:paddingTop="12dp"
+                        android:paddingEnd="20dp"
+                        android:paddingBottom="12dp"
+                        android:text="@string/locked_post"
+                        android:textColor="?attr/colorOnErrorCard"
+                        android:textSize="16sp" />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/commentRecyclerView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:nestedScrollingEnabled="false"
+                    android:overScrollMode="never"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cardPostLocked" />
+
+                <WebView
+                    android:id="@+id/invisibleWebView"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
+
+        <com.scwang.smart.refresh.footer.ClassicsFooter
+            android:id="@+id/refreshFooter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 
     <view
@@ -205,11 +309,22 @@
         class="net.center.blurview.ShapeBlurView"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        app:blur_overlay_color="@color/header_bar_blur_cover"
+        app:blur_overlay_color="@android:color/transparent"
         app:blur_radius="25dp"
         app:layout_constraintBottom_toBottomOf="@+id/headerBarView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/titleBarCover"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:alpha="0.6"
+        android:background="?attr/colorBackground"
+        app:layout_constraintBottom_toBottomOf="@+id/headerBarBlur"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -233,7 +348,7 @@
             android:id="@+id/back"
             android:layout_width="19dp"
             android:layout_height="14dp"
-            android:layout_marginStart="17dp"
+            android:layout_marginStart="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -276,7 +391,7 @@
                 android:layout_marginStart="8dp"
                 android:fontFamily="sans-serif-medium"
                 android:text="@string/user_name"
-                android:textColor="@color/label_primary"
+                android:textColor="?attr/colorOnBackgroundPrimary"
                 android:textFontWeight="400"
                 android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@+id/userAvatarCard"
@@ -288,7 +403,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="@string/time"
-                android:textColor="@color/label_secondary"
+                android:textColor="?attr/colorOnBackgroundSecondary"
                 android:textFontWeight="400"
                 android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -300,7 +415,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="@string/ip_location"
-                android:textColor="@color/label_secondary"
+                android:textColor="?attr/colorOnBackgroundSecondary"
                 android:textFontWeight="400"
                 android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -310,13 +425,13 @@
                 android:id="@+id/follow"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:background="@drawable/gustatex_button_red"
+                android:background="@drawable/gustatex_button_filled"
+                android:fontFamily="sans-serif-medium"
                 android:gravity="center"
                 android:paddingLeft="24dp"
                 android:paddingRight="24dp"
                 android:text="@string/follow"
                 android:textColor="@color/white"
-                android:textFontWeight="500"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -328,7 +443,7 @@
             android:id="@+id/collect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="17dp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -337,9 +452,10 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <FrameLayout
+        android:id="@+id/frameLayout3"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/divider"
+        android:background="?attr/colorOnBackgroundSecondary"
         app:layout_constraintBottom_toTopOf="@+id/bottomBarBlur"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -351,12 +467,23 @@
         class="net.center.blurview.ShapeBlurView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:blur_overlay_color="@color/blur_cover"
+        app:blur_overlay_color="@android:color/transparent"
         app:blur_radius="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/bottomBar" />
+
+    <View
+        android:id="@+id/bottomBarCover"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:alpha="0.6"
+        android:background="?attr/colorBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/frameLayout3" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bottomBar"
@@ -366,25 +493,40 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/btnComment"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:alpha="0.8"
+            android:background="@drawable/gustatex_option_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnReact"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <TextView
             android:id="@+id/comment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="@string/please_comment"
-            android:textColor="@color/label_tertiary"
+            android:textColor="?attr/colorOnBackgroundSecondary"
             android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toBottomOf="@+id/btnComment"
+            app:layout_constraintStart_toStartOf="@+id/btnComment"
+            app:layout_constraintTop_toTopOf="@+id/btnComment" />
 
         <ImageView
-            android:id="@+id/favIco"
+            android:id="@+id/btnReact"
             android:layout_width="17dp"
             android:layout_height="17dp"
-            android:layout_marginEnd="46dp"
+            android:layout_marginEnd="2dp"
             app:layout_constraintBottom_toBottomOf="@+id/comIco"
-            app:layout_constraintEnd_toStartOf="@+id/comIco"
+            app:layout_constraintEnd_toStartOf="@+id/favouriteCount"
             app:layout_constraintTop_toTopOf="@+id/comIco"
             app:srcCompat="@drawable/ic_favourite" />
 
@@ -392,21 +534,21 @@
             android:id="@+id/favouriteCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
             android:layout_marginTop="-3dp"
-            android:text="@string/favourite_count"
-            android:textColor="@color/label_secondary"
+            android:layout_marginEnd="16dp"
+            android:text="@string/num_zero"
+            android:textColor="?attr/colorOnBackgroundSecondary"
             android:textSize="10sp"
-            app:layout_constraintStart_toEndOf="@+id/favIco"
-            app:layout_constraintTop_toTopOf="@+id/favIco" />
+            app:layout_constraintEnd_toStartOf="@+id/comIco"
+            app:layout_constraintTop_toTopOf="@+id/btnReact" />
 
         <ImageView
             android:id="@+id/comIco"
             android:layout_width="17dp"
             android:layout_height="17dp"
-            android:layout_marginEnd="46dp"
+            android:layout_marginEnd="2dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/shareIco"
+            app:layout_constraintEnd_toStartOf="@+id/commentCount"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_bottom_comment" />
 
@@ -414,38 +556,27 @@
             android:id="@+id/commentCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
             android:layout_marginTop="-3dp"
-            android:text="@string/comment_count"
-            android:textColor="@color/label_secondary"
+            android:layout_marginEnd="16dp"
+            android:text="@string/num_zero"
+            android:textColor="?attr/colorOnBackgroundSecondary"
             android:textSize="10sp"
-            app:layout_constraintStart_toEndOf="@+id/comIco"
+            app:layout_constraintEnd_toStartOf="@+id/btnShare"
             app:layout_constraintTop_toTopOf="@+id/comIco" />
 
         <ImageView
-            android:id="@+id/shareIco"
+            android:id="@+id/btnShare"
             android:layout_width="17dp"
             android:layout_height="17dp"
-            android:layout_marginEnd="42dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="1dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/more"
+            app:layout_constraintEnd_toStartOf="@+id/btnMore"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_share" />
 
-        <TextView
-            android:id="@+id/textView10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="-3dp"
-            android:text="@string/share_count"
-            android:textColor="@color/label_secondary"
-            android:textSize="10sp"
-            app:layout_constraintStart_toEndOf="@+id/shareIco"
-            app:layout_constraintTop_toTopOf="@+id/shareIco" />
-
         <ImageView
-            android:id="@+id/more"
+            android:id="@+id/btnMore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"

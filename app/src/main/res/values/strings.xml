@@ -76,8 +76,7 @@
     <string name="updater">Updater</string>
     <string name="theme">Theme</string>
     <string name="network">Network</string>
-    <string name="service">Service</string>
-    <string name="privacy">Privacy</string>
+    <string name="user_agreement_policy">User Agreement and Policy</string>
     <string name="coreteam_01" translatable="false">明辉映梦</string>
     <string name="coreteam_02" translatable="false">流年</string>
     <string name="coreteam_03" translatable="false">暮间雾</string>
@@ -150,4 +149,63 @@
     <string name="sign_in_successful">Sign in successful</string>
     <string name="check_in_failed">Check in failed</string>
     <string name="you_have_checked_in_today">You have checked in today</string>
+    <string name="post">Post</string>
+    <string name="select_section">Select section</string>
+    <string name="add_prefix">Add prefix</string>
+    <string name="enter_title_hint">Please enter your title here</string>
+    <string name="blackshark">Blackshark</string>
+    <string name="mipad">Xiaomi Pad</string>
+    <string name="redmipad">Redmi Pad</string>
+    <string name="lenovopad">Lenovo Pad</string>
+    <string name="xiaomilaptop">Xiaomi Laptop</string>
+    <string name="mijia">MIJIA</string>
+    <string name="miband">Xiaomi Band</string>
+    <string name="miwatch">Xiaomi Watch</string>
+    <string name="windows" translatable="false">Windows</string>
+    <string name="select_section_toast">Please select a section</string>
+    <string name="little_content_toast">You have entered too little content</string>
+    <string name="published_successfully">Published successfully</string>
+    <string name="publication_failed">Publication failed</string>
+    <string name="dynamic_color_theme">Dynamic Color Theme</string>
+    <string name="official_version">Official version</string>
+    <string name="check_for_updates">Check for updates</string>
+    <string name="service_agreement">Service agreement</string>
+    <string name="rules_protocols">Rules and protocols</string>
+    <string name="points_rule">Points rule</string>
+    <string name="user_agreement">User Agreement</string>
+    <string name="authorization_agreement">Authorization Agreement</string>
+    <string name="legal_notice">Legal Notice</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="disclaimers">Disclaimers</string>
+    <string name="cookie_terms_of_use">Cookie Terms of Use</string>
+    <string name="beian" translatable="false">鲁ICP备2022023646号-1\n鲁公网安备37020202001747号</string>
+    <string name="user_settings">User Settings</string>
+    <string name="search">Search</string>
+    <string name="search_history">Search History</string>
+    <string name="enter_search_content">Please enter the content you want to search for</string>
+    <string name="clear_search_history">Clear search history</string>
+    <string name="expand">Expand</string>
+    <string name="retract">Retract</string>
+    <string name="discussion_area">Discussion Area</string>
+    <string name="discover_new_version">Discover a new version</string>
+    <string name="go_update">Go update</string>
+    <string name="is_latest_version">The current version is already the latest version</string>
+    <string name="reply">Reply</string>
+    <string name="reply_hint_1">Gently awaken your sleeping soul, let me see your review</string>
+    <string name="locked_post">This post is locked and cannot be replied to anymore</string>
+    <string name="copy_link">Copy link</string>
+    <string name="more">More</string>
+    <string name="report">Report</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="change_author">Change author</string>
+    <string name="IP" translatable="false">IP</string>
+    <string name="permanently_delete">Permanently delete</string>
+    <string name="dialog_permanently_delete">Are you sure you want to permanently delete this content? This operation cannot be revoked. If you want to perform temporary deletion, please go to the web page</string>
+    <string name="delete_successfully">Delete successfully</string>
+    <string name="delete_failed">Delete failed</string>
+    <string name="query">Query</string>
+    <string name="link_copied_clipboard">The link has been copied to the clipboard</string>
+    <string name="essence">Essence</string>
+    <string name="download_manager">Download Manager</string>
 </resources>
