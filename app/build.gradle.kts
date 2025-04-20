@@ -11,8 +11,8 @@ android {
         applicationId = "com.gustate.uotan"
         minSdk = 31
         targetSdk = 35
-        versionCode = 1022
-        versionName = "1.0.2.2 Beta"
+        versionCode = 1023
+        versionName = "1.0.2.3 Beta"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
