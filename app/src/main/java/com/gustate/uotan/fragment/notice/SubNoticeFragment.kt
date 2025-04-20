@@ -10,15 +10,12 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat.getString
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.gustate.uotan.R
-import com.gustate.uotan.anim.TitleAnim
-import com.gustate.uotan.utils.Utils
 import com.gustate.uotan.utils.Utils.Companion.BASE_URL
 import com.gustate.uotan.utils.Utils.Companion.dpToPx
 import com.gustate.uotan.utils.parse.notice.NoticeItem

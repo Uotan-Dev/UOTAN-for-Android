@@ -15,6 +15,7 @@ data class SearchResult (
     val title: String,
     val content: String,
     val author: String,
+    val id: String,
     val authorUrl: String,
     val type: String,
     val time: String,
@@ -65,7 +66,7 @@ class SearchParse {
                     .get()
             } else {
                 Jsoup
-                    .connect("${BASE_URL}search/${(10000..99999).random()}/?page=$page&q=$search&t=post&o=relevance")
+                    .connect("$BASE_URL/search/${(10000..99999).random()}/?page=$page&q=$search&t=post&o=relevance")
                     .userAgent(USER_AGENT)
                     .timeout(TIMEOUT_MS)
                     .cookies(Cookies)
@@ -132,6 +133,7 @@ class SearchParse {
                         .first()
                         ?.getElementsByTag("li")
                     var author = ""
+                    var id = ""
                     var authorUrl = ""
                     var type = ""
                     var time = ""
@@ -143,6 +145,11 @@ class SearchParse {
                             .getElementsByTag("a")
                             .first()
                             ?.text()
+                            ?: ""
+                        id = listInLine[0]
+                            .getElementsByTag("a")
+                            .first()
+                            ?.attr("data-user-id")
                             ?: ""
                         authorUrl = listInLine[0]
                             .getElementsByTag("a")
@@ -193,7 +200,7 @@ class SearchParse {
                             ?.text()
                             ?: ""
                     }
-                    result.add(SearchResult(topic, url, title, content, author, authorUrl, type, time, tag, comment, plate, cover))
+                    result.add(SearchResult(topic, url, title, content, author, id, authorUrl, type, time, tag, comment, plate, cover))
                 }
             }
             return FetchResult(result, totalPage, nextPageUrl)

@@ -5,8 +5,8 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.widget.ListView
-import com.kongzue.dialogx.interfaces.ScrollController
 import androidx.core.view.isEmpty
+import com.kongzue.dialogx.interfaces.ScrollController
 
 class ScrollControllerListView(context: Context, attrs: AttributeSet) : ListView(context, attrs),
     ScrollController {

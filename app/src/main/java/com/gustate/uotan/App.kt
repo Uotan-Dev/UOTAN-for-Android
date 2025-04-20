@@ -10,20 +10,22 @@ import com.tonyodev.fetch2.Fetch
 import com.tonyodev.fetch2.FetchConfiguration
 
 class App : Application() {
+    private lateinit var fetch: Fetch
     override fun onCreate() {
         super.onCreate()
         DialogX.init(this)
         EasyAndroid.init(this)
         lazy { AppDatabase.getDatabase(this) }
-        Fetch.Impl.getInstance(
-            FetchConfiguration.Builder(this)
-                .setDownloadConcurrentLimit(4)
-                .setNamespace("UotanDownloads")
-                .setAutoRetryMaxAttempts(3)
-                .enableAutoStart(true)
-                .build()
-        )
+        val fetchConfiguration = FetchConfiguration.Builder(this)
+            .enableLogging(true)
+            .setDownloadConcurrentLimit(4)
+            .setNamespace("UotanDownloads")
+            .setAutoRetryMaxAttempts(3)
+            .enableAutoStart(true)
+            .build()
+        fetch = Fetch.getInstance(fetchConfiguration)
         DialogX.globalStyle = MaterialYouStyle()
         DynamicColors.applyToActivitiesIfAvailable(this)
     }
+    fun getFetch() = fetch
 }

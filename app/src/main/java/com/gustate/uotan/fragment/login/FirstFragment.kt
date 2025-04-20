@@ -2,17 +2,16 @@ package com.gustate.uotan.fragment.login
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updateLayoutParams
-import com.gustate.uotan.activity.MainActivity
+import androidx.fragment.app.Fragment
 import com.gustate.uotan.R
 import com.gustate.uotan.activity.LoginActivity
+import com.gustate.uotan.activity.MainActivity
 
 /**
  * 欢迎页面 (Fragment)
@@ -60,20 +59,9 @@ class FirstFragment : Fragment() {
         val lookFirst = view.findViewById<View>(R.id.noLogin)
 
         /** 获取系统栏高度并同步到占位布局 **/
-        ViewCompat.setOnApplyWindowInsetsListener(view.rootView) { _, insets ->
-            // 获取系统栏高度 (包含 top, bottom, left 和 right)
+        ViewCompat.setOnApplyWindowInsetsListener(view.rootView) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            // 同步通知栏占位布局高度
-            statusBarView
-                .updateLayoutParams<ViewGroup.LayoutParams> {
-                    height = systemBars.top
-                }
-            // 同步导航栏占位布局高度
-            gestureView
-                .updateLayoutParams<ViewGroup.LayoutParams> {
-                    height = systemBars.bottom
-                }
-            // 返回 insets
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 

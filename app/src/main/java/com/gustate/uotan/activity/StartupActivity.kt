@@ -12,7 +12,6 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.gustate.uotan.BaseActivity
 import com.gustate.uotan.R
-import com.gustate.uotan.utils.parse.data.CookiesManager
 import com.gustate.uotan.utils.Utils.Companion.BASE_URL
 import com.gustate.uotan.utils.Utils.Companion.Cookies
 import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
@@ -20,7 +19,6 @@ import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
 import com.gustate.uotan.utils.Utils.Companion.isLogin
 import com.gustate.uotan.utils.Utils.Companion.openImmersion
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.jsoup.Jsoup

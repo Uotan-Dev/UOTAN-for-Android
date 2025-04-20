@@ -1,13 +1,6 @@
 package com.gustate.uotan.activity
 
-import android.graphics.Typeface
 import android.os.Bundle
-import android.text.Editable
-import android.text.Html
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.TextPaint
-import android.text.style.MetricAffectingSpan
 import android.view.ViewGroup
 import androidx.activity.enableEdgeToEdge
 import androidx.core.view.ViewCompat
@@ -26,8 +19,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.jsoup.Jsoup
-import org.xml.sax.XMLReader
-import java.util.Locale
 
 class PolicyActivity : BaseActivity() {
     private lateinit var binding: ActivityPolicyBinding

@@ -190,4 +190,9 @@
     <string name="link_copied_clipboard">链接已经复制到剪贴板</string>
     <string name="essence">精华</string>
     <string name="download_manager">下载管理</string>
+    <string name="download_update">下载更新</string>
+    <string name="downloading">下载中</string>
+    <string name="following">已关注</string>
+    <string name="all_types">全部类型</string>
+    <string name="select_type">选择类型</string>
 </resources>

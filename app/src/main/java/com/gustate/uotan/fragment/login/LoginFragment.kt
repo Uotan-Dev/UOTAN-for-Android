@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,23 +14,23 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updateLayoutParams
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.gustate.uotan.activity.MainActivity
 import com.gustate.uotan.R
 import com.gustate.uotan.activity.BindPhoneActivity
 import com.gustate.uotan.activity.LoginActivity
+import com.gustate.uotan.activity.MainActivity
 import com.gustate.uotan.activity.UpdatePolicyActivity
 import com.gustate.uotan.gustatex.dialog.LoadingDialog
 import com.gustate.uotan.utils.Utils.Companion.BASE_URL
-import com.gustate.uotan.utils.parse.user.LoginParse
-import com.gustate.uotan.utils.parse.data.CookiesManager
 import com.gustate.uotan.utils.Utils.Companion.Cookies
 import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
 import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
 import com.gustate.uotan.utils.Utils.Companion.isLogin
 import com.gustate.uotan.utils.Utils.Companion.saveToExternalPrivateDir
+import com.gustate.uotan.utils.parse.data.CookiesManager
+import com.gustate.uotan.utils.parse.user.LoginParse
 import com.gustate.uotan.utils.parse.user.MeParse.Companion.fetchMeData
 import com.gustate.uotan.utils.room.User
 import com.gustate.uotan.utils.room.UserViewModel
@@ -135,20 +134,9 @@ class LoginFragment : Fragment() {
         }
 
         /** 获取系统栏高度并同步到占位布局 **/
-        ViewCompat.setOnApplyWindowInsetsListener(view.rootView) { _, insets ->
-            // 获取系统栏高度 (包含 top, bottom, left 和 right)
+        ViewCompat.setOnApplyWindowInsetsListener(view.rootView) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            // 同步通知栏占位布局高度
-            statusBarView
-                .updateLayoutParams<ViewGroup.LayoutParams> {
-                    height = systemBars.top
-                }
-            // 同步导航栏占位布局高度
-            gestureView
-                .updateLayoutParams<ViewGroup.LayoutParams> {
-                    height = systemBars.bottom
-                }
-            // 返回 insets
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 

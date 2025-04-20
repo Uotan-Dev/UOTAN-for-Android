@@ -1,6 +1,5 @@
 package com.gustate.uotan.fragment.home
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
@@ -28,20 +27,18 @@ class HomeFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_home, container,false)
     }
 
-    @SuppressLint("Recycle", "ResourceType")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         /*
          * 修改状态栏和底栏占位布局的高度
          */
-        // 取当前页面状态栏占位布局
-        val statusBarView: View = view.findViewById(R.id.statusBarView)
+        val headerBarView = view.findViewById<View>(R.id.headerBarView)
         // 取当前页面相对根布局
-        val rootView: View = view.findViewById(R.id.rootLayout)
+        val rootView: View = view.findViewById(R.id.main)
         ViewCompat.setOnApplyWindowInsetsListener(rootView) { _, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            statusBarView.updateLayoutParams<ViewGroup.LayoutParams> {
-                height = systemBars.top
+            headerBarView.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                topMargin = systemBars.top
             }
             insets
         }
@@ -89,14 +86,15 @@ class HomeFragment : Fragment() {
             startActivity(Intent(requireContext(), SearchActivity::class.java))
         }
     }
-}
 
-class HomeViewPagerAdapter(fragment: Fragment):
-    FragmentStateAdapter(fragment.childFragmentManager, fragment.lifecycle){
-    private val fragments = listOf(
-        LatestFragment(),
-        RecommendFragment()
-    )
-    override fun getItemCount(): Int = fragments.size
-    override fun createFragment(position: Int): Fragment = fragments[position]
+    class HomeViewPagerAdapter(fragment: Fragment):
+        FragmentStateAdapter(fragment.childFragmentManager, fragment.lifecycle){
+        private val fragments = listOf(
+            LatestFragment(),
+            RecommendFragment()
+        )
+        override fun getItemCount(): Int = fragments.size
+        override fun createFragment(position: Int): Fragment = fragments[position]
+    }
+
 }

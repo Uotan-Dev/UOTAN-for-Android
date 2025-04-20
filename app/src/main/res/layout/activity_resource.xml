@@ -9,7 +9,7 @@
     tools:context=".activity.ResourceActivity">
 
     <com.scwang.smart.refresh.layout.SmartRefreshLayout
-        android:id="@+id/refreshLayout"
+        android:id="@+id/srlRoot"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -34,6 +34,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <WebView
+                    android:id="@+id/invisibleWebView"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/infoLayout"
                     android:layout_width="match_parent"
@@ -48,7 +57,7 @@
                     <FrameLayout
                         android:id="@+id/divider"
                         android:layout_width="0dp"
-                        android:layout_height="1dp"
+                        android:layout_height="0.5dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="12dp"
                         android:layout_marginEnd="16dp"
@@ -355,7 +364,7 @@
                     <FrameLayout
                         android:id="@+id/divider1"
                         android:layout_width="0dp"
-                        android:layout_height="1dp"
+                        android:layout_height="0.5dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="12dp"
                         android:layout_marginEnd="16dp"
@@ -384,6 +393,38 @@
                         app:layout_constraintTop_toBottomOf="@+id/divider1"
                         tools:ignore="HardcodedText,TextContrastCheck" />
 
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/contentLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@drawable/gustatex_option_background_normal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/infoLayout">
+
+                    <TextView
+                        android:id="@+id/tvContent"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginEnd="12dp"
+                        android:layout_marginBottom="12dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:lineSpacingExtra="6dp"
+                        android:minHeight="300dp"
+                        android:textColor="?attr/colorOnBackgroundPrimary"
+                        android:textIsSelectable="true"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -569,6 +610,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/btnComment"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:alpha="0.8"
+            android:background="@drawable/gustatex_option_background"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnReact"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <TextView
             android:id="@+id/comment"
             android:layout_width="wrap_content"
@@ -577,82 +634,67 @@
             android:text="@string/please_comment"
             android:textColor="?attr/colorOnBackgroundSecondary"
             android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="TextContrastCheck" />
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/btnComment"
+            app:layout_constraintStart_toStartOf="@+id/btnComment"
+            app:layout_constraintTop_toTopOf="@+id/btnComment" />
 
         <ImageView
             android:id="@+id/btnReact"
             android:layout_width="17dp"
             android:layout_height="17dp"
-            android:layout_marginEnd="46dp"
+            android:layout_marginEnd="2dp"
             app:layout_constraintBottom_toBottomOf="@+id/comIco"
-            app:layout_constraintEnd_toStartOf="@+id/comIco"
+            app:layout_constraintEnd_toStartOf="@+id/favouriteCount"
             app:layout_constraintTop_toTopOf="@+id/comIco"
-            app:srcCompat="@drawable/ic_favourite"
-            tools:ignore="ImageContrastCheck" />
+            app:srcCompat="@drawable/ic_favourite" />
 
         <TextView
             android:id="@+id/favouriteCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
             android:layout_marginTop="-3dp"
-            android:text="@string/favourite_count"
+            android:layout_marginEnd="16dp"
+            android:text="@string/num_zero"
             android:textColor="?attr/colorOnBackgroundSecondary"
             android:textSize="10sp"
-            app:layout_constraintStart_toEndOf="@+id/btnReact"
-            app:layout_constraintTop_toTopOf="@+id/btnReact"
-            tools:ignore="SmallSp,TextContrastCheck" />
+            app:layout_constraintEnd_toStartOf="@+id/comIco"
+            app:layout_constraintTop_toTopOf="@+id/btnReact" />
 
         <ImageView
             android:id="@+id/comIco"
             android:layout_width="17dp"
             android:layout_height="17dp"
-            android:layout_marginEnd="46dp"
+            android:layout_marginEnd="2dp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btnShare"
+            app:layout_constraintEnd_toStartOf="@+id/commentCount"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_bottom_comment"
-            tools:ignore="ImageContrastCheck" />
+            app:srcCompat="@drawable/ic_bottom_comment" />
 
         <TextView
             android:id="@+id/commentCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
             android:layout_marginTop="-3dp"
-            android:text="@string/comment_count"
+            android:layout_marginEnd="16dp"
+            android:text="@string/num_zero"
             android:textColor="?attr/colorOnBackgroundSecondary"
             android:textSize="10sp"
-            app:layout_constraintStart_toEndOf="@+id/comIco"
-            app:layout_constraintTop_toTopOf="@+id/comIco"
-            tools:ignore="SmallSp,TextContrastCheck" />
+            android:visibility="gone"
+            app:layout_constraintEnd_toStartOf="@+id/btnShare"
+            app:layout_constraintTop_toTopOf="@+id/comIco" />
 
         <ImageView
             android:id="@+id/btnShare"
             android:layout_width="17dp"
             android:layout_height="17dp"
-            android:layout_marginEnd="42dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="1dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btnMore"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_share"
-            tools:ignore="ImageContrastCheck" />
-
-        <TextView
-            android:id="@+id/textView10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="-3dp"
-            android:text="@string/share_count"
-            android:textColor="?attr/colorOnBackgroundSecondary"
-            android:textSize="10sp"
-            app:layout_constraintStart_toEndOf="@+id/btnShare"
-            app:layout_constraintTop_toTopOf="@+id/btnShare"
-            tools:ignore="SmallSp,TextContrastCheck" />
+            app:srcCompat="@drawable/ic_share" />
 
         <ImageView
             android:id="@+id/btnMore"

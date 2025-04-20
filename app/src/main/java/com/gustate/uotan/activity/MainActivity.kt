@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.ViewGroup
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.content.res.AppCompatResources
@@ -12,8 +11,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.gustate.uotan.BaseActivity
@@ -26,8 +23,6 @@ import com.gustate.uotan.fragment.resource.ResFragment
 import com.gustate.uotan.fragment.user.MeFragment
 import com.gustate.uotan.utils.Utils.Companion.isLogin
 import com.gustate.uotan.utils.Utils.Companion.openImmersion
-import com.gustate.uotan.utils.room.UserViewModel
-import kotlinx.coroutines.launch
 
 /**
  * 主页面 (Activity)

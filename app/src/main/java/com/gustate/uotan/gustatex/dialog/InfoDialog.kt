@@ -13,13 +13,13 @@ import com.gustate.uotan.databinding.GustatexDialogInfoBinding
 class InfoDialog(context: Context) : Dialog(context, R.style.Gustatex_Dialog) {
     private var binding: GustatexDialogInfoBinding? = null
 
-    // 新增临时存储变量
+    // 临时存储变量
     private var pendingTitle: String? = null
     private var pendingDescription: String? = null
     private var pendingConfirm: String? = null
     private var pendingCancel: String? = null
 
-    // Lambda回调替代接口
+    // 回调
     var onConfirm: (() -> Unit)? = null
     var onCancel: (() -> Unit)? = null
 

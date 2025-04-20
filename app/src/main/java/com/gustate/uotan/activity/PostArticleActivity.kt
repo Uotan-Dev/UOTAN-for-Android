@@ -40,19 +40,24 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toDrawable
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.loader.content.CursorLoader
 import com.gustate.uotan.BaseActivity
 import com.gustate.uotan.R
 import com.gustate.uotan.databinding.ActivityPostAritcleBinding
+import com.gustate.uotan.gustatex.dialog.LoadingDialog
+import com.gustate.uotan.gustatex.view.ScrollControllerListView
 import com.gustate.uotan.gustatex.view.SelectableEditText
 import com.gustate.uotan.utils.Utils.Companion.BASE_URL
 import com.gustate.uotan.utils.Utils.Companion.Cookies
 import com.gustate.uotan.utils.Utils.Companion.REQUEST_CODE_PERMISSION
 import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
+import com.gustate.uotan.utils.Utils.Companion.dpToPx
 import com.gustate.uotan.utils.Utils.Companion.openImmersion
 import com.kongzue.dialogx.dialogs.BottomDialog
+import com.kongzue.dialogx.interfaces.DialogLifecycleCallback
 import com.kongzue.dialogx.interfaces.OnBindView
 import okhttp3.Call
 import okhttp3.Callback
@@ -65,11 +70,6 @@ import okhttp3.Response
 import org.jsoup.Jsoup
 import java.io.File
 import java.io.IOException
-import androidx.core.graphics.drawable.toDrawable
-import com.gustate.uotan.gustatex.dialog.LoadingDialog
-import com.gustate.uotan.gustatex.view.ScrollControllerListView
-import com.gustate.uotan.utils.Utils.Companion.dpToPx
-import com.kongzue.dialogx.interfaces.DialogLifecycleCallback
 import kotlin.math.roundToInt
 
 

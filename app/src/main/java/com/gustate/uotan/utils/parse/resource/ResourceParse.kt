@@ -33,10 +33,11 @@ data class ResourcePlateItem(
 class ResourceParse {
     // 伴生对象
     companion object {
-        suspend fun fetchResourceData(page: String): FetchResult = withContext(Dispatchers.IO) {
+        suspend fun fetchResourceData(page: Int, categories: String = ""): FetchResult = withContext(Dispatchers.IO) {
             val result = mutableListOf<ResourceItem>()
+            val pageContent = if (page == 1) "/" else "/?page=$page"
             val document = Jsoup
-                .connect("$BASE_URL/resources/?page=$page")
+                .connect("$BASE_URL/resources${categories.replace("/resources", "").removeSuffix("/")}${pageContent}")
                 .userAgent(USER_AGENT)
                 .cookies(Cookies)
                 .timeout(TIMEOUT_MS)

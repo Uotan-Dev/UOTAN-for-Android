@@ -12,7 +12,13 @@ class InputDialog(context: Context) : Dialog(context, R.style.Gustatex_Dialog) {
     private lateinit var binding: GustatexDialogInputBinding
     private var inputText: String = ""
 
-    // 使用lambda表达式替代接口
+    // 临时存储变量
+    private var pendingTitle: String? = null
+    private var pendingDescription: String? = null
+    private var pendingConfirm: String? = null
+    private var pendingCancel: String? = null
+
+    // 回调
     var onConfirm: ((String) -> Unit)? = null
     var onCancel: (() -> Unit)? = null
 
@@ -20,6 +26,11 @@ class InputDialog(context: Context) : Dialog(context, R.style.Gustatex_Dialog) {
         super.onCreate(savedInstanceState)
         binding = GustatexDialogInputBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.title.text = pendingTitle
+        binding.describe.text = pendingDescription
+        binding.cancel.text = pendingCancel
+        binding.ok.text = pendingConfirm
 
         initWindowSettings()
         setupClickListeners()
@@ -43,28 +54,31 @@ class InputDialog(context: Context) : Dialog(context, R.style.Gustatex_Dialog) {
             if (inputText.isNotEmpty()) {
                 onConfirm?.invoke(inputText)
             }
-            dismiss()
         }
 
         binding.cancel.setOnClickListener {
             onCancel?.invoke()
-            dismiss()
         }
     }
 
     // 构建者模式配置方法
     fun setTitle(text: String): InputDialog {
-        binding.title.text = text
+        pendingTitle = text
         return this
     }
 
     fun setDescription(text: String): InputDialog {
-        binding.describe.text = text
+        pendingDescription = text
         return this
     }
 
-    fun setInitialInput(text: String): InputDialog {
-        binding.etContent.setText(text)
+    fun setCancel(text: String): InputDialog {
+        pendingCancel = text
+        return this
+    }
+
+    fun setConfirm(text: String): InputDialog {
+        pendingConfirm = text
         return this
     }
 

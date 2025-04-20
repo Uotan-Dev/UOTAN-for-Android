@@ -70,7 +70,7 @@ class PlateActivity : BaseActivity() {
                 (systemBars.top + 60f.dpToPx(this)),
                 systemBars.top.toFloat()
             )
-            binding.refreshLayout.setPadding(systemBars.left, (systemBars.top + 60f.dpToPx(this)).roundToInt(), systemBars.right, systemBars.bottom)
+            binding.srlRoot.setPadding(systemBars.left, (systemBars.top + 60f.dpToPx(this)).roundToInt(), systemBars.right, systemBars.bottom)
             insets
         }
         val url = intent.getStringExtra("link")

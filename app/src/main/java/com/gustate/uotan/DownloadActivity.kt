@@ -6,7 +6,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.gustate.uotan.databinding.ActivityDownloadBinding
 import com.gustate.uotan.utils.Utils.Companion.dpToPx
-import com.tonyodev.fetch2.Fetch
 import kotlin.math.roundToInt
 
 /**

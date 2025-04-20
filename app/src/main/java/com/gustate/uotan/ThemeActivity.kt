@@ -8,7 +8,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.gustate.uotan.anim.TitleAnim
 import com.gustate.uotan.databinding.ActivityThemeBinding
-import com.gustate.uotan.utils.Utils
 import com.gustate.uotan.utils.Utils.Companion.dpToPx
 import com.gustate.uotan.utils.Utils.Companion.openImmersion
 import kotlin.math.roundToInt
@@ -26,7 +25,7 @@ class ThemeActivity : BaseActivity() {
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             binding.statusBarView.layoutParams.height = systemBars.top
-            binding.refreshLayout.setPadding(
+            binding.srlRoot.setPadding(
                 0,
                 (systemBars.top + 60f.dpToPx(this)).roundToInt(),
                 0,

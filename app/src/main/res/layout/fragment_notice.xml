@@ -57,9 +57,10 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <com.scwang.smart.refresh.layout.SmartRefreshLayout
-            android:id="@+id/refreshLayout"
+            android:id="@+id/srlRoot"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
             android:background="?attr/colorBackground"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:srlEnablePureScrollMode="true">

@@ -7,6 +7,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
+import android.graphics.Color
+import android.os.Environment
 import android.util.Log
 import android.view.Window
 import android.view.WindowManager
@@ -16,15 +18,20 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
+import com.gustate.uotan.App
 import com.gustate.uotan.R
 import com.haoge.easyandroid.easy.EasyImageGetter
-import kotlin.math.roundToInt
+import com.tonyodev.fetch2.Fetch
+import com.tonyodev.fetch2.NetworkType
+import com.tonyodev.fetch2.Priority
+import com.tonyodev.fetch2.Request
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.FileOutputStream
 import java.net.HttpURLConnection
 import java.net.URL
+import kotlin.math.roundToInt
 
 /*
  * 这是一个工具（Utils）类
@@ -38,6 +45,8 @@ class Utils {
         const val BASE_URL = "https://www.uotan.cn"
         const val USER_AGENT = "UotanAPP/1.0"
         const val TIMEOUT_MS = 30000
+
+        var userTheme = R.style.Base_Theme_Uotan
 
         var Cookies = mapOf<String,String>()
         var isLogin = false
@@ -111,29 +120,31 @@ class Utils {
         }
 
         fun htmlToSpan(textView: TextView, html: String) {
+            val processedHtml = html
+                .replace("<div[^>]*>".toRegex(), "")
+                .replace("</div>", "<br>")
+                .replace("&nbsp;", " ")
             EasyImageGetter.create()
                 .setPlaceHolder(R.drawable.ic_uo)
                 .setLoader { url ->
                     if (textView.width == 0) return@setLoader null
-
                     // 计算目标宽度（减去左右padding）
                     val targetWidth = textView.width - textView.paddingLeft - textView.paddingRight
                     if (targetWidth <= 0) return@setLoader null
-
                     // 使用Glide加载并调整尺寸
                     try {
                         Glide.with(textView.context)
                             .load(url)
-                            .apply(RequestOptions().transform(RoundedCorners(18f.dpToPx(textView.context).roundToInt())))
                             .override(targetWidth, Target.SIZE_ORIGINAL)
                             .fitCenter()
+                            .apply(RequestOptions.bitmapTransform(RoundedCorners(12f.dpToPx(textView.context).roundToInt())))
                             .submit()
                             .get()
                     } catch (e: Exception) {
                         null
                     }
                 }
-                .loadHtml(html, textView)
+                .loadHtml(processedHtml, textView)
         }
         suspend fun saveToExternalPrivateDir(
             context: Context,
@@ -173,5 +184,33 @@ class Utils {
                 null
             }
         }
+
+
+        data class FetchData(val fetch: Fetch, val request: Request)
+
+        fun downloadFile(context: Context, url: String): FetchData {
+            val app: App? = context.applicationContext as App?
+            // 配置 Fetch
+            val fetch = app?.getFetch()!!
+            val path = File(
+                Environment.getExternalStorageDirectory(),
+                "Download/Uotan/${url.toUri().lastPathSegment}"
+            ).absolutePath
+            val request = Request(url, path).apply {
+                priority = Priority.HIGH
+                networkType = NetworkType.ALL
+                tag = url
+            }
+            fetch.enqueue(request)
+            return FetchData(fetch, request)
+        }
+
+        fun getThemeColor(context: Context, attr: Int): Int {
+            val typedArray = context.obtainStyledAttributes(intArrayOf(attr))
+            val color = typedArray.getColor(0, Color.TRANSPARENT)
+            typedArray.recycle()
+            return color
+        }
     }
 }
+

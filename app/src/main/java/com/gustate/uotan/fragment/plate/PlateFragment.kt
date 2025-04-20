@@ -25,9 +25,9 @@ import com.gustate.uotan.R
 import com.gustate.uotan.activity.PlateActivity
 import com.gustate.uotan.gustatex.dialog.LoadingDialog
 import com.gustate.uotan.utils.Utils.Companion.BASE_URL
+import com.gustate.uotan.utils.Utils.Companion.dpToPx
 import com.gustate.uotan.utils.parse.plate.PlateItem
 import com.gustate.uotan.utils.parse.plate.PlateParse
-import com.gustate.uotan.utils.Utils.Companion.dpToPx
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

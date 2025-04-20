@@ -190,4 +190,9 @@
     <string name="link_copied_clipboard">リンクがクリップボードにコピーされました</string>
     <string name="essence">エキス</string>
     <string name="download_manager">ダウンロード管理</string>
+    <string name="download_update">アップデートのダウンロード</string>
+    <string name="downloading">ダウンロード中</string>
+    <string name="following">注目</string>
+    <string name="all_types">すべてのタイプ</string>
+    <string name="select_type">タイプの選択</string>
 </resources>

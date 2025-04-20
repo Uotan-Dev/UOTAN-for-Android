@@ -2,199 +2,232 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rootLayout"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
     tools:context=".activity.SettingsActivity">
 
-    <com.scwang.smart.refresh.layout.SmartRefreshLayout
-        android:id="@+id/refreshLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/rootLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srlEnablePureScrollMode="true" >
+        app:statusBarBackground="@android:color/transparent">
 
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/rootScrollView"
+        <com.scwang.smart.refresh.layout.SmartRefreshLayout
+            android:id="@+id/srlRoot"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clipToPadding="true"
-            android:fillViewport="true"
-            android:scrollbarThumbVertical="@drawable/gustatex_scrollbar_thumb_vertical"
-            android:scrollbars="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_marginTop="-116dp"
+            android:clipToPadding="false"
+            android:paddingTop="116dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:srlEnablePureScrollMode="true">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/rootView"
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/rootScrollView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="80dp">
-
-                <TextView
-                    android:id="@+id/bigTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="28dp"
-                    android:fontFamily="sans-serif"
-                    android:text="@string/settings"
-                    android:textColor="?attr/colorOnBackgroundPrimary"
-                    android:textSize="30sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                android:layout_height="match_parent"
+                android:fillViewport="true"
+                android:scrollbarThumbVertical="@drawable/gustatex_scrollbar_thumb_vertical"
+                android:scrollbars="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/setAppLayout"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="18dp"
-                    android:layout_marginEnd="12dp"
-                    android:background="@drawable/gustatex_option_background_normal"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/bigTitle">
-
-                    <com.gustate.uotan.gustatex.view.OptionView
-                        android:id="@+id/aboutOption"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:optionIcon="@drawable/ic_option_myapp"
-                        app:optionTitle="@string/about" />
-
-                    <com.gustate.uotan.gustatex.view.OptionView
-                        android:id="@+id/updaterOption"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/aboutOption"
-                        app:optionIcon="@drawable/ic_option_updater"
-                        app:optionTitle="@string/updater" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <com.gustate.uotan.gustatex.view.OptionView
-                    android:id="@+id/setThemeOption"
+                    android:id="@+id/rootView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="12dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/setAppLayout"
-                    app:optionIcon="@drawable/ic_option_theme"
-                    app:optionTitle="@string/theme" />
+                    android:layout_height="wrap_content">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/setPageLayout"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="12dp"
-                    android:background="@drawable/gustatex_option_background_normal"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/setThemeOption">
-
-                    <com.gustate.uotan.gustatex.view.OptionView
-                        android:id="@+id/setUserOption"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/setAppLayout"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="12dp"
+                        android:background="@drawable/gustatex_option_background_normal"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:optionIcon="@drawable/ic_option_service"
-                        app:optionTitle="@string/user_settings" />
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <com.gustate.uotan.gustatex.view.OptionView
+                            android:id="@+id/aboutOption"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:optionIcon="@drawable/ic_option_myapp"
+                            app:optionTitle="@string/about" />
+
+                        <com.gustate.uotan.gustatex.view.OptionView
+                            android:id="@+id/updaterOption"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/aboutOption"
+                            app:optionIcon="@drawable/ic_option_updater"
+                            app:optionTitle="@string/updater" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <com.gustate.uotan.gustatex.view.OptionView
+                        android:id="@+id/setThemeOption"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="12dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/setAppLayout"
+                        app:optionIcon="@drawable/ic_option_theme"
+                        app:optionTitle="@string/theme" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/setPageLayout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="12dp"
+                        android:background="@drawable/gustatex_option_background_normal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/setThemeOption">
+
+                        <com.gustate.uotan.gustatex.view.OptionView
+                            android:id="@+id/setUserOption"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:optionIcon="@drawable/ic_option_service"
+                            app:optionTitle="@string/user_settings" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <com.gustate.uotan.gustatex.view.OptionView
+                        android:id="@+id/privacyOption"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="12dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/setPageLayout"
+                        app:optionIcon="@drawable/ic_option_privacy"
+                        app:optionTitle="@string/user_agreement_policy" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.core.widget.NestedScrollView>
+        </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 
-                <com.gustate.uotan.gustatex.view.OptionView
-                    android:id="@+id/privacyOption"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="12dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/setPageLayout"
-                    app:optionIcon="@drawable/ic_option_privacy"
-                    app:optionTitle="@string/user_agreement_policy" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/headerBarBlurLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.core.widget.NestedScrollView>
-    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+            <view
+                android:id="@+id/headerBarBlur"
+                class="net.center.blurview.ShapeBlurView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:blur_overlay_color="@android:color/transparent"
+                app:blur_radius="25dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <view
-        android:id="@+id/titleBarBlur"
-        class="net.center.blurview.ShapeBlurView"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        app:blur_radius="25dp"
-        app:layout_constraintBottom_toBottomOf="@+id/titleBarView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <View
+                android:id="@+id/headerBarCover"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha="0.6"
+                android:background="?attr/colorBackground"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <View
-        android:id="@+id/titleBarCover"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:alpha="0.6"
-        android:background="?attr/colorBackground"
-        app:layout_constraintBottom_toBottomOf="@+id/titleBarBlur"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <View
+                android:id="@+id/headerBarBlurContent"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <View
-        android:id="@+id/statusBarView"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/titleBarView"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/statusBarView">
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <ImageView
-            android:id="@+id/backButton"
-            android:layout_width="22dp"
-            android:layout_height="16dp"
-            android:layout_marginStart="28dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_back" />
-
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-medium"
-            android:text="@string/settings"
-            android:textColor="?attr/colorOnBackgroundPrimary"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_marginTop="20dp"
+            android:background="@android:color/transparent"
+            app:liftOnScrollColor="@android:color/transparent"
+            app:statusBarForeground="@android:color/transparent">
 
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapsingToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="116dp"
+                android:background="@android:color/transparent"
+                android:fitsSystemWindows="true"
+                app:collapsedTitleGravity="center"
+                app:collapsedTitleTextAppearance="@style/CollapsedTitleStyle"
+                app:collapsedTitleTextColor="?attr/colorOnBackgroundPrimary"
+                app:contentScrim="@android:color/transparent"
+                app:expandedTitleMarginStart="28dp"
+                app:expandedTitleTextAppearance="@style/ExpendedTitleStyle"
+                app:expandedTitleTextColor="?attr/colorOnBackgroundPrimary"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+                app:statusBarScrim="@android:color/transparent"
+                app:title="@string/settings"
+                app:titleCollapseMode="scale"
+                app:titleEnabled="true"
+                app:toolbarId="@id/toolBar">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@android:color/transparent"
+                    android:fitsSystemWindows="true"
+                    app:contentInsetStart="0dp"
+                    app:layout_collapseMode="pin" />
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/headerBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="20dp"
+                android:focusable="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_back" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,8 +11,8 @@ android {
         applicationId = "com.gustate.uotan"
         minSdk = 31
         targetSdk = 35
-        versionCode = 1021
-        versionName = "1.0.2.1 Beta"
+        versionCode = 1022
+        versionName = "1.0.2.2 Beta"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -64,6 +64,7 @@ dependencies {
     implementation(libs.androidx.legacy.support.v4)
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.preference)
     implementation(libs.androidx.datastore.preferences)

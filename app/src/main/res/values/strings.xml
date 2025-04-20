@@ -208,4 +208,9 @@
     <string name="link_copied_clipboard">The link has been copied to the clipboard</string>
     <string name="essence">Essence</string>
     <string name="download_manager">Download Manager</string>
+    <string name="download_update">Download update</string>
+    <string name="downloading">Downloading</string>
+    <string name="following">Following</string>
+    <string name="all_types">All types</string>
+    <string name="select_type">Select type</string>
 </resources>

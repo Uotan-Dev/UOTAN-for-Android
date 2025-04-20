@@ -4,11 +4,12 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup.MarginLayoutParams
 import androidx.activity.enableEdgeToEdge
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
 import com.gustate.uotan.BaseActivity
-import com.gustate.uotan.anim.TitleAnim
 import com.gustate.uotan.databinding.ActivityAboutBinding
 import com.gustate.uotan.utils.Utils.Companion.dpToPx
 import com.gustate.uotan.utils.Utils.Companion.getVersionCode
@@ -50,21 +51,14 @@ class AboutActivity : BaseActivity() {
         ViewCompat.setOnApplyWindowInsetsListener(binding.main) { _, insets ->
             // 获取系统栏高度 (包含 top, bottom, left 和 right)
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            // 设置状态栏占位布局高度
-            binding.statusBarView.layoutParams.height = systemBars.top
-            // 设置滚动布局内的根布局的边距
-            binding.refreshLayout.setPadding(
-                systemBars.left,
-                (systemBars.top + 60f.dpToPx(this)).roundToInt(),
-                systemBars.right,
-                (systemBars.bottom + 10f.dpToPx(this)).roundToInt()
-            )
-            // 创建 TitleAnim 实例
-            TitleAnim(
-                binding.title,
-                binding.bigTitleText,
-                (systemBars.top + 60f.dpToPx(this)),
-                systemBars.top.toFloat()
+            binding.back.updateLayoutParams<MarginLayoutParams> { topMargin = systemBars.top }
+            binding.headerBarBlurContent.updateLayoutParams<MarginLayoutParams> { topMargin = systemBars.top }
+            binding.appBarLayout.updateLayoutParams<MarginLayoutParams> { topMargin = systemBars.top }
+            binding.srlRoot.setPadding(
+                0,
+                116f.dpToPx(this).roundToInt(),
+                0,
+                (systemBars.top + systemBars.bottom)
             )
             // 返回 insets
             insets

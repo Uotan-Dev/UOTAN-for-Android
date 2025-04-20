@@ -8,15 +8,13 @@
     tools:context=".activity.ArticleActivity">
 
     <com.scwang.smart.refresh.layout.SmartRefreshLayout
-        android:id="@+id/refreshLayout"
+        android:id="@+id/srlRoot"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srlEnablePreviewInEditMode="false"
-        app:srlEnableNestedScrolling="true">
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.scwang.smart.refresh.header.ClassicsHeader
             android:id="@+id/refreshHeader"
@@ -346,8 +344,8 @@
 
         <ImageView
             android:id="@+id/back"
-            android:layout_width="19dp"
-            android:layout_height="14dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

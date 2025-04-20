@@ -1,82 +1,78 @@
 package com.gustate.uotan.utils.parse.article
 
-import android.content.Context
-import android.util.Log
-import androidx.core.content.ContextCompat.getString
-import com.gustate.uotan.R
 import com.gustate.uotan.utils.Utils.Companion.BASE_URL
 import com.gustate.uotan.utils.Utils.Companion.Cookies
 import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
 import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.json.JSONObject
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import org.json.JSONObject
 import org.jsoup.Jsoup
 import java.io.IOException
-import kotlin.String
-
-data class TagInfo(
-    val name: String,
-    val url: String
-)
-
-data class SectionInfo(
-    val name: String,
-    val url: String
-)
-
-data class ForumArticle(
-    val topic: String,
-    val title: String,
-    val numberOfComments: String,
-    val pageView: String,
-    val tags: MutableList<TagInfo>,
-    val section: MutableList<SectionInfo>,
-    val totalPage: String,
-    val avatarUrl: String,
-    val authorName: String,
-    val authorUrl: String,
-    val time: String,
-    val ipAddress: String,
-    val article: String,
-    val numberOfLikes: String,
-    val isBilibili: Boolean,
-    val bilibiliVideoLink: String,
-    val isLocked: Boolean,
-    val reactUrl: String,
-    val isReact: Boolean,
-    val reportUrl: String,
-    val editUrl: String,
-    val deleteUrl: String,
-    val ipUrl: String,
-    val changeAuthorUrl: String,
-    val isJingTie: Boolean
-)
-
-data class CommentItem(
-    val userId: String,
-    val userName: String,
-    val userIp: String,
-    val time: String,
-    val content: String,
-    val postTime: String
-)
-
-data class CommentData(
-    val commentItem: MutableList<CommentItem>,
-    val totalPage: String
-)
-
-data class AddReply(
-    val isSuccessful: Boolean,
-    val postTime: String
-)
 
 class ArticleParse {
     companion object {
+        data class TagInfo(
+            val name: String,
+            val url: String
+        )
+
+        data class SectionInfo(
+            val name: String,
+            val url: String
+        )
+
+        data class ForumArticle(
+            val topic: String,
+            val title: String,
+            val numberOfComments: String,
+            val pageView: String,
+            val tags: MutableList<TagInfo>,
+            val section: MutableList<SectionInfo>,
+            val totalPage: String,
+            val avatarUrl: String,
+            val authorName: String,
+            val authorUrl: String,
+            val time: String,
+            val ipAddress: String,
+            val article: String,
+            val numberOfLikes: String,
+            val isBilibili: Boolean,
+            val bilibiliVideoLink: String,
+            val isLocked: Boolean,
+            val reactUrl: String,
+            val isReact: Boolean,
+            val reportUrl: String,
+            val editUrl: String,
+            val deleteUrl: String,
+            val ipUrl: String,
+            val changeAuthorUrl: String,
+            val isJingTie: Boolean,
+            val isBookMark: Boolean,
+            val bookMarkUrl: String
+        )
+
+        data class CommentItem(
+            val userId: String,
+            val userName: String,
+            val userIp: String,
+            val time: String,
+            val content: String,
+            val postTime: String
+        )
+
+        data class CommentData(
+            val commentItem: MutableList<CommentItem>,
+            val totalPage: String
+        )
+
+        data class AddReply(
+            val isSuccessful: Boolean,
+            val postTime: String
+        )
         suspend fun articleParse(url: String): ForumArticle = withContext(Dispatchers.IO) {
             /**
              * 此 Document 对象就是网页的 document
@@ -294,13 +290,26 @@ class ArticleParse {
             val contentRowLesserElement = articleElement
                 ?.getElementsByClass("contentRow-lesser")
                 ?.first()
-            val time = contentRowLesserElement!!
-                .getElementsByTag("time")
-                .first()!!
-                .attr("data-date-string")
-            val secInfo = contentRowLesserElement
-                .getElementsByClass("message-attribution-opposite message-attribution-opposite--list ")
+            val time = contentRowLesserElement
+                ?.getElementsByTag("time")
+                ?.first()
+                ?.attr("title")
+                ?.replace("， ", " ")
+                ?: ""
+            val bookMarkContent = contentRowLesserElement
+                ?.getElementsByClass("js-bookmarkText u-srOnly")
+                ?.first()
+                ?.text()
+                ?: ""
+            val isBookMark = bookMarkContent == "编辑收藏"
+            val bookMarkUrl = document
+                .select("a[class^='bookmarkLink']")
                 .first()
+                ?.attr("href")
+                ?: ""
+            val secInfo = contentRowLesserElement
+                ?.getElementsByClass("message-attribution-opposite message-attribution-opposite--list ")
+                ?.first()
             val ipAddress = secInfo!!
                 .getElementsByClass("user-login-ip")
                 .first()
@@ -329,7 +338,7 @@ class ArticleParse {
                 ?.attr("href")
                 ?: ""
             val numberOfLikes = if (loveLink != "") {
-                val loveDocument = Jsoup.connect(BASE_URL + loveLink)
+                val loveDocument = Jsoup.connect("$BASE_URL$loveLink/")
                     .userAgent(USER_AGENT)
                     .timeout(TIMEOUT_MS)
                     .cookies(Cookies)
@@ -346,11 +355,12 @@ class ArticleParse {
             return@withContext ForumArticle(topic, title, numberOfComments, pageView, tags, section,
                 totalPage, avatarUrl, authorName, authorUrl, time, ipAddress, articleHtml,
                 numberOfLikes, isBilibiliVideo, bilibiliLink, isLocked, reactUrl, isReact,
-                reportUrl, editUrl, deleteUrl, ipUrl, changeAuthorUrl, isJingTie)
+                reportUrl, editUrl, deleteUrl, ipUrl, changeAuthorUrl, isJingTie, isBookMark,
+                bookMarkUrl)
         }
         suspend fun fetchComments(url: String, page: String): CommentData = withContext(Dispatchers.IO) {
             val result = mutableListOf<CommentItem>()
-            val document = Jsoup.connect("$BASE_URL${url}page-$page")
+            val document = Jsoup.connect("$BASE_URL${url.removeSuffix("/").replace(Regex("/post-\\d+$"), "")}/page-$page")
                 .cookies(Cookies)
                 .timeout(TIMEOUT_MS)
                 .userAgent(USER_AGENT)
@@ -518,6 +528,47 @@ class ArticleParse {
                 return@withContext false
             }
         }
+        suspend fun report(
+            url: String,
+            message: String,
+            cookiesString: String,
+            xfToken: String
+        ): Boolean = withContext(Dispatchers.IO) {
+            // 实例化 OkHttpClient
+            val client = OkHttpClient()
+            // 创建 MultipartBody
+            val requestBody = MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("_xfToken", xfToken)
+                .addFormDataPart("message", message)
+                .addFormDataPart("_xfRequestUri", url)
+                .addFormDataPart("_xfWithData", "1")
+                .addFormDataPart("_xfToken", xfToken)
+                .addFormDataPart("_xfResponseType", "json")
+                .build()
+            // 创建 Request
+            val request = Request.Builder()
+                .url(BASE_URL + url)
+                .addHeader("Cookie", cookiesString)
+                .addHeader("User-Agent", USER_AGENT)
+                .addHeader("Origin", BASE_URL)
+                .addHeader("Referer", url)
+                .addHeader(
+                    "Accept",
+                    "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+                )
+                .addHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
+                .post(requestBody)
+                .build()
+            return@withContext try {
+                val execute = client
+                    .newCall(request)
+                    .execute()
+                return@withContext execute.isSuccessful
+            } catch (_: IOException) {
+                return@withContext false
+            }
+        }
         suspend fun deleteArticle(
             url: String,
             deleteUrl: String,
@@ -573,6 +624,47 @@ class ArticleParse {
                 ?.text()
                 ?: ""
             return@withContext ip
+        }
+        suspend fun changeAuthor(
+            url: String,
+            changeAuthor: String,
+            cookiesString: String,
+            xfToken: String
+        ): Boolean = withContext(Dispatchers.IO) {
+            // 实例化 OkHttpClient
+            val client = OkHttpClient()
+            // 创建 MultipartBody
+            val requestBody = MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("_xfToken", xfToken)
+                .addFormDataPart("new_post_author", changeAuthor)
+                .addFormDataPart("_xfRequestUri", url)
+                .addFormDataPart("_xfWithData", "1")
+                .addFormDataPart("_xfToken", xfToken)
+                .addFormDataPart("_xfResponseType", "json")
+                .build()
+            // 创建 Request
+            val request = Request.Builder()
+                .url(BASE_URL + url + "save")
+                .addHeader("Cookie", cookiesString)
+                .addHeader("User-Agent", USER_AGENT)
+                .addHeader("Origin", BASE_URL)
+                .addHeader("Referer", url)
+                .addHeader(
+                    "Accept",
+                    "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+                )
+                .addHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
+                .post(requestBody)
+                .build()
+            return@withContext try {
+                val execute = client
+                    .newCall(request)
+                    .execute()
+                return@withContext execute.isSuccessful
+            } catch (_: IOException) {
+                return@withContext false
+            }
         }
     }
 }

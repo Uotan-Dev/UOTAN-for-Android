@@ -229,7 +229,7 @@
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <TextView
-        android:id="@+id/chkUpdate"
+        android:id="@+id/btnDownload"
         android:layout_width="0dp"
         android:layout_height="55dp"
         android:layout_marginStart="28dp"
@@ -238,11 +238,40 @@
         android:background="@drawable/gustatex_button_filled"
         android:fontFamily="sans-serif-medium"
         android:gravity="center"
-        android:text="@string/check_for_updates"
+        android:text="@string/download_update"
         android:textColor="?attr/colorOnFilledButton"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="28dp"
+        android:progressDrawable="@drawable/gustatex_progress_bar"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvProgress"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:text="@string/downloading"
+        android:textColor="@color/colorOnFilledButtonBasic"
+        android:textSize="18sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/progressBar"
+        app:layout_constraintEnd_toEndOf="@id/progressBar"
+        app:layout_constraintStart_toStartOf="@id/progressBar"
+        app:layout_constraintTop_toTopOf="@id/progressBar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

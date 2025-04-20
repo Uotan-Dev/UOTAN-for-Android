@@ -6,8 +6,8 @@ import android.os.Looper
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.gustate.uotan.utils.Utils.Companion.isLogin
 import com.gustate.uotan.utils.Utils.Companion.Cookies
+import com.gustate.uotan.utils.Utils.Companion.isLogin
 import com.gustate.uotan.utils.Utils.Companion.openImmersion
 import com.gustate.uotan.utils.parse.data.CookiesManager
 import kotlinx.coroutines.Dispatchers
@@ -17,7 +17,7 @@ import kotlinx.coroutines.withContext
 
 open class BaseActivity : AppCompatActivity() {
 
-    private var currentThemeResId: Int = 0
+    var currentThemeResId: Int = 0
 
     private val cookiesManager by lazy { CookiesManager(this) }
 
@@ -61,6 +61,7 @@ open class BaseActivity : AppCompatActivity() {
         }
         if (newThemeResId != currentThemeResId) {
             Handler(Looper.getMainLooper()).post {
+                currentThemeResId = newThemeResId
                 recreate()
             }
         }

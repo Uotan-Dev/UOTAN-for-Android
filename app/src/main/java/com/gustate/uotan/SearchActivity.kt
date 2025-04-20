@@ -1,7 +1,6 @@
 package com.gustate.uotan
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,6 +11,7 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.google.android.flexbox.FlexDirection
@@ -60,7 +60,7 @@ class SearchActivity : BaseActivity() {
         ViewCompat.setOnApplyWindowInsetsListener(binding.main) { _, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             binding.statusBarView.layoutParams.height = systemBars.top
-            binding.refreshLayout.setPadding(0, systemBars.top + 60f.dpToPx(this).roundToInt(), 0 , systemBars.bottom)
+            binding.srlRoot.setPadding(0, systemBars.top + 60f.dpToPx(this).roundToInt(), 0 , systemBars.bottom)
             insets
         }
         val flexboxLayoutManager = FlexboxLayoutManager(this).apply {
@@ -103,6 +103,7 @@ class SearchActivity : BaseActivity() {
                     }
                 }
                 binding.recyclerView.adapter = adapter
+                binding.srlRoot.isVisible = true
                 val intent = Intent(
                     this,
                     SearchResultActivity::class.java
@@ -137,16 +138,20 @@ class SearchActivity : BaseActivity() {
     private fun clearAllHistory() {
         searchHistory.clear()
         saveToLocalStorage()
+        binding.srlRoot.isVisible = false
     }
     private fun saveToLocalStorage() {
-        val prefs = this.getSharedPreferences("search_prefs", Context.MODE_PRIVATE)
+        val prefs = this.getSharedPreferences("search_prefs", MODE_PRIVATE)
         prefs.edit().apply {
             putStringSet("history", LinkedHashSet(searchHistory))
             apply() // 异步提交
         }
     }
     private fun loadFromLocalStorage() {
-        val prefs = this.getSharedPreferences("search_prefs", Context.MODE_PRIVATE)
+        val prefs = this.getSharedPreferences("search_prefs", MODE_PRIVATE)
         searchHistory.addAll(prefs.getStringSet("history", emptySet()) ?: emptySet())
+        if (searchHistory.isEmpty()) {
+            binding.srlRoot.isVisible = false
+        }
     }
 }

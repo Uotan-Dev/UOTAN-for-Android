@@ -1,7 +1,7 @@
 {
   "latest_version_name": "1.0.2.2 Beta",
   "latest_version_code": 1022,
-  "latest_version_download_url": "https://zzhi-my.sharepoint.com/personal/mzz_zzhi_onmicrosoft_com/_layouts/15/download.aspx?SourceUrl=%2Fpersonal%2Fmzz%5Fzzhi%5Fonmicrosoft%5Fcom%2FDocuments%2F%E6%9F%9A%E5%9D%9B%E7%A4%BE%E5%8C%BA%2FUOTAN%2Dapp%2Drelease%5F1%2E0%2E2%2E2%5FBeta%2Eapk",
+  "latest_version_download_url": "https://gitee.com/XiaoMeng22333/uotan-for-android/releases/download/1.0.2.2/UOTAN-app-release_1.0.2.2_Beta.apk",
   "version_channel": "Beta",
   "versions":
   [
@@ -16,11 +16,15 @@
         },
         {
           "type": "用户",
-          "content": "新增 用户信息持续储存功能"
+          "content": "新增 用户信息持续储存功能\n修复 部分用户无法登录的问题\n注意 你必须清空软件数据"
         },
         {
           "type": "文章",
-          "content": "新增 文章评级显示功能\n新增 文章状态显示功能\n新增 点赞功能\n新增 分享功能\n新增 更多功能\n新增 更多中的分享链接功能\n新增 更多中的举报功能\n新增 更多中的编辑(含有权限账号的管理)功能\n新增 更多中的删除(含有权限账号的管理)功能\n新增 更多中的(有权限账户)获取发帖者IP地址以及查询功能\n新增 更多中的(有权限账户)变更作者功能\n优化 文章查看效果\n优化 评论查看效果\n优化 评论发布效果\n修复 公告君等官方账号IP属地显示为未知的问题"
+          "content": "新增 文章评级显示功能\n新增 文章状态显示功能\n新增 关注文章作者功能\n新增 点赞功能\n新增 分享功能\n新增 更多功能\n新增 更多中的分享链接功能\n新增 更多中的举报功能\n新增 更多中的编辑(含有权限账号的管理)功能\n新增 更多中的删除(含有权限账号的管理)功能\n新增 更多中的(有权限账户)获取发帖者IP地址以及查询功能\n新增 更多中的(有权限账户)变更作者功能\n优化 文章查看效果\n优化 评论查看效果\n优化 评论发布效果\n修复 公告君等官方账号IP属地显示为未知的问题"
+        },
+        {
+          "type": "设置",
+          "content": "移除 不必要的设置项"
         },
         {
           "type": "更新",

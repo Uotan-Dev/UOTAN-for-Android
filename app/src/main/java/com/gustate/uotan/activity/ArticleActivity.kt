@@ -9,6 +9,7 @@ import android.content.ClipboardManager
 import android.content.Intent
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +24,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.animation.ValueAnimator
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -37,21 +39,26 @@ import com.gustate.uotan.R
 import com.gustate.uotan.anim.TitleAnim
 import com.gustate.uotan.databinding.ActivityArticleBinding
 import com.gustate.uotan.gustatex.dialog.InfoDialog
+import com.gustate.uotan.gustatex.dialog.InputDialog
 import com.gustate.uotan.gustatex.dialog.LoadingDialog
-import com.gustate.uotan.utils.Utils
 import com.gustate.uotan.utils.Utils.Companion.BASE_URL
 import com.gustate.uotan.utils.Utils.Companion.Cookies
 import com.gustate.uotan.utils.Utils.Companion.dpToPx
+import com.gustate.uotan.utils.Utils.Companion.getThemeColor
 import com.gustate.uotan.utils.Utils.Companion.htmlToSpan
 import com.gustate.uotan.utils.Utils.Companion.idToAvatar
-import com.gustate.uotan.utils.Utils.Companion.openImmersion
-import com.gustate.uotan.utils.parse.article.ArticleParse
-import com.gustate.uotan.utils.parse.article.ArticleParse.Companion.addReplyPost
+import com.gustate.uotan.utils.Utils.Companion.openUrlInBrowser
+import com.gustate.uotan.utils.parse.article.ArticleParse.Companion.CommentItem
 import com.gustate.uotan.utils.parse.article.ArticleParse.Companion.addReaction
+import com.gustate.uotan.utils.parse.article.ArticleParse.Companion.addReplyPost
+import com.gustate.uotan.utils.parse.article.ArticleParse.Companion.articleParse
+import com.gustate.uotan.utils.parse.article.ArticleParse.Companion.changeAuthor
 import com.gustate.uotan.utils.parse.article.ArticleParse.Companion.deleteArticle
 import com.gustate.uotan.utils.parse.article.ArticleParse.Companion.fetchComments
 import com.gustate.uotan.utils.parse.article.ArticleParse.Companion.getAuthorIp
-import com.gustate.uotan.utils.parse.article.CommentItem
+import com.gustate.uotan.utils.parse.article.ArticleParse.Companion.report
+import com.gustate.uotan.utils.parse.user.UserParse
+import com.gustate.uotan.utils.parse.user.UserParse.Companion.follow
 import com.gustate.uotan.utils.room.UserViewModel
 import com.kongzue.dialogx.dialogs.BottomDialog
 import com.kongzue.dialogx.interfaces.OnBindView
@@ -59,7 +66,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.jsoup.Jsoup
-import java.sql.Time
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -74,8 +80,6 @@ class ArticleActivity : BaseActivity() {
 
     /**
      * 评论列表框适配器 (Adapter)
-     * @param commentsList 列表内容
-     * 2025-04-04
      */
     class CommentAdapter() : RecyclerView.Adapter<CommentAdapter.ViewHolder>() {
         private val commentsList = mutableListOf<CommentItem>()
@@ -134,7 +138,11 @@ class ArticleActivity : BaseActivity() {
     private lateinit var adapter: CommentAdapter
     private lateinit var cookieManager: CookieManager
     private lateinit var viewModel: UserViewModel
+    private var colorOnFilledButton = 0
+    private var colorOnOutlineButton = 0
     private var isReacting = false
+    private var isFollowing = false
+    private var isFollowAuthor = false
     private var isLocked = false
     private var isReact = false
     private var isJingHua = false
@@ -154,6 +162,7 @@ class ArticleActivity : BaseActivity() {
     private var lastCommentDate = ""
     private var cookieString = ""
     private var ip = ""
+    private var authorUrl = ""
 
     @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -162,10 +171,12 @@ class ArticleActivity : BaseActivity() {
         binding = ActivityArticleBinding.inflate(layoutInflater)
         setContentView(binding.rootLayout)
 
-        // 针对部分系统的小白条沉浸
-        openImmersion(window)
+        colorOnFilledButton = getThemeColor(this, R.attr.colorOnFilledButton)
+        colorOnOutlineButton = getThemeColor(this, R.attr.colorBottomNavigationBarOnBackgroundSecondary)
 
         loadingDialog = LoadingDialog(this)
+        url = intent.getStringExtra("url")!!
+
         viewModel = ViewModelProvider(this)[UserViewModel::class.java]
         val loadingAnimator = ObjectAnimator.ofFloat(
             binding.btnReact,
@@ -186,13 +197,6 @@ class ArticleActivity : BaseActivity() {
             })
         }
 
-        // 下拉刷新
-        binding.refreshLayout.setEnableRefresh(true)
-        // 上拉加载
-        binding.refreshLayout.setEnableLoadMore(true)
-        // 越界回弹
-        binding.refreshLayout.setEnableOverScrollBounce(true)
-
         /*
          * 修改各个占位布局的高度
          * 以实现小白条与状态栏的沉浸
@@ -210,8 +214,8 @@ class ArticleActivity : BaseActivity() {
                 systemBars.right,
                 (systemBars.bottom + 70f.dpToPx(this)).roundToInt()
             )
-            binding.refreshLayout.setHeaderInsetStartPx((systemBars.top + 60f.dpToPx(this@ArticleActivity)).roundToInt())
-            binding.refreshLayout.setFooterInsetStartPx((systemBars.bottom + 70f.dpToPx(this@ArticleActivity)).roundToInt())
+            binding.srlRoot.setHeaderInsetStartPx((systemBars.top + 60f.dpToPx(this@ArticleActivity)).roundToInt())
+            binding.srlRoot.setFooterInsetStartPx((systemBars.bottom + 70f.dpToPx(this@ArticleActivity)).roundToInt())
             // 设置小白条占位布局高度
             binding.gestureView.layoutParams.height = systemBars.bottom
             // 创建 SimonEdgeIllusion 实例
@@ -235,7 +239,6 @@ class ArticleActivity : BaseActivity() {
         cookieManager.setAcceptThirdPartyCookies(binding.invisibleWebView, true)
         setCookiesForDomain(BASE_URL + url, Cookies)
 
-        url = intent.getStringExtra("url")!!
         // 加载隐藏页面
         binding.invisibleWebView.loadUrl(BASE_URL + url)
 
@@ -278,13 +281,67 @@ class ArticleActivity : BaseActivity() {
 
         loadComments(url, true)
 
-        binding.refreshLayout.setOnRefreshListener {
+        binding.srlRoot.setOnRefreshListener {
             loadArticle(url)
             loadComments(url, true)
         }
 
-        binding.refreshLayout.setOnLoadMoreListener {
+        binding.srlRoot.setOnLoadMoreListener {
             loadComments(url, false)
+        }
+
+        binding.bigTitle.setOnClickListener {
+            startActivity(
+                Intent(
+                    this,
+                    UserActivity::class.java
+                ).putExtra("url", authorUrl)
+            )
+        }
+
+        binding.follow.setOnClickListener {
+            if (isFollowing) {
+                Toast.makeText(
+                    this,
+                    "正在操作中，请稍后",
+                    Toast.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
+            }
+            isFollowing = true
+            lifecycleScope.launch {
+                val follow = follow(
+                    authorUrl,
+                    cookieString,
+                    xfToken
+                )
+                if (follow) {
+                    if (isFollowAuthor) {
+                        isFollowAuthor = false
+                        binding.follow.background = getDrawable(R.drawable.gustatex_button_filled)
+                        binding.bigFollow.background = getDrawable(R.drawable.gustatex_button_filled)
+                        binding.follow.text = getString(R.string.follow)
+                        binding.bigFollow.text = getString(R.string.follow)
+                        binding.follow.setTextColor(colorOnFilledButton)
+                        binding.bigFollow.setTextColor(colorOnFilledButton)
+                    } else {
+                        isFollowAuthor = true
+                        binding.follow.background = getDrawable(R.drawable.gustatex_button_outline)
+                        binding.bigFollow.background = getDrawable(R.drawable.gustatex_button_outline)
+                        binding.follow.text = getString(R.string.following)
+                        binding.bigFollow.text = getString(R.string.following)
+                        binding.follow.setTextColor(colorOnOutlineButton)
+                        binding.bigFollow.setTextColor(colorOnOutlineButton)
+                    }
+                } else {
+                    Toast.makeText(
+                        this@ArticleActivity,
+                        "操作失败",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                isFollowing = false
+            }
         }
 
         binding.btnComment.setOnClickListener {
@@ -430,6 +487,52 @@ class ArticleActivity : BaseActivity() {
                         ).show()
                         dialog?.dismiss()
                     }
+                    val btnReport = v?.findViewById<View>(R.id.btnReport)
+                    val tvReport = v?.findViewById<View>(R.id.tvReport)
+                    btnReport?.isGone = reportUrl.isEmpty()
+                    tvReport?.isGone = reportUrl.isEmpty()
+                    btnReport?.setOnClickListener {
+                        dialog?.dismiss()
+                        val inputDialog = InputDialog(this@ArticleActivity)
+                        inputDialog
+                            .setTitle("举报")
+                            .setDescription("举报该内容")
+                            .setCancel("取消")
+                            .setConfirm("举报")
+                            .withOnConfirm {
+                                loadingDialog.show()
+                                lifecycleScope.launch {
+                                    val isReport = report(reportUrl, it, cookieString, xfToken)
+                                    withContext(Dispatchers.Main) {
+                                        if (isReport) {
+                                            Toast.makeText(
+                                                this@ArticleActivity,
+                                                "举报成功",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        } else {
+                                            Toast.makeText(
+                                                this@ArticleActivity,
+                                                "举报失败",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        }
+                                        inputDialog.dismiss()
+                                        loadingDialog.cancel()
+                                    }
+                                }
+                            }
+                            .withOnCancel { inputDialog.dismiss() }
+                            .show()
+                    }
+                    val btnEdit = v?.findViewById<View>(R.id.btnEdit)
+                    val tvEdit = v?.findViewById<View>(R.id.tvEdit)
+                    btnEdit?.isGone = editUrl.isEmpty()
+                    tvEdit?.isGone = editUrl.isEmpty()
+                    btnEdit?.setOnClickListener {
+                        dialog?.dismiss()
+                        openUrlInBrowser(this@ArticleActivity, BASE_URL + editUrl)
+                    }
                     val btnDelete = v?.findViewById<View>(R.id.btnDelete)
                     val tvDelete = v?.findViewById<View>(R.id.tvDelete)
                     btnDelete?.isGone = deleteUrl.isEmpty()
@@ -486,7 +589,7 @@ class ArticleActivity : BaseActivity() {
                                     .setConfirmText(getString(R.string.query))
                                     .setCancelText(getString(R.string.cancel))
                                     .withOnConfirm {
-                                        Utils.openUrlInBrowser(this@ArticleActivity,
+                                        openUrlInBrowser(this@ArticleActivity,
                                             "$BASE_URL/misc/ip-info?ip=$ip"
                                         )
                                         deleteDialog.dismiss()
@@ -496,16 +599,54 @@ class ArticleActivity : BaseActivity() {
                             }
                         }
                     }
+                    val btnChangeAuthor = v?.findViewById<View>(R.id.btnChangeAuthor)
+                    val tvChangeAuthor = v?.findViewById<View>(R.id.tvChangeAuthor)
+                    btnChangeAuthor?.isGone = changeAuthorUrl.isEmpty()
+                    tvChangeAuthor?.isGone = changeAuthorUrl.isEmpty()
+                    btnChangeAuthor?.setOnClickListener {
+                        dialog?.dismiss()
+                        val inputDialog = InputDialog(this@ArticleActivity)
+                        inputDialog
+                            .setTitle("变更作者")
+                            .setDescription("变更该内容作者")
+                            .setCancel("取消")
+                            .setConfirm("变更")
+                            .withOnConfirm {
+                                loadingDialog.show()
+                                lifecycleScope.launch {
+                                    Log.e("it", it)
+                                    val isChangeAuthor = changeAuthor(changeAuthorUrl, it, cookieString, xfToken)
+                                    withContext(Dispatchers.Main) {
+                                        if (isChangeAuthor) {
+                                            Toast.makeText(
+                                                this@ArticleActivity,
+                                                "变更成功",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        } else {
+                                            Toast.makeText(
+                                                this@ArticleActivity,
+                                                "变更失败，不存在该用户",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        }
+                                        inputDialog.dismiss()
+                                        loadingDialog.cancel()
+                                    }
+                                }
+                            }
+                            .withOnCancel { inputDialog.dismiss() }
+                            .show()
+                    }
                 }
             })
         }
     }
 
-    @SuppressLint("ClickableViewAccessibility", "SetJavaScriptEnabled", "SetTextI18n",
-        "UseCompatLoadingForDrawables"
-    )
+    @SuppressLint("SetJavaScriptEnabled")
     private fun loadArticle(url: String) {
         loadingDialog.show()
+        isFollowAuthor = false
         isReact = false
         isLocked = false
         isJingHua = false
@@ -517,8 +658,11 @@ class ArticleActivity : BaseActivity() {
         ipUrl = ""
         changeAuthorUrl = ""
         ip = ""
+        authorUrl = ""
         lifecycleScope.launch {
-            val content = ArticleParse.articleParse(url)
+            val content = articleParse(url)
+            authorUrl = content.authorUrl
+            isFollowAuthor = UserParse.isFollow(authorUrl)
             isReact = content.isReact
             isLocked = content.isLocked
             isJingHua = content.isJingTie
@@ -538,6 +682,23 @@ class ArticleActivity : BaseActivity() {
                         .load(BASE_URL + content.avatarUrl)
                         .into(binding.bigUserAvatar)
                 }
+                if (isFollowAuthor) {
+                    binding.follow.background = AppCompatResources.getDrawable(this@ArticleActivity, R.drawable.gustatex_button_outline)
+                    binding.bigFollow.background = AppCompatResources.getDrawable(this@ArticleActivity, R.drawable.gustatex_button_outline)
+                    binding.follow.text = getString(R.string.following)
+                    binding.bigFollow.text = getString(R.string.following)
+                    binding.follow.setTextColor(colorOnOutlineButton)
+                    binding.bigFollow.setTextColor(colorOnOutlineButton)
+                } else {
+                    binding.follow.background = AppCompatResources.getDrawable(this@ArticleActivity, R.drawable.gustatex_button_filled)
+                    binding.bigFollow.background = AppCompatResources.getDrawable(this@ArticleActivity, R.drawable.gustatex_button_filled)
+                    binding.follow.text = getString(R.string.follow)
+                    binding.bigFollow.text = getString(R.string.follow)
+                    binding.follow.setTextColor(colorOnFilledButton)
+                    binding.bigFollow.setTextColor(colorOnFilledButton)
+                }
+                if (content.isBookMark) binding.collect.setImageDrawable(AppCompatResources.getDrawable(this@ArticleActivity, R.drawable.ic_option_collect))
+                else binding.collect.setImageDrawable(AppCompatResources.getDrawable(this@ArticleActivity, R.drawable.ic_collect))
                 binding.bilibiliCard.isGone = !content.isBilibili
                 binding.bigUserNameText.text = content.authorName
                 binding.userNameText.text = content.authorName
@@ -548,7 +709,8 @@ class ArticleActivity : BaseActivity() {
                 binding.bigTitleText.text = title
                 binding.cardJingTie.isGone = !isJingHua
                 binding.cardPostLocked.isGone = !isLocked
-                if (isReact) binding.btnReact.setImageDrawable(getDrawable(R.drawable.ic_is_react)) else binding.btnReact.setImageDrawable(getDrawable(R.drawable.ic_favourite))
+                if (isReact) binding.btnReact.setImageDrawable(AppCompatResources.getDrawable(this@ArticleActivity, R.drawable.ic_is_react))
+                else binding.btnReact.setImageDrawable(AppCompatResources.getDrawable(this@ArticleActivity, R.drawable.ic_favourite))
                 binding.favouriteCount.text = content.numberOfLikes
                 binding.commentCount.text = content.numberOfComments
                 binding.bilibiliWebView.settings.javaScriptEnabled = true // 启用JS
@@ -575,7 +737,7 @@ class ArticleActivity : BaseActivity() {
                 }
                 if (content.isBilibili) binding.bilibiliWebView.loadUrl("https:" + content.bilibiliVideoLink)
                 loadingDialog.cancel()
-                binding.refreshLayout.finishRefresh()
+                binding.srlRoot.finishRefresh()
                 htmlToSpan(binding.tvContent, content.article.replace(
                     Regex(
                         """<span data-guineapigclub-mediaembed="bilibili">.*?</span>""",
@@ -636,10 +798,10 @@ class ArticleActivity : BaseActivity() {
             } finally {
                 withContext(Dispatchers.Main) {
                     if (currentPage <= totalPage) {
-                        binding.refreshLayout.finishLoadMore()
+                        binding.srlRoot.finishLoadMore()
                     } else {
-                        binding.refreshLayout.setNoMoreData(true)
-                        binding.refreshLayout.finishLoadMoreWithNoMoreData()
+                        binding.srlRoot.setNoMoreData(true)
+                        binding.srlRoot.finishLoadMoreWithNoMoreData()
                     }
                 }
             }

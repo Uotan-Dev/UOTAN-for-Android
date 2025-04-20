@@ -8,416 +8,451 @@
     android:clipToPadding="true"
     tools:context=".activity.AboutActivity">
 
-    <com.scwang.smart.refresh.layout.SmartRefreshLayout
-        android:id="@+id/refreshLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:paddingTop="80dp"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/rootLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srlEnablePureScrollMode="true">
+        app:statusBarBackground="@android:color/transparent">
 
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/rootScrollView"
+        <com.scwang.smart.refresh.layout.SmartRefreshLayout
+            android:id="@+id/srlRoot"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbarThumbVertical="@drawable/gustatex_scrollbar_thumb_vertical"
-            android:scrollbars="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_marginTop="-116dp"
+            android:clipToPadding="false"
+            android:paddingTop="116dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:srlEnablePureScrollMode="true">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/rootView"
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/rootScrollView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/bigTitleText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="28dp"
-                    android:fontFamily="sans-serif"
-                    android:text="@string/about"
-                    android:textColor="?attr/colorOnBackgroundPrimary"
-                    android:textSize="30sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                android:layout_height="match_parent"
+                android:fillViewport="true"
+                android:scrollbarThumbVertical="@drawable/gustatex_scrollbar_thumb_vertical"
+                android:scrollbars="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/appInfoCard"
+                    android:id="@+id/rootView"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginEnd="12dp"
-                    android:background="@drawable/gustatex_option_background_normal"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/bigTitleText"
-                    tools:ignore="TextSizeCheck">
+                    android:layout_height="wrap_content">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/appInfo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp"
-                        android:layout_marginEnd="16dp"
+                        android:id="@+id/appInfoCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="12dp"
+                        android:background="@drawable/gustatex_option_background_normal"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="TextSizeCheck">
 
-                        <ImageView
-                            android:id="@+id/uo"
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/appInfo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_marginTop="24dp"
+                            android:layout_marginEnd="16dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <ImageView
+                                android:id="@+id/uo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:srcCompat="@drawable/ic_uo" />
+
+                            <ImageView
+                                android:id="@+id/tan"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="2dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/uo"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:srcCompat="@drawable/ic_tan" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <TextView
+                            android:id="@+id/appInfoVerName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="@string/version_name"
+                            android:textColor="?attr/colorOnCardPrimary"
+                            android:textSize="14sp"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/ic_uo" />
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                        <ImageView
-                            android:id="@+id/tan"
+                        <TextView
+                            android:id="@+id/appInfoVerNameText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="2dp"
+                            android:layout_marginStart="16dp"
+                            android:text="@string/version_name"
+                            android:textColor="?attr/colorOnCardSecondary"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/appInfoVerName"
+                            tools:ignore="TextContrastCheck" />
+
+                        <TextView
+                            android:id="@+id/appInfoVerCode"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="@string/version_code"
+                            android:textColor="?attr/colorOnCardPrimary"
+                            android:textSize="14sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/appInfoVerNameText" />
+
+                        <TextView
+                            android:id="@+id/appInfoVerCodeText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:text="@string/version_code"
+                            android:textColor="?attr/colorOnCardSecondary"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/appInfoVerCode"
+                            tools:ignore="TextContrastCheck" />
+
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginBottom="16dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="@string/uotan_describe"
+                            android:textColor="?attr/colorOnCardPrimary"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/uo"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/ic_tan" />
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/appInfoVerCodeText" />
+
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
-                        android:id="@+id/appInfoVerName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="@string/version_name"
-                        android:textColor="?attr/colorOnCardPrimary"
-                        android:textSize="14sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/appInfoVerNameText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:text="@string/version_name"
-                        android:textColor="?attr/colorOnCardSecondary"
-                        android:textSize="12sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/appInfoVerName"
-                        tools:ignore="TextContrastCheck" />
-
-                    <TextView
-                        android:id="@+id/appInfoVerCode"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="@string/version_code"
-                        android:textColor="?attr/colorOnCardPrimary"
-                        android:textSize="14sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/appInfoVerNameText" />
-
-                    <TextView
-                        android:id="@+id/appInfoVerCodeText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:text="@string/version_code"
-                        android:textColor="?attr/colorOnCardSecondary"
-                        android:textSize="12sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/appInfoVerCode"
-                        tools:ignore="TextContrastCheck" />
-
-                    <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/coreTeamTitle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginBottom="16dp"
+                        android:layout_marginStart="28dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="28dp"
                         android:fontFamily="sans-serif-medium"
-                        android:text="@string/uotan_describe"
-                        android:textColor="?attr/colorOnCardPrimary"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:text="@string/core_team"
+                        android:textColor="?attr/colorOnBackgroundTertiary"
+                        android:textSize="14sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/appInfoVerCodeText" />
+                        app:layout_constraintTop_toBottomOf="@+id/appInfoCard"
+                        tools:ignore="TextContrastCheck" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/coreTeamCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="12dp"
+                        android:background="@drawable/gustatex_option_background_normal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/coreTeamTitle">
+
+                        <com.gustate.uotan.gustatex.view.OptionUserView
+                            android:id="@+id/coreteam1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:optionAvatar_user="@drawable/avatar_coreteam_01"
+                            app:optionDescribe_user="@string/coreteam_describe_01"
+                            app:optionTitle_user="@string/coreteam_01" />
+
+                        <com.gustate.uotan.gustatex.view.OptionUserView
+                            android:id="@+id/coreteam2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/coreteam1"
+                            app:optionAvatar_user="@drawable/avatar_coreteam_02"
+                            app:optionDescribe_user="@string/coreteam_describe_02"
+                            app:optionTitle_user="@string/coreteam_02" />
+
+                        <com.gustate.uotan.gustatex.view.OptionUserView
+                            android:id="@+id/coreteam3"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/coreteam2"
+                            app:optionAvatar_user="@drawable/avatar_coreteam_03"
+                            app:optionDescribe_user="@string/coreteam_describe_03"
+                            app:optionTitle_user="@string/coreteam_03" />
+
+                        <com.gustate.uotan.gustatex.view.OptionUserView
+                            android:id="@+id/coreteam4"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/coreteam3"
+                            app:optionAvatar_user="@drawable/avatar_coreteam_04"
+                            app:optionDescribe_user="@string/coreteam_describe_04"
+                            app:optionTitle_user="@string/coreteam_04" />
+
+                        <com.gustate.uotan.gustatex.view.OptionUserView
+                            android:id="@+id/coreteam5"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/coreteam4"
+                            app:optionAvatar_user="@drawable/avatar_coreteam_05"
+                            app:optionDescribe_user="@string/coreteam_describe_05"
+                            app:optionTitle_user="@string/coreteam_05" />
+
+                        <com.gustate.uotan.gustatex.view.OptionUserView
+                            android:id="@+id/coreteam6"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/coreteam5"
+                            app:optionAvatar_user="@drawable/avatar_coreteam_06"
+                            app:optionDescribe_user="@string/coreteam_describe_06"
+                            app:optionTitle_user="@string/coreteam_06" />
+
+                        <com.gustate.uotan.gustatex.view.OptionUserView
+                            android:id="@+id/coreteam7"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/coreteam6"
+                            app:optionAvatar_user="@drawable/avatar_coreteam_07"
+                            app:optionDescribe_user="@string/coreteam_describe_07"
+                            app:optionTitle_user="@string/coreteam_07" />
+
+                        <com.gustate.uotan.gustatex.view.OptionUserView
+                            android:id="@+id/coreteam8"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/coreteam7"
+                            app:optionAvatar_user="@drawable/avatar_coreteam_08"
+                            app:optionDescribe_user="@string/coreteam_describe_08"
+                            app:optionTitle_user="@string/coreteam_08" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/specialThanksTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="28dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="28dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="@string/special_thanks"
+                        android:textColor="?attr/colorOnBackgroundTertiary"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/coreTeamCard"
+                        tools:ignore="TextContrastCheck" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/specialThanksCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="12dp"
+                        android:background="@drawable/gustatex_option_background_normal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/specialThanksTitle">
+
+                        <com.gustate.uotan.gustatex.view.OptionUserView
+                            android:id="@+id/specialthanks1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:optionAvatar_user="@drawable/avatar_specialthanks_01"
+                            app:optionDescribe_user="@string/specialthanks_describe_01"
+                            app:optionTitle_user="@string/specialthanks_01" />
+
+                        <com.gustate.uotan.gustatex.view.OptionUserView
+                            android:id="@+id/specialthanks2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/specialthanks1"
+                            app:optionAvatar_user="@drawable/avatar_specialthanks_02"
+                            app:optionDescribe_user="@string/specialthanks_describe_02"
+                            app:optionTitle_user="@string/specialthanks_02" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/openSourceTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="28dp"
+                        android:layout_marginTop="15dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="@string/open_source_address"
+                        android:textColor="?attr/colorOnBackgroundTertiary"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/specialThanksCard"
+                        tools:ignore="TextContrastCheck" />
+
+                    <com.gustate.uotan.gustatex.view.OptionTitleAndDescribeView
+                        android:id="@+id/openSourceCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="12dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/openSourceTitle"
+                        app:optionDescribe_tiltleAndDescribe="@string/open_source_address_link"
+                        app:optionTitle_tiltleAndDescribe="@string/github_name" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.core.widget.NestedScrollView>
+        </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 
-                <TextView
-                    android:id="@+id/coreTeamTitle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="28dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginEnd="28dp"
-                    android:fontFamily="sans-serif-medium"
-                    android:text="@string/core_team"
-                    android:textColor="?attr/colorOnBackgroundTertiary"
-                    android:textSize="14sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/appInfoCard"
-                    tools:ignore="TextContrastCheck" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/headerBarBlurLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/coreTeamCard"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="12dp"
-                    android:background="@drawable/gustatex_option_background_normal"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/coreTeamTitle">
+            <view
+                android:id="@+id/headerBarBlur"
+                class="net.center.blurview.ShapeBlurView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:blur_overlay_color="@android:color/transparent"
+                app:blur_radius="25dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                    <com.gustate.uotan.gustatex.view.OptionUserView
-                        android:id="@+id/coreteam1"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:optionAvatar_user="@drawable/avatar_coreteam_01"
-                        app:optionDescribe_user="@string/coreteam_describe_01"
-                        app:optionTitle_user="@string/coreteam_01" />
+            <View
+                android:id="@+id/headerBarCover"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha="0.6"
+                android:background="?attr/colorBackground"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                    <com.gustate.uotan.gustatex.view.OptionUserView
-                        android:id="@+id/coreteam2"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/coreteam1"
-                        app:optionAvatar_user="@drawable/avatar_coreteam_02"
-                        app:optionDescribe_user="@string/coreteam_describe_02"
-                        app:optionTitle_user="@string/coreteam_02" />
+            <View
+                android:id="@+id/headerBarBlurContent"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                    <com.gustate.uotan.gustatex.view.OptionUserView
-                        android:id="@+id/coreteam3"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/coreteam2"
-                        app:optionAvatar_user="@drawable/avatar_coreteam_03"
-                        app:optionDescribe_user="@string/coreteam_describe_03"
-                        app:optionTitle_user="@string/coreteam_03" />
 
-                    <com.gustate.uotan.gustatex.view.OptionUserView
-                        android:id="@+id/coreteam4"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/coreteam3"
-                        app:optionAvatar_user="@drawable/avatar_coreteam_04"
-                        app:optionDescribe_user="@string/coreteam_describe_04"
-                        app:optionTitle_user="@string/coreteam_04" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <com.gustate.uotan.gustatex.view.OptionUserView
-                        android:id="@+id/coreteam5"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/coreteam4"
-                        app:optionAvatar_user="@drawable/avatar_coreteam_05"
-                        app:optionDescribe_user="@string/coreteam_describe_05"
-                        app:optionTitle_user="@string/coreteam_05" />
-
-                    <com.gustate.uotan.gustatex.view.OptionUserView
-                        android:id="@+id/coreteam6"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/coreteam5"
-                        app:optionAvatar_user="@drawable/avatar_coreteam_06"
-                        app:optionDescribe_user="@string/coreteam_describe_06"
-                        app:optionTitle_user="@string/coreteam_06" />
-
-                    <com.gustate.uotan.gustatex.view.OptionUserView
-                        android:id="@+id/coreteam7"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/coreteam6"
-                        app:optionAvatar_user="@drawable/avatar_coreteam_07"
-                        app:optionDescribe_user="@string/coreteam_describe_07"
-                        app:optionTitle_user="@string/coreteam_07" />
-
-                    <com.gustate.uotan.gustatex.view.OptionUserView
-                        android:id="@+id/coreteam8"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/coreteam7"
-                        app:optionAvatar_user="@drawable/avatar_coreteam_08"
-                        app:optionDescribe_user="@string/coreteam_describe_08"
-                        app:optionTitle_user="@string/coreteam_08" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <TextView
-                    android:id="@+id/specialThanksTitle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="28dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginEnd="28dp"
-                    android:fontFamily="sans-serif-medium"
-                    android:text="@string/special_thanks"
-                    android:textColor="?attr/colorOnBackgroundTertiary"
-                    android:textSize="14sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/coreTeamCard"
-                    tools:ignore="TextContrastCheck" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/specialThanksCard"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="12dp"
-                    android:background="@drawable/gustatex_option_background_normal"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/specialThanksTitle">
-
-                    <com.gustate.uotan.gustatex.view.OptionUserView
-                        android:id="@+id/specialthanks1"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:optionAvatar_user="@drawable/avatar_specialthanks_01"
-                        app:optionDescribe_user="@string/specialthanks_describe_01"
-                        app:optionTitle_user="@string/specialthanks_01" />
-
-                    <com.gustate.uotan.gustatex.view.OptionUserView
-                        android:id="@+id/specialthanks2"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/specialthanks1"
-                        app:optionAvatar_user="@drawable/avatar_specialthanks_02"
-                        app:optionDescribe_user="@string/specialthanks_describe_02"
-                        app:optionTitle_user="@string/specialthanks_02" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <TextView
-                    android:id="@+id/openSourceTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="28dp"
-                    android:layout_marginTop="15dp"
-                    android:fontFamily="sans-serif-medium"
-                    android:text="@string/open_source_address"
-                    android:textColor="?attr/colorOnBackgroundTertiary"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/specialThanksCard"
-                    tools:ignore="TextContrastCheck" />
-
-                <com.gustate.uotan.gustatex.view.OptionTitleAndDescribeView
-                    android:id="@+id/openSourceCard"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="12dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/openSourceTitle"
-                    app:optionDescribe_tiltleAndDescribe="@string/open_source_address_link"
-                    app:optionTitle_tiltleAndDescribe="@string/github_name" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.core.widget.NestedScrollView>
-    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
-
-    <view
-        android:id="@+id/titleBarBlur"
-        class="net.center.blurview.ShapeBlurView"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        app:blur_overlay_color="@android:color/transparent"
-        app:blur_radius="25dp"
-        app:layout_constraintBottom_toBottomOf="@+id/titleBarView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:id="@+id/titleBarCover"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:alpha="0.6"
-        android:background="?attr/colorBackground"
-        app:layout_constraintBottom_toBottomOf="@+id/titleBarBlur"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:id="@+id/statusBarView"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/titleBarView"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/statusBarView">
-
-        <ImageView
-            android:id="@+id/back"
-            android:layout_width="22dp"
-            android:layout_height="16dp"
-            android:layout_marginStart="28dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_back" />
-
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-medium"
-            android:text="@string/about"
-            android:textColor="?attr/colorOnBackgroundPrimary"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_marginTop="20dp"
+            android:background="@android:color/transparent"
+            app:liftOnScrollColor="@android:color/transparent"
+            app:statusBarForeground="@android:color/transparent">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapsingToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="116dp"
+                android:background="@android:color/transparent"
+                android:fitsSystemWindows="true"
+                app:collapsedTitleGravity="center"
+                app:collapsedTitleTextAppearance="@style/CollapsedTitleStyle"
+                app:collapsedTitleTextColor="?attr/colorOnBackgroundPrimary"
+                app:contentScrim="@android:color/transparent"
+                app:expandedTitleMarginStart="28dp"
+                app:expandedTitleTextAppearance="@style/ExpendedTitleStyle"
+                app:expandedTitleTextColor="?attr/colorOnBackgroundPrimary"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+                app:statusBarScrim="@android:color/transparent"
+                app:title="@string/about"
+                app:titleCollapseMode="scale"
+                app:titleEnabled="true"
+                app:toolbarId="@id/toolBar">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@android:color/transparent"
+                    android:fitsSystemWindows="true"
+                    app:contentInsetStart="0dp"
+                    app:layout_collapseMode="pin" />
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/headerBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="20dp"
+                android:focusable="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_back" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

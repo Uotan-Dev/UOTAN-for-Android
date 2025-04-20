@@ -23,7 +23,13 @@ data class ResourceArticle (
     val viewCount: String,
     val firstPost: String,
     val latestPost: String,
-    val downloadUrl: String
+    val downloadUrl: String,
+    val content: String,
+    val numberOfLikes: String,
+    val reactUrl: String,
+    val isReact: Boolean,
+    val isBookMark: Boolean,
+    val bookMarkUrl: String
 )
 
 class ResourceArticleParse {
@@ -188,6 +194,63 @@ class ResourceArticleParse {
                 ?.last()
                 ?.attr("href")
                 ?: ""
+            val content = document
+                .getElementsByClass("bbWrapper")
+                .first()
+                ?.html()
+                ?: ""
+            val loveLink = document
+                .getElementsByClass("reactionsBar-link")
+                .first()
+                ?.attr("href")
+                ?: ""
+            val numberOfLikes = if (loveLink != "") {
+                val loveDocument = Jsoup.connect("$BASE_URL$loveLink/")
+                    .userAgent(USER_AGENT)
+                    .timeout(TIMEOUT_MS)
+                    .cookies(Cookies)
+                    .get()
+                val loveString = loveDocument
+                    .getElementsByClass("tabs-tab tabs-tab--reaction0 is-active").first()?.text()
+                loveString!!.replace("[^0-9]".toRegex(), "")
+            } else "0"
+            val reactUrlContent = document
+                .getElementsByClass("actionBar-set actionBar-set--external")
+                .first()
+                ?.getElementsByTag("a")
+                ?.first()
+                ?.text()
+                ?: ""
+            val reactUrl = if (reactUrlContent == "点赞") {
+                document
+                    .getElementsByClass("actionBar-set actionBar-set--external")
+                    .first()
+                    ?.getElementsByTag("a")
+                    ?.first()
+                    ?.attr("href")
+                    ?: ""
+            } else ""
+            val reactContent = document
+                .getElementsByClass("reactionsBar-link")
+                .first()
+                ?.text()
+                ?: ""
+            val isReact = if (reactContent.length >= 2) {
+                reactContent.substring(0..1) == "您,"
+            } else if (reactContent.length == 1) {
+                reactContent == "您"
+            } else false
+            val bookMarkContent = document
+                .getElementsByClass("js-bookmarkText u-srOnly")
+                .first()
+                ?.text()
+                ?: ""
+            val isBookMark = bookMarkContent == "编辑收藏"
+            val bookMarkUrl = document
+                .select("a[class^='bookmarkLink']")
+                .first()
+                ?.attr("href")
+                ?: ""
             return@withContext ResourceArticle(
                 title,
                 cover,
@@ -203,7 +266,13 @@ class ResourceArticleParse {
                 viewCount,
                 firstPost,
                 latestPost,
-                downloadUrl
+                downloadUrl,
+                content,
+                numberOfLikes,
+                reactUrl,
+                isReact,
+                isBookMark,
+                bookMarkUrl
             )
         }
     }

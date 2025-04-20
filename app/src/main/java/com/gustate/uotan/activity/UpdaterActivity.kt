@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.view.ViewGroup.MarginLayoutParams
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isGone
@@ -31,7 +30,8 @@ import kotlinx.coroutines.withContext
 import kotlin.math.roundToInt
 
 class UpdaterActivity : BaseActivity() {
-    class UpdateLogAdapter(private val updateLogList: MutableList<UpdateLog>) : Adapter<UpdateLogAdapter.ViewHolder>() {
+    class UpdateLogAdapter() : Adapter<UpdateLogAdapter.ViewHolder>() {
+        private val updateLogList = mutableListOf<UpdateLog>()
         inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
             val title: TextView = view.findViewById(R.id.title)
             val describe: TextView = view.findViewById(R.id.describe)
@@ -44,18 +44,22 @@ class UpdaterActivity : BaseActivity() {
                 .inflate(R.layout.recycler_updater_log_item, parent, false)
             return ViewHolder(view)
         }
-        override fun onBindViewHolder(holder: UpdateLogAdapter.ViewHolder, position: Int) {
+        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             holder.title.text = updateLogList[position].category
             holder.describe.text = updateLogList[position].description
         }
         override fun getItemCount(): Int = updateLogList.size
+        fun addAll(newItems: MutableList<UpdateLog>) {
+            val startPosition = updateLogList.size
+            updateLogList.addAll(newItems)
+            notifyItemRangeInserted(startPosition, newItems.size)
+        }
     }
 
     // 视图绑定
     private lateinit var binding: ActivityUpdaterBinding
     private lateinit var recyclerView: RecyclerView
     private lateinit var updateLogAdapter: UpdateLogAdapter
-    private lateinit var nullUpdateLogAdapter: UpdateLogAdapter
     private lateinit var versionName: String
     private lateinit var versionCode: String
     private var hasNewVersion = false
@@ -77,9 +81,9 @@ class UpdaterActivity : BaseActivity() {
             insets
         }
         recyclerView = binding.recyclerView
-        nullUpdateLogAdapter = UpdateLogAdapter(mutableListOf())
+        updateLogAdapter = UpdateLogAdapter()
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = nullUpdateLogAdapter
+        recyclerView.adapter = updateLogAdapter
         versionName = Utils.getVersionName(this)
         versionCode = Utils.getVersionCode(this)
         lifecycleScope.launch {
@@ -98,8 +102,7 @@ class UpdaterActivity : BaseActivity() {
                     }
                 }
                 val updateLog = versionInfo.historyVersions[currentPosition].changelog
-                updateLogAdapter = UpdateLogAdapter(updateLog)
-                recyclerView.adapter = updateLogAdapter
+                updateLogAdapter.addAll(updateLog)
             }
         }
     }

@@ -1,6 +1,5 @@
 package com.gustate.uotan.utils.parse.user
 
-import android.util.Log
 import com.gustate.uotan.utils.Utils.Companion.BASE_URL
 import com.gustate.uotan.utils.Utils.Companion.Cookies
 import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
@@ -35,8 +34,6 @@ class MeParse {
     companion object {
 
         suspend fun fetchMeData(): MeInfo = withContext(Dispatchers.IO) {
-
-            Log.e("1", "111")
 
             // 获取推荐资源的网页 document 文档
             val document = Jsoup.connect("$BASE_URL/account/account-details/")
@@ -130,7 +127,6 @@ class MeParse {
             val signature = formRows[describePosition]
                 .getElementsByClass("input")[1].text()
 
-            Log.e("url", "$BASE_URL/members/$userId/")
             val perDocument = Jsoup.connect("$BASE_URL/members/$userId/")
                 .userAgent(USER_AGENT)
                 .timeout(TIMEOUT_MS)

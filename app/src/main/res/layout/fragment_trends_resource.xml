@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.scwang.smart.refresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/srlRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.resource.TrendsResourceFragment">
 
+    <com.scwang.smart.refresh.header.ClassicsHeader
+        android:id="@+id/srlHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/rootScrollView"
+        android:id="@+id/nsvRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
@@ -28,7 +34,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="28dp"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="28dp"
                 android:fontFamily="sans-serif-medium"
                 android:text="@string/selected_recommendations"
@@ -40,7 +46,7 @@
                 tools:ignore="TextContrastCheck" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/reRecyclerView"
+                android:id="@+id/rvTrends"
                 android:layout_width="0dp"
                 android:layout_height="200dp"
                 android:layout_marginTop="12dp"
@@ -50,7 +56,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/recommendTitle"
-                tools:ignore="TextSizeCheck">
+                tools:ignore="TextSizeCheck,SpeakableTextPresentCheck">
 
             </androidx.recyclerview.widget.RecyclerView>
 
@@ -67,11 +73,11 @@
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/reRecyclerView"
+                app:layout_constraintTop_toBottomOf="@+id/rvTrends"
                 tools:ignore="TextContrastCheck" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/laRecyclerView"
+                android:id="@+id/rvLatest"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -80,4 +86,9 @@
                 app:layout_constraintTop_toBottomOf="@+id/latestTitle" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.scwang.smart.refresh.footer.ClassicsFooter
+        android:id="@+id/srlFooter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</com.scwang.smart.refresh.layout.SmartRefreshLayout>

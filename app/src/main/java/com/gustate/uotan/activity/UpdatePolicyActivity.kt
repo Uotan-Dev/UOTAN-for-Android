@@ -19,10 +19,10 @@ import com.gustate.uotan.BaseActivity
 import com.gustate.uotan.R
 import com.gustate.uotan.databinding.ActivityUpdatePolicyBinding
 import com.gustate.uotan.gustatex.dialog.LoadingDialog
-import com.gustate.uotan.utils.parse.user.PolicyParse
 import com.gustate.uotan.utils.Utils.Companion.Cookies
 import com.gustate.uotan.utils.Utils.Companion.dpToPx
 import com.gustate.uotan.utils.Utils.Companion.openImmersion
+import com.gustate.uotan.utils.parse.user.PolicyParse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
