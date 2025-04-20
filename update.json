@@ -6,6 +6,37 @@
   "versions":
   [
     {
+      "version_name": "1.0.2.3 Beta",
+      "version_code": 1023,
+      "update_date": "2025-04-21",
+      "update_log": [
+        {
+          "type": "Beta 版说明",
+          "content": "欢迎使用柚坛社区安卓端 Beta 版。请注意，Beta 版的功能和体验可能与正式版存在差异，如果在使用过程中遇到任何问题，欢迎随时前往柚坛社区反馈。"
+        },
+        {
+          "type": "文章",
+          "content": "新增 收藏状态显示功能"
+        },
+        {
+          "type": "资源库",
+          "content": "新增 资源库分类页\n新增 点赞功能\n新增 更多功能\n新增 分享功能\n新增 收藏显示功能"
+        },
+        {
+          "type": "用户",
+          "content": "新增 显示他人个人主页 (目前只能通过点击文章头像进入)"
+        },
+        {
+          "type": "其它",
+          "content": "优化 部分页面高斯模糊效果\n提高 软件的稳定性\n优化 软件的流畅度"
+        },
+        {
+          "type": "你好，谢谢，最后是再见",
+          "content": "感谢您对 UOTAN for Android 项目内测的大力支持！下一个版本将是正式版"
+        }
+      ]
+    },
+    {
       "version_name": "1.0.2.2 Beta",
       "version_code": 1022,
       "update_date": "2025-04-01",
