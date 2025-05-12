@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager.VERTICAL
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.gustate.uotan.R
-import com.gustate.uotan.activity.ResourceActivity
+import com.gustate.uotan.ui.activity.ResourceActivity
 import com.gustate.uotan.databinding.FragmentTrendsResourceBinding
 import com.gustate.uotan.fragment.resource.ResFragment.ResourceAdapter
 import com.gustate.uotan.fragment.resource.ResFragment.TrendsResourceAdapter

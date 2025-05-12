@@ -1,10 +1,49 @@
 {
-  "latest_version_name": "1.0.2.3 Beta",
-  "latest_version_code": 1023,
-  "latest_version_download_url": "https://gitee.com/XiaoMeng22333/uotan-for-android/releases/download/1.0.2.3/UOTAN-app-release_1.0.2.3_Beta.apk",
+  "latest_version_name": "1.0.2.4 Beta",
+  "latest_version_code": 1024,
+  "latest_version_download_url": "https://gitee.com/XiaoMeng22333/uotan-for-android/releases/download/1.0.2.4/UOTAN-app-release_1.0.2.4_Beta.apk",
   "version_channel": "Beta",
   "versions":
   [
+    {
+      "version_name": "1.0.2.4 Beta",
+      "version_code": 1024,
+      "update_date": "2025-05-12",
+      "update_log": [
+        {
+          "type": "Beta 版说明",
+          "content": "欢迎使用柚坛社区安卓端 Beta 版。请注意，Beta 版的功能和体验可能与正式版存在差异，如果在使用过程中遇到任何问题，欢迎随时前往柚坛社区反馈。"
+        },
+        {
+          "type": "架构升级",
+          "content": "重构 版块页面信息流展示及交互模块\n重构 消息页面通知中心及会话管理组件"
+        },
+        {
+          "type": "资源库",
+          "content": "新增 资源评级显示功能\n新增 资源评分功能\n新增 资源购买与下载功能"
+        },
+        {
+          "type": "版块",
+          "content": "优化 版块块页面暂无帖子加载中的交互体验\n重构 版块列表交互模块\n修复 部分页面闪退的问题"
+        },
+        {
+          "type": "消息",
+          "content": "新增 显示部分私信信息"
+        },
+        {
+          "type": "我的",
+          "content": "修复 部分页面闪退的问题"
+        },
+        {
+          "type": "其它",
+          "content": "优化 部分页面高斯模糊效果\n提高 软件的稳定性\n优化 软件的流畅度"
+        },
+        {
+          "type": "你好，谢谢，最后是再见",
+          "content": "感谢您对 UOTAN for Android 项目内测的大力支持！下一个版本将是正式版（咕咕咕）"
+        }
+      ]
+    },
     {
       "version_name": "1.0.2.3 Beta",
       "version_code": 1023,
@@ -29,10 +68,6 @@
         {
           "type": "其它",
           "content": "优化 部分页面高斯模糊效果\n提高 软件的稳定性\n优化 软件的流畅度"
-        },
-        {
-          "type": "你好，谢谢，最后是再见",
-          "content": "感谢您对 UOTAN for Android 项目内测的大力支持！下一个版本将是正式版"
         }
       ]
     },

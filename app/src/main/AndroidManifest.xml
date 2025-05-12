@@ -28,13 +28,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Base.Theme.Uotan"
-        android:usesCleartextTraffic="true">
+        android:theme="@style/Base.Theme.Uotan">
         <activity
-            android:name=".activity.UserActivity"
+            android:name=".ui.activity.UserActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.StartupActivity"
+            android:name=".ui.activity.StartupActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,34 +42,34 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".ui.activity.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.LoginActivity"
+            android:name=".ui.activity.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.ArticleActivity"
+            android:name=".ui.activity.ArticleActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.SettingsActivity"
+            android:name=".ui.activity.SettingsActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.UpdatePolicyActivity"
+            android:name=".ui.activity.UpdatePolicyActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.AboutActivity"
+            android:name=".ui.activity.AboutActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.ResourceActivity"
+            android:name=".ui.activity.ResourceActivity"
             android:exported="false" />
         <activity
             android:name=".DownloadActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.FindUpdateActivity"
+            android:name=".ui.activity.FindUpdateActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.PlateActivity"
+            android:name=".section.ui.SectionDataActivity"
             android:exported="false" />
         <activity
             android:name=".SearchResultActivity"
@@ -82,25 +81,25 @@
             android:name=".AgreementPolicyActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.PolicyActivity"
+            android:name=".ui.activity.PolicyActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.UpdaterActivity"
+            android:name=".ui.activity.UpdaterActivity"
             android:exported="false" />
         <activity
             android:name=".ThemeActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.SelectSectionActivity"
+            android:name=".ui.activity.SelectSectionActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.PostArticleActivity"
+            android:name=".ui.activity.PostArticleActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.BindPhoneActivity"
+            android:name=".ui.activity.BindPhoneActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.PlaceholderActivity"
+            android:name=".ui.activity.PlaceholderActivity"
             android:exported="false" />
 
         <property
@@ -113,7 +112,7 @@
             android:exported="false"
             tools:node="merge">
             <meta-data
-                android:name="com.gustate.uotan.activity.SplitInitializer"
+                android:name="com.gustate.uotan.ui.activity.SplitInitializer"
                 android:value="androidx.startup" />
         </provider>
         <provider

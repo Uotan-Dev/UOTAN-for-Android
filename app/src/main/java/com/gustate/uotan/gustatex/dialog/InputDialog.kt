@@ -27,7 +27,7 @@ class InputDialog(context: Context) : Dialog(context, R.style.Gustatex_Dialog) {
         binding = GustatexDialogInputBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.title.text = pendingTitle
+        binding.tvTitle.text = pendingTitle
         binding.describe.text = pendingDescription
         binding.cancel.text = pendingCancel
         binding.ok.text = pendingConfirm

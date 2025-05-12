@@ -43,7 +43,6 @@ class RecommendParse {
 
                 val pageUrl = buildPageUrl(pageCount)
 
-
                 // 解析网页, document 返回的就是网页 Document 对象
                 val document = Jsoup.connect(pageUrl)
                     .userAgent(USER_AGENT)

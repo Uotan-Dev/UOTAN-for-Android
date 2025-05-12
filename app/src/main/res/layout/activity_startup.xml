@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.StartupActivity">
+    tools:context=".ui.activity.StartupActivity">
 
     <TextView
         android:id="@+id/skip"
@@ -23,7 +23,8 @@
         android:textColor="?attr/colorOnFilledTonalButton"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TextContrastCheck" />
 
     <ImageView
         android:id="@+id/adView"

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/headerBarView"
+        android:id="@+id/header_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="10dp"
@@ -15,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/close"
+            android:id="@+id/btn_close"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -25,7 +26,7 @@
             app:srcCompat="@drawable/ic_close" />
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
@@ -40,18 +41,20 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <HorizontalScrollView
+        android:id="@+id/btn_more_scroll_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scrollbars="none"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/headerBarView">
+        app:layout_constraintTop_toBottomOf="@+id/header_bar_layout">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/btn_more_layout"
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/btnCopyLink"
+                android:id="@+id/btn_copy_link"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginStart="20dp"
@@ -61,7 +64,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/imgCopyLink"
+                    android:id="@+id/img_copy_link"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:padding="1dp"
@@ -73,7 +76,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/tvCopyLink"
+                android:id="@+id/tv_copy_link"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -82,22 +85,22 @@
                 android:text="@string/copy_link"
                 android:textColor="?attr/colorOnBackgroundPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/btnCopyLink"
-                app:layout_constraintStart_toStartOf="@+id/btnCopyLink"
-                app:layout_constraintTop_toBottomOf="@+id/btnCopyLink" />
+                app:layout_constraintEnd_toEndOf="@+id/btn_copy_link"
+                app:layout_constraintStart_toStartOf="@+id/btn_copy_link"
+                app:layout_constraintTop_toBottomOf="@+id/btn_copy_link" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/btnReport"
+                android:id="@+id/btn_report"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/gustatex_on_dialog_background"
-                app:layout_constraintStart_toEndOf="@+id/btnCopyLink"
+                app:layout_constraintStart_toEndOf="@+id/btn_copy_link"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/imgRepor"
+                    android:id="@+id/img_report"
                     android:layout_width="wrap_content"
                     android:layout_height="24dp"
                     android:adjustViewBounds="true"
@@ -110,7 +113,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/tvReport"
+                android:id="@+id/tv_report"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -119,22 +122,22 @@
                 android:text="@string/report"
                 android:textColor="?attr/colorOnBackgroundPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/btnReport"
-                app:layout_constraintStart_toStartOf="@+id/btnReport"
-                app:layout_constraintTop_toBottomOf="@+id/btnReport" />
+                app:layout_constraintEnd_toEndOf="@+id/btn_report"
+                app:layout_constraintStart_toStartOf="@+id/btn_report"
+                app:layout_constraintTop_toBottomOf="@+id/btn_report" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/btnEdit"
+                android:id="@+id/btn_edit"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/gustatex_on_dialog_background"
-                app:layout_constraintStart_toEndOf="@+id/btnReport"
+                app:layout_constraintStart_toEndOf="@+id/btn_report"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/imgEdit"
+                    android:id="@+id/img_edit"
                     android:layout_width="wrap_content"
                     android:layout_height="24dp"
                     android:adjustViewBounds="true"
@@ -147,7 +150,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/tvEdit"
+                android:id="@+id/tv_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -156,22 +159,22 @@
                 android:text="@string/edit"
                 android:textColor="?attr/colorOnBackgroundPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/btnEdit"
-                app:layout_constraintStart_toStartOf="@+id/btnEdit"
-                app:layout_constraintTop_toBottomOf="@+id/btnEdit" />
+                app:layout_constraintEnd_toEndOf="@+id/btn_edit"
+                app:layout_constraintStart_toStartOf="@+id/btn_edit"
+                app:layout_constraintTop_toBottomOf="@+id/btn_edit" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/btnDelete"
+                android:id="@+id/btn_delete"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/gustatex_on_dialog_background"
-                app:layout_constraintStart_toEndOf="@+id/btnEdit"
+                app:layout_constraintStart_toEndOf="@+id/btn_edit"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/imgDelete"
+                    android:id="@+id/img_delete"
                     android:layout_width="wrap_content"
                     android:layout_height="26dp"
                     android:adjustViewBounds="true"
@@ -183,7 +186,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/tvDelete"
+                android:id="@+id/tv_delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -192,22 +195,22 @@
                 android:text="@string/delete"
                 android:textColor="?attr/colorOnBackgroundPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/btnDelete"
-                app:layout_constraintStart_toStartOf="@+id/btnDelete"
-                app:layout_constraintTop_toBottomOf="@+id/btnDelete" />
+                app:layout_constraintEnd_toEndOf="@+id/btn_delete"
+                app:layout_constraintStart_toStartOf="@+id/btn_delete"
+                app:layout_constraintTop_toBottomOf="@+id/btn_delete" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/btnIp"
+                android:id="@+id/btn_ip"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/gustatex_on_dialog_background"
-                app:layout_constraintStart_toEndOf="@+id/btnDelete"
+                app:layout_constraintStart_toEndOf="@+id/btn_delete"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/imgIp"
+                    android:id="@+id/img_ip"
                     android:layout_width="wrap_content"
                     android:layout_height="24dp"
                     android:adjustViewBounds="true"
@@ -219,7 +222,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/tvIp"
+                android:id="@+id/tv_ip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -228,12 +231,12 @@
                 android:text="@string/IP"
                 android:textColor="?attr/colorOnBackgroundPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/btnIp"
-                app:layout_constraintStart_toStartOf="@+id/btnIp"
-                app:layout_constraintTop_toBottomOf="@+id/btnIp" />
+                app:layout_constraintEnd_toEndOf="@+id/btn_ip"
+                app:layout_constraintStart_toStartOf="@+id/btn_ip"
+                app:layout_constraintTop_toBottomOf="@+id/btn_ip" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/btnChangeAuthor"
+                android:id="@+id/btn_change_author"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginStart="12dp"
@@ -241,11 +244,11 @@
                 android:layout_marginEnd="20dp"
                 android:background="@drawable/gustatex_on_dialog_background"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/btnIp"
+                app:layout_constraintStart_toEndOf="@+id/btn_ip"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/imgChangeAuthor"
+                    android:id="@+id/img_change_author"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:adjustViewBounds="true"
@@ -257,7 +260,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/tvChangeAuthor"
+                android:id="@+id/tv_change_author"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -266,9 +269,9 @@
                 android:text="@string/change_author"
                 android:textColor="?attr/colorOnBackgroundPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/btnChangeAuthor"
-                app:layout_constraintStart_toStartOf="@+id/btnChangeAuthor"
-                app:layout_constraintTop_toBottomOf="@+id/btnChangeAuthor" />
+                app:layout_constraintEnd_toEndOf="@+id/btn_change_author"
+                app:layout_constraintStart_toStartOf="@+id/btn_change_author"
+                app:layout_constraintTop_toBottomOf="@+id/btn_change_author" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </HorizontalScrollView>
 

@@ -75,7 +75,6 @@ class SearchParse {
         }
 
         private fun searchParse(document: Document): FetchResult {
-
             val result = mutableListOf<SearchResult>()
 
             val blockRows = document
@@ -112,6 +111,7 @@ class SearchParse {
                         ?.getElementsByTag("a")
                         ?.first()
                         ?.attr("href")
+                        ?.replace("/unread", "/")
                         ?: ""
                     val title = contentRowTitle
                         ?.getElementsByTag("a")

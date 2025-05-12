@@ -40,7 +40,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/headerBarView"
+        android:id="@+id/header_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="20dp"
@@ -121,7 +121,7 @@
         android:layout_height="36dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/headerBarView">
+        app:layout_constraintTop_toBottomOf="@+id/header_bar_layout">
 
         <TextView
             android:id="@+id/latest"

@@ -18,7 +18,7 @@ import com.google.android.flexbox.FlexWrap.WRAP
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent.FLEX_START
 import com.gustate.uotan.R
-import com.gustate.uotan.activity.ResourceActivity
+import com.gustate.uotan.ui.activity.ResourceActivity
 import com.gustate.uotan.databinding.FragmentTypeResourceBinding
 import com.gustate.uotan.databinding.RecyclerResTypeNameItemBinding
 import com.gustate.uotan.databinding.RecyclerTypeResItemBinding
@@ -94,23 +94,23 @@ class TypeResourceFragment : Fragment() {
                         dialog: BottomDialog?,
                         v: View?
                     ) {
+                        val recyclerView = v?.findViewById<RecyclerView>(R.id.recyclerView)
+                        val adapter = ResTypeAdapter().apply {
+                            onDismissDialog = { name, url ->
+                                binding.btnType.text = name
+                                typeName = name
+                                typeUrl = url
+                                dialog?.dismiss()
+                                loadData(typeUrl, true)
+                            }
+                        }
+                        recyclerView?.adapter = adapter
                         lifecycleScope.launch {
                             val resTypeData = fetchResourcePlateData()
                             withContext(Dispatchers.Main) {
-                                val recyclerView = v?.findViewById<RecyclerView>(R.id.recyclerView)
                                 recyclerView?.layoutManager = LinearLayoutManager(requireContext()).apply {
                                     orientation = VERTICAL
                                 }
-                                val adapter = ResTypeAdapter().apply {
-                                    onDismissDialog = { name, url ->
-                                        binding.btnType.text = name
-                                        typeName = name
-                                        typeUrl = url
-                                        dialog?.dismiss()
-                                        loadData(typeUrl, true)
-                                    }
-                                }
-                                recyclerView?.adapter = adapter
                                 adapter.addAll(resTypeData)
                             }
                         }
@@ -129,7 +129,8 @@ class TypeResourceFragment : Fragment() {
     }
 
     private fun loadData(url: String, refresh: Boolean) {
-        if (isResLoading || isResLastPage) return
+        if (isResLoading) return
+        if (!refresh && isResLastPage) return
         isResLoading = true
         if (refresh) {
             resCurrentPage = 1
@@ -192,7 +193,7 @@ class TypeResourceFragment : Fragment() {
         inner class ViewHolder(private val binding: RecyclerTypeResItemBinding): RecyclerView.ViewHolder(binding.root) {
             fun bind(item: ResourcePlateItem) {
                 with(binding) {
-                    title.text = item.plate
+                    tvTitle.text = item.plate
                     val flexboxLayoutManager = FlexboxLayoutManager(root.context).apply {
                         flexDirection = ROW
                         flexWrap = WRAP

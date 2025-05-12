@@ -7,11 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".fragment.resource.TypeResourceFragment" >
 
-    <com.scwang.smart.refresh.header.ClassicsHeader
-        android:id="@+id/srlHeader"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nsvRoot"
         android:layout_width="match_parent"
@@ -52,8 +47,4 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <com.scwang.smart.refresh.footer.ClassicsFooter
-        android:id="@+id/srlFooter"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 </com.scwang.smart.refresh.layout.SmartRefreshLayout>

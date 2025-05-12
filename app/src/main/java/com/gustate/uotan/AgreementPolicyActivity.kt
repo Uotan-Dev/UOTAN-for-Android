@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.activity.enableEdgeToEdge
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.gustate.uotan.activity.PolicyActivity
+import com.gustate.uotan.ui.activity.PolicyActivity
 import com.gustate.uotan.databinding.ActivityAgreementPolicyBinding
 import com.gustate.uotan.utils.Utils.Companion.BASE_URL
 import com.gustate.uotan.utils.Utils.Companion.openImmersion

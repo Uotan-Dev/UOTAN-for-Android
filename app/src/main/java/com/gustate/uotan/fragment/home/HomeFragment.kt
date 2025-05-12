@@ -16,7 +16,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.gustate.uotan.R
 import com.gustate.uotan.SearchActivity
-import com.gustate.uotan.activity.PostArticleActivity
+import com.gustate.uotan.ui.activity.PostArticleActivity
 
 class HomeFragment : Fragment() {
 
@@ -32,7 +32,7 @@ class HomeFragment : Fragment() {
         /*
          * 修改状态栏和底栏占位布局的高度
          */
-        val headerBarView = view.findViewById<View>(R.id.headerBarView)
+        val headerBarView = view.findViewById<View>(R.id.header_bar_layout)
         // 取当前页面相对根布局
         val rootView: View = view.findViewById(R.id.main)
         ViewCompat.setOnApplyWindowInsetsListener(rootView) { _, insets ->

@@ -77,6 +77,7 @@ dependencies {
     // SmartRefreshLayout (https://github.com/scwang90/SmartRefreshLayout)
     implementation(libs.refreshlayout)
     implementation(libs.refreshlayout.classicsheader)
+    implementation(libs.refreshlayout.classicsfooter)
 
     implementation(libs.kotlinx.serialization.json)
 

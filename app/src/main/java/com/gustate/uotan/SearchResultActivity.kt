@@ -17,7 +17,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.gustate.uotan.activity.ArticleActivity
+import com.gustate.uotan.ui.activity.ArticleActivity
 import com.gustate.uotan.databinding.ActivitySearchResultBinding
 import com.gustate.uotan.utils.Utils.Companion.BASE_URL
 import com.gustate.uotan.utils.Utils.Companion.dpToPx
@@ -50,7 +50,7 @@ class SearchResultActivity : BaseActivity() {
             val avatar: ImageView = view.findViewById(R.id.userAvatar)
             val userName: TextView = view.findViewById(R.id.userNameText)
             val time: TextView = view.findViewById(R.id.time)
-            val title: TextView = view.findViewById(R.id.title)
+            val title: TextView = view.findViewById(R.id.tv_title)
             val describe: TextView = view.findViewById(R.id.describe)
             val topic: TextView = view.findViewById(R.id.topic)
             val topicCard: CardView = view.findViewById(R.id.topicCard)

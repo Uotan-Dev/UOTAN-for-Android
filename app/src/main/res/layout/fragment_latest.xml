@@ -18,11 +18,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" >
 
-        <com.scwang.smart.refresh.header.ClassicsHeader
-            android:id="@+id/srlHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
@@ -31,9 +26,5 @@
             android:scrollbars="vertical"
             tools:ignore="SpeakableTextPresentCheck" />
 
-        <com.scwang.smart.refresh.footer.ClassicsFooter
-            android:id="@+id/srlFooter"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
     </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

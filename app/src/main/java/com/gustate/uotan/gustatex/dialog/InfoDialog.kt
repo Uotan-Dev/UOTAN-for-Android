@@ -29,7 +29,7 @@ class InfoDialog(context: Context) : Dialog(context, R.style.Gustatex_Dialog) {
         binding?.root?.let { setContentView(it) }
 
         // 应用缓存的配置
-        pendingTitle?.let { binding?.title?.text = it }
+        pendingTitle?.let { binding?.tvTitle?.text = it }
         pendingDescription?.let { binding?.describe?.text = it }
         pendingConfirm?.let { binding?.ok?.text = it }
         pendingCancel?.let { binding?.cancel?.text = it }
@@ -61,7 +61,7 @@ class InfoDialog(context: Context) : Dialog(context, R.style.Gustatex_Dialog) {
     // 以下是链式调用配置方法
     // 修改配置方法
     fun setTitle(text: String): InfoDialog {
-        binding?.title?.text = text
+        binding?.tvTitle?.text = text
         pendingTitle = text
         return this
     }

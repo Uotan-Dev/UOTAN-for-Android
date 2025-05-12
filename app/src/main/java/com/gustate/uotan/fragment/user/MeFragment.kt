@@ -20,8 +20,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.gustate.uotan.R
 import com.gustate.uotan.SearchResultActivity.SearchAdapter
-import com.gustate.uotan.activity.ArticleActivity
-import com.gustate.uotan.activity.SettingsActivity
+import com.gustate.uotan.ui.activity.ArticleActivity
+import com.gustate.uotan.ui.activity.SettingsActivity
 import com.gustate.uotan.anim.TitleAnim
 import com.gustate.uotan.databinding.FragmentMeBinding
 import com.gustate.uotan.utils.Utils.Companion.BASE_URL
@@ -119,7 +119,7 @@ class MeFragment : Fragment() {
             binding.srlContent.setFooterInsetStartPx(
                 (systemBars.bottom + 70f.dpToPx(requireContext())).roundToInt()
             )
-            binding.headerBarView
+            binding.headerBarLayout
                 .updateLayoutParams<ViewGroup.MarginLayoutParams> {
                     topMargin = systemBars.top
                 }

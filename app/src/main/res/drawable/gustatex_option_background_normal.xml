@@ -5,6 +5,6 @@
     <solid
         android:color="?attr/colorCardNormal"/>
 
-    <corners android:radius="18dp" />
+    <corners android:radius="14dp" />
 
 </shape>

@@ -5,8 +5,14 @@ import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
 import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.FormBody
+import okhttp3.Headers
+import okhttp3.HttpUrl.Companion.toHttpUrl
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import org.jsoup.Connection
 import org.jsoup.Jsoup
+import java.util.concurrent.TimeUnit
 
 data class FirstLoginData(
     val cookies: Map<String, String>,

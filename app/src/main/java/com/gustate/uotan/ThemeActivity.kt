@@ -33,7 +33,7 @@ class ThemeActivity : BaseActivity() {
             )
             // 创建 SimonEdgeIllusion 实例
             TitleAnim(
-                binding.title,
+                binding.tvTitle,
                 binding.bigTitle,
                 (systemBars.top + 60f.dpToPx(this)),
                 systemBars.top.toFloat()

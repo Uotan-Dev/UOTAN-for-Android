@@ -8,7 +8,7 @@
     tools:context=".fragment.login.LoginFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/headerBarView"
+        android:id="@+id/header_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,7 +35,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/headerBarView">
+        app:layout_constraintTop_toBottomOf="@+id/header_bar_layout">
 
         <ImageView
             android:id="@+id/uo"

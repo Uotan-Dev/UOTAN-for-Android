@@ -139,6 +139,7 @@ class PlateContentParse {
                 ?.getElementsByTag("a")
                 ?.last()
                 ?.attr("href")
+                ?.replace("/unread", "/")
                 ?: ""
             val time = element
                 ?.getElementsByTag("time")

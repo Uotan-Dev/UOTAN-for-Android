@@ -133,12 +133,14 @@ class NoticeParse {
                 val integralType = when (integralTypeName) {
                     "每日签到" -> "dailyAttendance"
                     "发布新帖子" -> "post"
+                    "发布新评论" -> "post"
                     "新帖子" -> "post"
                     "购买网盘链接" -> "buy"
                     "出售资源" -> "sell"
                     "注册送积分" -> "register"
                     "回复内容被删除" -> "del"
                     "帖子被删除" -> "del"
+                    "评论被删除" -> "del"
                     else -> "noIntegral"
                 }
                 val integralContent = element

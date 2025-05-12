@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.gustate.uotan.R
-import com.gustate.uotan.activity.PlateActivity
+import com.gustate.uotan.section.ui.SectionDataActivity
 import com.gustate.uotan.gustatex.dialog.LoadingDialog
 import com.gustate.uotan.utils.Utils.Companion.BASE_URL
 import com.gustate.uotan.utils.Utils.Companion.dpToPx
@@ -47,7 +47,7 @@ class PlateFragment : Fragment() {
         inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
             val item: View = view.findViewById(R.id.item)
             val cover: ImageView = view.findViewById(R.id.coverImage)
-            val title: TextView = view.findViewById(R.id.title)
+            val title: TextView = view.findViewById(R.id.tv_title)
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -139,7 +139,7 @@ class PlateFragment : Fragment() {
                 startActivity(
                     Intent(
                         requireContext(),
-                        PlateActivity::class.java
+                        SectionDataActivity::class.java
                     ).apply {
                         putExtra("link", link)
                         putExtra("cover", cover)

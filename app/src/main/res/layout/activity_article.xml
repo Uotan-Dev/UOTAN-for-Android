@@ -5,7 +5,7 @@
     android:id="@+id/rootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.ArticleActivity">
+    tools:context=".ui.activity.ArticleActivity">
 
     <com.scwang.smart.refresh.layout.SmartRefreshLayout
         android:id="@+id/srlRoot"
@@ -15,11 +15,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-        <com.scwang.smart.refresh.header.ClassicsHeader
-            android:id="@+id/refreshHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/rootScrollView"
@@ -48,6 +43,14 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="WebViewLayout">
+
+                    <WebView
+                        android:id="@+id/webView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/bigTitle"
@@ -284,22 +287,9 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cardPostLocked" />
 
-                <WebView
-                    android:id="@+id/invisibleWebView"
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:visibility="invisible"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
 
-        <com.scwang.smart.refresh.footer.ClassicsFooter
-            android:id="@+id/refreshFooter"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
     </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 
     <view
@@ -309,7 +299,7 @@
         android:layout_height="0dp"
         app:blur_overlay_color="@android:color/transparent"
         app:blur_radius="25dp"
-        app:layout_constraintBottom_toBottomOf="@+id/headerBarView"
+        app:layout_constraintBottom_toBottomOf="@+id/header_bar_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -335,7 +325,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/headerBarView"
+        android:id="@+id/header_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -353,7 +343,7 @@
             app:srcCompat="@drawable/ic_back" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/title"
+            android:id="@+id/tv_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"

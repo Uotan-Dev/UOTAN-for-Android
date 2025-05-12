@@ -20,6 +20,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.gustate.uotan.App
 import com.gustate.uotan.R
+import com.gustate.uotan.gustatex.dialog.InfoDialog
 import com.haoge.easyandroid.easy.EasyImageGetter
 import com.tonyodev.fetch2.Fetch
 import com.tonyodev.fetch2.NetworkType
@@ -44,7 +45,7 @@ class Utils {
         const val REQUEST_CODE_PERMISSION = 100
         const val BASE_URL = "https://www.uotan.cn"
         const val USER_AGENT = "UotanAPP/1.0"
-        const val TIMEOUT_MS = 30000
+        const val TIMEOUT_MS = 300000
 
         var userTheme = R.style.Base_Theme_Uotan
 
@@ -210,6 +211,26 @@ class Utils {
             val color = typedArray.getColor(0, Color.TRANSPARENT)
             typedArray.recycle()
             return color
+        }
+
+        fun errorDialog(context: Context, title: String, message: String?) {
+            val errorDialog = InfoDialog(context)
+            errorDialog
+                .setTitle(title)
+                .setDescription(message ?: "Unknown error")
+                .setCancelText(context.getString(R.string.cancel))
+                .setCancelText(context.getString(R.string.share))
+                .withOnCancel { errorDialog.dismiss() }
+                .withOnConfirm {
+                    val share = Intent.createChooser(Intent().apply {
+                        action = Intent.ACTION_SEND
+                        type = "text/plain"
+                        putExtra(Intent.EXTRA_TEXT, message ?: "Unknown error")
+                    }, null)
+                    context.startActivity(share)
+                    errorDialog.dismiss()
+                }
+                .show()
         }
     }
 }

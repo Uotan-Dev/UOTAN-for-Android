@@ -76,7 +76,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:blur_radius="30dp"
-        app:layout_constraintBottom_toBottomOf="@+id/headerBarView"
+        app:layout_constraintBottom_toBottomOf="@+id/header_bar_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -101,7 +101,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/headerBarView"
+        android:id="@+id/header_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         app:layout_constraintStart_toStartOf="parent"

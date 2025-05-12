@@ -79,7 +79,7 @@
     <string name="user_agreement_policy">User Agreement and Policy</string>
     <string name="coreteam_01" translatable="false">明辉映梦</string>
     <string name="coreteam_02" translatable="false">流年</string>
-    <string name="coreteam_03" translatable="false">暮间雾</string>
+    <string name="coreteam_03">暮间雾</string>
     <string name="coreteam_04" translatable="false">yuzh</string>
     <string name="coreteam_05" translatable="false">lemo</string>
     <string name="coreteam_06" translatable="false">星鸿</string>
@@ -108,14 +108,10 @@
     <string name="private_message">Private message</string>
     <string name="trends">Trends</string>
     <string name="categorize">Categorize</string>
-    <string name="sell_resource_improve_points">Your points have increased due to the sale of resources</string>
-    <string name="attendance_improve_points">Your points have increased due to daily check-in</string>
     <string name="liked_the_article">Liked the article</string>
     <string name="replied_to_the_article">Replied to the article</string>
     <string name="resource_update">Resource update</string>
     <string name="points_change">Points change</string>
-    <string name="post_improve_points">Your points have increased due to posting</string>
-    <string name="buy_resource_lower_points">Your points have decreased due to the purchase of the online storage link</string>
     <string name="selected_recommendations">Selected recommendations</string>
     <string name="new_post">New</string>
     <string name="service_agreement_update">Service Agreement Update</string>
@@ -213,4 +209,34 @@
     <string name="following">Following</string>
     <string name="all_types">All types</string>
     <string name="select_type">Select type</string>
+    <string name="share">Share</string>
+    <string name="intent_error">Intent Error</string>
+    <string name="unknown_error">Unknown Error</string>
+    <string name="intent_error_dialog">The activity was accessed illegally, and the software did not obtain the correct Intent.</string>
+    <string name="security_info_error">Security Info Error</string>
+    <string name="security_info_log_complete">Security Info loading completed</string>
+    <string name="security_info">Security Info</string>
+    <string name="security_info_log_field">Security Info loading field</string>
+    <string name="select_download_channel">Select download channel</string>
+    <string name="buy_download">%1$s Download</string>
+    <string name="res_price">This resource requires %1$s</string>
+    <string name="after_donation_download">After donation, you can continue to download</string>
+    <string name="donate_immediately">Donate immediately</string>
+    <string name="purchase_successful">Purchase successful</string>
+    <string name="toast_own_article_like">Your own article cannot be liked</string>
+    <string name="operation_failed">Operation failed</string>
+    <string name="toast_operation">In operation, please wait a moment</string>
+    <string name="evaluate">Evaluate</string>
+    <string name="add_balance">Your balance has increased by %2$s due to %1$s</string>
+    <string name="reduce_balance">Your balance has been deducted %2$s due to %1$s</string>
+    <string name="publish_new_post">Publish a new post</string>
+    <string name="post_new_comment">Post a new comment</string>
+    <string name="selling_resources">Selling resources</string>
+    <string name="purchase_online_storage_link">Purchase online storage link</string>
+    <string name="purchased_resources">Purchased Resources</string>
+    <string name="delete_comment">Delete Comment</string>
+    <string name="delete_article">Delete Article</string>
+    <string name="adjust_u_coin">Adjust U coin</string>
+    <string name="none_post">No posts available at the moment</string>
+    <string name="loading">Loading</string>
 </resources>

@@ -54,7 +54,7 @@ class ResFragment : Fragment() {
                 0
             )
             TitleAnim(
-                binding.title,
+                binding.tvTitle,
                 binding.bigTitle,
                 (systemBars.top + 60f.dpToPx(requireContext())),
                 systemBars.top.toFloat()
@@ -113,7 +113,7 @@ class ResFragment : Fragment() {
 
         inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
             val cover: ImageView = view.findViewById(R.id.cover)
-            val title: TextView = view.findViewById(R.id.title)
+            val title: TextView = view.findViewById(R.id.tv_title)
             val describe: TextView = view.findViewById(R.id.describe)
             val updateTime: TextView = view.findViewById(R.id.update_time)
         }
@@ -163,7 +163,7 @@ class ResFragment : Fragment() {
 
         inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
             val avatar: ImageView = view.findViewById(R.id.cover)
-            val title: TextView = view.findViewById(R.id.title)
+            val title: TextView = view.findViewById(R.id.tv_title)
             val describe: TextView = view.findViewById(R.id.describe)
         }
 

@@ -1,9 +1,12 @@
 package com.gustate.uotan.utils.parse.article
 
+import android.content.Context
+import android.util.Log
 import com.gustate.uotan.utils.Utils.Companion.BASE_URL
 import com.gustate.uotan.utils.Utils.Companion.Cookies
 import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
 import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
+import com.gustate.uotan.utils.Utils.Companion.errorDialog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.MultipartBody
@@ -12,6 +15,7 @@ import okhttp3.Request
 import org.json.JSONObject
 import org.jsoup.Jsoup
 import java.io.IOException
+import kotlin.String
 
 class ArticleParse {
     companion object {
@@ -52,7 +56,11 @@ class ArticleParse {
             val changeAuthorUrl: String,
             val isJingTie: Boolean,
             val isBookMark: Boolean,
-            val bookMarkUrl: String
+            val bookMarkUrl: String,
+            val xfToken: String,
+            val attachmentHash: String,
+            val attachmentHashCombined: String,
+            val lastCommentDate: String
         )
 
         data class CommentItem(
@@ -69,10 +77,6 @@ class ArticleParse {
             val totalPage: String
         )
 
-        data class AddReply(
-            val isSuccessful: Boolean,
-            val postTime: String
-        )
         suspend fun articleParse(url: String): ForumArticle = withContext(Dispatchers.IO) {
             /**
              * 此 Document 对象就是网页的 document
@@ -352,11 +356,27 @@ class ArticleParse {
                 .first()
                 ?.attr("data-field")
                 ?: "") == "jingtie"
+            val xfToken = document
+                .select("input[name=_xfToken]")
+                .first()
+                ?.attr("value") ?: throw Exception("Xf token not found")
+            val attachmentHash = document
+                .select("input[name=attachment_hash]")
+                .first()
+                ?.attr("value") ?: throw Exception("Attachment hash not found")
+            val attachmentHashCombined = document
+                .select("input[name=attachment_hash_combined]")
+                .first()
+                ?.attr("value") ?: throw Exception("Attachment hash combined not found")
+            val lastCommentDate = document
+                .getElementsByTag("time")
+                .first()
+                ?.attr("data-time") ?: throw Exception("Data time not found")
             return@withContext ForumArticle(topic, title, numberOfComments, pageView, tags, section,
                 totalPage, avatarUrl, authorName, authorUrl, time, ipAddress, articleHtml,
                 numberOfLikes, isBilibiliVideo, bilibiliLink, isLocked, reactUrl, isReact,
                 reportUrl, editUrl, deleteUrl, ipUrl, changeAuthorUrl, isJingTie, isBookMark,
-                bookMarkUrl)
+                bookMarkUrl, xfToken, attachmentHash, attachmentHashCombined, lastCommentDate)
         }
         suspend fun fetchComments(url: String, page: String): CommentData = withContext(Dispatchers.IO) {
             val result = mutableListOf<CommentItem>()
@@ -438,15 +458,20 @@ class ArticleParse {
             }
             return@withContext CommentData(result, totalPage)
         }
-        suspend fun addReplyPost(
+
+        suspend fun addArticleReply(
             url: String,
-            message: String,
+            cookiesString: String,
             xfToken: String,
+            message: String,
             attachmentHash: String,
             attachmentHashCombined: String,
-            lastCommentDate: String,
-            cookiesString: String
-        ): AddReply = withContext(Dispatchers.IO) {
+            lastDate: String,
+            lastKnowDate: String,
+            loadExtra: String,
+            onSuccess: ((Long) -> Unit),
+            onException: ((String) -> Unit)
+        ) = withContext(Dispatchers.IO) {
             // 实例化 OkHttpClient
             val client = OkHttpClient()
             // 创建 MultipartBody
@@ -456,21 +481,21 @@ class ArticleParse {
                 .addFormDataPart("message_html", message)
                 .addFormDataPart("attachment_hash", attachmentHash)
                 .addFormDataPart("attachment_hash_combined", attachmentHashCombined)
-                .addFormDataPart("last_date", lastCommentDate)
-                .addFormDataPart("last_known_date", lastCommentDate)
-                .addFormDataPart("load_extra", "1")
-                .addFormDataPart("_xfRequestUri", url.replace("https://www.uotan.cn", ""))
+                .addFormDataPart("last_date", lastDate)
+                .addFormDataPart("last_known_date", lastKnowDate)
+                .addFormDataPart("load_extra", loadExtra)
+                .addFormDataPart("_xfRequestUri", url)
                 .addFormDataPart("_xfWithData", "1")
                 .addFormDataPart("_xfToken", xfToken)
                 .addFormDataPart("_xfResponseType", "json")
                 .build()
             // 创建 Request
             val request = Request.Builder()
-                .url("${BASE_URL + url}add-reply")
+                .url(BASE_URL + url + "add-reply")
                 .addHeader("Cookie", cookiesString)
                 .addHeader("User-Agent", USER_AGENT)
                 .addHeader("Origin", BASE_URL)
-                .addHeader("Referer", url)
+                .addHeader("Referer", BASE_URL + url)
                 .addHeader(
                     "Accept",
                     "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
@@ -478,20 +503,31 @@ class ArticleParse {
                 .addHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
                 .post(requestBody)
                 .build()
-            return@withContext try {
-                val execute = client
-                    .newCall(request)
-                    .execute()
-                if (execute.isSuccessful) {
-                    return@withContext AddReply(true, JSONObject(execute.body?.string()?: "").getLong("lastDate").toString())
+            try {
+                val response = client.newCall(request).execute()
+                if (response.isSuccessful) {
+                    withContext(Dispatchers.Main) {
+                        val json = response.body?.string() ?: ""
+                        val lastDate = JSONObject(json).getLong("lastDate")
+                        onSuccess(lastDate)
+                    }
                 } else {
-                    return@withContext AddReply(false, "")
+                    withContext(Dispatchers.Main) {
+                        onException("HTTP错误: ${response.code}\n请求头：${response.headers}\n请求内容：${response.request}")
+                        Log.e(
+                            "Comment Error",
+                            "HTTP错误: ${response.code}\n请求头：${response.headers}\n请求内容：${response.request}"
+                        )
+                    }
                 }
-
-            } catch (_: IOException) {
-                return@withContext AddReply(false, "")
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    onException(e.message ?: "")
+                    Log.e("Comment Error", e.message ?: "")
+                }
             }
         }
+
         suspend fun addReaction(
             url: String,
             cookiesString: String,

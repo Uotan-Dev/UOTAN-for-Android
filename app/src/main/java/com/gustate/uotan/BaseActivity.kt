@@ -7,9 +7,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.gustate.uotan.utils.Utils.Companion.Cookies
+import com.gustate.uotan.utils.Utils.Companion.getThemeColor
 import com.gustate.uotan.utils.Utils.Companion.isLogin
 import com.gustate.uotan.utils.Utils.Companion.openImmersion
 import com.gustate.uotan.utils.parse.data.CookiesManager
+import com.scwang.smart.refresh.header.ClassicsHeader
+import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch

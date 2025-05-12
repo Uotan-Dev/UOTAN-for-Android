@@ -49,7 +49,7 @@
             app:layout_constraintTop_toTopOf="@+id/coverCard">
 
             <TextView
-                android:id="@+id/title"
+                android:id="@+id/tv_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
@@ -74,7 +74,7 @@
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/title" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_title" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView

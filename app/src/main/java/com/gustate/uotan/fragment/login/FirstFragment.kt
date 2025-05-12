@@ -10,8 +10,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.gustate.uotan.R
-import com.gustate.uotan.activity.LoginActivity
-import com.gustate.uotan.activity.MainActivity
+import com.gustate.uotan.ui.activity.LoginActivity
+import com.gustate.uotan.ui.activity.MainActivity
 
 /**
  * 欢迎页面 (Fragment)

@@ -5,8 +5,7 @@
     android:id="@+id/rootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_weight="400"
-    tools:context=".activity.ResourceActivity">
+    tools:context=".ui.activity.ResourceActivity">
 
     <com.scwang.smart.refresh.layout.SmartRefreshLayout
         android:id="@+id/srlRoot"
@@ -15,8 +14,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srlEnablePureScrollMode="true" >
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/rootScrollView"
@@ -34,15 +32,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <WebView
-                    android:id="@+id/invisibleWebView"
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:visibility="invisible"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/infoLayout"
                     android:layout_width="match_parent"
@@ -54,28 +43,8 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <FrameLayout
-                        android:id="@+id/divider"
-                        android:layout_width="0dp"
-                        android:layout_height="0.5dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginEnd="16dp"
-                        android:background="?attr/colorOnCardSecondary"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/cardView3" />
-
-                    <View
-                        android:id="@+id/view2"
-                        android:layout_width="match_parent"
-                        android:layout_height="7dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/divider" />
-
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/cardView3"
+                        android:id="@+id/cardAvatar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -95,7 +64,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <TextView
-                        android:id="@+id/bigTitle"
+                        android:id="@+id/tv_title"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -105,27 +74,39 @@
                         android:text="@string/title"
                         android:textColor="?attr/colorOnCardPrimary"
                         android:textSize="16sp"
-                        app:layout_constraintBottom_toBottomOf="@id/cardView3"
+                        app:layout_constraintBottom_toBottomOf="@id/cardAvatar"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/cardView3"
-                        app:layout_constraintTop_toTopOf="@+id/cardView3" />
+                        app:layout_constraintStart_toEndOf="@+id/cardAvatar"
+                        app:layout_constraintTop_toTopOf="@+id/cardAvatar" />
+
+                    <FrameLayout
+                        android:id="@+id/divInfo"
+                        android:layout_width="0dp"
+                        android:layout_height="0.5dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="?attr/colorOnCardSecondary"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cardAvatar" />
 
                     <TextView
-                        android:id="@+id/deviceText"
+                        android:id="@+id/lblDevice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="12dp"
                         android:fontFamily="sans-serif-medium"
                         android:text="@string/applicable_equipment"
                         android:textColor="?attr/colorOnCardSecondary"
                         android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/view2"
+                        app:layout_constraintTop_toBottomOf="@+id/divInfo"
                         tools:ignore="TextContrastCheck" />
 
                     <TextView
-                        android:id="@+id/device"
+                        android:id="@+id/tvDevice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
@@ -133,12 +114,13 @@
                         android:text="@string/num_zero"
                         android:textColor="?attr/colorOnCardPrimary"
                         android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/lblDevice"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/deviceText"
+                        app:layout_constraintTop_toTopOf="@+id/lblDevice"
                         tools:ignore="HardcodedText" />
 
                     <TextView
-                        android:id="@+id/channelText"
+                        android:id="@+id/lblChannel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -148,25 +130,25 @@
                         android:textColor="?attr/colorOnCardSecondary"
                         android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/deviceText"
+                        app:layout_constraintTop_toBottomOf="@+id/lblDevice"
                         tools:ignore="TextContrastCheck" />
 
                     <TextView
-                        android:id="@+id/channel"
+                        android:id="@+id/tvChannel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
                         android:layout_marginEnd="16dp"
                         android:fontFamily="sans-serif-medium"
                         android:text="@string/num_zero"
                         android:textColor="?attr/colorOnCardPrimary"
                         android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/lblChannel"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/deviceText"
+                        app:layout_constraintTop_toTopOf="@+id/lblChannel"
                         tools:ignore="HardcodedText" />
 
                     <TextView
-                        android:id="@+id/sizeText"
+                        android:id="@+id/lblSize"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -176,25 +158,25 @@
                         android:textColor="?attr/colorOnCardSecondary"
                         android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/channelText"
+                        app:layout_constraintTop_toBottomOf="@+id/lblChannel"
                         tools:ignore="TextContrastCheck" />
 
                     <TextView
-                        android:id="@+id/size"
+                        android:id="@+id/tvSize"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
                         android:layout_marginEnd="16dp"
                         android:fontFamily="sans-serif-medium"
                         android:text="@string/num_zero"
                         android:textColor="?attr/colorOnCardPrimary"
                         android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/lblSize"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/channelText"
+                        app:layout_constraintTop_toTopOf="@+id/lblSize"
                         tools:ignore="HardcodedText" />
 
                     <TextView
-                        android:id="@+id/codeText"
+                        android:id="@+id/lblCode"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -204,25 +186,25 @@
                         android:textColor="?attr/colorOnCardSecondary"
                         android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/sizeText"
+                        app:layout_constraintTop_toBottomOf="@+id/lblSize"
                         tools:ignore="TextContrastCheck" />
 
                     <TextView
-                        android:id="@+id/code"
+                        android:id="@+id/tvCode"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
                         android:layout_marginEnd="16dp"
                         android:fontFamily="sans-serif-medium"
                         android:text="@string/num_zero"
                         android:textColor="?attr/colorOnCardPrimary"
                         android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/lblCode"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/sizeText"
+                        app:layout_constraintTop_toTopOf="@+id/lblCode"
                         tools:ignore="HardcodedText" />
 
                     <TextView
-                        android:id="@+id/authorText"
+                        android:id="@+id/lblAuthor"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -232,25 +214,25 @@
                         android:textColor="?attr/colorOnCardSecondary"
                         android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/codeText"
+                        app:layout_constraintTop_toBottomOf="@+id/lblCode"
                         tools:ignore="TextContrastCheck" />
 
                     <TextView
-                        android:id="@+id/author"
+                        android:id="@+id/tvAuthor"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
                         android:layout_marginEnd="16dp"
                         android:fontFamily="sans-serif-medium"
                         android:text="@string/num_zero"
                         android:textColor="?attr/colorOnCardPrimary"
                         android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/lblAuthor"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/code"
+                        app:layout_constraintTop_toTopOf="@+id/lblAuthor"
                         tools:ignore="HardcodedText" />
 
                     <TextView
-                        android:id="@+id/downloadText"
+                        android:id="@+id/lblDownload"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -260,25 +242,25 @@
                         android:textColor="?attr/colorOnCardSecondary"
                         android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/authorText"
+                        app:layout_constraintTop_toBottomOf="@+id/lblAuthor"
                         tools:ignore="TextContrastCheck" />
 
                     <TextView
-                        android:id="@+id/download"
+                        android:id="@+id/tvDownload"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
                         android:layout_marginEnd="16dp"
                         android:fontFamily="sans-serif-medium"
                         android:text="@string/num_zero"
                         android:textColor="?attr/colorOnCardPrimary"
                         android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/lblDownload"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/author"
+                        app:layout_constraintTop_toTopOf="@+id/lblDownload"
                         tools:ignore="HardcodedText" />
 
                     <TextView
-                        android:id="@+id/viewText"
+                        android:id="@+id/lblView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -288,25 +270,25 @@
                         android:textColor="?attr/colorOnCardSecondary"
                         android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/downloadText"
+                        app:layout_constraintTop_toBottomOf="@+id/lblDownload"
                         tools:ignore="TextContrastCheck" />
 
                     <TextView
-                        android:id="@+id/view"
+                        android:id="@+id/tvView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
                         android:layout_marginEnd="16dp"
                         android:fontFamily="sans-serif-medium"
                         android:text="@string/num_zero"
                         android:textColor="?attr/colorOnCardPrimary"
                         android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/lblView"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/download"
+                        app:layout_constraintTop_toTopOf="@+id/lblView"
                         tools:ignore="HardcodedText" />
 
                     <TextView
-                        android:id="@+id/firstText"
+                        android:id="@+id/lblFirst"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -316,25 +298,25 @@
                         android:textColor="?attr/colorOnCardSecondary"
                         android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/viewText"
+                        app:layout_constraintTop_toBottomOf="@+id/lblView"
                         tools:ignore="TextContrastCheck" />
 
                     <TextView
-                        android:id="@+id/first"
+                        android:id="@+id/tvFirst"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
                         android:layout_marginEnd="16dp"
                         android:fontFamily="sans-serif-medium"
                         android:text="@string/num_zero"
                         android:textColor="?attr/colorOnCardPrimary"
                         android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/lblFirst"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/view"
+                        app:layout_constraintTop_toTopOf="@+id/lblFirst"
                         tools:ignore="HardcodedText" />
 
                     <TextView
-                        android:id="@+id/lastText"
+                        android:id="@+id/lblLast"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -344,25 +326,25 @@
                         android:textColor="?attr/colorOnCardSecondary"
                         android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/firstText"
+                        app:layout_constraintTop_toBottomOf="@+id/lblFirst"
                         tools:ignore="TextContrastCheck" />
 
                     <TextView
-                        android:id="@+id/last"
+                        android:id="@+id/tvLast"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
                         android:layout_marginEnd="16dp"
                         android:fontFamily="sans-serif-medium"
                         android:text="@string/num_zero"
                         android:textColor="?attr/colorOnCardPrimary"
                         android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/lblLast"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/first"
+                        app:layout_constraintTop_toTopOf="@+id/lblLast"
                         tools:ignore="HardcodedText" />
 
                     <FrameLayout
-                        android:id="@+id/divider1"
+                        android:id="@+id/divBtn"
                         android:layout_width="0dp"
                         android:layout_height="0.5dp"
                         android:layout_marginStart="16dp"
@@ -371,10 +353,10 @@
                         android:background="?attr/colorOnCardSecondary"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/lastText" />
+                        app:layout_constraintTop_toBottomOf="@+id/tvLast" />
 
                     <TextView
-                        android:id="@+id/downloadButton"
+                        android:id="@+id/btnDownload"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:layout_marginStart="16dp"
@@ -390,7 +372,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/divider1"
+                        app:layout_constraintTop_toBottomOf="@+id/divBtn"
                         tools:ignore="HardcodedText,TextContrastCheck" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -417,15 +399,24 @@
                         android:layout_marginBottom="12dp"
                         android:fontFamily="sans-serif-medium"
                         android:lineSpacingExtra="6dp"
-                        android:minHeight="300dp"
                         android:textColor="?attr/colorOnBackgroundPrimary"
                         android:textIsSelectable="true"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="SpeakableTextPresentCheck" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/contentLayout" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
@@ -438,7 +429,7 @@
         android:layout_height="0dp"
         app:blur_overlay_color="@android:color/transparent"
         app:blur_radius="25dp"
-        app:layout_constraintBottom_toBottomOf="@+id/headerBarView"
+        app:layout_constraintBottom_toBottomOf="@+id/header_bar_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -455,26 +446,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <View
-        android:id="@+id/statusBarView"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/headerBarView"
+        android:id="@+id/header_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/statusBarView">
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/back"
-            android:layout_width="19dp"
-            android:layout_height="14dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="17dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -482,7 +466,7 @@
             app:srcCompat="@drawable/ic_back" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/title"
+            android:id="@+id/header"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
@@ -569,16 +553,14 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <FrameLayout
-        android:id="@+id/frameLayout2"
+    <View
+        android:id="@+id/divBottomBar"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="?attr/colorOnCardSecondary"
         app:layout_constraintBottom_toTopOf="@+id/bottomBarBlur"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-    </FrameLayout>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <view
         android:id="@+id/bottomBarBlur"
@@ -600,13 +582,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/frameLayout2" />
+        app:layout_constraintTop_toTopOf="@+id/bottomBarBlur" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
         android:layout_height="65dp"
-        app:layout_constraintBottom_toTopOf="@+id/gestureView"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -618,7 +601,6 @@
             android:layout_marginEnd="16dp"
             android:alpha="0.8"
             android:background="@drawable/gustatex_option_background"
-            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btnReact"
             app:layout_constraintStart_toStartOf="parent"
@@ -634,7 +616,6 @@
             android:text="@string/please_comment"
             android:textColor="?attr/colorOnBackgroundSecondary"
             android:textSize="14sp"
-            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/btnComment"
             app:layout_constraintStart_toStartOf="@+id/btnComment"
             app:layout_constraintTop_toTopOf="@+id/btnComment" />
@@ -705,16 +686,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_more" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/gestureView"
-        android:layout_width="0dp"
-        android:layout_height="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
