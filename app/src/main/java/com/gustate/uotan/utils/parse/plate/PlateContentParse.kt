@@ -1,6 +1,6 @@
 package com.gustate.uotan.utils.parse.plate
 
-import com.gustate.uotan.utils.Utils.Companion.BASE_URL
+import com.gustate.uotan.utils.Utils.Companion.baseUrl
 import com.gustate.uotan.utils.Utils.Companion.Cookies
 import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
 import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
@@ -34,7 +34,7 @@ class PlateContentParse {
         suspend fun fetchPlateContentData(url: String): PlateContentData = withContext(Dispatchers.IO) {
             try {
                 val document = Jsoup
-                    .connect(BASE_URL + url)
+                    .connect(baseUrl + url)
                     .cookies(Cookies)
                     .userAgent(USER_AGENT)
                     .timeout(TIMEOUT_MS)

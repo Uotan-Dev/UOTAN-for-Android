@@ -39,7 +39,7 @@ class InputDialog(context: Context) : Dialog(context, R.style.Gustatex_Dialog) {
     private fun initWindowSettings() {
         window?.apply {
             // 底部显示配置
-            setGravity(Gravity.BOTTOM)
+            setGravity(Gravity.CENTER)
             attributes = attributes.apply {
                 width = WindowManager.LayoutParams.MATCH_PARENT
                 height = WindowManager.LayoutParams.WRAP_CONTENT

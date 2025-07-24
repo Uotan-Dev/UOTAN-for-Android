@@ -8,7 +8,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.gustate.uotan.ui.activity.PolicyActivity
 import com.gustate.uotan.databinding.ActivityAgreementPolicyBinding
-import com.gustate.uotan.utils.Utils.Companion.BASE_URL
+import com.gustate.uotan.utils.Utils.Companion.baseUrl
 import com.gustate.uotan.utils.Utils.Companion.openImmersion
 
 class AgreementPolicyActivity : BaseActivity() {
@@ -47,19 +47,19 @@ class AgreementPolicyActivity : BaseActivity() {
         )
         val urlList = listOf(
             // 0 积分规则
-            "$BASE_URL/help/jfgz/",
+            "$baseUrl/help/jfgz/",
             // 1 用户公约
-            "$BASE_URL/help/yhgy/",
+            "$baseUrl/help/yhgy/",
             // 2 服务协议
-            "$BASE_URL/help/terms/",
+            "$baseUrl/help/terms/",
             // 3 授权协议
-            "$BASE_URL/help/sqxy/",
+            "$baseUrl/help/sqxy/",
             // 4 隐私政策
-            "$BASE_URL/help/privacy-policy/",
+            "$baseUrl/help/privacy-policy/",
             // 5 免责声明
-            "$BASE_URL/help/mzsm/",
+            "$baseUrl/help/mzsm/",
             // 6 Cookie 使用条款
-            "$BASE_URL/help/cookies/"
+            "$baseUrl/help/cookies/"
         )
         btnList.forEachIndexed { index, it ->
             it.setOnClickListener {

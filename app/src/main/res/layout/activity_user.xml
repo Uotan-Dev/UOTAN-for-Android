@@ -78,7 +78,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="18dp"
-                        android:layout_marginTop="80dp"
+                        android:layout_marginTop="86dp"
                         app:cardBackgroundColor="@android:color/transparent"
                         app:cardCornerRadius="99dp"
                         app:cardElevation="0dp"
@@ -213,12 +213,12 @@
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/follow"
+                        android:id="@+id/tab_follow"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="20dp"
-                        android:background="@drawable/gustatex_button_filled"
+                        android:background="@drawable/uotan_btn_filled"
                         android:fontFamily="sans-serif-medium"
                         android:gravity="center"
                         android:paddingLeft="20dp"
@@ -260,17 +260,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <com.gustate.uotan.view.smooth.SmoothCornerLayout
                         android:id="@+id/resCard"
                         android:layout_width="0dp"
                         android:layout_height="70dp"
                         android:layout_marginStart="12dp"
                         android:layout_marginTop="18dp"
                         android:layout_marginEnd="12dp"
-                        android:background="@drawable/gustatex_option_background"
+                        android:background="@drawable/uotan_bkg_option"
+                        app:cornerRadius="@dimen/option_corner_radius"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:smoothness="@dimen/normal_smoothness">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/resLayout"
@@ -303,13 +305,15 @@
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/resIcon" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    </com.gustate.uotan.view.smooth.SmoothCornerLayout>
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:paddingStart="7dp"
+                        android:paddingEnd="7dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/resCard" />
@@ -365,7 +369,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
-                android:background="@drawable/gustatex_button_filled"
+                android:background="@drawable/uotan_btn_filled"
                 android:fontFamily="sans-serif-medium"
                 android:gravity="center"
                 android:paddingLeft="20dp"

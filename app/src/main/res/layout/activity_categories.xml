@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:statusBarBackground="@android:color/transparent">
+
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:id="@+id/srl_section"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="-116dp"
+        android:clipToPadding="false"
+        android:paddingTop="116dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:srlEnablePureScrollMode="true">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_section"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="-116dp"
+            android:clipToPadding="false"
+            android:paddingStart="7dp"
+            android:paddingTop="126dp"
+            android:paddingEnd="7dp"
+            android:paddingBottom="10dp"
+            android:scrollbarThumbVertical="@drawable/gustatex_scrollbar_thumb_vertical"
+            android:scrollbars="vertical"
+            android:tag="phone"
+            tools:ignore="SpeakableTextPresentCheck">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_header_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <net.center.blurview.ShapeBlurView
+            android:id="@+id/blur_header_bar"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:blur_overlay_color="@android:color/transparent"
+            app:blur_radius="25dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/cover_header_bar"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:alpha="0.6"
+            android:background="?attr/colorBackground"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/content_header_bar"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/layout_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/transparent"
+        app:liftOnScrollColor="@android:color/transparent"
+        app:statusBarForeground="@android:color/transparent">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/layout_collapsing_bar"
+            android:layout_width="match_parent"
+            android:layout_height="116dp"
+            android:background="@android:color/transparent"
+            app:collapsedTitleGravity="start"
+            app:collapsedTitleTextAppearance="@style/CollapsedTitleStyle"
+            app:collapsedTitleTextColor="?attr/colorOnBackgroundPrimary"
+            app:contentScrim="@android:color/transparent"
+            app:expandedTitleMarginStart="16dp"
+            app:expandedTitleTextAppearance="@style/ExpendedTitleStyle"
+            app:expandedTitleTextColor="?attr/colorOnBackgroundPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+            app:statusBarScrim="@android:color/transparent"
+            app:title="@string/section"
+            app:titleCollapseMode="scale"
+            app:titleEnabled="true"
+            app:toolbarId="@id/toolBar">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@android:color/transparent"
+                app:contentInsetStart="16dp"
+                app:layout_collapseMode="pin"
+                app:navigationIcon="@drawable/ic_back" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

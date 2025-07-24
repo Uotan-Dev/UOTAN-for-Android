@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,14 +18,16 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager.VERTICAL
 import com.bumptech.glide.Glide
 import com.gustate.uotan.R
 import com.gustate.uotan.SearchResultActivity.SearchAdapter
-import com.gustate.uotan.ui.activity.ArticleActivity
 import com.gustate.uotan.ui.activity.SettingsActivity
 import com.gustate.uotan.anim.TitleAnim
 import com.gustate.uotan.databinding.FragmentMeBinding
-import com.gustate.uotan.utils.Utils.Companion.BASE_URL
+import com.gustate.uotan.threads.ui.ThreadsActivity
+import com.gustate.uotan.utils.Utils.Companion.baseUrl
 import com.gustate.uotan.utils.Utils.Companion.dpToPx
 import com.gustate.uotan.utils.parse.search.FetchResult
 import com.gustate.uotan.utils.parse.search.SearchParse.Companion.searchInfoParse
@@ -88,7 +91,7 @@ class MeFragment : Fragment() {
         viewModel = ViewModelProvider(this)[UserViewModel::class.java]
 
         binding.srlContent.setOnLoadMoreListener {
-            loadData(BASE_URL + nextPageUrl)
+            loadData(baseUrl + nextPageUrl)
         }
 
         binding.srlContent.setOnRefreshListener {
@@ -100,11 +103,11 @@ class MeFragment : Fragment() {
                 withContext(Dispatchers.Main) {
                     loadInformationData(informationResult, false)
                     if (isClockIn) {
-                        binding.clockIn.text = getText(R.string.signed_in_today)
-                        binding.clockIn.alpha = 0.15f
+                        binding.tvClockIn.text = getText(R.string.signed_in_today)
+                        binding.btnClockIn.alpha = 0.15f
                     } else {
-                        binding.clockIn.text = getText(R.string.daily_attendance)
-                        binding.clockIn.alpha = 1.0f
+                        binding.tvClockIn.text = getText(R.string.daily_attendance)
+                        binding.btnClockIn.alpha = 1.0f
                     }
                 }
             }
@@ -138,6 +141,9 @@ class MeFragment : Fragment() {
                 systemBars.top.toFloat(),
                 1
             )
+            binding.textView6.updateLayoutParams {
+                height = systemBars.top - 28f.dpToPx(requireContext()).roundToInt()
+            }
             insets
         }
 
@@ -150,11 +156,11 @@ class MeFragment : Fragment() {
             withContext(Dispatchers.Main) {
                 loadInformationData(informationResult, false)
                 if (isClockIn) {
-                    binding.clockIn.text = getText(R.string.signed_in_today)
-                    binding.clockIn.alpha = 0.15f
+                    binding.tvClockIn.text = getText(R.string.signed_in_today)
+                    binding.btnClockIn.alpha = 0.15f
                 } else {
-                    binding.clockIn.text = getText(R.string.daily_attendance)
-                    binding.clockIn.alpha = 1.0f
+                    binding.tvClockIn.text = getText(R.string.daily_attendance)
+                    binding.btnClockIn.alpha = 1.0f
                 }
             }
         }
@@ -167,8 +173,8 @@ class MeFragment : Fragment() {
             startActivity(Intent(requireContext(), SettingsActivity::class.java))
         }
 
-        binding.clockIn.setOnClickListener {
-            if (binding.clockIn.alpha == 0.15f) {
+        binding.btnClockIn.setOnClickListener {
+            if (binding.btnClockIn.alpha == 0.15f) {
                 Toast.makeText(
                     requireContext(),
                     R.string.you_have_checked_in_today,
@@ -184,8 +190,8 @@ class MeFragment : Fragment() {
                             Toast.LENGTH_SHORT
                         ).show()
                         binding.points.text = clockIn.points
-                        binding.clockIn.text = getText(R.string.signed_in_today)
-                        binding.clockIn.alpha = 0.15f
+                        binding.tvClockIn.text = getText(R.string.signed_in_today)
+                        binding.btnClockIn.alpha = 0.15f
                     } else {
                         Toast.makeText(
                             requireContext(),
@@ -254,7 +260,7 @@ class MeFragment : Fragment() {
                     .into(binding.userCover)
             } else {
                 Glide.with(requireContext())
-                    .load(BASE_URL + informationResult.cover)
+                    .load(baseUrl + informationResult.cover)
                     .error(Color.TRANSPARENT.toDrawable())
                     .into(binding.userCover)
             }
@@ -295,7 +301,7 @@ class MeFragment : Fragment() {
                     .into(binding.avatarImage)
             } else {
                 Glide.with(requireContext())
-                    .load(BASE_URL + informationResult.avatar)
+                    .load(baseUrl + informationResult.avatar)
                     .error(R.drawable.avatar_account)
                     .into(binding.avatarImage)
             }
@@ -329,14 +335,15 @@ class MeFragment : Fragment() {
         totalPages = 1
         isLastPage = false
         // 帖子列表配置
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext()).apply {
-            orientation = LinearLayoutManager.VERTICAL
+        binding.recyclerView.let {
+            it.layoutManager = if (it.tag == "pad") StaggeredGridLayoutManager(2, VERTICAL)
+            else LinearLayoutManager(requireContext())
         }
         adapter = SearchAdapter().apply {
             onItemClick = { selectedItem ->
                 context?.let {
                     startActivity(
-                        Intent(it, ArticleActivity::class.java).apply {
+                        Intent(it, ThreadsActivity::class.java).apply {
                             putExtra("url", selectedItem.url)
                         }
                     )

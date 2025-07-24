@@ -4,18 +4,21 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.gustate.uotan.BaseActivity
 import com.gustate.uotan.R
-import com.gustate.uotan.utils.Utils.Companion.BASE_URL
+import com.gustate.uotan.databinding.ActivityStartupBinding
+import com.gustate.uotan.dialog.ErrorDialog
+import com.gustate.uotan.main.ui.MainActivity
+import com.gustate.uotan.settings.data.SettingModel.Companion.DOMAIN_CUSTOM_VALUE_KEY
+import com.gustate.uotan.settings.data.SettingsRepository
+import com.gustate.uotan.utils.Utils.Companion.baseUrl
 import com.gustate.uotan.utils.Utils.Companion.Cookies
 import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
 import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
-import com.gustate.uotan.utils.Utils.Companion.errorDialog
 import com.gustate.uotan.utils.Utils.Companion.isLogin
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -39,17 +42,21 @@ class StartupActivity : BaseActivity() {
         val cookies: Map<String, String>? = null
     )
 
+    private lateinit var binding: ActivityStartupBinding
     // 开屏等待
     private lateinit var countDownTimer: CountDownTimer
     // 是否已经点击
     private var isStarting = false
+    private lateinit var settingsRepository: SettingsRepository
+    private lateinit var errorDialog: ErrorDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         // 绑定视图
-        setContentView(R.layout.activity_startup)
-
+        binding = ActivityStartupBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        settingsRepository = SettingsRepository(this)
+        errorDialog = ErrorDialog(this)
         // 设置 Paddings
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -61,11 +68,11 @@ class StartupActivity : BaseActivity() {
             )
             insets
         }
-        val skip: TextView = findViewById(R.id.skip)
+
         countDownTimer = object : CountDownTimer(5000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 val sec = getString(R.string.skip) + " (${millisUntilFinished / 1000}s)"
-                skip.text = sec
+                binding.tvSkip.text = sec
             }
             override fun onFinish() {
                 if (!isStarting) startupApp(this@StartupActivity)
@@ -73,7 +80,7 @@ class StartupActivity : BaseActivity() {
             }
         }.start()
 
-        skip.setOnClickListener {
+        binding.btnSkip.setOnClickListener {
             if (!isStarting) {
                 isStarting = true
                 startupApp(this@StartupActivity)
@@ -85,6 +92,8 @@ class StartupActivity : BaseActivity() {
     private fun startupApp(context: Context) {
         lifecycleScope.launch {
             try {
+                val domain = settingsRepository.getSettingByKey(DOMAIN_CUSTOM_VALUE_KEY).value
+                baseUrl = if (!domain.startsWith("http")) "https://$domain" else domain
                 val startupTypeData = startupTypeParse()
                 withContext(Dispatchers.Main) {
                     if (!startupTypeData.isLogin) {
@@ -113,10 +122,10 @@ class StartupActivity : BaseActivity() {
                         }
                     }
                 }
-            } catch (e: Exception) {
+            } catch (e: Throwable) {
                 isStarting = false
                 withContext(Dispatchers.Main) {
-                    errorDialog(this@StartupActivity, "ERROR", e.message)
+                    errorDialog.setupErrorDialog(e)
                 }
             } finally {
                 isStarting = false
@@ -127,7 +136,7 @@ class StartupActivity : BaseActivity() {
     private suspend fun startupTypeParse(): StartupTypeData = withContext(Dispatchers.IO) {
         if (isLogin) {
             // 解析网页, document 返回的就是网页 Document 对象
-            val response = Jsoup.connect(BASE_URL)
+            val response = Jsoup.connect(baseUrl)
                 .userAgent(USER_AGENT)
                 .timeout(TIMEOUT_MS)
                 .cookies(Cookies)

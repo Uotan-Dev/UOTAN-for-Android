@@ -1,10 +1,65 @@
 {
-  "latest_version_name": "1.0.2.4 Beta",
-  "latest_version_code": 1024,
-  "latest_version_download_url": "https://gitee.com/XiaoMeng22333/uotan-for-android/releases/download/1.0.2.4/UOTAN-app-release_1.0.2.4_Beta.apk",
+  "latest_version_name": "1.0.3.6 Beta",
+  "latest_version_code": 1036,
+  "latest_version_download_url": "https://gitee.com/XiaoMeng22333/uotan-for-android/releases/download/1.0.3.6/UOTAN-app-release_1.0.3.6_Beta.apk",
   "version_channel": "Beta",
   "versions":
   [
+    {
+      "version_name": "1.0.3.6 Beta",
+      "version_code": 1036,
+      "update_date": "2025-07-21",
+      "update_log": [
+        {
+          "type": "Beta 版说明",
+          "content": "欢迎使用柚坛社区安卓端 Beta 版。请注意，Beta 版的功能和体验可能与正式版存在差异，如果在使用过程中遇到任何问题，欢迎随时前往柚坛社区反馈。"
+        },
+        {
+          "type": "架构升级",
+          "content": "重构 版块页面信息流展示及交互模块\n重构 消息页面通知中心及会话管理组件"
+        },
+        {
+          "type": "弹窗显示",
+          "content": "新增 部分弹窗的新设计\n新增 部分更详尽的错误信息提示\n优化 弹窗动画"
+        },
+        {
+          "type": "文章页面",
+          "content": "新增 主题页 1-6 级标题支持\n新增 有序列表与无序列表支持\n新增 对网页表格的支持\n新增 主题页面图片查看器\n新增 更多弹窗新逻辑\n新增 有权限的账户查看IP地址新逻辑\n修复 网页内嵌视频在文章中的位置不正确的问题\n修复 在特定情况下进行点赞失败的问题\n修复 在特定情况下进行回复失败的问题\n修复 在部分情况下关注用户安全异常的问题\n优化 关注用户逻辑\n优化 文章分享格式\n优化 表格可读性\n优化 部分按钮可点击范围过小的问题"
+        },
+        {
+          "type": "版块页面",
+          "content": "新增 二级板块页面\n优化 板块页逻辑与网页趋同"
+        },
+        {
+          "type": "安全修正",
+          "content": "新增 域名自定义\n新增 禁用数字证书和加密技术验证"
+        },
+        {
+          "type": "平板特调",
+          "content": "适配 主页平板模式\n适配 板块页平板模式\n适配 我的页平板模式\n适配 设置页平板模式"
+        },
+        {
+          "type": "全局优化",
+          "content": "新增 部分圆角裁切为超椭圆平滑圆角"
+        },
+        {
+          "type": "莫奈取色",
+          "content": "适配 桌面图标动态取色效果\n优化 部分取色逻辑"
+        },
+        {
+          "type": "开幕暴击",
+          "content": "新增 开屏时遇到网络错误的修正项"
+        },
+        {
+          "type": "其它",
+          "content": "优化 部分页面高斯模糊效果\n提高 软件的稳定性\n优化 软件的流畅度"
+        },
+        {
+          "type": "你好，谢谢，最后是再见",
+          "content": "感谢您对 UOTAN for Android 项目内测的大力支持！下一个版本将是正式版（咕咕咕）"
+        }
+      ]
+    },
     {
       "version_name": "1.0.2.4 Beta",
       "version_code": 1024,

@@ -1,7 +1,7 @@
 package com.gustate.uotan.utils.parse.user
 
 import android.content.Context
-import com.gustate.uotan.utils.Utils.Companion.BASE_URL
+import com.gustate.uotan.utils.Utils.Companion.baseUrl
 import com.gustate.uotan.utils.Utils.Companion.Cookies
 import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
 import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
@@ -40,7 +40,7 @@ class PolicyParse {
         suspend fun readPolicy(context: Context): PolicyUpdateInfo = withContext(Dispatchers.IO) {
 
             /** 获取网页 Document 文档 **/
-            val document = Jsoup.connect(BASE_URL)
+            val document = Jsoup.connect(baseUrl)
                 .userAgent(USER_AGENT)
                 .timeout(TIMEOUT_MS)
                 .cookies(Cookies)

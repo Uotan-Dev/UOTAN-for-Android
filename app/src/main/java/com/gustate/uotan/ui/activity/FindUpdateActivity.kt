@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Environment
 import android.provider.Settings
-import android.util.Log
 import android.view.ViewGroup
 import android.view.ViewGroup.MarginLayoutParams
 import android.widget.Toast
@@ -242,7 +241,6 @@ class FindUpdateActivity : BaseActivity() {
 
     private fun installApk(fileName: String) {
         val apkFile = File(Environment.getExternalStorageDirectory(), "Download/Uotan/$fileName")
-        Log.e("e", fileName)
         val uri = FileProvider.getUriForFile(
             this,
             "${this.packageName}.fileprovider",

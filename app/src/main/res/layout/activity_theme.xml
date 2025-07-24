@@ -55,7 +55,7 @@
                     android:layout_marginStart="12dp"
                     android:layout_marginTop="18dp"
                     android:layout_marginEnd="12dp"
-                    android:background="@drawable/gustatex_option_background"
+                    android:background="@drawable/uotan_bkg_option"
                     android:fontFamily="sans-serif-medium"
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"

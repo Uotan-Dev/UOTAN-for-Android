@@ -41,7 +41,7 @@ class InfoDialog(context: Context) : Dialog(context, R.style.Gustatex_Dialog) {
     private fun initWindowSettings() {
         window?.apply {
             attributes = attributes.apply {
-                gravity = Gravity.BOTTOM
+                gravity = Gravity.CENTER
                 width = WindowManager.LayoutParams.MATCH_PARENT
                 height = WindowManager.LayoutParams.WRAP_CONTENT
             }

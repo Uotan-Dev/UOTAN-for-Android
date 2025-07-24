@@ -90,4 +90,11 @@
     <color name="colorDialogTapBasic">#FF676767</color>
     <color name="colorDialogTapMonet">@android:color/system_neutral2_700</color>
 
+    <!-- Floating Button Background Normal -->
+    <color name="colorFloatingButtonBackgroundNormalBasic">#FF404040</color>
+    <color name="colorFloatingButtonBackgroundNormalMonet">@color/m3_ref_palette_dynamic_neutral_variant12</color>
+    <!-- Floating Button Background Press -->
+    <color name="colorFloatingButtonBackgroundPressBasic">#FF606060</color>
+    <color name="colorFloatingButtonBackgroundPressMonet">@color/m3_ref_palette_dynamic_neutral_variant22</color>
+
 </resources>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rootLayout"
@@ -7,85 +7,117 @@
     android:layout_height="match_parent"
     android:background="@android:color/transparent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/dialogView"
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginStart="12dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginBottom="12dp"
-        android:background="@drawable/gustatex_dialog_background"
-        android:paddingBottom="20dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="48dp"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardCornerRadius="36dp"
+        app:cardElevation="0dp"
+        app:cardPreventCornerOverlap="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="?attr/colorCardNormal"
+        app:strokeWidth="1dp">
 
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:fontFamily="sans-serif-medium"
-            android:text="@string/title"
-            android:textColor="?attr/colorOnBackgroundPrimary"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/dialogView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/describe"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="28dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="28dp"
-            android:gravity="center"
-            android:text="@string/describe"
-            android:textColor="?attr/colorOnBackgroundSecondary"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_title"
-            tools:ignore="TextContrastCheck" />
+            <net.center.blurview.ShapeBlurView
+                android:id="@+id/s"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:blur_radius="18dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/cancel"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="21dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="6dp"
-            android:background="@drawable/gustatex_button_filled_tonal"
-            android:fontFamily="sans-serif-medium"
-            android:gravity="center"
-            android:text="@string/cancel"
-            android:textColor="?attr/colorOnFilledTonalButton"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/ok"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/describe" />
+            <View
+                android:id="@+id/headerBarCover2"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha="0.68"
+                android:background="?attr/colorCardNormal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/ok"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="6dp"
-            android:layout_marginEnd="21dp"
-            android:background="@drawable/gustatex_button_filled"
-            android:fontFamily="sans-serif-medium"
-            android:gravity="center"
-            android:text="@string/ok"
-            android:textColor="?attr/colorOnFilledButton"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/cancel"
-            app:layout_constraintTop_toTopOf="@+id/cancel"
-            tools:ignore="TextContrastCheck" />
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="24dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/title"
+                android:textColor="?attr/colorOnBackgroundPrimary"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/describe"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="26dp"
+                android:gravity="center|start"
+                android:maxHeight="560dp"
+                android:text="@string/describe"
+                android:textColor="?attr/colorOnBackgroundSecondary"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_title"
+                tools:ignore="TextContrastCheck" />
 
-</ScrollView>
+            <TextView
+                android:id="@+id/cancel"
+                android:layout_width="0dp"
+                android:layout_height="42dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="18dp"
+                android:background="@drawable/uotan_btn_tonal"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:text="@string/cancel"
+                android:textColor="?attr/colorOnFilledTonalButton"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/ok"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/describe" />
+
+            <TextView
+                android:id="@+id/ok"
+                android:layout_width="0dp"
+                android:layout_height="42dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="18dp"
+                android:layout_marginBottom="18dp"
+                android:background="@drawable/uotan_btn_filled"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:text="@string/ok"
+                android:textColor="?attr/colorOnFilledButton"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/cancel"
+                app:layout_constraintTop_toTopOf="@+id/cancel"
+                tools:ignore="TextContrastCheck" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

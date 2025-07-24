@@ -1,18 +1,12 @@
 package com.gustate.uotan.utils.parse.user
 
-import com.gustate.uotan.utils.Utils.Companion.BASE_URL
+import com.gustate.uotan.utils.Utils.Companion.baseUrl
 import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
 import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import okhttp3.FormBody
-import okhttp3.Headers
-import okhttp3.HttpUrl.Companion.toHttpUrl
-import okhttp3.OkHttpClient
-import okhttp3.Request
 import org.jsoup.Connection
 import org.jsoup.Jsoup
-import java.util.concurrent.TimeUnit
 
 data class FirstLoginData(
     val cookies: Map<String, String>,
@@ -30,7 +24,7 @@ class LoginParse {
 
         suspend fun login(account: String, password: String): FirstLoginData = withContext(Dispatchers.IO) {
 
-            val loginUrl = "$BASE_URL/login/login"
+            val loginUrl = "$baseUrl/login/login"
 
             // 第一次请求获取CSRF令牌和Cookies
             val firstResponse = Jsoup.connect(loginUrl)

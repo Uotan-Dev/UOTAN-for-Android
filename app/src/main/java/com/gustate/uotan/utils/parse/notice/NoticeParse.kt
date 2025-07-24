@@ -1,6 +1,6 @@
 package com.gustate.uotan.utils.parse.notice
 
-import com.gustate.uotan.utils.Utils.Companion.BASE_URL
+import com.gustate.uotan.utils.Utils.Companion.baseUrl
 import com.gustate.uotan.utils.Utils.Companion.Cookies
 import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
 import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
@@ -190,7 +190,7 @@ class NoticeParse {
         }
         suspend fun fetchLikesTotalPage(): Int = withContext(Dispatchers.IO) {
             val document = Jsoup
-                .connect("$BASE_URL/account/reactions?reaction_id=0&page=10000000000000000000000")
+                .connect("$baseUrl/account/reactions?reaction_id=0&page=10000000000000000000000")
                 .userAgent(USER_AGENT)
                 .cookies(Cookies)
                 .method(Connection.Method.GET)
@@ -208,7 +208,7 @@ class NoticeParse {
         suspend fun fetchLikesData(page: Int): MutableList<LikeItem> = withContext(Dispatchers.IO) {
             val result = mutableListOf<LikeItem>()
             val document = Jsoup
-                .connect("$BASE_URL/account/reactions?reaction_id=0&page=$page")
+                .connect("$baseUrl/account/reactions?reaction_id=0&page=$page")
                 .userAgent(USER_AGENT)
                 .cookies(Cookies)
                 .timeout(TIMEOUT_MS)

@@ -2,7 +2,7 @@ package com.gustate.uotan.section.data.parse
 
 import com.gustate.uotan.section.data.model.SectionData
 import com.gustate.uotan.section.data.model.SectionDataItem
-import com.gustate.uotan.utils.Utils.Companion.BASE_URL
+import com.gustate.uotan.utils.Utils.Companion.baseUrl
 import com.gustate.uotan.utils.Utils.Companion.Cookies
 import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
 import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
@@ -19,7 +19,7 @@ class SectionDataParse {
     ) = withContext(Dispatchers.IO) {
         try {
             val document = Jsoup
-                .connect(BASE_URL + url)
+                .connect(baseUrl + url)
                 .cookies(Cookies)
                 .userAgent(USER_AGENT)
                 .timeout(TIMEOUT_MS)

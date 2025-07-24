@@ -22,7 +22,7 @@ import com.gustate.uotan.databinding.ActivityPlateBinding
 import com.gustate.uotan.section.data.model.SectionDataItem
 import com.gustate.uotan.section.ui.adapter.SectionArticleListAdapter
 import com.gustate.uotan.section.ui.adapter.SectionExpandableArticleListAdapter
-import com.gustate.uotan.ui.activity.ArticleActivity
+import com.gustate.uotan.threads.ui.ThreadsActivity
 import com.gustate.uotan.utils.Utils
 import com.gustate.uotan.utils.Utils.Companion.dpToPx
 import com.gustate.uotan.utils.Utils.Companion.errorDialog
@@ -42,7 +42,7 @@ class SectionDataActivity : BaseActivity() {
         setContentView(binding.root)
         adapter = SectionArticleListAdapter().apply {
             onItemClick = {
-                startActivity(Intent(this@SectionDataActivity, ArticleActivity::class.java).apply {
+                startActivity(Intent(this@SectionDataActivity, ThreadsActivity::class.java).apply {
                     putExtra("url", it)
                 })
             }
@@ -66,9 +66,9 @@ class SectionDataActivity : BaseActivity() {
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         topAdapter = SectionExpandableArticleListAdapter().apply {
-            onItemClick = {
-                startActivity(Intent(this@SectionDataActivity, ArticleActivity::class.java).apply {
-                    putExtra("url", it)
+            onItemClick = { title, url ->
+                startActivity(Intent(this@SectionDataActivity, ThreadsActivity::class.java).apply {
+                    putExtra("url", url)
                 })
             }
         }
@@ -96,9 +96,9 @@ class SectionDataActivity : BaseActivity() {
         binding.imgNonePost.isGone = true
         binding.tvNonePost.isGone = true
         Glide.with(this)
-            .load(Utils.Companion.BASE_URL + ico)
+            .load(Utils.Companion.baseUrl + ico)
             .error(R.drawable.ic_uo)
-            .into(binding.imageView5)
+            .into(binding.cardView5)
         observerList()
         binding.btnExpand.setOnClickListener {
             val willExpand = !topAdapter.isExpanded

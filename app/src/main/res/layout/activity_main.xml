@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPager"
+        android:id="@+id/pager_main"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </androidx.viewpager2.widget.ViewPager2>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <view
-        android:id="@+id/navigationBarBlur"
+        android:id="@+id/blur_nav_bar"
         class="net.center.blurview.ShapeBlurView"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -25,10 +24,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/navigationBar" />
+        app:layout_constraintTop_toTopOf="@+id/layout_nav_bar" />
 
     <View
-        android:id="@+id/navigationBarCover"
+        android:id="@+id/cover_nav_bar"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:alpha="0.6"
@@ -36,10 +35,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/navigationBar" />
+        app:layout_constraintTop_toTopOf="@+id/layout_nav_bar" />
 
     <View
-        android:id="@+id/navCover"
+        android:id="@+id/cover_cover_nav_bar"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:alpha="0.4"
@@ -47,49 +46,50 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/frameLayout4" />
+        app:layout_constraintTop_toTopOf="@+id/divider" />
 
     <FrameLayout
-        android:id="@+id/frameLayout4"
+        android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="?attr/colorBottomNavigationBarBackground"
-        app:layout_constraintBottom_toTopOf="@+id/navigationBarBlur"
+        app:layout_constraintBottom_toTopOf="@+id/blur_nav_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
     </FrameLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/navigationBar"
+        android:id="@+id/layout_nav_bar"
         android:layout_width="match_parent"
         android:layout_height="65dp"
-        app:layout_constraintBottom_toTopOf="@+id/gestureView"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/homeTab"
+            android:id="@+id/tab_home"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/plateTab"
+            app:layout_constraintEnd_toStartOf="@+id/tab_section"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/homeIcon"
+                android:id="@+id/img_home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="@+id/homeText"
+                app:layout_constraintBottom_toTopOf="@+id/tv_home"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_nav_home" />
 
             <TextView
-                android:id="@+id/homeText"
+                android:id="@+id/tv_home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
@@ -99,30 +99,31 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/homeIcon" />
+                app:layout_constraintTop_toBottomOf="@+id/img_home"
+                tools:ignore="SmallSp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/plateTab"
+            android:id="@+id/tab_section"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/noticeTab"
-            app:layout_constraintStart_toEndOf="@+id/homeTab"
+            app:layout_constraintEnd_toStartOf="@+id/tab_message"
+            app:layout_constraintStart_toEndOf="@+id/tab_home"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/plateIcon"
+                android:id="@+id/img_section"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="@+id/plateText"
+                app:layout_constraintBottom_toTopOf="@+id/tv_section"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_nav_plate" />
 
             <TextView
-                android:id="@+id/plateText"
+                android:id="@+id/tv_section"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
@@ -132,30 +133,31 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/plateIcon" />
+                app:layout_constraintTop_toBottomOf="@+id/img_section"
+                tools:ignore="SmallSp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/noticeTab"
+            android:id="@+id/tab_message"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/resTab"
-            app:layout_constraintStart_toEndOf="@+id/plateTab"
+            app:layout_constraintEnd_toStartOf="@+id/tab_res"
+            app:layout_constraintStart_toEndOf="@+id/tab_section"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/noticeIcon"
+                android:id="@+id/img_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="@+id/noticeText"
+                app:layout_constraintBottom_toTopOf="@+id/tv_message"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_nav_notice" />
 
             <TextView
-                android:id="@+id/noticeText"
+                android:id="@+id/tv_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
@@ -165,30 +167,30 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/noticeIcon" />
+                app:layout_constraintTop_toBottomOf="@+id/img_message" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/resTab"
+            android:id="@+id/tab_res"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/meTab"
-            app:layout_constraintStart_toEndOf="@+id/noticeTab"
+            app:layout_constraintEnd_toStartOf="@+id/tab_mine"
+            app:layout_constraintStart_toEndOf="@+id/tab_message"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/resIcon"
+                android:id="@+id/img_res"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="@+id/resText"
+                app:layout_constraintBottom_toTopOf="@+id/tv_res"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_nav_res" />
 
             <TextView
-                android:id="@+id/resText"
+                android:id="@+id/tv_res"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
@@ -198,31 +200,32 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/resIcon" />
+                app:layout_constraintTop_toBottomOf="@+id/img_res"
+                tools:ignore="SmallSp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/meTab"
+            android:id="@+id/tab_mine"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/resTab"
+            app:layout_constraintStart_toEndOf="@+id/tab_res"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/meIcon"
+                android:id="@+id/img_mine"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="@+id/meText"
+                app:layout_constraintBottom_toTopOf="@+id/tv_mine"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_nav_me" />
 
             <TextView
-                android:id="@+id/meText"
+                android:id="@+id/tv_mine"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
@@ -232,18 +235,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/meIcon" />
+                app:layout_constraintTop_toBottomOf="@+id/img_mine" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/gestureView"
-        android:layout_width="0dp"
-        android:layout_height="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

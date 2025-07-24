@@ -239,4 +239,14 @@
     <string name="adjust_u_coin">Adjust U coin</string>
     <string name="none_post">No posts available at the moment</string>
     <string name="loading">Loading</string>
+    <string name="recommend_open_source_project">Recommended open source projects</string>
+    <string name="wuhan_ossp_wuhan_2024">Excellent Open Source Software Projects and Open Source Communities in Wuhan in 2024</string>
+    <string name="uotantoolbox_des" translatable="false">Uotan-Dev - UotanToolboxNT</string>
+    <string name="domain_name_and_proxy">Domain Name and Proxy</string>
+    <string name="domain_customization">Domain customization</string>
+    <string name="disable_ssl_authentication">Disable SSL authentication</string>
+    <string name="restart_software">Restart software</string>
+    <string name="dialog_restart_ensure">Please restart the software to ensure that the modifications take effect</string>
+    <string name="restart_later">Restart later</string>
+    <string name="restart_now">Restart Now</string>
 </resources>

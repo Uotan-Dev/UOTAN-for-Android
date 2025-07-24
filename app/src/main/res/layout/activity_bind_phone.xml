@@ -92,7 +92,7 @@
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:layout_marginStart="30dp"
-        android:background="@drawable/gustatex_option_background_normal"
+        android:background="@drawable/uotan_bkg_option_normal"
         android:fontFamily="sans-serif-medium"
         android:gravity="center"
         android:paddingStart="20dp"
@@ -157,7 +157,7 @@
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="5dp"
         android:alpha="0.15"
-        android:background="@drawable/gustatex_button_filled"
+        android:background="@drawable/uotan_btn_filled"
         app:layout_constraintBottom_toBottomOf="@+id/codeEdit"
         app:layout_constraintEnd_toEndOf="@+id/codeEdit"
         app:layout_constraintTop_toTopOf="@+id/codeEdit">
@@ -187,7 +187,7 @@
         android:layout_marginTop="40dp"
         android:layout_marginEnd="30dp"
         android:alpha="0.15"
-        android:background="@drawable/gustatex_button_filled"
+        android:background="@drawable/uotan_btn_filled"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/codeEdit">

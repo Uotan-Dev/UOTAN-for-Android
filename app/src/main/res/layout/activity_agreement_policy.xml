@@ -58,12 +58,12 @@
                         android:layout_marginStart="12dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="12dp"
-                        android:background="@drawable/gustatex_option_background_normal"
+                        android:background="@drawable/uotan_bkg_option_normal"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tvRulesProtocols">
 
-                        <com.gustate.uotan.gustatex.view.OptionOnlyTitleView
+                        <com.gustate.uotan.view.option.OptionOnlyTitleView
                             android:id="@+id/btnPointsRule"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -71,7 +71,7 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:optionTitle_onlyTitle="@string/points_rule" />
 
-                        <com.gustate.uotan.gustatex.view.OptionOnlyTitleView
+                        <com.gustate.uotan.view.option.OptionOnlyTitleView
                             android:id="@+id/btnUserAgreement"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -79,7 +79,7 @@
                             app:layout_constraintTop_toBottomOf="@+id/btnPointsRule"
                             app:optionTitle_onlyTitle="@string/user_agreement" />
 
-                        <com.gustate.uotan.gustatex.view.OptionOnlyTitleView
+                        <com.gustate.uotan.view.option.OptionOnlyTitleView
                             android:id="@+id/btnServiceAgreement"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -87,7 +87,7 @@
                             app:layout_constraintTop_toBottomOf="@+id/btnUserAgreement"
                             app:optionTitle_onlyTitle="@string/service_agreement" />
 
-                        <com.gustate.uotan.gustatex.view.OptionOnlyTitleView
+                        <com.gustate.uotan.view.option.OptionOnlyTitleView
                             android:id="@+id/btnAuthAgreement"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -116,12 +116,12 @@
                         android:layout_marginStart="12dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="12dp"
-                        android:background="@drawable/gustatex_option_background_normal"
+                        android:background="@drawable/uotan_bkg_option_normal"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tvLegalNotice">
 
-                        <com.gustate.uotan.gustatex.view.OptionOnlyTitleView
+                        <com.gustate.uotan.view.option.OptionOnlyTitleView
                             android:id="@+id/btnPrivacyPolicy"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -129,7 +129,7 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:optionTitle_onlyTitle="@string/privacy_policy" />
 
-                        <com.gustate.uotan.gustatex.view.OptionOnlyTitleView
+                        <com.gustate.uotan.view.option.OptionOnlyTitleView
                             android:id="@+id/btnDisclaimers"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -137,7 +137,7 @@
                             app:layout_constraintTop_toBottomOf="@+id/btnPrivacyPolicy"
                             app:optionTitle_onlyTitle="@string/disclaimers" />
 
-                        <com.gustate.uotan.gustatex.view.OptionOnlyTitleView
+                        <com.gustate.uotan.view.option.OptionOnlyTitleView
                             android:id="@+id/btnCookieTermsOfUse"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"

@@ -63,6 +63,11 @@
     <!-- Bottom Navigation Bar On Background Secondary -->
     <attr name="colorBottomNavigationBarOnBackgroundSecondary" format="color" />
 
+    <!-- Floating Button Background Normal -->
+    <attr name="colorFloatingButtonBackgroundNormal" format="color" />
+    <!-- Floating Button Background Press -->
+    <attr name="colorFloatingButtonBackgroundPress" format="color" />
+
     <declare-styleable name="OptionView">
         <attr name="optionIcon" format="reference" />
         <attr name="optionTitle" format="string" />
@@ -82,4 +87,40 @@
         <attr name="optionTitle_user" format="string" />
         <attr name="optionDescribe_user" format="string" />
     </declare-styleable>
+
+    <declare-styleable name="FadingBlurView">
+        <attr name="fadeHeight" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="SuperEllipseLayout">
+        <attr name="android:background" />
+        <attr name="sel_corner_radius" format="dimension" />
+        <!-- 添加淡入淡出时间属性 -->
+        <attr name="sel_enter_fade_duration" format="integer" />
+        <attr name="sel_exit_fade_duration" format="integer" />
+        <attr name="sel_curve_n" format="float"/>
+        <attr name="sel_curve_r" format="float"/>
+        <attr name="sel_border_color" format="color"/>
+        <attr name="sel_border_width" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="SmoothCornerLayout">
+        <attr name="cornerRadius" format="dimension" />
+        <attr name="smoothness" format="float" />
+
+        <attr name="cornerRadiusTL" format="dimension" />
+        <attr name="smoothnessTL" format="float" />
+        <attr name="cornerRadiusTR" format="dimension" />
+        <attr name="smoothnessTR" format="float" />
+        <attr name="cornerRadiusBR" format="dimension" />
+        <attr name="smoothnessBR" format="float" />
+        <attr name="cornerRadiusBL" format="dimension" />
+        <attr name="smoothnessBL" format="float" />
+        <!-- 边框 -->
+        <attr name="scl_border_width" format="dimension"/>
+        <attr name="scl_border_color" format="color"/>
+        <!-- 是否裁剪子视图 -->
+        <attr name="clipChildren" format="boolean" />
+    </declare-styleable>
+
 </resources>

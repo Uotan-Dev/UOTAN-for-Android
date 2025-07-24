@@ -12,7 +12,7 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: UserRepository
 
     init {
-        val userDao = AppDatabase.getDatabase(application).userDao()
+        val userDao = UserDatabase.getDatabase(application).userDao()
         repository = UserRepository(userDao)
     }
 

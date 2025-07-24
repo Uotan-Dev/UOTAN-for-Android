@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:baselineAligned="false"
+    android:gravity="center"
+    tools:context=".threads.ui.ThreadsActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/nav_bar_layout"
+        android:layout_width="78dp"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="12dp"
+            android:tag="pad"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_back" />
+
+        <ImageView
+            android:id="@+id/img_avatar"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_back"
+            app:srcCompat="@drawable/avatar_account"
+            tools:ignore="ImageContrastCheck" />
+
+        <CheckBox
+            android:id="@+id/chk_follow"
+            style="null"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginTop="-8dp"
+            android:background="@drawable/gustatex_checkbox"
+            android:button="@null"
+            android:checked="false"
+            android:clickable="false"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/img_avatar"
+            app:layout_constraintStart_toStartOf="@+id/img_avatar"
+            app:layout_constraintTop_toBottomOf="@+id/img_avatar"
+            tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+        <ImageButton
+            android:id="@+id/btn_react"
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:layout_marginTop="42dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/gustatex_btn_none_bkg"
+            android:contentDescription="@string/favourite_count"
+            android:foregroundGravity="center"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintEnd_toEndOf="@+id/img_avatar"
+            app:layout_constraintStart_toStartOf="@+id/img_avatar"
+            app:layout_constraintTop_toBottomOf="@+id/chk_follow"
+            app:srcCompat="@drawable/ic_favourite"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <TextView
+            android:id="@+id/tv_react_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="-6dp"
+            android:text="@string/num_zero"
+            android:textColor="?attr/colorOnBackgroundSecondary"
+            android:textSize="11sp"
+            app:layout_constraintStart_toEndOf="@+id/btn_react"
+            app:layout_constraintTop_toTopOf="@+id/btn_react" />
+
+        <ImageButton
+            android:id="@+id/btn_post"
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:layout_marginTop="24dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/gustatex_btn_none_bkg"
+            android:contentDescription="@string/reply"
+            android:foregroundGravity="center"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintEnd_toEndOf="@+id/btn_react"
+            app:layout_constraintStart_toStartOf="@+id/btn_react"
+            app:layout_constraintTop_toBottomOf="@+id/btn_react"
+            app:srcCompat="@drawable/ic_bottom_comment"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <TextView
+            android:id="@+id/tv_post_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="-6dp"
+            android:text="@string/num_zero"
+            android:textColor="?attr/colorOnBackgroundSecondary"
+            android:textSize="11sp"
+            app:layout_constraintStart_toEndOf="@+id/btn_post"
+            app:layout_constraintTop_toTopOf="@+id/btn_post" />
+
+        <ImageButton
+            android:id="@+id/btn_share"
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:layout_marginTop="24dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/gustatex_btn_none_bkg"
+            android:contentDescription="@string/share"
+            android:foregroundGravity="center"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintEnd_toEndOf="@+id/btn_react"
+            app:layout_constraintStart_toStartOf="@+id/btn_react"
+            app:layout_constraintTop_toBottomOf="@+id/btn_post"
+            app:srcCompat="@drawable/ic_share"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <ImageButton
+            android:id="@+id/btn_more"
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:layout_marginTop="24dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/gustatex_btn_none_bkg"
+            android:contentDescription="@string/more"
+            android:foregroundGravity="center"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintEnd_toEndOf="@+id/btn_react"
+            app:layout_constraintStart_toStartOf="@+id/btn_react"
+            app:layout_constraintTop_toBottomOf="@+id/btn_share"
+            app:srcCompat="@drawable/ic_more"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <ImageButton
+            android:id="@+id/btn_collect"
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="20dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/gustatex_btn_none_bkg"
+            android:foregroundGravity="center"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/ic_collect" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_article"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <com.scwang.smart.refresh.layout.SmartRefreshLayout
+            android:id="@+id/srl_article"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srlEnableAutoLoadMore="false"
+            app:srlEnableLoadMore="false"
+            app:srlEnableOverScrollDrag="true">
+
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/nsv_article"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:fillViewport="true">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/threads_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.gustate.uotan.view.smooth.SmoothCornerLayout
+                        android:id="@+id/article_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginEnd="12dp"
+                        android:background="@drawable/uotan_bkg_option_normal"
+                        app:cornerRadius="@dimen/normal_corner_radius"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:smoothness="@dimen/normal_smoothness">
+
+                        <com.gustate.uotan.view.smooth.SmoothCornerLayout
+                            android:id="@+id/cardJingTie"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginTop="12dp"
+                            android:background="?attr/colorFilledTonalButtonNormal"
+                            android:visibility="gone"
+                            app:cornerRadius="12dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/rv_content"
+                            app:smoothness="0.618">
+
+                            <TextView
+                                android:id="@+id/tvJingTie"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif-medium"
+                                android:gravity="start"
+                                android:paddingStart="16dp"
+                                android:paddingTop="8dp"
+                                android:paddingEnd="16dp"
+                                android:paddingBottom="8dp"
+                                android:text="@string/essence"
+                                android:textColor="?attr/colorOnFilledTonalButton"
+                                android:textSize="14sp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </com.gustate.uotan.view.smooth.SmoothCornerLayout>
+
+                        <com.gustate.uotan.view.smooth.SmoothCornerLayout
+                            android:id="@+id/btn_follow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="14dp"
+                            android:background="@drawable/uotan_btn_filled"
+                            app:cornerRadius="@dimen/normal_corner_radius"
+                            app:layout_constraintBottom_toBottomOf="@+id/layout_user"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/layout_user"
+                            app:smoothness="@dimen/normal_smoothness">
+
+                            <TextView
+                                android:id="@+id/tv_follow"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="18dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginEnd="18dp"
+                                android:layout_marginBottom="8dp"
+                                android:fontFamily="sans-serif-medium"
+                                android:gravity="center"
+                                android:text="@string/follow"
+                                android:textColor="@color/white"
+                                android:textSize="12sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </com.gustate.uotan.view.smooth.SmoothCornerLayout>
+
+                        <ImageView
+                            android:id="@+id/loading_follow"
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:visibility="invisible"
+                            app:layout_constraintBottom_toBottomOf="@+id/btn_follow"
+                            app:layout_constraintEnd_toEndOf="@+id/btn_follow"
+                            app:layout_constraintStart_toStartOf="@+id/btn_follow"
+                            app:layout_constraintTop_toTopOf="@+id/btn_follow"
+                            app:srcCompat="@drawable/ic_loading" />
+
+                        <TextView
+                            android:id="@+id/tv_title"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="14dp"
+                            android:layout_marginTop="14dp"
+                            android:layout_marginEnd="14dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="@string/title"
+                            android:textColor="?attr/colorOnCardPrimary"
+                            android:textSize="24sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_content"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="12dp"
+                            android:overScrollMode="never"
+                            app:layout_constraintEnd_toEndOf="@+id/tv_title"
+                            app:layout_constraintStart_toStartOf="@+id/tv_title"
+                            app:layout_constraintTop_toBottomOf="@+id/layout_user" />
+
+                        <TextView
+                            android:id="@+id/tv_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="14dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="14dp"
+                            android:text="@string/time"
+                            android:textColor="?attr/colorOnBackgroundSecondary"
+                            android:textFontWeight="400"
+                            android:textSize="10sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/cardJingTie"
+                            tools:ignore="SmallSp,TextContrastCheck" />
+
+                        <TextView
+                            android:id="@+id/tv_ip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:layout_marginBottom="14dp"
+                            android:text="@string/ip_location"
+                            android:textColor="?attr/colorOnBackgroundSecondary"
+                            android:textFontWeight="400"
+                            android:textSize="10sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/tv_time"
+                            tools:ignore="SmallSp,TextContrastCheck" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/layout_user"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="14dp"
+                            android:layout_marginTop="12dp"
+                            app:layout_constraintEnd_toStartOf="@+id/btn_follow"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_title">
+
+                            <ImageView
+                                android:id="@+id/img_article_avatar"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:srcCompat="@drawable/avatar_account"
+                                tools:ignore="ImageContrastCheck" />
+
+                            <TextView
+                                android:id="@+id/tv_username"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:fontFamily="sans-serif-medium"
+                                android:text="@string/user_name"
+                                android:textColor="?attr/colorOnBackgroundPrimary"
+                                android:textFontWeight="400"
+                                android:textSize="16sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/img_article_avatar"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </com.gustate.uotan.view.smooth.SmoothCornerLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.core.widget.NestedScrollView>
+
+        </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+
+        <com.gustate.uotan.view.smooth.SmoothCornerLayout
+            android:id="@+id/btn_reply"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="42dp"
+            android:layout_marginEnd="42dp"
+            android:layout_marginBottom="24dp"
+            android:background="@color/color_btn_floating"
+            android:tag="pad"
+            app:cornerRadius="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:scl_border_color="@color/color_btn_floating"
+            app:scl_border_width="1dp"
+            app:smoothness="0.618">
+
+            <net.center.blurview.ShapeBlurView
+                android:id="@+id/blur_reply"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:blur_radius="64dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/hint_reply"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/reply_hint_1"
+                android:textColor="?attr/colorOnCardSecondary"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </com.gustate.uotan.view.smooth.SmoothCornerLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:id="@+id/srl_posts"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nsv_posts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:fillViewport="true">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/posts_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.gustate.uotan.view.smooth.SmoothCornerLayout
+                    android:id="@+id/cardPostLocked"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="24dp"
+                    android:background="?attr/colorFilledTonalButtonNormal"
+                    android:visibility="gone"
+                    app:cornerRadius="12dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_posts"
+                    app:smoothness="0.618">
+
+                    <TextView
+                        android:id="@+id/tvPostLocked"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="start"
+                        android:paddingStart="20dp"
+                        android:paddingTop="12dp"
+                        android:paddingEnd="20dp"
+                        android:paddingBottom="12dp"
+                        android:text="@string/locked_post"
+                        android:textColor="?attr/colorOnErrorCard"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </com.gustate.uotan.view.smooth.SmoothCornerLayout>
+
+                <TextView
+                    android:id="@+id/tv_posts"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/reply"
+                    android:textColor="?attr/colorOnBackgroundPrimary"
+                    android:textSize="24sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_posts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="12dp"
+                    android:overScrollMode="never"
+                    android:paddingStart="7dp"
+                    android:paddingEnd="7dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cardPostLocked" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+
+</LinearLayout>

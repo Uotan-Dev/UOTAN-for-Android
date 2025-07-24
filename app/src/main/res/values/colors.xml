@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <color name="ic_launcher_background">#FFFFFF</color>
+
     <!-- On Window Background -->
     <color name="colorBackgroundBasic">#FFF7F7F7</color>
     <color name="colorBackgroundMonet">@color/m3_ref_palette_dynamic_neutral_variant98</color>
@@ -68,7 +70,7 @@
     <color name="colorSwitchThumbCheckedMonet">@android:color/system_accent1_0</color>
 
     <!-- Bottom Navigation Bar Background (Blur Cover) -->
-    <color name="colorBottomNavigationBarBackgroundBasic">#FFE4E4E4</color>
+    <color name="colorBottomNavigationBarBackgroundBasic">#FFECECEC</color>
     <color name="colorBottomNavigationBarBackgroundMonet">@color/m3_ref_palette_dynamic_neutral_variant94</color>
     <!-- Bottom Navigation Bar On Background Primary -->
     <color name="colorBottomNavigationBarOnBackgroundPrimaryBasic">#FF000000</color>
@@ -89,5 +91,12 @@
     <!-- Dialog Tap -->
     <color name="colorDialogTapBasic">#FFDBDBDB</color>
     <color name="colorDialogTapMonet">@android:color/system_neutral2_100</color>
+
+    <!-- Floating Button Background Normal -->
+    <color name="colorFloatingButtonBackgroundNormalBasic">#FFECECEC</color>
+    <color name="colorFloatingButtonBackgroundNormalMonet">@color/m3_ref_palette_dynamic_neutral_variant94</color>
+    <!-- Floating Button Background Press -->
+    <color name="colorFloatingButtonBackgroundPressBasic">#FFDADADA</color>
+    <color name="colorFloatingButtonBackgroundPressMonet">@color/m3_ref_palette_dynamic_neutral_variant87</color>
 
 </resources>

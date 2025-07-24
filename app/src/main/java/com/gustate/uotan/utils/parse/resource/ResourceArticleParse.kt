@@ -1,7 +1,6 @@
 package com.gustate.uotan.utils.parse.resource
 
-import android.util.Log
-import com.gustate.uotan.utils.Utils.Companion.BASE_URL
+import com.gustate.uotan.utils.Utils.Companion.baseUrl
 import com.gustate.uotan.utils.Utils.Companion.Cookies
 import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
 import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
@@ -21,7 +20,7 @@ class ResourceArticleParse {
     companion object {
         suspend fun fetchResourceArticle(url: String): ResourceArticle = withContext(Dispatchers.IO) {
             val document = Jsoup
-                .connect(BASE_URL + url)
+                .connect(baseUrl + url)
                 .userAgent(USER_AGENT)
                 .cookies(Cookies)
                 .timeout(TIMEOUT_MS)
@@ -132,7 +131,7 @@ class ResourceArticleParse {
                 ?.attr("data-user-id")
                 ?: ""
             val authorDocument = Jsoup
-                .connect("$BASE_URL/members/$authorId/")
+                .connect("$baseUrl/members/$authorId/")
                 .userAgent(USER_AGENT)
                 .cookies(Cookies)
                 .timeout(TIMEOUT_MS)
@@ -190,7 +189,7 @@ class ResourceArticleParse {
                 ?.attr("href")
                 ?: ""
             val numberOfLikes = if (loveLink != "") {
-                val loveDocument = Jsoup.connect("$BASE_URL$loveLink/")
+                val loveDocument = Jsoup.connect("$baseUrl$loveLink/")
                     .userAgent(USER_AGENT)
                     .timeout(TIMEOUT_MS)
                     .cookies(Cookies)
@@ -245,7 +244,7 @@ class ResourceArticleParse {
         suspend fun getResourceReport(url: String): MutableList<ResReportData> = withContext(
             Dispatchers.IO) {
             val document = Jsoup
-                .connect(BASE_URL + url + "reviews")
+                .connect(baseUrl + url + "reviews")
                 .cookies(Cookies)
                 .timeout(TIMEOUT_MS)
                 .userAgent(USER_AGENT)
@@ -299,7 +298,7 @@ class ResourceArticleParse {
         suspend fun getPurchaseData(url: String): MutableList<PurchaseData> = withContext(
             Dispatchers.IO) {
             val response = Jsoup
-                .connect(BASE_URL + url)
+                .connect(baseUrl + url)
                 .cookies(Cookies)
                 .timeout(TIMEOUT_MS)
                 .userAgent(USER_AGENT)
@@ -388,10 +387,10 @@ class ResourceArticleParse {
                 .addFormDataPart("_xfResponseType", "json")
                 .build()
             val request = Request.Builder()
-                .url(BASE_URL + url)
+                .url(baseUrl + url)
                 .addHeader("Cookie", cookiesString)
                 .addHeader("User-Agent", USER_AGENT)
-                .addHeader("Origin", BASE_URL)
+                .addHeader("Origin", baseUrl)
                 .addHeader("Referer", url)
                 .addHeader(
                     "Accept",
@@ -404,13 +403,11 @@ class ResourceArticleParse {
                 val response = client.newCall(request).execute()
                 if (!response.isSuccessful) {
                     onException("HTTP错误: ${response.code}\n${response.headers}\n请求内容：${response.request}")
-                    Log.e("httpError", "HTTP错误: ${response.code}\n请求头：${response.headers}\n请求内容：${response.request}")
                 } else {
                     onSuccess()
                 }
             } catch (e: Exception) {
                 onException(e.message ?: "未知错误")
-                Log.e("exception", e.message ?: "未知错误")
             }
         }
         suspend fun reportResource(
@@ -434,10 +431,10 @@ class ResourceArticleParse {
                 .addFormDataPart("_xfResponseType", "json")
                 .build()
             val request = Request.Builder()
-                .url(BASE_URL + url + "rate")
+                .url(baseUrl + url + "rate")
                 .addHeader("Cookie", cookiesString)
                 .addHeader("User-Agent", USER_AGENT)
-                .addHeader("Origin", BASE_URL)
+                .addHeader("Origin", baseUrl)
                 .addHeader("Referer", url + "rate")
                 .addHeader(
                     "Accept",
@@ -451,7 +448,6 @@ class ResourceArticleParse {
                 if (!response.isSuccessful) {
                     withContext(Dispatchers.Main) {
                         onException("HTTP错误: ${response.code}\n${response.headers}\n请求内容：${response.request}")
-                        Log.e("httpError", "HTTP错误: ${response.code}\n请求头：${response.headers}\n请求内容：${response.request}")
                     }
                 } else {
                     withContext(Dispatchers.Main) {
@@ -461,7 +457,6 @@ class ResourceArticleParse {
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     onException(e.message ?: "未知错误")
-                    Log.e("exception", e.message ?: "未知错误")
                 }
             }
         }

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.gustate.uotan.view.smooth.SmoothCornerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scl_root"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:background="@drawable/uotan_bkg_option"
+    app:cornerRadius="@dimen/option_corner_radius"
+    app:smoothness="@dimen/normal_smoothness">
+
+    <ImageView
+        android:id="@+id/img_option"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_option_at" />
+
+    <TextView
+        android:id="@+id/tv_option"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="12dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/title"
+        android:textColor="?attr/colorOnCardPrimary"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageView5"
+        app:layout_constraintStart_toEndOf="@+id/img_option"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="10dp"
+        android:layout_height="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/gustatex_arrow_right" />
+</com.gustate.uotan.view.smooth.SmoothCornerLayout>

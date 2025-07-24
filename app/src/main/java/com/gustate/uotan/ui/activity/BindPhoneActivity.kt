@@ -21,7 +21,8 @@ import com.gustate.uotan.BaseActivity
 import com.gustate.uotan.R
 import com.gustate.uotan.databinding.ActivityBindPhoneBinding
 import com.gustate.uotan.gustatex.dialog.LoadingDialog
-import com.gustate.uotan.utils.Utils.Companion.BASE_URL
+import com.gustate.uotan.main.ui.MainActivity
+import com.gustate.uotan.utils.Utils.Companion.baseUrl
 import com.gustate.uotan.utils.Utils.Companion.Cookies
 import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
 import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
@@ -70,7 +71,7 @@ class BindPhoneActivity : BaseActivity() {
 
         /** 常量设置 **/
         // 绑定手机 url
-        val url = BASE_URL + "account/sms-verification"
+        val url = baseUrl + "account/sms-verification"
         // 配置 Cookie 管理器
         val cookieManager = CookieManager.getInstance()
         // 实例化 LoadingDialog
@@ -334,7 +335,7 @@ class BindPhoneActivity : BaseActivity() {
 
     private suspend fun isSucceed(): Boolean = withContext(Dispatchers.IO) {
         // 解析网页, document 返回的就是网页 Document 对象
-        val response = Jsoup.connect(BASE_URL)
+        val response = Jsoup.connect(baseUrl)
             .userAgent(USER_AGENT)
             .timeout(TIMEOUT_MS)
             .cookies(Cookies)
@@ -365,7 +366,7 @@ class BindPhoneActivity : BaseActivity() {
                 append("$key=$value")
             }
             // 设置 Cookie
-            cookieManager.setCookie(BASE_URL + "account/sms-verification", cookieString)
+            cookieManager.setCookie(baseUrl + "account/sms-verification", cookieString)
         }
         // 同步 Cookies
         cookieManager.flush()

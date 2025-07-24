@@ -4,7 +4,7 @@
 
     <stroke
         android:color="?attr/colorBottomNavigationBarOnBackgroundSecondary"
-        android:width="2dp"/>
+        android:width="1.5dp"/>
 
     <corners android:radius="15dp" />
 

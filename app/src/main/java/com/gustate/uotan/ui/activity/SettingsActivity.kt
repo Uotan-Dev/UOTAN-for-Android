@@ -10,7 +10,8 @@ import com.gustate.uotan.AgreementPolicyActivity
 import com.gustate.uotan.BaseActivity
 import com.gustate.uotan.ThemeActivity
 import com.gustate.uotan.databinding.ActivitySettingsBinding
-import com.gustate.uotan.utils.Utils.Companion.BASE_URL
+import com.gustate.uotan.settings.ui.DomainActivity
+import com.gustate.uotan.utils.Utils.Companion.baseUrl
 import com.gustate.uotan.utils.Utils.Companion.dpToPx
 import com.gustate.uotan.utils.Utils.Companion.openUrlInBrowser
 import kotlin.math.roundToInt
@@ -69,7 +70,12 @@ class SettingsActivity : BaseActivity() {
         }
 
         binding.setUserOption.setOnClickListener {
-            openUrlInBrowser(this, "$BASE_URL/account/account-details")
+            openUrlInBrowser(this, "$baseUrl/account/account-details")
+        }
+
+        binding.domainOption.setOnClickListener {
+            val intent = Intent(this, DomainActivity::class.java)
+            startActivity(intent)
         }
 
         binding.back.setOnClickListener {

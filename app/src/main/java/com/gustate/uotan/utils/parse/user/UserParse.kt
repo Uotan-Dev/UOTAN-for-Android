@@ -1,7 +1,6 @@
 package com.gustate.uotan.utils.parse.user
 
-import android.util.Log
-import com.gustate.uotan.utils.Utils.Companion.BASE_URL
+import com.gustate.uotan.utils.Utils.Companion.baseUrl
 import com.gustate.uotan.utils.Utils.Companion.Cookies
 import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
 import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
@@ -168,7 +167,7 @@ class UserParse {
             val requestBody = MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("_xfToken", xfToken)
-                .addFormDataPart("_xfRedirect", BASE_URL + url)
+                .addFormDataPart("_xfRedirect", baseUrl + url)
                 .addFormDataPart("_xfRequestUri", "${url}follow")
                 .addFormDataPart("_xfWithData", "1")
                 .addFormDataPart("_xfToken", xfToken)
@@ -176,10 +175,10 @@ class UserParse {
                 .build()
             // 创建 Request
             val request = Request.Builder()
-                .url("${BASE_URL + url}follow")
+                .url("${baseUrl + url}follow")
                 .addHeader("Cookie", cookiesString)
                 .addHeader("User-Agent", USER_AGENT)
-                .addHeader("Origin", BASE_URL)
+                .addHeader("Origin", baseUrl)
                 .addHeader("Referer", url)
                 .addHeader(
                     "Accept",
@@ -194,7 +193,6 @@ class UserParse {
                     .execute()
                 return@withContext execute.isSuccessful
             } catch (e: IOException) {
-                Log.e("io_e", e.toString())
                 return@withContext false
             }
         }
@@ -204,7 +202,7 @@ class UserParse {
          */
         private suspend fun getMemberDoc(url: String): Document = withContext(Dispatchers.IO) {
             val document = Jsoup
-                .connect(BASE_URL + url)
+                .connect(baseUrl + url)
                 .cookies(Cookies)
                 .userAgent(USER_AGENT)
                 .timeout(TIMEOUT_MS)

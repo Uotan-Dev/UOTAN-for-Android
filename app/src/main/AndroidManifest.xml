@@ -17,6 +17,7 @@
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:name=".App"
@@ -30,6 +31,15 @@
         android:supportsRtl="true"
         android:theme="@style/Base.Theme.Uotan">
         <activity
+            android:name=".section.ui.CategoriesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".settings.ui.DomainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".threads.ui.ThreadsActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activity.UserActivity"
             android:exported="false" />
         <activity
@@ -42,13 +52,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activity.MainActivity"
+            android:name=".main.ui.MainActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activity.LoginActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.activity.ArticleActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activity.SettingsActivity"
@@ -61,9 +68,6 @@
             android:exported="false" />
         <activity
             android:name=".ui.activity.ResourceActivity"
-            android:exported="false" />
-        <activity
-            android:name=".DownloadActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activity.FindUpdateActivity"

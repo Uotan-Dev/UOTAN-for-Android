@@ -2,6 +2,7 @@ package com.gustate.uotan.utils.parse.resource
 
 import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
 import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
+import com.gustate.uotan.utils.Utils.Companion.baseUrl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.jsoup.Jsoup
@@ -22,7 +23,7 @@ class ResourceRecommendParse {
         suspend fun fetchResourceRecommendData(): MutableList<ResourceRecommendItem> = withContext(Dispatchers.IO) {
             val result = mutableListOf<ResourceRecommendItem>()
             val document = Jsoup
-                .connect("https://www.uotan.cn/resources/featured")
+                .connect("$baseUrl/resources/featured")
                 .userAgent(USER_AGENT)
                 .timeout(TIMEOUT_MS)
                 .get()

@@ -52,7 +52,6 @@ class AboutActivity : BaseActivity() {
         ViewCompat.setOnApplyWindowInsetsListener(binding.main) { _, insets ->
             // 获取系统栏高度 (包含 top, bottom, left 和 right)
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            binding.back.updateLayoutParams<MarginLayoutParams> { topMargin = systemBars.top }
             binding.headerBarBlurContent.updateLayoutParams<MarginLayoutParams> { topMargin = systemBars.top }
             binding.appBarLayout.updateLayoutParams<MarginLayoutParams> { topMargin = systemBars.top }
             binding.srlRoot.setPadding(
@@ -69,19 +68,19 @@ class AboutActivity : BaseActivity() {
         binding.appInfoVerCode.text = getVersionCode(this)
 
         /** 设置监听 **/
-        openUrl(binding.coreteam1, "https://www.uotan.cn/members/2/")
-        openUrl(binding.coreteam2, "https://www.uotan.cn/members/47/")
-        openUrl(binding.coreteam3, "https://www.uotan.cn/members/256/")
-        openUrl(binding.coreteam4, "https://www.uotan.cn/members/yuzh.2414/")
-        openUrl(binding.coreteam5, "https://www.uotan.cn/members/lemo.1042/")
-        openUrl(binding.coreteam6, "https://www.uotan.cn/members/779/")
-        openUrl(binding.coreteam7, "https://www.uotan.cn/members/zach.1219/")
-        openUrl(binding.coreteam8, "https://www.uotan.cn/members/haoyang.2377/")
+        openUser(binding.coreteam1, "/members/2/")
+        openUser(binding.coreteam2, "/members/47/")
+        openUser(binding.coreteam3, "/members/256/")
+        openUser(binding.coreteam4, "/members/yuzh.2414/")
+        openUser(binding.coreteam5, "/members/lemo.1042/")
+        openUser(binding.coreteam6, "/members/779/")
+        openUser(binding.coreteam7, "/members/zach.1219/")
+        openUser(binding.coreteam8, "/members/haoyang.2377/")
         openUrl(binding.specialthanks1, "https://www.uotan.cn/pages/about/")
-        openUrl(binding.specialthanks2, "https://www.uotan.cn/members/3059/")
+        openUser(binding.specialthanks2, "/members/3059/")
         openUrl(binding.openSourceCard, "https://github.com/Uotan-Dev/UOTAN-for-Android/")
 
-        binding.back.setOnClickListener{
+        binding.toolBar.setNavigationOnClickListener {
             finish()
         }
     }
@@ -90,6 +89,17 @@ class AboutActivity : BaseActivity() {
         view.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, url.toUri())
             startActivity(intent)
+        }
+    }
+
+    private fun openUser(view: View, url: String) {
+        view.setOnClickListener {
+            startActivity(
+                Intent(
+                    this,
+                    UserActivity::class.java
+                ).putExtra("url", url)
+            )
         }
     }
 

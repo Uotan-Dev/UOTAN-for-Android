@@ -2,6 +2,19 @@
     xmlns:window="http://schemas.android.com/apk/res-auto">
 
     <!-- Define a split for the named activities. -->
+<!--    <SplitPairRule-->
+<!--        window:splitRatio="0.38"-->
+<!--        window:splitLayoutDirection="locale"-->
+<!--        window:splitMinWidthDp="840"-->
+<!--        window:splitMaxAspectRatioInPortrait="alwaysAllow"-->
+<!--        window:finishPrimaryWithSecondary="never"-->
+<!--        window:finishSecondaryWithPrimary="always"-->
+<!--        window:clearTop="false">-->
+<!--        <SplitPairFilter-->
+<!--            window:primaryActivityName=".activity.MainActivity"-->
+<!--            window:secondaryActivityName=".activity.ArticleActivity"/>-->
+<!--    </SplitPairRule>-->
+
     <SplitPairRule
         window:splitRatio="0.38"
         window:splitLayoutDirection="locale"
@@ -11,20 +24,20 @@
         window:finishSecondaryWithPrimary="always"
         window:clearTop="false">
         <SplitPairFilter
-            window:primaryActivityName=".activity.MainActivity"
-            window:secondaryActivityName=".activity.ArticleActivity"/>
-    </SplitPairRule>
-
-    <SplitPairRule
-        window:splitRatio="0.38"
-        window:splitMinWidthDp="840"
-        window:splitMaxAspectRatioInPortrait="alwaysAllow"
-        window:finishPrimaryWithSecondary="never"
-        window:finishSecondaryWithPrimary="always"
-        window:clearTop="false">
+            window:primaryActivityName=".ui.activity.SettingsActivity"
+            window:secondaryActivityName=".ui.activity.AboutActivity" />
         <SplitPairFilter
-            window:primaryActivityName=".activity.SettingsActivity"
-            window:secondaryActivityName=".activity.AboutActivity" />
+            window:primaryActivityName=".ui.activity.SettingsActivity"
+            window:secondaryActivityName=".ui.activity.UpdaterActivity" />
+        <SplitPairFilter
+            window:primaryActivityName=".ThemeActivity"
+            window:secondaryActivityName=".ThemeActivity" />
+        <SplitPairFilter
+            window:primaryActivityName=".ui.activity.SettingsActivity"
+            window:secondaryActivityName=".settings.ui.DomainActivity" />
+        <SplitPairFilter
+            window:primaryActivityName=".ui.activity.SettingsActivity"
+            window:secondaryActivityName=".AgreementPolicyActivity" />
     </SplitPairRule>
 
     <!-- Specify a placeholder for the secondary container when content is

@@ -9,7 +9,6 @@ import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Environment
-import android.util.Log
 import android.view.Window
 import android.view.WindowManager
 import android.widget.TextView
@@ -43,7 +42,7 @@ class Utils {
 
     companion object {
         const val REQUEST_CODE_PERMISSION = 100
-        const val BASE_URL = "https://www.uotan.cn"
+        var baseUrl = "https://www.uotan.cn"
         const val USER_AGENT = "UotanAPP/1.0"
         const val TIMEOUT_MS = 300000
 
@@ -110,7 +109,7 @@ class Utils {
         }
 
         fun idToAvatar(id: String): String {
-            val urlPrefix = "$BASE_URL/data/avatars/o/"
+            val urlPrefix = "$baseUrl/data/avatars/o/"
             val path = if (id.length >= 4) {
                 id.dropLast(3)
             } else {
@@ -120,12 +119,17 @@ class Utils {
             return avatarUrl
         }
 
+        fun convertCookiesToString(cookies: Map<String, String>): String {
+            return cookies.entries.joinToString("; ") { "${it.key}=${it.value}" }
+        }
+
         fun htmlToSpan(textView: TextView, html: String) {
             val processedHtml = html
                 .replace("<div[^>]*>".toRegex(), "")
                 .replace("</div>", "<br>")
                 .replace("&nbsp;", " ")
-            EasyImageGetter.create()
+            EasyImageGetter
+                .create()
                 .setPlaceHolder(R.drawable.ic_uo)
                 .setLoader { url ->
                     if (textView.width == 0) return@setLoader null
@@ -156,7 +160,6 @@ class Utils {
             try {
                 // 0. 检查外部存储是否可用
                 if (context.getExternalFilesDir(null) == null) {
-                    Log.e("FileSave", "External storage not available")
                     return@withContext null
                 }
 
@@ -181,7 +184,6 @@ class Utils {
                 }
                 outputFile
             } catch (e: Exception) {
-                Log.e("err", e.toString())
                 null
             }
         }
@@ -219,7 +221,7 @@ class Utils {
                 .setTitle(title)
                 .setDescription(message ?: "Unknown error")
                 .setCancelText(context.getString(R.string.cancel))
-                .setCancelText(context.getString(R.string.share))
+                .setConfirmText(context.getString(R.string.share))
                 .withOnCancel { errorDialog.dismiss() }
                 .withOnConfirm {
                     val share = Intent.createChooser(Intent().apply {

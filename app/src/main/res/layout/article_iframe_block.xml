@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.gustate.uotan.view.smooth.SmoothCornerLayout
+        android:id="@+id/card_iframe"
+        android:layout_width="0dp"
+        android:layout_height="240dp"
+        android:layout_marginBottom="12dp"
+        app:cornerRadius="12dp"
+        app:smoothness="0.618"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <WebView
+            android:id="@+id/web_iframe"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </com.gustate.uotan.view.smooth.SmoothCornerLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

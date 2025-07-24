@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -11,10 +13,20 @@ android {
         applicationId = "com.gustate.uotan"
         minSdk = 31
         targetSdk = 35
-        versionCode = 1023
-        versionName = "1.0.2.3 Beta"
+        versionCode = 1036
+        versionName = "1.0.3.6 Beta"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        // 定义密钥字段
+        val localPropertiesFile = rootProject.file("local.properties")
+        val localProperties = Properties().apply {
+            if (localPropertiesFile.exists()) {
+                load(localPropertiesFile.inputStream())
+            }
+        }
+        val xfApiKey = localProperties.getProperty("xf.api.key") ?: "\"MISSING_API_KEY\""
+        buildConfigField("String", "xfApiKey", xfApiKey)
     }
 
     buildTypes {
@@ -35,6 +47,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
@@ -72,8 +85,6 @@ dependencies {
     // OkHttp (https://github.com/square/okhttp)
     implementation(libs.okhttp)
 
-
-
     // SmartRefreshLayout (https://github.com/scwang90/SmartRefreshLayout)
     implementation(libs.refreshlayout)
     implementation(libs.refreshlayout.classicsheader)
@@ -98,4 +109,12 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    implementation(libs.androidx.paging.common)
+    implementation(libs.androidx.paging.runtime)
+
+    implementation(libs.fadingedgelayout)
+    implementation(libs.blurview)
+
+    implementation(project(":imageviewer"))
 }

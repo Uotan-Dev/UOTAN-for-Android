@@ -222,4 +222,13 @@
     <string name="coreteam_03">MJW</string>
     <string name="none_post">投稿はありません</string>
     <string name="loading">ロード中</string>
+    <string name="recommend_open_source_project">オープンソースプロジェクトの推奨</string>
+    <string name="wuhan_ossp_wuhan_2024">2024 年武漢市優秀オープンソースソフトウェアプロジェクトとオープンソースコミュニティ</string>
+    <string name="domain_name_and_proxy">ドメイン名とエージェント</string>
+    <string name="domain_customization">ドメイン名のカスタマイズ</string>
+    <string name="disable_ssl_authentication">SSL 認証を無効にする</string>
+    <string name="restart_software">ソフトウェアの再起動</string>
+    <string name="dialog_restart_ensure">修正が有効になるようにソフトウェアを再起動してください</string>
+    <string name="restart_later">後で再起動</string>
+    <string name="restart_now">今すぐ再起動</string>
 </resources>

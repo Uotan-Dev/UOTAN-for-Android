@@ -145,7 +145,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="15dp"
-            android:background="@drawable/gustatex_button_filled"
+            android:background="@drawable/uotan_btn_filled"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">

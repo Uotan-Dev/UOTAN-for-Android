@@ -17,10 +17,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.gustate.uotan.R
 import com.gustate.uotan.ui.activity.BindPhoneActivity
-import com.gustate.uotan.ui.activity.MainActivity
+import com.gustate.uotan.main.ui.MainActivity
 import com.gustate.uotan.ui.activity.UpdatePolicyActivity
 import com.gustate.uotan.gustatex.dialog.LoadingDialog
-import com.gustate.uotan.utils.Utils.Companion.BASE_URL
+import com.gustate.uotan.utils.Utils.Companion.baseUrl
 import com.gustate.uotan.utils.Utils.Companion.Cookies
 import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
 import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
@@ -265,7 +265,7 @@ class TwoStepFragment : Fragment() {
 
     private suspend fun startupTypeParse(): StartupTypeData = withContext(Dispatchers.IO) {
         // 解析网页, document 返回的就是网页 Document 对象
-        val response = Jsoup.connect(BASE_URL)
+        val response = Jsoup.connect(baseUrl)
             .userAgent(USER_AGENT)
             .timeout(TIMEOUT_MS)
             .cookies(Cookies)

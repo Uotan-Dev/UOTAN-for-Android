@@ -44,17 +44,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <com.gustate.uotan.view.smooth.SmoothCornerLayout
                         android:id="@+id/appInfoCard"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_marginStart="12dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="12dp"
-                        android:background="@drawable/gustatex_option_background_normal"
+                        android:background="@drawable/uotan_bkg_option_normal"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
+                        app:cornerRadius="@dimen/option_corner_radius"
+                        app:smoothness="@dimen/normal_smoothness"
                         tools:ignore="TextSizeCheck">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
@@ -152,7 +154,7 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/appInfoVerCodeText" />
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    </com.gustate.uotan.view.smooth.SmoothCornerLayout>
 
                     <TextView
                         android:id="@+id/coreTeamTitle"
@@ -170,19 +172,21 @@
                         app:layout_constraintTop_toBottomOf="@+id/appInfoCard"
                         tools:ignore="TextContrastCheck" />
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <com.gustate.uotan.view.smooth.SmoothCornerLayout
                         android:id="@+id/coreTeamCard"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="12dp"
-                        android:background="@drawable/gustatex_option_background_normal"
+                        android:background="@drawable/uotan_bkg_option_normal"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/coreTeamTitle">
+                        app:layout_constraintTop_toBottomOf="@+id/coreTeamTitle"
+                        app:cornerRadius="@dimen/option_corner_radius"
+                        app:smoothness="@dimen/normal_smoothness">
 
-                        <com.gustate.uotan.gustatex.view.OptionUserView
+                        <com.gustate.uotan.view.option.OptionUserView
                             android:id="@+id/coreteam1"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -193,7 +197,7 @@
                             app:optionDescribe_user="@string/coreteam_describe_01"
                             app:optionTitle_user="@string/coreteam_01" />
 
-                        <com.gustate.uotan.gustatex.view.OptionUserView
+                        <com.gustate.uotan.view.option.OptionUserView
                             android:id="@+id/coreteam2"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -204,7 +208,7 @@
                             app:optionDescribe_user="@string/coreteam_describe_02"
                             app:optionTitle_user="@string/coreteam_02" />
 
-                        <com.gustate.uotan.gustatex.view.OptionUserView
+                        <com.gustate.uotan.view.option.OptionUserView
                             android:id="@+id/coreteam3"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -215,7 +219,7 @@
                             app:optionDescribe_user="@string/coreteam_describe_03"
                             app:optionTitle_user="@string/coreteam_03" />
 
-                        <com.gustate.uotan.gustatex.view.OptionUserView
+                        <com.gustate.uotan.view.option.OptionUserView
                             android:id="@+id/coreteam4"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -226,7 +230,7 @@
                             app:optionDescribe_user="@string/coreteam_describe_04"
                             app:optionTitle_user="@string/coreteam_04" />
 
-                        <com.gustate.uotan.gustatex.view.OptionUserView
+                        <com.gustate.uotan.view.option.OptionUserView
                             android:id="@+id/coreteam5"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -237,7 +241,7 @@
                             app:optionDescribe_user="@string/coreteam_describe_05"
                             app:optionTitle_user="@string/coreteam_05" />
 
-                        <com.gustate.uotan.gustatex.view.OptionUserView
+                        <com.gustate.uotan.view.option.OptionUserView
                             android:id="@+id/coreteam6"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -248,7 +252,7 @@
                             app:optionDescribe_user="@string/coreteam_describe_06"
                             app:optionTitle_user="@string/coreteam_06" />
 
-                        <com.gustate.uotan.gustatex.view.OptionUserView
+                        <com.gustate.uotan.view.option.OptionUserView
                             android:id="@+id/coreteam7"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -259,7 +263,7 @@
                             app:optionDescribe_user="@string/coreteam_describe_07"
                             app:optionTitle_user="@string/coreteam_07" />
 
-                        <com.gustate.uotan.gustatex.view.OptionUserView
+                        <com.gustate.uotan.view.option.OptionUserView
                             android:id="@+id/coreteam8"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -269,7 +273,7 @@
                             app:optionAvatar_user="@drawable/avatar_coreteam_08"
                             app:optionDescribe_user="@string/coreteam_describe_08"
                             app:optionTitle_user="@string/coreteam_08" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    </com.gustate.uotan.view.smooth.SmoothCornerLayout>
 
                     <TextView
                         android:id="@+id/specialThanksTitle"
@@ -287,19 +291,21 @@
                         app:layout_constraintTop_toBottomOf="@+id/coreTeamCard"
                         tools:ignore="TextContrastCheck" />
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <com.gustate.uotan.view.smooth.SmoothCornerLayout
                         android:id="@+id/specialThanksCard"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="12dp"
-                        android:background="@drawable/gustatex_option_background_normal"
+                        android:background="@drawable/uotan_bkg_option_normal"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/specialThanksTitle">
+                        app:layout_constraintTop_toBottomOf="@+id/specialThanksTitle"
+                        app:cornerRadius="@dimen/option_corner_radius"
+                        app:smoothness="@dimen/normal_smoothness">
 
-                        <com.gustate.uotan.gustatex.view.OptionUserView
+                        <com.gustate.uotan.view.option.OptionUserView
                             android:id="@+id/specialthanks1"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -310,7 +316,7 @@
                             app:optionDescribe_user="@string/specialthanks_describe_01"
                             app:optionTitle_user="@string/specialthanks_01" />
 
-                        <com.gustate.uotan.gustatex.view.OptionUserView
+                        <com.gustate.uotan.view.option.OptionUserView
                             android:id="@+id/specialthanks2"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -320,7 +326,7 @@
                             app:optionAvatar_user="@drawable/avatar_specialthanks_02"
                             app:optionDescribe_user="@string/specialthanks_describe_02"
                             app:optionTitle_user="@string/specialthanks_02" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    </com.gustate.uotan.view.smooth.SmoothCornerLayout>
 
                     <TextView
                         android:id="@+id/openSourceTitle"
@@ -336,7 +342,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/specialThanksCard"
                         tools:ignore="TextContrastCheck" />
 
-                    <com.gustate.uotan.gustatex.view.OptionTitleAndDescribeView
+                    <com.gustate.uotan.view.option.OptionTitleAndDescribeView
                         android:id="@+id/openSourceCard"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -408,11 +414,11 @@
                 android:layout_height="116dp"
                 android:background="@android:color/transparent"
                 android:fitsSystemWindows="true"
-                app:collapsedTitleGravity="center"
+                app:collapsedTitleGravity="start"
                 app:collapsedTitleTextAppearance="@style/CollapsedTitleStyle"
                 app:collapsedTitleTextColor="?attr/colorOnBackgroundPrimary"
                 app:contentScrim="@android:color/transparent"
-                app:expandedTitleMarginStart="28dp"
+                app:expandedTitleMarginStart="16dp"
                 app:expandedTitleTextAppearance="@style/ExpendedTitleStyle"
                 app:expandedTitleTextColor="?attr/colorOnBackgroundPrimary"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
@@ -428,30 +434,13 @@
                     android:layout_height="60dp"
                     android:background="@android:color/transparent"
                     android:fitsSystemWindows="true"
-                    app:contentInsetStart="0dp"
-                    app:layout_collapseMode="pin" />
+                    app:contentInsetStartWithNavigation="12dp"
+                    app:layout_collapseMode="pin"
+                    app:navigationIcon="@drawable/ic_back" />
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 
         </com.google.android.material.appbar.AppBarLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/headerBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/back"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:layout_marginStart="28dp"
-                android:layout_marginTop="20dp"
-                android:focusable="true"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_back" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

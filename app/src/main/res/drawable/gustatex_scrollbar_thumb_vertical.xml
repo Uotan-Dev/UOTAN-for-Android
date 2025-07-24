@@ -5,9 +5,7 @@
         <shape>
             <corners android:radius="40dp" />
             <size android:width="4dp" />
-            <solid
-                android:color="?attr/colorBottomNavigationBarBackground"
-                android:alpha="0.5"/>
+            <solid android:color="?attr/colorBottomNavigationBarBackground" />
         </shape>
     </item>
 </layer-list>

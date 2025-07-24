@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,10 +19,10 @@ import androidx.lifecycle.lifecycleScope
 import com.gustate.uotan.R
 import com.gustate.uotan.ui.activity.BindPhoneActivity
 import com.gustate.uotan.ui.activity.LoginActivity
-import com.gustate.uotan.ui.activity.MainActivity
+import com.gustate.uotan.main.ui.MainActivity
 import com.gustate.uotan.ui.activity.UpdatePolicyActivity
 import com.gustate.uotan.gustatex.dialog.LoadingDialog
-import com.gustate.uotan.utils.Utils.Companion.BASE_URL
+import com.gustate.uotan.utils.Utils.Companion.baseUrl
 import com.gustate.uotan.utils.Utils.Companion.Cookies
 import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
 import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
@@ -226,10 +225,10 @@ class LoginFragment : Fragment() {
                                 )
                                 // 缓存头像文件
                                 saveToExternalPrivateDir(requireContext(),
-                                    BASE_URL + userData.avatar, "user/", "avatar.jpg")
+                                    baseUrl + userData.avatar, "user/", "avatar.jpg")
                                 // 缓存封面文件
                                 saveToExternalPrivateDir(requireContext(),
-                                    BASE_URL + userData.cover, "user/", "cover.jpg")
+                                    baseUrl + userData.cover, "user/", "cover.jpg")
                                 // 回到 UI 线程
                                 withContext(Dispatchers.Main) {
                                     // 弹出登录成功提示
@@ -291,7 +290,6 @@ class LoginFragment : Fragment() {
                         catch (e: Exception) {
                             // 结束正在登录状态
                             isLoggingIn = false
-                            Log.e("err", e.toString())
                             // 回到 UI 线程
                             withContext(Dispatchers.Main) {
                                 // 弹出登录失败提示
@@ -344,7 +342,7 @@ class LoginFragment : Fragment() {
 
     private suspend fun startupTypeParse(): StartupTypeData = withContext(Dispatchers.IO) {
         // 解析网页, document 返回的就是网页 Document 对象
-        val response = Jsoup.connect(BASE_URL)
+        val response = Jsoup.connect(baseUrl)
             .userAgent(USER_AGENT)
             .timeout(TIMEOUT_MS)
             .cookies(Cookies)

@@ -1,6 +1,5 @@
 package com.gustate.uotan.section.ui
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -28,6 +27,7 @@ class SectionDataViewModel: ViewModel() {
     private lateinit var sectionData: SectionData
     private var currentPage = 1
     private var isInitialLoadDone = false
+
 
     fun loadInitialData(
         url: String,

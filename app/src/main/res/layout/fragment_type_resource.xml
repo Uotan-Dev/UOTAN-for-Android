@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/gustatex_option_background"
+                android:background="@drawable/uotan_bkg_option"
                 android:fontFamily="sans-serif-medium"
                 android:paddingStart="18dp"
                 android:paddingTop="12dp"

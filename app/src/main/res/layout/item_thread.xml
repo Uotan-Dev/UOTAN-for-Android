@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.gustate.uotan.view.smooth.SmoothCornerLayout
+        android:id="@+id/layout_item"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/uotan_bkg_option"
+        android:paddingBottom="14dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:cornerRadius="14dp"
+        app:smoothness="0.618">
+
+        <com.gustate.uotan.view.smooth.SmoothCornerLayout
+            android:id="@+id/card_cover"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:cornerRadius="8dp"
+            app:smoothness="0.618">
+
+            <ImageView
+                android:id="@+id/img_cover"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/backgrounds/scenic" />
+        </com.gustate.uotan.view.smooth.SmoothCornerLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_user"
+            android:layout_width="match_parent"
+            android:layout_height="33dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/card_cover">
+
+            <ImageView
+                android:id="@+id/img_avatar"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/avatar_account" />
+
+            <TextView
+                android:id="@+id/tv_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/user_name"
+                android:textColor="?attr/colorOnCardPrimary"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@+id/img_avatar"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/time"
+                android:textColor="?attr/colorOnCardSecondary"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tv_username" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="10dp"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-medium"
+            android:maxLines="2"
+            android:text="@string/title"
+            android:textColor="?attr/colorOnCardPrimary"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_user" />
+
+        <TextView
+            android:id="@+id/tv_describe"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="10dp"
+            android:text="@string/describe"
+            android:textColor="?attr/colorOnCardSecondary"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_topic"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="12dp"
+            android:transitionName="shared_topic"
+            app:cardBackgroundColor="?attr/colorBackground"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_describe">
+
+            <TextView
+                android:id="@+id/tv_topic"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:gravity="center"
+                android:paddingStart="6dp"
+                android:paddingEnd="6dp"
+                android:text="@string/topic"
+                android:textColor="?attr/colorOnCardSecondary"
+                android:textSize="10sp"
+                tools:ignore="SmallSp" />
+        </androidx.cardview.widget.CardView>
+
+        <ImageView
+            android:id="@+id/ico_view_count"
+            android:layout_width="13dp"
+            android:layout_height="13dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="14dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/card_topic"
+            app:srcCompat="@drawable/ic_view_count" />
+
+        <TextView
+            android:id="@+id/tv_view_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="@string/view_count"
+            android:textColor="?attr/colorOnCardSecondary"
+            android:textSize="12sp"
+            android:transitionName="shared_vc"
+            app:layout_constraintBottom_toBottomOf="@+id/ico_view_count"
+            app:layout_constraintStart_toEndOf="@+id/ico_view_count"
+            app:layout_constraintTop_toTopOf="@+id/ico_view_count" />
+
+        <ImageView
+            android:id="@+id/ico_comment_count"
+            android:layout_width="13dp"
+            android:layout_height="13dp"
+            android:layout_marginStart="30dp"
+            android:src="@drawable/ic_comment_count"
+            android:transitionName="shared_cci"
+            app:layout_constraintBottom_toBottomOf="@+id/ico_view_count"
+            app:layout_constraintStart_toEndOf="@+id/tv_view_count"
+            app:layout_constraintTop_toTopOf="@+id/ico_view_count" />
+
+        <TextView
+            android:id="@+id/tv_comment_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="@string/comment_count"
+            android:textColor="?attr/colorOnCardSecondary"
+            android:textSize="12sp"
+            android:transitionName="shared_cc"
+            app:layout_constraintBottom_toBottomOf="@+id/ico_comment_count"
+            app:layout_constraintStart_toEndOf="@+id/ico_comment_count"
+            app:layout_constraintTop_toTopOf="@+id/ico_comment_count" />
+
+    </com.gustate.uotan.view.smooth.SmoothCornerLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

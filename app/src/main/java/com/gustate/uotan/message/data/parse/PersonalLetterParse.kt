@@ -1,7 +1,7 @@
 package com.gustate.uotan.message.data.parse
 
 import com.gustate.uotan.message.data.model.PersonalLetter
-import com.gustate.uotan.utils.Utils.Companion.BASE_URL
+import com.gustate.uotan.utils.Utils.Companion.baseUrl
 import com.gustate.uotan.utils.Utils.Companion.Cookies
 import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
 import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
@@ -13,7 +13,7 @@ class PersonalLetterParse {
     suspend fun parsePersonalLetterList(userId: String, page: Int): MutableList<PersonalLetter> = withContext(Dispatchers.IO) {
         val personalLetterList = mutableListOf<PersonalLetter>()
         val document = Jsoup
-            .connect("$BASE_URL/conversations/page-$page")
+            .connect("$baseUrl/conversations/page-$page")
             .userAgent(USER_AGENT)
             .cookies(Cookies)
             .timeout(TIMEOUT_MS)

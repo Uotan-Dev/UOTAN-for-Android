@@ -17,7 +17,7 @@ import com.bumptech.glide.Glide
 import com.gustate.uotan.R
 import com.gustate.uotan.anim.TitleAnim
 import com.gustate.uotan.databinding.FragmentResBinding
-import com.gustate.uotan.utils.Utils.Companion.BASE_URL
+import com.gustate.uotan.utils.Utils.Companion.baseUrl
 import com.gustate.uotan.utils.Utils.Companion.dpToPx
 import com.gustate.uotan.utils.Utils.Companion.getThemeColor
 import com.gustate.uotan.utils.parse.resource.ResourceItem
@@ -128,7 +128,7 @@ class ResFragment : Fragment() {
             val content = trendsList[position]
             Glide
                 .with(holder.itemView.context)
-                .load(BASE_URL + content.cover)
+                .load(baseUrl + content.cover)
                 .into(holder.cover)
             holder.title.text = content.title
             holder.describe.text = content.version
@@ -177,7 +177,7 @@ class ResFragment : Fragment() {
             val content = resourceList[position]
             Glide
                 .with(holder.itemView.context)
-                .load(BASE_URL + content.cover)
+                .load(baseUrl + content.cover)
                 .into(holder.avatar)
             holder.title.text = content.title
             holder.describe.text = content.version

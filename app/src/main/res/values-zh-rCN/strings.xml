@@ -222,4 +222,13 @@
     <string name="coreteam_03">MJW</string>
     <string name="none_post">暂无帖子</string>
     <string name="loading">加载中</string>
+    <string name="recommend_open_source_project">开源项目推荐</string>
+    <string name="wuhan_ossp_wuhan_2024">2024 年武汉市优秀开源软件项目和开源社区</string>
+    <string name="domain_name_and_proxy">域名与代理</string>
+    <string name="domain_customization">域名自定义</string>
+    <string name="disable_ssl_authentication">禁用 SSL 验证</string>
+    <string name="restart_software">重启软件</string>
+    <string name="dialog_restart_ensure">请重启软件以确保修改生效</string>
+    <string name="restart_later">稍后重启</string>
+    <string name="restart_now">立即重启</string>
 </resources>

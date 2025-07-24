@@ -7,33 +7,35 @@
     android:layout_height="match_parent"
     tools:context=".ui.activity.StartupActivity">
 
-    <TextView
-        android:id="@+id/skip"
+    <com.gustate.uotan.view.smooth.SmoothCornerLayout
+        android:id="@+id/btn_skip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/gustatex_button_filled_tonal"
-        android:fontFamily="sans-serif-medium"
-        android:paddingLeft="20dp"
-        android:paddingTop="10dp"
-        android:paddingRight="20dp"
-        android:paddingBottom="10dp"
-        android:text="@string/skip"
-        android:textColor="?attr/colorOnFilledTonalButton"
-        android:textSize="14sp"
+        android:background="@drawable/uotan_btn_tonal"
+        app:cornerRadius="@dimen/normal_corner_radius"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="TextContrastCheck" />
+        app:smoothness="@dimen/normal_smoothness">
 
-    <ImageView
-        android:id="@+id/adView"
-        android:layout_width="360dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/appInfo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/skip" />
+        <TextView
+            android:id="@+id/tv_skip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/skip"
+            android:textColor="?attr/colorOnFilledTonalButton"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </com.gustate.uotan.view.smooth.SmoothCornerLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/appInfo"

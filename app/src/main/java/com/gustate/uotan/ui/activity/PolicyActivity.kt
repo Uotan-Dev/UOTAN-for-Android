@@ -9,7 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import com.gustate.uotan.BaseActivity
 import com.gustate.uotan.R
 import com.gustate.uotan.databinding.ActivityPolicyBinding
-import com.gustate.uotan.utils.Utils.Companion.BASE_URL
+import com.gustate.uotan.utils.Utils.Companion.baseUrl
 import com.gustate.uotan.utils.Utils.Companion.Cookies
 import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
 import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
@@ -54,7 +54,7 @@ class PolicyActivity : BaseActivity() {
             // 6 Cookie 使用条款
             getString(R.string.cookie_terms_of_use)
         )
-        val url = intent.getStringExtra("url") ?: "$BASE_URL/help/jfgz/"
+        val url = intent.getStringExtra("url") ?: "$baseUrl/help/jfgz/"
         val type = intent.getIntExtra("type", 0)
         val title = titleStringList[type]
         binding.collapsingToolbar.title = title

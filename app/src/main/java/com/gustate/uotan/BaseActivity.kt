@@ -6,17 +6,24 @@ import android.os.Looper
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.gustate.uotan.settings.data.SettingModel.Companion.SSL_AUTH_DISABLE_KEY
+import com.gustate.uotan.settings.data.SettingsRepository
 import com.gustate.uotan.utils.Utils.Companion.Cookies
-import com.gustate.uotan.utils.Utils.Companion.getThemeColor
 import com.gustate.uotan.utils.Utils.Companion.isLogin
 import com.gustate.uotan.utils.Utils.Companion.openImmersion
 import com.gustate.uotan.utils.parse.data.CookiesManager
-import com.scwang.smart.refresh.header.ClassicsHeader
-import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.security.SecureRandom
+import java.security.cert.X509Certificate
+import javax.net.ssl.HostnameVerifier
+import javax.net.ssl.HttpsURLConnection
+import javax.net.ssl.SSLContext
+import javax.net.ssl.SSLSession
+import javax.net.ssl.TrustManager
+import javax.net.ssl.X509TrustManager
 
 open class BaseActivity : AppCompatActivity() {
 
@@ -26,9 +33,33 @@ open class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         applyTheme()
+        val settingsRepository = SettingsRepository(this)
+
         lifecycleScope.launch {
             setCookies()
             isLogin = isLogin()
+            if (settingsRepository.getSettingByKey(SSL_AUTH_DISABLE_KEY).value.toBoolean()) {
+                val sslContext = SSLContext.getInstance("TLSv1.2")
+                sslContext.init(null, arrayOf<TrustManager>(object : X509TrustManager {
+                    override fun checkClientTrusted(
+                        chain: Array<out X509Certificate?>?,
+                        authType: String?
+                    ) { }
+
+                    override fun checkServerTrusted(
+                        chain: Array<out X509Certificate?>?,
+                        authType: String?
+                    ) { }
+
+                    override fun getAcceptedIssuers(): Array<out X509Certificate?>? {
+                        return emptyArray()
+                    }
+
+                }), SecureRandom())
+                HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.socketFactory)
+                // 4. 设置全局主机名验证器 (信任所有主机名)
+                HttpsURLConnection.setDefaultHostnameVerifier(HostnameVerifier { hostname: String?, session: SSLSession? -> true })
+            }
         }
         enableEdgeToEdge()
         openImmersion(window)

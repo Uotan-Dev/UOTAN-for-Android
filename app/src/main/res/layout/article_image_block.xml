@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="12dp">
+
+    <com.gustate.uotan.view.smooth.SmoothCornerLayout
+        android:id="@+id/card_image"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:cornerRadius="12dp"
+        app:smoothness="0.618"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/img_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+    </com.gustate.uotan.view.smooth.SmoothCornerLayout>
+
+    <TextView
+        android:id="@+id/tv_alt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:textColor="?attr/colorOnBackgroundSecondary"
+        android:textIsSelectable="true"
+        app:layout_constraintEnd_toEndOf="@+id/card_image"
+        app:layout_constraintStart_toStartOf="@+id/card_image"
+        app:layout_constraintTop_toBottomOf="@+id/card_image" />
+</androidx.constraintlayout.widget.ConstraintLayout>

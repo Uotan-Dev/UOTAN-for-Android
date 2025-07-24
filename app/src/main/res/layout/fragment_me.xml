@@ -160,15 +160,45 @@
                         app:layout_constraintStart_toEndOf="@+id/authIcon"
                         app:layout_constraintTop_toTopOf="@+id/authIcon" />
 
+                    <com.gustate.uotan.view.smooth.SmoothCornerLayout
+                        android:id="@+id/btn_clock_in"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginEnd="18dp"
+                        android:background="@drawable/uotan_btn_filled"
+                        app:cornerRadius="@dimen/normal_corner_radius"
+                        app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/linearLayout2"
+                        app:smoothness="@dimen/normal_smoothness">
+
+                        <TextView
+                            android:id="@+id/tv_clock_in"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginEnd="12dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:gravity="center"
+                            android:text="@string/daily_attendance"
+                            android:textColor="?attr/colorOnFilledButton"
+                            android:textSize="12sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                        </TextView>
+                    </com.gustate.uotan.view.smooth.SmoothCornerLayout>
+
                     <LinearLayout
                         android:id="@+id/linearLayout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginStart="18dp"
                         android:orientation="vertical"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/authText">
+                        app:layout_constraintTop_toTopOf="@+id/linearLayout2">
 
                         <TextView
                             android:id="@+id/postCount"
@@ -253,15 +283,28 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <ImageView
+                        android:id="@+id/img_tab2"
+                        android:layout_width="60dp"
+                        android:layout_height="3dp"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/rect_dialogx_material_you_dialogtap"
+                        app:layout_constraintBottom_toTopOf="@+id/resCard"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.gustate.uotan.view.smooth.SmoothCornerLayout
                         android:id="@+id/collectCard"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:layout_marginStart="12dp"
-                        android:layout_marginTop="18dp"
-                        android:background="@drawable/gustatex_option_background"
+                        android:layout_marginTop="28dp"
+                        android:background="@drawable/uotan_bkg_option"
+                        app:cornerRadius="@dimen/option_corner_radius"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:smoothness="@dimen/normal_smoothness">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/collectLayout"
@@ -295,16 +338,18 @@
                                 app:layout_constraintTop_toBottomOf="@+id/collectIcon" />
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    </com.gustate.uotan.view.smooth.SmoothCornerLayout>
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <com.gustate.uotan.view.smooth.SmoothCornerLayout
                         android:id="@+id/resCard"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:layout_marginStart="10dp"
-                        android:background="@drawable/gustatex_option_background"
+                        android:background="@drawable/uotan_bkg_option"
+                        app:cornerRadius="@dimen/option_corner_radius"
                         app:layout_constraintStart_toEndOf="@+id/collectCard"
-                        app:layout_constraintTop_toTopOf="@+id/collectCard">
+                        app:layout_constraintTop_toTopOf="@+id/collectCard"
+                        app:smoothness="@dimen/normal_smoothness">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/resLayout"
@@ -337,18 +382,20 @@
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/resIcon" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    </com.gustate.uotan.view.smooth.SmoothCornerLayout>
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <com.gustate.uotan.view.smooth.SmoothCornerLayout
                         android:id="@+id/pointsLayout"
                         android:layout_width="0dp"
                         android:layout_height="70dp"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="12dp"
-                        android:background="@drawable/gustatex_option_background"
+                        android:background="@drawable/uotan_bkg_option"
+                        app:cornerRadius="@dimen/option_corner_radius"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/resCard"
-                        app:layout_constraintTop_toTopOf="@+id/resCard">
+                        app:layout_constraintTop_toTopOf="@+id/resCard"
+                        app:smoothness="@dimen/normal_smoothness">
 
                         <ImageView
                             android:id="@+id/pointsIcon"
@@ -395,37 +442,28 @@
                             app:layout_constraintBottom_toBottomOf="@+id/uCoinsIcon"
                             app:layout_constraintStart_toEndOf="@+id/uCoinsIcon"
                             app:layout_constraintTop_toTopOf="@+id/uCoinsIcon" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    </com.gustate.uotan.view.smooth.SmoothCornerLayout>
 
                     <TextView
-                        android:id="@+id/clockIn"
+                        android:id="@+id/textView6"
                         android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_marginStart="120dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="6dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="@drawable/gustatex_button_filled"
-                        android:fontFamily="sans-serif-medium"
-                        android:gravity="center"
-                        android:text="@string/daily_attendance"
-                        android:textColor="?attr/colorOnFilledButton"
-                        android:textSize="12sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/pointsLayout"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:background="@android:color/transparent"
                         app:layout_constraintEnd_toEndOf="@+id/pointsLayout"
-                        app:layout_constraintStart_toStartOf="@+id/pointsLayout"
-                        app:layout_constraintTop_toTopOf="@+id/pointsLayout">
-
-                    </TextView>
+                        app:layout_constraintStart_toStartOf="@+id/collectCard"
+                        app:layout_constraintTop_toBottomOf="@+id/collectCard" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:paddingStart="7dp"
+                        android:paddingEnd="7dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/collectCard" />
+                        app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.core.widget.NestedScrollView>

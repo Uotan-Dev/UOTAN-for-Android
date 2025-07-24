@@ -17,9 +17,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.gustate.uotan.ui.activity.ArticleActivity
 import com.gustate.uotan.databinding.ActivitySearchResultBinding
-import com.gustate.uotan.utils.Utils.Companion.BASE_URL
+import com.gustate.uotan.threads.ui.ThreadsActivity
+import com.gustate.uotan.utils.Helpers.Companion.avatarOptions
+import com.gustate.uotan.utils.Utils.Companion.baseUrl
 import com.gustate.uotan.utils.Utils.Companion.dpToPx
 import com.gustate.uotan.utils.Utils.Companion.idToAvatar
 import com.gustate.uotan.utils.parse.search.FetchResult
@@ -44,34 +45,34 @@ class SearchResultActivity : BaseActivity() {
         }
 
         inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
-            val itemLayout: View = view.findViewById(R.id.itemLayout)
-            val coverImage: ImageView = view.findViewById(R.id.coverImage)
-            val userLayout: ConstraintLayout = view.findViewById(R.id.userLayout)
-            val avatar: ImageView = view.findViewById(R.id.userAvatar)
-            val userName: TextView = view.findViewById(R.id.userNameText)
-            val time: TextView = view.findViewById(R.id.time)
+            val itemLayout: View = view.findViewById(R.id.layout_item)
+            val coverImage: ImageView = view.findViewById(R.id.img_cover)
+            val userLayout: ConstraintLayout = view.findViewById(R.id.layout_user)
+            val avatar: ImageView = view.findViewById(R.id.img_avatar)
+            val userName: TextView = view.findViewById(R.id.tv_username)
+            val time: TextView = view.findViewById(R.id.tv_time)
             val title: TextView = view.findViewById(R.id.tv_title)
-            val describe: TextView = view.findViewById(R.id.describe)
-            val topic: TextView = view.findViewById(R.id.topic)
-            val topicCard: CardView = view.findViewById(R.id.topicCard)
-            val viewCount: TextView = view.findViewById(R.id.viewCount)
-            val viewCountIco: View = view.findViewById(R.id.viewCountIco)
-            val commentCount: TextView = view.findViewById(R.id.commentCount)
-            val commentCountIco: View = view.findViewById(R.id.commentCountIco)
+            val describe: TextView = view.findViewById(R.id.tv_describe)
+            val topic: TextView = view.findViewById(R.id.tv_topic)
+            val topicCard: CardView = view.findViewById(R.id.card_topic)
+            val viewCount: TextView = view.findViewById(R.id.tv_view_count)
+            val viewCountIco: View = view.findViewById(R.id.ico_view_count)
+            val commentCount: TextView = view.findViewById(R.id.tv_comment_count)
+            val commentCountIco: View = view.findViewById(R.id.ico_comment_count)
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.recycler_recommend_item, parent, false)
+                .inflate(R.layout.item_thread, parent, false)
             return ViewHolder(view)
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val content = searchList[position]
-            if (content.cover.isNotEmpty() && !content.cover.startsWith("http")) {
+            if (content.cover.isNotEmpty() && !content.cover.startsWith("/img")) {
                 holder.coverImage.isVisible = true
                 Glide.with(holder.itemView.context)
-                    .load(BASE_URL + content.cover)
+                    .load(baseUrl + content.cover)
                     .into(holder.coverImage)
                 val userParams = holder.userLayout.layoutParams as ViewGroup.MarginLayoutParams
                 userParams.topMargin = 12f.dpToPx(holder.itemView.context).roundToInt()
@@ -84,7 +85,7 @@ class SearchResultActivity : BaseActivity() {
             }
             Glide.with(holder.itemView.context)
                 .load(idToAvatar(content.id))
-                .error(R.drawable.avatar_account)
+                .apply(avatarOptions)
                 .into(holder.avatar)
             holder.userName.text = content.author
             holder.time.text = content.time
@@ -150,7 +151,7 @@ class SearchResultActivity : BaseActivity() {
             onItemClick = { selectedItem ->
                 startActivity(
                     Intent(
-                        this@SearchResultActivity, ArticleActivity::class.java
+                        this@SearchResultActivity, ThreadsActivity::class.java
                     ).apply {
                         putExtra("url", selectedItem.url)
                     }

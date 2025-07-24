@@ -56,13 +56,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/gustatex_option_background"
+                    android:background="@drawable/uotan_bkg_option"
                     android:overScrollMode="ifContentScrolls"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
-                        android:id="@+id/xiaomi"
+                        android:id="@+id/tab_xiaomi"
                         android:layout_width="72dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
@@ -87,11 +87,11 @@
                         android:textColor="?attr/colorOnCardSecondary"
                         android:textSize="12sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/xiaomi"
+                        app:layout_constraintTop_toBottomOf="@+id/tab_xiaomi"
                         tools:ignore="TextContrastCheck,TextSizeCheck" />
 
                     <TextView
-                        android:id="@+id/redmi"
+                        android:id="@+id/tab_redmi"
                         android:layout_width="72dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
@@ -105,7 +105,7 @@
                         tools:ignore="TextContrastCheck" />
 
                     <TextView
-                        android:id="@+id/oneplus"
+                        android:id="@+id/tab_oneplus"
                         android:layout_width="72dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
@@ -115,11 +115,11 @@
                         android:textColor="?attr/colorOnCardSecondary"
                         android:textSize="12sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/redmi"
+                        app:layout_constraintTop_toBottomOf="@+id/tab_redmi"
                         tools:ignore="TextContrastCheck" />
 
                     <TextView
-                        android:id="@+id/meizu"
+                        android:id="@+id/tab_meizu"
                         android:layout_width="72dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
@@ -129,11 +129,11 @@
                         android:textColor="?attr/colorOnCardSecondary"
                         android:textSize="12sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/oneplus"
+                        app:layout_constraintTop_toBottomOf="@+id/tab_oneplus"
                         tools:ignore="TextContrastCheck" />
 
                     <TextView
-                        android:id="@+id/mipad"
+                        android:id="@+id/tab_mipad"
                         android:layout_width="72dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
@@ -143,11 +143,11 @@
                         android:textColor="?attr/colorOnCardSecondary"
                         android:textSize="12sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/meizu"
+                        app:layout_constraintTop_toBottomOf="@+id/tab_meizu"
                         tools:ignore="TextContrastCheck,TextSizeCheck" />
 
                     <TextView
-                        android:id="@+id/redmipad"
+                        android:id="@+id/tab_redmipad"
                         android:layout_width="72dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
@@ -157,11 +157,11 @@
                         android:textColor="?attr/colorOnCardSecondary"
                         android:textSize="12sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/mipad"
+                        app:layout_constraintTop_toBottomOf="@+id/tab_mipad"
                         tools:ignore="TextContrastCheck,TextSizeCheck" />
 
                     <TextView
-                        android:id="@+id/lenovopad"
+                        android:id="@+id/tab_lenovopad"
                         android:layout_width="72dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
@@ -171,11 +171,11 @@
                         android:textColor="?attr/colorOnCardSecondary"
                         android:textSize="12sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/redmipad"
+                        app:layout_constraintTop_toBottomOf="@+id/tab_redmipad"
                         tools:ignore="TextContrastCheck,TextSizeCheck" />
 
                     <TextView
-                        android:id="@+id/xiaomi_laptop"
+                        android:id="@+id/tab_xiaomi_laptop"
                         android:layout_width="72dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
@@ -185,11 +185,11 @@
                         android:textColor="?attr/colorOnCardSecondary"
                         android:textSize="12sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/lenovopad"
+                        app:layout_constraintTop_toBottomOf="@+id/tab_lenovopad"
                         tools:ignore="TextContrastCheck" />
 
                     <TextView
-                        android:id="@+id/mijia"
+                        android:id="@+id/tab_mijia"
                         android:layout_width="72dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
@@ -199,11 +199,11 @@
                         android:textColor="?attr/colorOnCardSecondary"
                         android:textSize="12sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/xiaomi_laptop"
+                        app:layout_constraintTop_toBottomOf="@+id/tab_xiaomi_laptop"
                         tools:ignore="TextContrastCheck" />
 
                     <TextView
-                        android:id="@+id/miband"
+                        android:id="@+id/tab_miband"
                         android:layout_width="72dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
@@ -213,11 +213,11 @@
                         android:textColor="?attr/colorOnCardSecondary"
                         android:textSize="12sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/mijia"
+                        app:layout_constraintTop_toBottomOf="@+id/tab_mijia"
                         tools:ignore="TextContrastCheck,TextSizeCheck" />
 
                     <TextView
-                        android:id="@+id/miwatch"
+                        android:id="@+id/tab_miwatch"
                         android:layout_width="72dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
@@ -227,11 +227,11 @@
                         android:textColor="?attr/colorOnCardSecondary"
                         android:textSize="12sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/miband"
+                        app:layout_constraintTop_toBottomOf="@+id/tab_miband"
                         tools:ignore="TextContrastCheck,TextSizeCheck" />
 
                     <TextView
-                        android:id="@+id/windows"
+                        android:id="@+id/tab_windows"
                         android:layout_width="72dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
@@ -241,11 +241,11 @@
                         android:textColor="?attr/colorOnCardSecondary"
                         android:textSize="12sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/miwatch"
+                        app:layout_constraintTop_toBottomOf="@+id/tab_miwatch"
                         tools:ignore="TextContrastCheck,TextSizeCheck" />
 
                     <TextView
-                        android:id="@+id/system_app"
+                        android:id="@+id/tab_system_app"
                         android:layout_width="72dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
@@ -255,11 +255,11 @@
                         android:textColor="?attr/colorOnCardSecondary"
                         android:textSize="12sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/windows"
+                        app:layout_constraintTop_toBottomOf="@+id/tab_windows"
                         tools:ignore="TextContrastCheck" />
 
                     <TextView
-                        android:id="@+id/forum_services"
+                        android:id="@+id/tab_forum_services"
                         android:layout_width="72dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
@@ -271,7 +271,7 @@
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/system_app"
+                        app:layout_constraintTop_toBottomOf="@+id/tab_system_app"
                         tools:ignore="TextContrastCheck" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>

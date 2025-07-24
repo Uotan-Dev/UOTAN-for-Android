@@ -57,7 +57,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
-                    android:background="@drawable/gustatex_button_filled_tonal"
+                    android:background="@drawable/uotan_btn_tonal"
                     android:fontFamily="sans-serif-medium"
                     android:gravity="center"
                     android:text="@string/clear_search_history"
@@ -108,7 +108,7 @@
         app:layout_constraintTop_toBottomOf="@+id/statusBarView">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/searchBox"
+            android:id="@+id/btn_reply"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
@@ -116,7 +116,7 @@
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="6dp"
             android:alpha="0.6"
-            android:background="@drawable/gustatex_option_background"
+            android:background="@drawable/uotan_bkg_option"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btnSearch"
             app:layout_constraintStart_toStartOf="parent"
@@ -139,20 +139,20 @@
             android:textColor="?attr/colorOnCardPrimary"
             android:textColorHint="?attr/colorOnCardSecondary"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/searchBox"
-            app:layout_constraintEnd_toEndOf="@+id/searchBox"
-            app:layout_constraintStart_toStartOf="@+id/searchBox"
-            app:layout_constraintTop_toTopOf="@+id/searchBox" />
+            app:layout_constraintBottom_toBottomOf="@+id/btn_reply"
+            app:layout_constraintEnd_toEndOf="@+id/btn_reply"
+            app:layout_constraintStart_toStartOf="@+id/btn_reply"
+            app:layout_constraintTop_toTopOf="@+id/btn_reply" />
 
         <ImageView
-            android:id="@+id/searchIcon"
+            android:id="@+id/ico_search"
             android:layout_width="16dp"
             android:layout_height="16dp"
             android:layout_marginStart="16dp"
             android:src="@drawable/ic_search"
-            app:layout_constraintBottom_toBottomOf="@+id/searchBox"
-            app:layout_constraintStart_toStartOf="@+id/searchBox"
-            app:layout_constraintTop_toTopOf="@+id/searchBox" />
+            app:layout_constraintBottom_toBottomOf="@+id/btn_reply"
+            app:layout_constraintStart_toStartOf="@+id/btn_reply"
+            app:layout_constraintTop_toTopOf="@+id/btn_reply" />
 
         <TextView
             android:id="@+id/btnSearch"
@@ -161,7 +161,7 @@
             android:layout_marginTop="6dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="6dp"
-            android:background="@drawable/gustatex_button_filled"
+            android:background="@drawable/uotan_btn_filled"
             android:fontFamily="sans-serif-medium"
             android:gravity="center"
             android:paddingStart="24dp"

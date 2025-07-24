@@ -14,7 +14,7 @@ class SectionExpandableArticleListAdapter : ListAdapter<SectionDataItem, Section
     var isExpanded = false
         private set
     val fullList = mutableListOf<SectionDataItem>()
-    var onItemClick: ((String) -> Unit)? = null
+    var onItemClick: ((String, String) -> Unit)? = null
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val itemLayout: View = view.findViewById(R.id.itemLayout)
         val title: TextView = view.findViewById(R.id.tv_title)
@@ -36,7 +36,7 @@ class SectionExpandableArticleListAdapter : ListAdapter<SectionDataItem, Section
         val content = getItem(position)
         holder.title.text = content.title
         holder.itemLayout.setOnClickListener {
-            onItemClick?.invoke(content.link)
+            onItemClick?.invoke(content.title, content.link)
         }
     }
 }

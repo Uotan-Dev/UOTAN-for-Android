@@ -19,7 +19,7 @@ import com.gustate.uotan.utils.Utils
 import com.gustate.uotan.utils.Utils.Companion.dpToPx
 import kotlin.math.roundToInt
 
-class SectionArticleListAdapter: ListAdapter<SectionDataItem, SectionArticleListAdapter.ViewHolder>(
+class SectionArticleListAdapter : ListAdapter<SectionDataItem, SectionArticleListAdapter.ViewHolder>(
     DiffCallback()
 ) {
 
@@ -31,33 +31,32 @@ class SectionArticleListAdapter: ListAdapter<SectionDataItem, SectionArticleList
     }
 
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
-        val itemLayout: View = view.findViewById(R.id.itemLayout)
-        val coverImage: ImageView = view.findViewById(R.id.coverImage)
-        val userLayout: ConstraintLayout = view.findViewById(R.id.userLayout)
-        val avatar: ImageView = view.findViewById(R.id.userAvatar)
-        val userAvatar: CardView = view.findViewById(R.id.userAvatarCard)
-        val userName: TextView = view.findViewById(R.id.userNameText)
-        val time: TextView = view.findViewById(R.id.time)
+        val itemLayout: View = view.findViewById(R.id.layout_item)
+        val coverImage: ImageView = view.findViewById(R.id.img_cover)
+        val userLayout: ConstraintLayout = view.findViewById(R.id.layout_user)
+        val avatar: ImageView = view.findViewById(R.id.img_avatar)
+        val userName: TextView = view.findViewById(R.id.tv_username)
+        val time: TextView = view.findViewById(R.id.tv_time)
         val title: TextView = view.findViewById(R.id.tv_title)
-        val describe: TextView = view.findViewById(R.id.describe)
-        val topic: TextView = view.findViewById(R.id.topic)
-        val topicCard: CardView = view.findViewById(R.id.topicCard)
-        val viewCount: TextView = view.findViewById(R.id.viewCount)
-        val commentCount: TextView = view.findViewById(R.id.commentCount)
+        val describe: TextView = view.findViewById(R.id.tv_describe)
+        val topic: TextView = view.findViewById(R.id.tv_topic)
+        val topicCard: CardView = view.findViewById(R.id.card_topic)
+        val viewCount: TextView = view.findViewById(R.id.tv_view_count)
+        val commentCount: TextView = view.findViewById(R.id.tv_comment_count)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.recycler_recommend_item, parent, false)
+            .inflate(R.layout.item_thread, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val content = getItem(position)
-        if (content.cover.isNotEmpty() && !content.cover.startsWith("http")) {
+        if (content.cover.isNotEmpty() && !content.cover.startsWith("/img/forums/")) {
             holder.coverImage.isVisible = true
             Glide.with(holder.itemView.context)
-                .load(Utils.Companion.BASE_URL + content.cover)
+                .load(Utils.Companion.baseUrl + content.cover)
                 .into(holder.coverImage)
             val userParams = holder.userLayout.layoutParams as ViewGroup.MarginLayoutParams
             userParams.topMargin = (12f.dpToPx(holder.itemView.context)).roundToInt()
@@ -68,7 +67,6 @@ class SectionArticleListAdapter: ListAdapter<SectionDataItem, SectionArticleList
             userParams.topMargin = 0
             holder.userLayout.layoutParams = userParams
         }
-
         val avatarUrl = Utils.Companion.idToAvatar(content.id)
         Glide.with(holder.itemView.context)
             .load(avatarUrl)

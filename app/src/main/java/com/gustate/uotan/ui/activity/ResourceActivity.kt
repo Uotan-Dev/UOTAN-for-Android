@@ -7,7 +7,6 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
@@ -33,7 +32,7 @@ import com.gustate.uotan.databinding.DialogxSelectDownloadTypeBinding
 import com.gustate.uotan.ui.activity.resource.adapter.NewResourceTypeAdapter
 import com.gustate.uotan.ui.activity.resource.adapter.ResourceCommentAdapter
 import com.gustate.uotan.utils.CookieUtil
-import com.gustate.uotan.utils.Utils.Companion.BASE_URL
+import com.gustate.uotan.utils.Utils.Companion.baseUrl
 import com.gustate.uotan.utils.Utils.Companion.Cookies
 import com.gustate.uotan.utils.Utils.Companion.dpToPx
 import com.gustate.uotan.utils.Utils.Companion.errorDialog
@@ -47,7 +46,6 @@ import com.gustate.uotan.utils.parse.resource.ResourceArticleParse.Companion.get
 import com.gustate.uotan.utils.parse.resource.ResourceArticleParse.Companion.getResourceReport
 import com.gustate.uotan.utils.parse.resource.ResourceArticleParse.Companion.reportResource
 import com.gustate.uotan.utils.parse.resource.ResourceData.PurchaseData
-import com.gustate.uotan.utils.parse.resource.ResourceData.ResReportData
 import com.gustate.uotan.utils.parse.resource.ResourceData.ResourceArticle
 import com.gustate.uotan.utils.parse.resource.ResourceData.ResourceType
 import com.gustate.uotan.utils.parse.user.UserParse.Companion.follow
@@ -139,18 +137,13 @@ class ResourceActivity : BaseActivity() {
                 getString(R.string.intent_error_dialog)
             )
         }
-        CookieUtil(this, BASE_URL + url, Cookies).getSecurityInfo(
+        CookieUtil(this, baseUrl + url, Cookies).getSecurityInfo(
             onSuccess = { cookiesString, token ->
                 cookieString = cookiesString
                 xfToken = token
-                Log.i(getString(R.string.security_info),
-                    getString(R.string.security_info_log_complete))
             },
             onError = { message ->
                 errorDialog(this, getString(R.string.security_info_error), message)
-                Log.e(getString(R.string.security_info),
-                    getString(R.string.security_info_log_field))
-                Log.e(getString(R.string.security_info), message)
             }
         )
         isNotFollowAuthorColor = getThemeColor(this, R.attr.colorOnFilledButton)
@@ -199,7 +192,7 @@ class ResourceActivity : BaseActivity() {
         // 初次加载数据
         loadResData()
         binding.srlRoot.setOnRefreshListener { loadResData() }
-        binding.follow.setOnClickListener { followRes() }
+        binding.tabFollow.setOnClickListener { followRes() }
         binding.btnDownload.setOnClickListener { downloadResource(downloadUrl) }
         binding.btnComment.setOnClickListener {
             val bindingArr = DialogxAddResourceReplyBinding.inflate(layoutInflater)
@@ -242,7 +235,7 @@ class ResourceActivity : BaseActivity() {
             val share = Intent.createChooser(Intent().apply {
                 setAction(Intent.ACTION_SEND)
                 setType("text/plain")
-                putExtra(Intent.EXTRA_TEXT, BASE_URL + url)
+                putExtra(Intent.EXTRA_TEXT, baseUrl + url)
                 putExtra(Intent.EXTRA_TITLE, title)
             }, null)
             startActivity(share)
@@ -263,7 +256,7 @@ class ResourceActivity : BaseActivity() {
                     val clipboard = this@ResourceActivity.getSystemService(
                         CLIPBOARD_SERVICE) as ClipboardManager
                     // 创建 ClipData 对象（带标签和内容）
-                    val clipData = ClipData.newPlainText(title, BASE_URL + url)
+                    val clipData = ClipData.newPlainText(title, baseUrl + url)
                     // 设置到系统剪贴板
                     clipboard.setPrimaryClip(clipData)
                     Toast.makeText(this@ResourceActivity, R.string.link_copied_clipboard,
@@ -295,18 +288,18 @@ class ResourceActivity : BaseActivity() {
             if (follow) {
                 if (isFollowAuthor) {
                     isFollowAuthor = false
-                    binding.follow.background = AppCompatResources.getDrawable(
-                        this@ResourceActivity, R.drawable.gustatex_button_filled
+                    binding.tabFollow.background = AppCompatResources.getDrawable(
+                        this@ResourceActivity, R.drawable.uotan_btn_filled
                     )
-                    binding.follow.text = getString(R.string.follow)
-                    binding.follow.setTextColor(isNotFollowAuthorColor)
+                    binding.tabFollow.text = getString(R.string.follow)
+                    binding.tabFollow.setTextColor(isNotFollowAuthorColor)
                 } else {
                     isFollowAuthor = true
-                    binding.follow.background = AppCompatResources.getDrawable(
+                    binding.tabFollow.background = AppCompatResources.getDrawable(
                         this@ResourceActivity, R.drawable.gustatex_button_outline
                     )
-                    binding.follow.text = getString(R.string.following)
-                    binding.follow.setTextColor(isFollowAuthorColor)
+                    binding.tabFollow.text = getString(R.string.following)
+                    binding.tabFollow.setTextColor(isFollowAuthorColor)
                 }
             } else {
                 Toast.makeText(
@@ -367,7 +360,6 @@ class ResourceActivity : BaseActivity() {
                     }
                 }
             } catch (e: Exception) {
-                Log.e("Error", e.message ?: "")
                 withContext(Dispatchers.Main) {
                     errorDialog(this@ResourceActivity, "ERROR", e.message)
                 }
@@ -388,7 +380,7 @@ class ResourceActivity : BaseActivity() {
     private fun updateAuthorInfo(content: ResourceArticle) {
         if (content.authorAvatar.isNotEmpty())
             Glide.with(this)
-                .load(BASE_URL + content.authorAvatar)
+                .load(baseUrl + content.authorAvatar)
                 .placeholder(R.drawable.avatar_account)
                 .error(R.drawable.avatar_account)
                 .into(binding.userAvatar)
@@ -416,7 +408,7 @@ class ResourceActivity : BaseActivity() {
     private fun updateResInfo(content: ResourceArticle) {
         if (content.cover.isNotEmpty())
             Glide.with(this)
-                .load(BASE_URL + content.cover)
+                .load(baseUrl + content.cover)
                 .error(R.drawable.ic_uo)
                 .into(binding.cover)
         binding.tvTitle.text = content.title
@@ -445,12 +437,12 @@ class ResourceActivity : BaseActivity() {
      * @see ResourceArticle 数据类
      */
     private fun updateButtons(content: ResourceArticle) {
-        binding.favouriteCount.text = content.numberOfLikes
+        //binding.favouriteCount.text = content.numberOfLikes
         isReact = content.isReact
         reactUrl = content.reactUrl
         binding.btnReact.setBtnImgRes(
             selected = content.isReact,
-            trueRes = R.drawable.ic_is_react,
+            trueRes = R.drawable.ic_reacted,
             falseRes = R.drawable.ic_favourite
         )
         binding.collect.setBtnImgRes(
@@ -461,9 +453,9 @@ class ResourceActivity : BaseActivity() {
         val (backgroundRes, textRes, colorRes) = if (isFollowAuthor) {
             Triple(R.drawable.gustatex_button_outline, R.string.following, isFollowAuthorColor)
         } else {
-            Triple(R.drawable.gustatex_button_filled, R.string.follow, isNotFollowAuthorColor)
+            Triple(R.drawable.uotan_btn_filled, R.string.follow, isNotFollowAuthorColor)
         }
-        binding.follow.apply {
+        binding.tabFollow.apply {
             background = AppCompatResources.getDrawable(this@ResourceActivity, backgroundRes)
             text = getString(textRes)
             setTextColor(colorRes)
@@ -499,14 +491,14 @@ class ResourceActivity : BaseActivity() {
                     isReact = false
                     binding.btnReact.setImageDrawable(AppCompatResources.getDrawable(
                         this@ResourceActivity, R.drawable.ic_favourite))
-                    val reactCount = binding.favouriteCount.text.toString().toInt() - 1
-                    binding.favouriteCount.text = reactCount.toString()
+                    //val reactCount = binding.favouriteCount.text.toString().toInt() - 1
+                    //binding.favouriteCount.text = reactCount.toString()
                 } else {
                     isReact = true
                     binding.btnReact.setImageDrawable(AppCompatResources.getDrawable(
-                        this@ResourceActivity, R.drawable.ic_is_react))
-                    val reactCount = binding.favouriteCount.text.toString().toInt() + 1
-                    binding.favouriteCount.text = reactCount.toString()
+                        this@ResourceActivity, R.drawable.ic_reacted))
+                    //val reactCount = binding.favouriteCount.text.toString().toInt() + 1
+                    //binding.favouriteCount.text = reactCount.toString()
                 }
             } else {
                 Toast.makeText(this@ResourceActivity, R.string.operation_failed,

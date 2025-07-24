@@ -70,6 +70,11 @@
         <!-- Bottom Navigation Bar On Background Secondary -->
         <item name="colorBottomNavigationBarOnBackgroundSecondary">@color/colorBottomNavigationBarOnBackgroundSecondaryBasic</item>
 
+        <!-- Floating Button Background Normal -->
+        <item name="colorFloatingButtonBackgroundNormal">@color/colorFloatingButtonBackgroundNormalBasic</item>
+        <!-- Floating Button Background Press -->
+        <item name="colorFloatingButtonBackgroundPress">@color/colorFloatingButtonBackgroundPressBasic</item>
+
     </style>
 
     <style name="Monet.Theme.Uotan" parent="Theme.Material3.DayNight.NoActionBar">
@@ -142,6 +147,11 @@
         <!-- Bottom Navigation Bar On Background Secondary -->
         <item name="colorBottomNavigationBarOnBackgroundSecondary">@color/colorBottomNavigationBarOnBackgroundSecondaryMonet</item>
 
+        <!-- Floating Button Background Normal -->
+        <item name="colorFloatingButtonBackgroundNormal">@color/colorFloatingButtonBackgroundNormalMonet</item>
+        <!-- Floating Button Background Press -->
+        <item name="colorFloatingButtonBackgroundPress">@color/colorFloatingButtonBackgroundPressMonet</item>
+
     </style>
 
     <style name="Gustatex.Dialog" parent="Theme.AppCompat.Dialog">
@@ -152,10 +162,27 @@
         <item name="android:background">@android:color/transparent</item>
         <item name="enableEdgeToEdge">true</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
-        <item name="android:windowAnimationStyle">
-            @style/Animation.MaterialComponents.BottomSheetDialog
-        </item>
+        <item name="android:windowAnimationStyle">@style/Gustatex.Dialog.Animation</item>
         <item name="android:windowElevation">0dp</item>
+    </style>
+
+    <style name="Gustatex.Image.Dialog" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.24</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowElevation">0dp</item>
+    </style>
+
+    <style name="Gustatex.Dialog.Animation" parent="@android:style/Animation.Dialog">
+        <!-- 进入动画 -->
+        <item name="android:windowEnterAnimation">@anim/dialog_enter</item>
+
+        <!-- 退出动画 -->
+        <item name="android:windowExitAnimation">@anim/dialog_exit</item>
     </style>
 
     <style name="Gustatex.Card" parent="CardView">
@@ -170,7 +197,6 @@
 
     <style name="ExpendedTitleStyle" parent="TextAppearance.AppCompat.Title">
         <item name="android:textSize">30sp</item>
-        <item name="android:fontFamily">sans-serif</item>
     </style>
 
     <style name="ExpendedUpdaterTitleStyle" parent="TextAppearance.AppCompat.Title">

@@ -50,7 +50,7 @@ import com.gustate.uotan.databinding.ActivityPostAritcleBinding
 import com.gustate.uotan.gustatex.dialog.LoadingDialog
 import com.gustate.uotan.gustatex.view.ScrollControllerListView
 import com.gustate.uotan.gustatex.view.SelectableEditText
-import com.gustate.uotan.utils.Utils.Companion.BASE_URL
+import com.gustate.uotan.utils.Utils.Companion.baseUrl
 import com.gustate.uotan.utils.Utils.Companion.Cookies
 import com.gustate.uotan.utils.Utils.Companion.REQUEST_CODE_PERMISSION
 import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
@@ -155,10 +155,10 @@ class PostArticleActivity : BaseActivity() {
                 sectionName = data?.getStringExtra("section_name") ?: ""
                 sectionUrl = data?.getStringExtra("section_url") ?: ""
                 // 加载隐藏页面
-                binding.webView.loadUrl(BASE_URL + sectionUrl)
+                binding.webView.loadUrl(baseUrl + sectionUrl)
                 loadingDialog.show()
                 // 设置自定义 Cookies
-                setCookiesForDomain(BASE_URL + sectionUrl, Cookies)
+                setCookiesForDomain(baseUrl + sectionUrl, Cookies)
                 binding.tvSection.text = sectionName
             }
         }
@@ -465,7 +465,7 @@ class PostArticleActivity : BaseActivity() {
                         }
                         style.startsWith("img:") -> {
                             val url = style.substringAfter(":")
-                            builder.append("[img]${BASE_URL + url}[/img]")
+                            builder.append("[img]${baseUrl + url}[/img]")
                         }
                         else -> {
                             builder.append("[$style]")
@@ -627,10 +627,10 @@ class PostArticleActivity : BaseActivity() {
                 .build()
             // 创建 Request
             val request = Request.Builder()
-                .url(BASE_URL + addFileLink)
+                .url(baseUrl + addFileLink)
                 .addHeader("Cookie", cookieString)
                 .addHeader("User-Agent", USER_AGENT)
-                .addHeader("Origin", BASE_URL)
+                .addHeader("Origin", baseUrl)
                 .addHeader("Referer", addFileLink)
                 .addHeader(
                     "Accept",

@@ -90,7 +90,7 @@
         android:layout_marginTop="36dp"
         android:layout_marginEnd="30dp"
         android:alpha="0.15"
-        android:background="@drawable/gustatex_button_filled"
+        android:background="@drawable/uotan_btn_filled"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/two_step_edittext">

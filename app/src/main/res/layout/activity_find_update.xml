@@ -235,7 +235,7 @@
         android:layout_marginStart="28dp"
         android:layout_marginEnd="28dp"
         android:layout_marginBottom="28dp"
-        android:background="@drawable/gustatex_button_filled"
+        android:background="@drawable/uotan_btn_filled"
         android:fontFamily="sans-serif-medium"
         android:gravity="center"
         android:text="@string/download_update"

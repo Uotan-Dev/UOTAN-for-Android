@@ -24,7 +24,7 @@ import com.gustate.uotan.BaseActivity
 import com.gustate.uotan.R
 import com.gustate.uotan.databinding.ActivitySelectSectionBinding
 import com.gustate.uotan.gustatex.dialog.LoadingDialog
-import com.gustate.uotan.utils.Utils.Companion.BASE_URL
+import com.gustate.uotan.utils.Utils.Companion.baseUrl
 import com.gustate.uotan.utils.Utils.Companion.Cookies
 import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
 import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
@@ -61,21 +61,21 @@ class SelectSectionActivity : BaseActivity() {
         }
 
         inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
-            val item: View = view.findViewById(R.id.item)
-            val cover: ImageView = view.findViewById(R.id.coverImage)
+            val item: View = view.findViewById(R.id.layout_item)
+            val cover: ImageView = view.findViewById(R.id.img_cover)
             val title: TextView = view.findViewById(R.id.tv_title)
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.recycler_plate_item, parent, false)
+                .inflate(R.layout.recycler_section_item, parent, false)
             return ViewHolder(view)
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val content = getItem(position)
             Glide.with(holder.itemView.context)
-                .load(BASE_URL + content.sectionImageUrl)
+                .load(baseUrl + content.sectionImageUrl)
                 .error(R.drawable.ic_uo)
                 .into(holder.cover)
             holder.title.text = content.sectionName
@@ -189,21 +189,21 @@ class SelectSectionActivity : BaseActivity() {
     }
 
     private fun setupTabTextViews() {
-        tabTextViews.add(binding.xiaomi)
+        tabTextViews.add(binding.tabXiaomi)
         tabTextViews.add(binding.blackshark)
-        tabTextViews.add(binding.redmi)
-        tabTextViews.add(binding.oneplus)
-        tabTextViews.add(binding.meizu)
-        tabTextViews.add(binding.mipad)
-        tabTextViews.add(binding.redmipad)
-        tabTextViews.add(binding.lenovopad)
-        tabTextViews.add(binding.xiaomiLaptop)
-        tabTextViews.add(binding.mijia)
-        tabTextViews.add(binding.miband)
-        tabTextViews.add(binding.miwatch)
-        tabTextViews.add(binding.windows)
-        tabTextViews.add(binding.systemApp)
-        tabTextViews.add(binding.forumServices)
+        tabTextViews.add(binding.tabRedmi)
+        tabTextViews.add(binding.tabOneplus)
+        tabTextViews.add(binding.tabMeizu)
+        tabTextViews.add(binding.tabMipad)
+        tabTextViews.add(binding.tabRedmipad)
+        tabTextViews.add(binding.tabLenovopad)
+        tabTextViews.add(binding.tabXiaomiLaptop)
+        tabTextViews.add(binding.tabMijia)
+        tabTextViews.add(binding.tabMiband)
+        tabTextViews.add(binding.tabMiwatch)
+        tabTextViews.add(binding.tabWindows)
+        tabTextViews.add(binding.tabSystemApp)
+        tabTextViews.add(binding.tabForumServices)
         for (index in tabTextViews.indices) {
             tabTextViews[index].setOnClickListener { onTabClicked(index) }
         }
@@ -257,7 +257,7 @@ class SelectSectionActivity : BaseActivity() {
         // 获取当前页面的版块列表
         val sectionsList = when(section) {
             "software" -> {
-                Jsoup.connect("$BASE_URL/pages/postpage/")
+                Jsoup.connect("$baseUrl/pages/postpage/")
                     .cookies(Cookies)
                     .timeout(TIMEOUT_MS)
                     .userAgent(USER_AGENT)
@@ -272,7 +272,7 @@ class SelectSectionActivity : BaseActivity() {
                     }
             }
             "forum" -> {
-                Jsoup.connect("$BASE_URL/pages/postpage/")
+                Jsoup.connect("$baseUrl/pages/postpage/")
                     .cookies(Cookies)
                     .timeout(TIMEOUT_MS)
                     .userAgent(USER_AGENT)
@@ -282,7 +282,7 @@ class SelectSectionActivity : BaseActivity() {
                     ?.getElementsByTag("li")
             }
             else -> {
-                Jsoup.connect("$BASE_URL/pages/$section/")
+                Jsoup.connect("$baseUrl/pages/$section/")
                     .cookies(Cookies)
                     .timeout(TIMEOUT_MS)
                     .userAgent(USER_AGENT)

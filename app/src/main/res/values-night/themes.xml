@@ -71,6 +71,11 @@
         <!-- Bottom Navigation Bar On Background Secondary -->
         <item name="colorBottomNavigationBarOnBackgroundSecondary">@color/colorBottomNavigationBarOnBackgroundSecondaryBasic</item>
 
+        <!-- Floating Button Background Normal -->
+        <item name="colorFloatingButtonBackgroundNormal">@color/colorFloatingButtonBackgroundNormalBasic</item>
+        <!-- Floating Button Background Press -->
+        <item name="colorFloatingButtonBackgroundPress">@color/colorFloatingButtonBackgroundPressBasic</item>
+
     </style>
 
     <style name="Monet.Theme.Uotan" parent="Theme.Material3.DayNight.NoActionBar">
@@ -142,6 +147,11 @@
         <item name="colorBottomNavigationBarOnBackgroundPrimary">@color/colorBottomNavigationBarOnBackgroundPrimaryMonet</item>
         <!-- Bottom Navigation Bar On Background Secondary -->
         <item name="colorBottomNavigationBarOnBackgroundSecondary">@color/colorBottomNavigationBarOnBackgroundSecondaryMonet</item>
+
+        <!-- Floating Button Background Normal -->
+        <item name="colorFloatingButtonBackgroundNormal">@color/colorFloatingButtonBackgroundNormalMonet</item>
+        <!-- Floating Button Background Press -->
+        <item name="colorFloatingButtonBackgroundPress">@color/colorFloatingButtonBackgroundPressMonet</item>
 
     </style>
 

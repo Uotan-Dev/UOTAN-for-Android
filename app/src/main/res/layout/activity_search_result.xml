@@ -75,7 +75,7 @@
             app:srcCompat="@drawable/ic_back" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/searchBox"
+            android:id="@+id/btn_reply"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
@@ -83,7 +83,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="6dp"
             android:alpha="0.6"
-            android:background="@drawable/gustatex_option_background"
+            android:background="@drawable/uotan_bkg_option"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/back"
@@ -106,20 +106,20 @@
             android:paddingEnd="16dp"
             android:textColorHint="?attr/colorOnCardPrimary"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/searchBox"
-            app:layout_constraintEnd_toEndOf="@+id/searchBox"
-            app:layout_constraintStart_toStartOf="@+id/searchBox"
-            app:layout_constraintTop_toTopOf="@+id/searchBox" />
+            app:layout_constraintBottom_toBottomOf="@+id/btn_reply"
+            app:layout_constraintEnd_toEndOf="@+id/btn_reply"
+            app:layout_constraintStart_toStartOf="@+id/btn_reply"
+            app:layout_constraintTop_toTopOf="@+id/btn_reply" />
 
         <ImageView
-            android:id="@+id/searchIcon"
+            android:id="@+id/ico_search"
             android:layout_width="16dp"
             android:layout_height="16dp"
             android:layout_marginStart="16dp"
             android:src="@drawable/ic_search"
-            app:layout_constraintBottom_toBottomOf="@+id/searchBox"
-            app:layout_constraintStart_toStartOf="@+id/searchBox"
-            app:layout_constraintTop_toTopOf="@+id/searchBox" />
+            app:layout_constraintBottom_toBottomOf="@+id/btn_reply"
+            app:layout_constraintStart_toStartOf="@+id/btn_reply"
+            app:layout_constraintTop_toTopOf="@+id/btn_reply" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

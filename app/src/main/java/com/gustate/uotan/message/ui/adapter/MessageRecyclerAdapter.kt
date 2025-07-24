@@ -13,7 +13,6 @@ import com.bumptech.glide.Glide
 import com.gustate.uotan.R
 import com.gustate.uotan.message.data.model.AllMessage
 import com.gustate.uotan.utils.Helpers.Companion.avatarOptions
-import com.gustate.uotan.utils.Utils
 import com.gustate.uotan.utils.Utils.Companion.idToAvatar
 
 class MessageRecyclerAdapter : ListAdapter<AllMessage, MessageRecyclerAdapter.ViewHolder>(DiffCallback()) {

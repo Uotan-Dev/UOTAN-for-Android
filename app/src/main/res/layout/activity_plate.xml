@@ -49,7 +49,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
                         android:layout_marginEnd="12dp"
-                        android:background="@drawable/gustatex_option_background_normal"
+                        android:background="@drawable/uotan_bkg_option_normal"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
@@ -59,7 +59,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="36dp"
                             android:layout_marginEnd="16dp"
-                            android:background="@drawable/gustatex_button_filled"
+                            android:background="@drawable/uotan_btn_filled"
                             android:fontFamily="sans-serif-medium"
                             android:gravity="center"
                             android:paddingLeft="24dp"
@@ -71,70 +71,51 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="@+id/cardView5" />
 
-                        <androidx.cardview.widget.CardView
+                        <com.google.android.material.imageview.ShapeableImageView
                             android:id="@+id/cardView5"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:layout_marginStart="16dp"
-                            app:cardBackgroundColor="@android:color/transparent"
-                            app:cardCornerRadius="18dp"
-                            app:cardElevation="0dp"
-                            app:layout_constraintBottom_toBottomOf="@id/constraintLayout5"
+                            android:layout_marginTop="16dp"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/constraintLayout5">
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                            <ImageView
-                                android:id="@+id/imageView5"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent" />
-                        </androidx.cardview.widget.CardView>
+                        <TextView
+                            android:id="@+id/tvBigTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="18dp"
+                            android:fontFamily="sans-serif-black"
+                            android:text="@string/section"
+                            android:textColor="?attr/colorOnCardPrimary"
+                            android:textSize="18sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/cardView5"
+                            app:layout_constraintStart_toEndOf="@+id/cardView5"
+                            app:layout_constraintTop_toTopOf="@+id/cardView5" />
 
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/constraintLayout5"
+                        <TextView
+                            android:id="@+id/tvDescribe"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="18dp"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginBottom="18dp"
-                            app:layout_constraintBottom_toTopOf="@+id/topRecyclerView"
-                            app:layout_constraintEnd_toStartOf="@+id/bigFollow2"
-                            app:layout_constraintStart_toEndOf="@+id/cardView5"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                            <TextView
-                                android:id="@+id/tvBigTitle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="sans-serif-medium"
-                                android:text="@string/section"
-                                android:textColor="?attr/colorOnCardPrimary"
-                                android:textSize="16sp"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <TextView
-                                android:id="@+id/tvDescribe"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
-                                android:fontFamily="sans-serif-medium"
-                                android:text="@string/describe"
-                                android:textColor="?attr/colorOnCardSecondary"
-                                android:textSize="12sp"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/tvBigTitle" />
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
+                            android:layout_marginTop="12dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="@string/describe"
+                            android:textColor="?attr/colorOnCardSecondary"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toEndOf="@+id/bigFollow2"
+                            app:layout_constraintStart_toStartOf="@+id/cardView5"
+                            app:layout_constraintTop_toBottomOf="@+id/cardView5" />
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/topRecyclerView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
                             app:layout_constraintBottom_toTopOf="@+id/btnExpand"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.0"
-                            app:layout_constraintStart_toStartOf="parent" />
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tvDescribe" />
 
                         <TextView
                             android:id="@+id/btnExpand"
@@ -143,8 +124,8 @@
                             android:layout_marginStart="8dp"
                             android:layout_marginEnd="8dp"
                             android:layout_marginBottom="10dp"
-                            android:background="@drawable/gustatex_button_filled_tonal"
-                            android:fontFamily="sans-serif-black"
+                            android:background="@drawable/uotan_btn_tonal"
+                            android:fontFamily="sans-serif-medium"
                             android:gravity="center"
                             android:paddingTop="10dp"
                             android:paddingBottom="10dp"
@@ -165,6 +146,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:paddingStart="7dp"
+                    android:paddingEnd="7dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/bigTitle" />
@@ -217,6 +200,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
+
     </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 
     <view
@@ -262,7 +246,7 @@
             android:id="@+id/backButton"
             android:layout_width="22dp"
             android:layout_height="16dp"
-            android:layout_marginStart="28dp"
+            android:layout_marginStart="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -273,13 +257,13 @@
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:fontFamily="sans-serif-medium"
             android:text="@string/section"
             android:textColor="?attr/colorOnBackgroundPrimary"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/backButton"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

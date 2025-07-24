@@ -1,4 +1,7 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="text_margin">16dp</dimen>
+    <dimen name="normal_smoothness">0.618</dimen>
+    <dimen name="normal_corner_radius">14dp</dimen>
+    <dimen name="option_corner_radius">18dp</dimen>
 </resources>

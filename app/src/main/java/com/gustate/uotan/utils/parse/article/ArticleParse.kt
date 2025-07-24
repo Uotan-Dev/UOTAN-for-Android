@@ -1,12 +1,9 @@
 package com.gustate.uotan.utils.parse.article
 
-import android.content.Context
-import android.util.Log
-import com.gustate.uotan.utils.Utils.Companion.BASE_URL
+import com.gustate.uotan.utils.Utils.Companion.baseUrl
 import com.gustate.uotan.utils.Utils.Companion.Cookies
 import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
 import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
-import com.gustate.uotan.utils.Utils.Companion.errorDialog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.MultipartBody
@@ -82,7 +79,7 @@ class ArticleParse {
              * 此 Document 对象就是网页的 document
              */
             val document = Jsoup
-                .connect(BASE_URL + url)
+                .connect(baseUrl + url)
                 .userAgent(USER_AGENT)
                 .timeout(TIMEOUT_MS)
                 .cookies(Cookies)
@@ -342,7 +339,7 @@ class ArticleParse {
                 ?.attr("href")
                 ?: ""
             val numberOfLikes = if (loveLink != "") {
-                val loveDocument = Jsoup.connect("$BASE_URL$loveLink/")
+                val loveDocument = Jsoup.connect("$baseUrl$loveLink/")
                     .userAgent(USER_AGENT)
                     .timeout(TIMEOUT_MS)
                     .cookies(Cookies)
@@ -380,7 +377,7 @@ class ArticleParse {
         }
         suspend fun fetchComments(url: String, page: String): CommentData = withContext(Dispatchers.IO) {
             val result = mutableListOf<CommentItem>()
-            val document = Jsoup.connect("$BASE_URL${url.removeSuffix("/").replace(Regex("/post-\\d+$"), "")}/page-$page")
+            val document = Jsoup.connect("$baseUrl${url.removeSuffix("/").replace(Regex("/post-\\d+$"), "")}/page-$page")
                 .cookies(Cookies)
                 .timeout(TIMEOUT_MS)
                 .userAgent(USER_AGENT)
@@ -491,11 +488,11 @@ class ArticleParse {
                 .build()
             // 创建 Request
             val request = Request.Builder()
-                .url(BASE_URL + url + "add-reply")
+                .url(baseUrl + url + "add-reply")
                 .addHeader("Cookie", cookiesString)
                 .addHeader("User-Agent", USER_AGENT)
-                .addHeader("Origin", BASE_URL)
-                .addHeader("Referer", BASE_URL + url)
+                .addHeader("Origin", baseUrl)
+                .addHeader("Referer", baseUrl + url)
                 .addHeader(
                     "Accept",
                     "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
@@ -514,16 +511,11 @@ class ArticleParse {
                 } else {
                     withContext(Dispatchers.Main) {
                         onException("HTTP错误: ${response.code}\n请求头：${response.headers}\n请求内容：${response.request}")
-                        Log.e(
-                            "Comment Error",
-                            "HTTP错误: ${response.code}\n请求头：${response.headers}\n请求内容：${response.request}"
-                        )
                     }
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     onException(e.message ?: "")
-                    Log.e("Comment Error", e.message ?: "")
                 }
             }
         }
@@ -543,10 +535,10 @@ class ArticleParse {
                 .build()
             // 创建 Request
             val request = Request.Builder()
-                .url(BASE_URL + url)
+                .url(baseUrl + url)
                 .addHeader("Cookie", cookiesString)
                 .addHeader("User-Agent", USER_AGENT)
-                .addHeader("Origin", BASE_URL)
+                .addHeader("Origin", baseUrl)
                 .addHeader("Referer", url)
                 .addHeader(
                     "Accept",
@@ -583,11 +575,11 @@ class ArticleParse {
                 .addFormDataPart("_xfResponseType", "json")
                 .build()
             // 创建 Request
-            val request = Request.Builder()
-                .url(BASE_URL + url)
+           val request = Request.Builder()
+                .url("$baseUrl$url/report")
                 .addHeader("Cookie", cookiesString)
                 .addHeader("User-Agent", USER_AGENT)
-                .addHeader("Origin", BASE_URL)
+                .addHeader("Origin", baseUrl)
                 .addHeader("Referer", url)
                 .addHeader(
                     "Accept",
@@ -618,7 +610,7 @@ class ArticleParse {
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("_xfToken", xfToken)
                 .addFormDataPart("hard_delete", "1")
-                .addFormDataPart("_xfRedirect", BASE_URL.replace(".cn/", ".cn") + url)
+                .addFormDataPart("_xfRedirect", baseUrl.replace(".cn/", ".cn") + url)
                 .addFormDataPart("_xfRequestUri", deleteUrl)
                 .addFormDataPart("_xfWithData", "1")
                 .addFormDataPart("_xfToken", xfToken)
@@ -626,10 +618,10 @@ class ArticleParse {
                 .build()
             // 创建 Request
             val request = Request.Builder()
-                .url(BASE_URL + deleteUrl)
+                .url(baseUrl + deleteUrl)
                 .addHeader("Cookie", cookiesString)
                 .addHeader("User-Agent", USER_AGENT)
-                .addHeader("Origin", BASE_URL)
+                .addHeader("Origin", baseUrl)
                 .addHeader("Referer", deleteUrl)
                 .addHeader(
                     "Accept",
@@ -649,7 +641,7 @@ class ArticleParse {
         }
         suspend fun getAuthorIp(url: String): String = withContext(Dispatchers.IO) {
             val document = Jsoup
-                .connect(BASE_URL + url)
+                .connect(baseUrl + url)
                 .cookies(Cookies)
                 .timeout(TIMEOUT_MS)
                 .userAgent(USER_AGENT)
@@ -681,10 +673,10 @@ class ArticleParse {
                 .build()
             // 创建 Request
             val request = Request.Builder()
-                .url(BASE_URL + url + "save")
+                .url(baseUrl + url + "save")
                 .addHeader("Cookie", cookiesString)
                 .addHeader("User-Agent", USER_AGENT)
-                .addHeader("Origin", BASE_URL)
+                .addHeader("Origin", baseUrl)
                 .addHeader("Referer", url)
                 .addHeader(
                     "Accept",

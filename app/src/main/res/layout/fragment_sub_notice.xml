@@ -5,7 +5,7 @@
     android:id="@+id/srlRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".message.ui.sub.message.SubNoticeFragment">
+    tools:context=".message.ui.message.SubMessageFragment">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/rootScrollView"
@@ -29,12 +29,12 @@
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="12dp"
-                android:background="@drawable/gustatex_option_background_normal"
+                android:background="@drawable/uotan_bkg_option_normal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <com.gustate.uotan.gustatex.view.OptionView
+                <com.gustate.uotan.view.option.OptionView
                     android:id="@+id/optionView3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -44,7 +44,7 @@
                     app:optionIcon="@drawable/ic_option_at"
                     app:optionTitle="@string/at_my" />
 
-                <com.gustate.uotan.gustatex.view.OptionView
+                <com.gustate.uotan.view.option.OptionView
                     android:id="@+id/optionView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -54,7 +54,7 @@
                     app:optionIcon="@drawable/ic_option_like"
                     app:optionTitle="@string/received_likes" />
 
-                <com.gustate.uotan.gustatex.view.OptionView
+                <com.gustate.uotan.view.option.OptionView
                     android:id="@+id/optionView2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -64,7 +64,7 @@
                     app:optionIcon="@drawable/ic_option_follow"
                     app:optionTitle="@string/follow_me" />
 
-                <com.gustate.uotan.gustatex.view.OptionView
+                <com.gustate.uotan.view.option.OptionView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:layout_constraintEnd_toEndOf="parent"

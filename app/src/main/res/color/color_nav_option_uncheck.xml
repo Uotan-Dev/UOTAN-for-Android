@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:enterFadeDuration="800"
+    android:exitFadeDuration="800">
+    <item android:color="@android:color/transparent" android:state_pressed="false" />
+    <item android:color="?attr/colorCardPress" android:state_pressed="true" />
+</selector>

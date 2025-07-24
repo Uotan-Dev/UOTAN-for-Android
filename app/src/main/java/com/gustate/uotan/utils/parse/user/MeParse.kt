@@ -1,6 +1,6 @@
 package com.gustate.uotan.utils.parse.user
 
-import com.gustate.uotan.utils.Utils.Companion.BASE_URL
+import com.gustate.uotan.utils.Utils.Companion.baseUrl
 import com.gustate.uotan.utils.Utils.Companion.Cookies
 import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
 import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
@@ -36,7 +36,7 @@ class MeParse {
         suspend fun fetchMeData(): MeInfo = withContext(Dispatchers.IO) {
 
             // 获取推荐资源的网页 document 文档
-            val document = Jsoup.connect("$BASE_URL/account/account-details/")
+            val document = Jsoup.connect("$baseUrl/account/account-details/")
                 .userAgent(USER_AGENT)
                 .timeout(TIMEOUT_MS)
                 .cookies(Cookies)
@@ -127,7 +127,7 @@ class MeParse {
             val signature = formRows[describePosition]
                 .getElementsByClass("input")[1].text()
 
-            val perDocument = Jsoup.connect("$BASE_URL/members/$userId/")
+            val perDocument = Jsoup.connect("$baseUrl/members/$userId/")
                 .userAgent(USER_AGENT)
                 .timeout(TIMEOUT_MS)
                 .cookies(Cookies)
@@ -202,7 +202,7 @@ class MeParse {
         suspend fun doClockIn(): ClockIn = withContext(Dispatchers.IO) {
             try {
                 // 1. 先获取CSRF Token（从任意页面获取）
-                val firstResponse = Jsoup.connect(BASE_URL)
+                val firstResponse = Jsoup.connect(baseUrl)
                     .cookies(Cookies) // 需要先登录获取
                     .execute()
 
@@ -213,13 +213,13 @@ class MeParse {
                     ?: ""
 
                 // 2. 发送签到请求
-                Jsoup.connect("https://www.uotan.cn/mjc-credits/clock")
+                Jsoup.connect("$baseUrl/mjc-credits/clock")
                     .method(Connection.Method.POST)
                     .userAgent(USER_AGENT)
                     .timeout(TIMEOUT_MS)
                     .header("Content-Type", "application/x-www-form-urlencoded")
-                    .header("Origin", BASE_URL)
-                    .header("Referer", BASE_URL)
+                    .header("Origin", baseUrl)
+                    .header("Referer", baseUrl)
                     .cookies(firstResponse.cookies()) // 保持会话
                     .data("_xfToken", xfToken)
                     .execute()
@@ -231,7 +231,7 @@ class MeParse {
 
         suspend fun isClockIn(): ClockIn = withContext(Dispatchers.IO) {
             try {
-                val document = Jsoup.connect(BASE_URL)
+                val document = Jsoup.connect(baseUrl)
                     .userAgent(USER_AGENT)
                     .timeout(TIMEOUT_MS)
                     .cookies(Cookies)

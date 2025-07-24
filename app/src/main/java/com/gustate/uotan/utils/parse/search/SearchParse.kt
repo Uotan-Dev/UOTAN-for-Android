@@ -1,6 +1,6 @@
 package com.gustate.uotan.utils.parse.search
 
-import com.gustate.uotan.utils.Utils.Companion.BASE_URL
+import com.gustate.uotan.utils.Utils.Companion.baseUrl
 import com.gustate.uotan.utils.Utils.Companion.Cookies
 import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
 import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
@@ -59,14 +59,14 @@ class SearchParse {
         private suspend fun getDocument(search: String, page: String, isMePage: Boolean): Document = withContext(Dispatchers.IO) {
             return@withContext if (isMePage) {
                 Jsoup
-                    .connect("$BASE_URL/search/$search/?page=$page")
+                    .connect("$baseUrl/search/$search/?page=$page")
                     .userAgent(USER_AGENT)
                     .timeout(TIMEOUT_MS)
                     .cookies(Cookies)
                     .get()
             } else {
                 Jsoup
-                    .connect("$BASE_URL/search/${(10000..99999).random()}/?page=$page&q=$search&t=post&o=relevance")
+                    .connect("$baseUrl/search/${(10000..99999).random()}/?page=$page&q=$search&t=post&o=relevance")
                     .userAgent(USER_AGENT)
                     .timeout(TIMEOUT_MS)
                     .cookies(Cookies)

@@ -4,7 +4,6 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
@@ -23,8 +22,9 @@ import com.gustate.uotan.SearchResultActivity.SearchAdapter
 import com.gustate.uotan.anim.TitleAnim
 import com.gustate.uotan.databinding.ActivityUserBinding
 import com.gustate.uotan.gustatex.dialog.LoadingDialog
+import com.gustate.uotan.threads.ui.ThreadsActivity
 import com.gustate.uotan.utils.CookieUtil
-import com.gustate.uotan.utils.Utils.Companion.BASE_URL
+import com.gustate.uotan.utils.Utils.Companion.baseUrl
 import com.gustate.uotan.utils.Utils.Companion.Cookies
 import com.gustate.uotan.utils.Utils.Companion.dpToPx
 import com.gustate.uotan.utils.Utils.Companion.errorDialog
@@ -94,7 +94,7 @@ class UserActivity : BaseActivity() {
             onItemClick = { selectedItem ->
                 startActivity(
                     Intent(
-                        this@UserActivity, ArticleActivity::class.java
+                        this@UserActivity, ThreadsActivity::class.java
                     ).apply {
                         putExtra("url", selectedItem.url)
                     }
@@ -107,17 +107,14 @@ class UserActivity : BaseActivity() {
         if (url.isEmpty()) {
             errorDialog(this, getString(R.string.intent_error), getString(R.string.intent_error_dialog))
         }
-        cookieUtil = CookieUtil(this, BASE_URL + url, Cookies)
+        cookieUtil = CookieUtil(this, baseUrl + url, Cookies)
         cookieUtil.getSecurityInfo(
             onSuccess = { cs, xft ->
                 cookiesString = cs
                 xfToken = xft
-                Log.i("SecurityInfo", "安全信息加载完成")
             },
             onError = {
                 errorDialog(this, getString(R.string.security_info_error), it)
-                Log.e("SecurityInfo", "安全信息加载失败")
-                Log.e("SecurityInfo", it)
             }
         )
         loadProfileData(url)
@@ -125,9 +122,9 @@ class UserActivity : BaseActivity() {
             loadProfileData(url)
         }
         binding.srlContent.setOnLoadMoreListener {
-            loadUserPost("", "", BASE_URL + nextPageUrl)
+            loadUserPost("", "", baseUrl + nextPageUrl)
         }
-        binding.follow.setOnClickListener {
+        binding.tabFollow.setOnClickListener {
             if (isFollowing) {
                 Toast.makeText(
                     this,
@@ -142,26 +139,26 @@ class UserActivity : BaseActivity() {
                 if (follow) {
                     if (isFollow) {
                         isFollow = false
-                        binding.follow.background = AppCompatResources.getDrawable(
+                        binding.tabFollow.background = AppCompatResources.getDrawable(
                             this@UserActivity,
-                            R.drawable.gustatex_button_filled
+                            R.drawable.uotan_btn_filled
                         )
-                        binding.follow.text = getString(R.string.follow)
-                        binding.follow.setTextColor(colorOnFilledButton)
+                        binding.tabFollow.text = getString(R.string.follow)
+                        binding.tabFollow.setTextColor(colorOnFilledButton)
                         binding.headerFollow.background = AppCompatResources.getDrawable(
                             this@UserActivity,
-                            R.drawable.gustatex_button_filled
+                            R.drawable.uotan_btn_filled
                         )
                         binding.headerFollow.text = getString(R.string.follow)
                         binding.headerFollow.setTextColor(colorOnFilledButton)
                     } else {
                         isFollow = true
-                        binding.follow.background = AppCompatResources.getDrawable(
+                        binding.tabFollow.background = AppCompatResources.getDrawable(
                             this@UserActivity,
                             R.drawable.gustatex_button_outline
                         )
-                        binding.follow.text = getString(R.string.following)
-                        binding.follow.setTextColor(colorOnOutlineButton)
+                        binding.tabFollow.text = getString(R.string.following)
+                        binding.tabFollow.setTextColor(colorOnOutlineButton)
                         binding.headerFollow.background = AppCompatResources.getDrawable(
                             this@UserActivity,
                             R.drawable.gustatex_button_outline
@@ -202,7 +199,7 @@ class UserActivity : BaseActivity() {
             withContext(Dispatchers.Main) {
                 if (profileData.cover.isNotEmpty()) {
                     Glide.with(this@UserActivity)
-                        .load(BASE_URL + profileData.cover)
+                        .load(baseUrl + profileData.cover)
                         .error(Color.TRANSPARENT.toDrawable())
                         .into(binding.userCover)
                     binding.frameLayout.isGone = false
@@ -228,13 +225,13 @@ class UserActivity : BaseActivity() {
                     binding.resCountText.setTextColor(colorOnBackgroundSecondary)
                 }
                 Glide.with(this@UserActivity)
-                    .load(BASE_URL + profileData.avatar)
+                    .load(baseUrl + profileData.avatar)
                     .apply(RequestOptions().circleCrop())
                     .error(R.drawable.avatar_account)
                     .into(binding.headerAvatar)
                 binding.headerName.text = profileData.name
                 Glide.with(this@UserActivity)
-                    .load(BASE_URL + profileData.avatar)
+                    .load(baseUrl + profileData.avatar)
                     .apply(RequestOptions().circleCrop())
                     .error(R.drawable.avatar_account)
                     .into(binding.avatarImage)
@@ -257,21 +254,21 @@ class UserActivity : BaseActivity() {
                 binding.resCount.text = profileData.resCount
                 isFollow = profileData.isFollow
                 if (isFollow) {
-                    binding.follow.background = AppCompatResources.getDrawable(this@UserActivity,
+                    binding.tabFollow.background = AppCompatResources.getDrawable(this@UserActivity,
                         R.drawable.gustatex_button_outline)
-                    binding.follow.text = getString(R.string.following)
-                    binding.follow.setTextColor(colorOnOutlineButton)
+                    binding.tabFollow.text = getString(R.string.following)
+                    binding.tabFollow.setTextColor(colorOnOutlineButton)
                     binding.headerFollow.background = AppCompatResources.getDrawable(this@UserActivity,
                         R.drawable.gustatex_button_outline)
                     binding.headerFollow.text = getString(R.string.following)
                     binding.headerFollow.setTextColor(colorOnOutlineButton)
                 } else {
-                    binding.follow.background = AppCompatResources.getDrawable(this@UserActivity,
-                        R.drawable.gustatex_button_filled)
-                    binding.follow.text = getString(R.string.follow)
-                    binding.follow.setTextColor(colorOnFilledButton)
+                    binding.tabFollow.background = AppCompatResources.getDrawable(this@UserActivity,
+                        R.drawable.uotan_btn_filled)
+                    binding.tabFollow.text = getString(R.string.follow)
+                    binding.tabFollow.setTextColor(colorOnFilledButton)
                     binding.headerFollow.background = AppCompatResources.getDrawable(this@UserActivity,
-                        R.drawable.gustatex_button_filled)
+                        R.drawable.uotan_btn_filled)
                     binding.headerFollow.text = getString(R.string.follow)
                     binding.headerFollow.setTextColor(colorOnFilledButton)
                 }

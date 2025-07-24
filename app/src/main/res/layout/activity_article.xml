@@ -38,7 +38,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
                     android:layout_marginEnd="12dp"
-                    android:background="@drawable/gustatex_option_background_normal"
+                    android:background="@drawable/uotan_bkg_option_normal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -125,7 +125,7 @@
                             android:id="@+id/bigFollow"
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
-                            android:background="@drawable/gustatex_button_filled"
+                            android:background="@drawable/uotan_btn_filled"
                             android:fontFamily="sans-serif-medium"
                             android:gravity="center"
                             android:paddingLeft="24dp"
@@ -208,7 +208,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
                         android:layout_marginBottom="12dp"
-                        android:visibility="gone"
                         app:cardBackgroundColor="?attr/colorFilledTonalButtonNormal"
                         app:cardCornerRadius="16dp"
                         app:cardElevation="0dp"
@@ -253,7 +252,6 @@
                     android:layout_marginStart="12dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="12dp"
-                    android:visibility="gone"
                     app:cardBackgroundColor="?attr/colorErrorCard"
                     app:cardCornerRadius="16dp"
                     app:cardElevation="0dp"
@@ -410,10 +408,10 @@
                 app:layout_constraintStart_toEndOf="@+id/time" />
 
             <TextView
-                android:id="@+id/follow"
+                android:id="@+id/tab_follow"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:background="@drawable/gustatex_button_filled"
+                android:background="@drawable/uotan_btn_filled"
                 android:fontFamily="sans-serif-medium"
                 android:gravity="center"
                 android:paddingLeft="24dp"
@@ -488,9 +486,9 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:alpha="0.8"
-            android:background="@drawable/gustatex_option_background"
+            android:background="@drawable/uotan_bkg_option"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btnReact"
+            app:layout_constraintEnd_toStartOf="@+id/btn_react"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -509,17 +507,17 @@
             app:layout_constraintTop_toTopOf="@+id/btnComment" />
 
         <ImageView
-            android:id="@+id/btnReact"
+            android:id="@+id/btn_react"
             android:layout_width="17dp"
             android:layout_height="17dp"
             android:layout_marginEnd="2dp"
-            app:layout_constraintBottom_toBottomOf="@+id/comIco"
-            app:layout_constraintEnd_toStartOf="@+id/favouriteCount"
-            app:layout_constraintTop_toTopOf="@+id/comIco"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_post"
+            app:layout_constraintEnd_toStartOf="@+id/tv_react_count"
+            app:layout_constraintTop_toTopOf="@+id/btn_post"
             app:srcCompat="@drawable/ic_favourite" />
 
         <TextView
-            android:id="@+id/favouriteCount"
+            android:id="@+id/tv_react_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="-3dp"
@@ -527,21 +525,21 @@
             android:text="@string/num_zero"
             android:textColor="?attr/colorOnBackgroundSecondary"
             android:textSize="10sp"
-            app:layout_constraintEnd_toStartOf="@+id/comIco"
-            app:layout_constraintTop_toTopOf="@+id/btnReact" />
+            app:layout_constraintEnd_toStartOf="@+id/btn_post"
+            app:layout_constraintTop_toTopOf="@+id/btn_react" />
 
         <ImageView
-            android:id="@+id/comIco"
+            android:id="@+id/btn_post"
             android:layout_width="17dp"
             android:layout_height="17dp"
             android:layout_marginEnd="2dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/commentCount"
+            app:layout_constraintEnd_toStartOf="@+id/tv_post_count"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_bottom_comment" />
 
         <TextView
-            android:id="@+id/commentCount"
+            android:id="@+id/tv_post_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="-3dp"
@@ -549,22 +547,22 @@
             android:text="@string/num_zero"
             android:textColor="?attr/colorOnBackgroundSecondary"
             android:textSize="10sp"
-            app:layout_constraintEnd_toStartOf="@+id/btnShare"
-            app:layout_constraintTop_toTopOf="@+id/comIco" />
+            app:layout_constraintEnd_toStartOf="@+id/btn_share"
+            app:layout_constraintTop_toTopOf="@+id/btn_post" />
 
         <ImageView
-            android:id="@+id/btnShare"
+            android:id="@+id/btn_share"
             android:layout_width="17dp"
             android:layout_height="17dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="1dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btnMore"
+            app:layout_constraintEnd_toStartOf="@+id/btn_more"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_share" />
 
         <ImageView
-            android:id="@+id/btnMore"
+            android:id="@+id/btn_more"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
@@ -583,5 +581,14 @@
         app:layout_constraintStart_toStartOf="parent">
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/web"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
