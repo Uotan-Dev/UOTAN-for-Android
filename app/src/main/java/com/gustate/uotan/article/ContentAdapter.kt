@@ -20,7 +20,9 @@ import com.gustate.uotan.article.viewholder.ImageViewHolder
 import com.gustate.uotan.article.viewholder.TableViewHolder
 import com.gustate.uotan.article.viewholder.TextViewHolder
 
-class ContentAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ContentAdapter(
+    private val isReply: Boolean = false
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var blockList = mutableListOf<ContentBlock>()
 
@@ -56,7 +58,7 @@ class ContentAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (val block = blockList[position]) {
-            is TextBlock -> (holder as TextViewHolder).bind(block)
+            is TextBlock -> (holder as TextViewHolder).bind(block, isReply)
             is TableBlock -> (holder as TableViewHolder).bind(block)
             is ImageBlock -> {
                 imageIndex ++

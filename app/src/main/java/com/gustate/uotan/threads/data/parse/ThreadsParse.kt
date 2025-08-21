@@ -31,6 +31,15 @@ class ThreadsParse {
                 .timeout(TIMEOUT_MS)
                 .userAgent(USER_AGENT)
                 .get()
+            val pTitleElement = if (document.getElementsByClass("p-title ").first() != null)
+                document.getElementsByClass("p-title ").first()
+            else document.getElementsByClass("p-title").first()
+            // 标题
+            val title = pTitleElement
+                ?.getElementsByClass("p-title-value")
+                ?.first()
+                ?.ownText()
+                ?: ""
             val isBookMark = (document
                 .getElementsByClass("block-container lbContainer")
                 .first()
@@ -60,7 +69,7 @@ class ThreadsParse {
                 ?: ""
             val isLocked = lockedContent.isNotEmpty()
             withContext(Dispatchers.Main) {
-                onSuccess(NoApiPostInfo(isBookMark, ipAddress, isJingTie, isLocked))
+                onSuccess(NoApiPostInfo(title, isBookMark, ipAddress, isJingTie, isLocked))
             }
         } catch (throwable: Throwable) {
             withContext(Dispatchers.Main) {

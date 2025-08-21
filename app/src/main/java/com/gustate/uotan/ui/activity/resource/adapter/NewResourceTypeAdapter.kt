@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.gustate.uotan.R
 import com.gustate.uotan.databinding.RecyclerDownloadTypeBinding
-import com.gustate.uotan.utils.parse.resource.ResourceData.PurchaseData
+import com.gustate.uotan.resource.data.parse.ResourceData.PurchaseData
 import kotlin.collections.mutableListOf
 
 class NewResourceTypeAdapter(): Adapter<NewResourceTypeAdapter.ViewHolder>() {

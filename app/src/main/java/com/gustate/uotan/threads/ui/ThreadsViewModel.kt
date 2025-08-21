@@ -1,11 +1,10 @@
 package com.gustate.uotan.threads.ui
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gustate.uotan.threads.data.model.Post
-import com.gustate.uotan.threads.data.model.Thread
+import com.gustate.uotan.threads.data.model.post.PostResponse
 import com.gustate.uotan.threads.data.parse.ThreadsParse
 import com.gustate.uotan.threads.data.repository.ThreadsRepository
 import com.gustate.uotan.utils.Utils.Companion.baseUrl
@@ -21,7 +20,7 @@ class ThreadsViewModel : ViewModel() {
     private var isInitialLoadDone = false
     private val _isLastPage = MutableLiveData<Boolean>()
     // 文章内容
-    private val _threadInfo = MutableLiveData<Thread>()
+    private val _threadTitle = MutableLiveData<String>()
     private val _threadPost = MutableLiveData<Post>()
     private val _threadsAuthorIpAddress = MutableLiveData<String>()
     private val _isThreadsReact = MutableLiveData<Boolean>()
@@ -29,11 +28,11 @@ class ThreadsViewModel : ViewModel() {
     private val _isThreadsAuthorFollow = MutableLiveData<Boolean>()
     private val _threadsReactCount = MutableLiveData<Long>()
     private val _threadsReplyCount = MutableLiveData<Long>()
-
     private val _isThreadsJingTie = MutableLiveData<Boolean>()
     private val _isThreadsLocked = MutableLiveData<Boolean>()
     // 评论内容与状态
     private val _posts = MutableLiveData<List<Post>>()
+    private val _postsReply = MutableLiveData<List<PostResponse>>()
     private val _isReacting = MutableLiveData<Boolean>()
     private val _isBooking = MutableLiveData<Boolean>()
     private val _isFollowing = MutableLiveData<Boolean>()
@@ -41,23 +40,23 @@ class ThreadsViewModel : ViewModel() {
 
     // 供 View 观察的变量（不可直接修改这些变量，请修改开头为 “_” 的同名变量）
     // 文章内容
-    val threadInfo: MutableLiveData<Thread> get() = _threadInfo
-    val threadPost: MutableLiveData<Post> get() = _threadPost
-    val threadsAuthorIpAddress: MutableLiveData<String> get() = _threadsAuthorIpAddress
-    val isThreadsReact: MutableLiveData<Boolean> get() = _isThreadsReact
-    val isThreadsBookMark: MutableLiveData<Boolean> get() = _isThreadsBookMark
-    val isThreadsAuthorFollow: MutableLiveData<Boolean> get() = _isThreadsAuthorFollow
-    val threadsReactCount: MutableLiveData<Long> get() = _threadsReactCount
-    val threadsReplyCount: MutableLiveData<Long> get() = _threadsReplyCount
-
-    val isThreadsJingTie: MutableLiveData<Boolean> get() = _isThreadsJingTie
-    val isThreadsLocked: MutableLiveData<Boolean> get() = _isThreadsLocked
+    val threadTitle get() = _threadTitle
+    val threadPost get() = _threadPost
+    val threadsAuthorIpAddress get() = _threadsAuthorIpAddress
+    val isThreadsReact get() = _isThreadsReact
+    val isThreadsBookMark get() = _isThreadsBookMark
+    val isThreadsAuthorFollow get() = _isThreadsAuthorFollow
+    val threadsReactCount get() = _threadsReactCount
+    val threadsReplyCount get() = _threadsReplyCount
+    val isThreadsJingTie get() = _isThreadsJingTie
+    val isThreadsLocked get() = _isThreadsLocked
     // 评论内容与状态
-    val posts: MutableLiveData<List<Post>> get() = _posts
-    val isLastPage: MutableLiveData<Boolean> get() = _isLastPage
-    val isReacting: MutableLiveData<Boolean> get() = _isReacting
-    val isBooking: MutableLiveData<Boolean> get() = _isBooking
-    val isFollowing: MutableLiveData<Boolean> get() = _isFollowing
+    val posts get() = _posts
+    val postsReply get() = _postsReply
+    val isLastPage get() = _isLastPage
+    val isReacting get() = _isReacting
+    val isBooking get() = _isBooking
+    val isFollowing get() = _isFollowing
 
     /**
      * 初次加载主题和帖子
@@ -80,26 +79,21 @@ class ThreadsViewModel : ViewModel() {
         }
         val threadId = delPostId(threadOrPostId)
         viewModelScope.launch {
-            tr.getThread(
-                threadId,
-                onSuccess = {
-                    _threadInfo.value = it
-                }, {}
-            )
             tr.getThreadsAllPosts(
                 posts = threadId, page = currentPage,
-                onSuccess = { pl ->
-                    val mp = pl.posts.toMutableList()
+                onSuccess = {
+                    val mp = it.posts.toMutableList()
                     val th = mp[0]
                     _threadPost.value = th
                     _isThreadsReact.value = th.isReactedTo
                     _isThreadsAuthorFollow.value = th.user.isFollowed
                     _threadsReactCount.value = th.reactionScore
-                    _threadsReplyCount.value = pl.pagination.shown - 1
+                    _threadsReplyCount.value = it.pagination.shown - 1
                     mp.removeAt(0)
                     _posts.value = mp
+                    loadPostAllReply(mp)
                     _isLastPage.value =
-                        pl.pagination.lastPage <= currentPage
+                        it.pagination.lastPage <= currentPage
                     currentPage ++
                     isInitialLoadDone = true
                     onSuccess()
@@ -108,20 +102,52 @@ class ThreadsViewModel : ViewModel() {
                     onException(it)
                 }
             )
+        }
+    }
+
+    fun loadThreadInfo(
+        threadOrPostId: String,
+        isRefresh: Boolean,
+        onSuccess: () -> Unit,
+        onThrowable: (Throwable) -> Unit
+    ) {
+        val threadId = delPostId(threadOrPostId)
+        viewModelScope.launch {
             tp.parseThreadsInfo(
-                threads = threadId,
+                threadId,
                 onSuccess = {
+                    _threadTitle.value = it.title
                     _threadsAuthorIpAddress.value = it.ipAddress
                     _isThreadsBookMark.value = it.isBookMark
                     _isThreadsLocked.value = it.isLocked
                     _isThreadsJingTie.value = it.isJingTie
                 },
-                onThrowable = {
+                onThrowable
+            )
+        }
+    }
 
+    fun loadPostAllReply(newPostList: List<Post>) {
+        viewModelScope.launch {
+            tr.getPostAllReply(
+                newPostList,
+                onSuccess = {
+                    // Log.e("e", it.toString())
+                    val currentList = _postsReply.value ?: emptyList() // 处理 null 情况
+                    val newList = currentList.toMutableList().apply {
+                        addAll(it)
+                    }
+                    _postsReply.value = newList
+                },
+                onThrowable = {
+                    //Log.e("e", it.message?:" ")
                 }
             )
         }
     }
+
+    // 初始化流程 加载帖子内容与评论 -> 加载帖子信息 -> 加载评论的评论
+
 
     private fun delPostId(threadOrPostId: String): String {
         val postIdIndex = threadOrPostId.lastIndexOf("/post-")
@@ -143,10 +169,10 @@ class ThreadsViewModel : ViewModel() {
             tr.getThreadsAllPosts(
                 posts = threadId, page = currentPage,
                 onSuccess = {
-                    val mp = it.posts.toMutableList()
                     val op = _posts.value?.toMutableList()
-                    op?.addAll(mp)
+                    op?.addAll(it.posts)
                     _posts.value = op?.toList()
+                    loadPostAllReply(it.posts)
                     _isLastPage.value = it.pagination.lastPage <= currentPage
                     currentPage ++
                     onSuccess()

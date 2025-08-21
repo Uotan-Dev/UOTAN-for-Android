@@ -9,6 +9,10 @@ import android.view.Gravity
 import android.view.WindowManager
 import com.gustate.uotan.R
 import com.gustate.uotan.databinding.GustatexDialogInfoBinding
+import com.gustate.uotan.utils.Utils.Companion.dpToPx
+import com.gustate.uotan.utils.Utils.Companion.getThemeColor
+import net.center.blurview.ShapeBlurView
+import net.center.blurview.enu.BlurMode
 
 class InfoDialog(context: Context) : Dialog(context, R.style.Gustatex_Dialog) {
     private var binding: GustatexDialogInfoBinding? = null
@@ -27,12 +31,19 @@ class InfoDialog(context: Context) : Dialog(context, R.style.Gustatex_Dialog) {
         super.onCreate(savedInstanceState)
         binding = GustatexDialogInfoBinding.inflate(layoutInflater)
         binding?.root?.let { setContentView(it) }
-
+        val blurOverlay =
+            (196 shl 24) or (getThemeColor(context, R.attr.colorCardNormal) and 0x00FFFFFF)
+        binding?.blurBkg?.refreshView(
+            ShapeBlurView.build(context)
+                .setBlurMode(BlurMode.MODE_RECTANGLE)
+                .setBlurRadius(25f)
+                .setOverlayColor(blurOverlay)
+        )
         // 应用缓存的配置
         pendingTitle?.let { binding?.tvTitle?.text = it }
-        pendingDescription?.let { binding?.describe?.text = it }
-        pendingConfirm?.let { binding?.ok?.text = it }
-        pendingCancel?.let { binding?.cancel?.text = it }
+        pendingDescription?.let { binding?.tvDescribe?.text = it }
+        pendingConfirm?.let { binding?.tvOk?.text = it }
+        pendingCancel?.let { binding?.tvCancel?.text = it }
 
         initWindowSettings()
         setupClickListeners()
@@ -49,11 +60,11 @@ class InfoDialog(context: Context) : Dialog(context, R.style.Gustatex_Dialog) {
     }
 
     private fun setupClickListeners() {
-        binding?.ok?.setOnClickListener {
+        binding?.btnOk?.setOnClickListener {
             onConfirm?.invoke()
         }
 
-        binding?.cancel?.setOnClickListener {
+        binding?.btnCancel?.setOnClickListener {
             onCancel?.invoke()
         }
     }
@@ -67,19 +78,19 @@ class InfoDialog(context: Context) : Dialog(context, R.style.Gustatex_Dialog) {
     }
 
     fun setDescription(text: String): InfoDialog {
-        binding?.describe?.text = text
+        binding?.tvDescribe?.text = text
         pendingDescription = text
         return this
     }
 
     fun setConfirmText(text: String): InfoDialog {
-        binding?.ok?.text = text
+        binding?.tvOk?.text = text
         pendingConfirm = text
         return this
     }
 
     fun setCancelText(text: String): InfoDialog {
-        binding?.cancel?.text = text
+        binding?.tvCancel?.text = text
         pendingCancel = text
         return this
     }

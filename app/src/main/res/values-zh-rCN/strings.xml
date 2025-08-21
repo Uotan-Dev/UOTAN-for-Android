@@ -231,4 +231,6 @@
     <string name="dialog_restart_ensure">请重启软件以确保修改生效</string>
     <string name="restart_later">稍后重启</string>
     <string name="restart_now">立即重启</string>
+    <string name="res_details">资源详情</string>
+    <string name="historical_version">历史版本</string>
 </resources>

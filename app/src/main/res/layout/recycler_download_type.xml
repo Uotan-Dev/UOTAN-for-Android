@@ -30,7 +30,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/btnDownload"
+            android:id="@+id/btn_download"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginStart="16dp"

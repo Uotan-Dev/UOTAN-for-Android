@@ -232,11 +232,11 @@
                         android:layout_height="0dp"
                         android:layout_marginEnd="18dp"
                         android:background="@drawable/uotan_btn_filled"
-                        app:cornerRadius="@dimen/normal_corner_radius"
+                        app:scl_corner_radius="@dimen/normal_corner_radius"
                         app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/linearLayout2"
-                        app:smoothness="@dimen/normal_smoothness">
+                        app:scl_smoothness_radius="@dimen/normal_smoothness">
 
                         <TextView
                             android:id="@+id/tv_clock_in"
@@ -303,8 +303,8 @@
                         android:background="@drawable/uotan_bkg_option"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:cornerRadius="14dp"
-                        app:smoothness="0.618">
+                        app:scl_corner_radius="14dp"
+                        app:scl_smoothness_radius="0.618">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/collectLayout"
@@ -348,8 +348,8 @@
                         android:background="@drawable/uotan_bkg_option"
                         app:layout_constraintStart_toEndOf="@+id/collectCard"
                         app:layout_constraintTop_toTopOf="@+id/collectCard"
-                        app:cornerRadius="14dp"
-                        app:smoothness="0.618">
+                        app:scl_corner_radius="14dp"
+                        app:scl_smoothness_radius="0.618">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/resLayout"
@@ -394,8 +394,8 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/resCard"
                         app:layout_constraintTop_toTopOf="@+id/resCard"
-                        app:cornerRadius="14dp"
-                        app:smoothness="0.618">
+                        app:scl_corner_radius="14dp"
+                        app:scl_smoothness_radius="0.618">
 
                         <ImageView
                             android:id="@+id/pointsIcon"

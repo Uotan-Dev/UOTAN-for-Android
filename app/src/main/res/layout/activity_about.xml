@@ -29,7 +29,7 @@
             app:srlEnablePureScrollMode="true">
 
             <androidx.core.widget.NestedScrollView
-                android:id="@+id/rootScrollView"
+                android:id="@+id/nsv_resource"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fillViewport="true"
@@ -55,9 +55,8 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:cornerRadius="@dimen/option_corner_radius"
-                        app:smoothness="@dimen/normal_smoothness"
-                        tools:ignore="TextSizeCheck">
+                        app:scl_corner_radius="@dimen/option_corner_radius"
+                        app:scl_smoothness_radius="@dimen/normal_smoothness">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/appInfo"
@@ -183,8 +182,8 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/coreTeamTitle"
-                        app:cornerRadius="@dimen/option_corner_radius"
-                        app:smoothness="@dimen/normal_smoothness">
+                        app:scl_corner_radius="@dimen/option_corner_radius"
+                        app:scl_smoothness_radius="@dimen/normal_smoothness">
 
                         <com.gustate.uotan.view.option.OptionUserView
                             android:id="@+id/coreteam1"
@@ -302,8 +301,8 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/specialThanksTitle"
-                        app:cornerRadius="@dimen/option_corner_radius"
-                        app:smoothness="@dimen/normal_smoothness">
+                        app:scl_corner_radius="@dimen/option_corner_radius"
+                        app:scl_smoothness_radius="@dimen/normal_smoothness">
 
                         <com.gustate.uotan.view.option.OptionUserView
                             android:id="@+id/specialthanks1"

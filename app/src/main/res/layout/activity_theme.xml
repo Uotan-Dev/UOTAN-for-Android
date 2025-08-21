@@ -21,7 +21,7 @@
         app:srlEnablePureScrollMode="true">
 
         <androidx.core.widget.NestedScrollView
-            android:id="@+id/rootScrollView"
+            android:id="@+id/nsv_resource"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true"

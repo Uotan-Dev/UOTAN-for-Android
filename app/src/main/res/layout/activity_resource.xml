@@ -2,446 +2,306 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rootLayout"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.ResourceActivity">
+    tools:context=".resource.ui.details.ResourceActivity">
 
-    <com.scwang.smart.refresh.layout.SmartRefreshLayout
-        android:id="@+id/srlRoot"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/cdl_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <com.gustate.uotan.view.smooth.SmoothCornerLayout
+            android:id="@+id/layout_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/uotan_bkg_option_normal"
+            app:scl_corner_radius="@dimen/option_corner_radius"
+            app:scl_smoothness_radius="@dimen/normal_smoothness">
+
+            <com.gustate.uotan.view.smooth.SmoothCornerLayout
+                android:id="@+id/scl_cover"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:scl_corner_radius="@dimen/normal_corner_radius"
+                app:scl_smoothness_radius="@dimen/normal_smoothness">
+
+                <ImageView
+                    android:id="@+id/img_cover"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ImageContrastCheck"
+                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
+            </com.gustate.uotan.view.smooth.SmoothCornerLayout>
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="sans-serif-medium"
+                android:maxLines="2"
+                android:text="@string/title"
+                android:textColor="?attr/colorOnCardPrimary"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@id/scl_cover"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/scl_cover"
+                app:layout_constraintTop_toTopOf="@+id/scl_cover" />
+
+            <TextView
+                android:id="@+id/lbl_device"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/applicable_equipment"
+                android:textColor="?attr/colorOnCardSecondary"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scl_cover"
+                tools:ignore="TextContrastCheck" />
+
+            <TextView
+                android:id="@+id/tv_device"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/num_zero"
+                android:textColor="?attr/colorOnCardPrimary"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/lbl_device"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/lbl_device"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/lbl_channel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/download_channel"
+                android:textColor="?attr/colorOnCardSecondary"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_device"
+                tools:ignore="TextContrastCheck" />
+
+            <TextView
+                android:id="@+id/tv_channel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/num_zero"
+                android:textColor="?attr/colorOnCardPrimary"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/lbl_channel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/lbl_channel"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/lbl_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/file_size"
+                android:textColor="?attr/colorOnCardSecondary"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_channel"
+                tools:ignore="TextContrastCheck" />
+
+            <TextView
+                android:id="@+id/tv_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/num_zero"
+                android:textColor="?attr/colorOnCardPrimary"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/lbl_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/lbl_size"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/lbl_last"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/last_update"
+                android:textColor="?attr/colorOnCardSecondary"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_size"
+                tools:ignore="TextContrastCheck" />
+
+            <TextView
+                android:id="@+id/tv_last"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/num_zero"
+                android:textColor="?attr/colorOnCardPrimary"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/lbl_last"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/lbl_last"
+                tools:ignore="HardcodedText" />
+
+            <com.gustate.uotan.view.smooth.SmoothCornerLayout
+                android:id="@+id/btn_download"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/uotan_btn_filled"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_last"
+                app:scl_corner_radius="@dimen/option_corner_radius"
+                app:scl_smoothness_radius="0.76">
+
+                <TextView
+                    android:id="@+id/tv_download"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center"
+                    android:text="@string/download"
+                    android:textColor="?attr/colorOnFilledButton"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </com.gustate.uotan.view.smooth.SmoothCornerLayout>
+
+        </com.gustate.uotan.view.smooth.SmoothCornerLayout>
+
         <androidx.core.widget.NestedScrollView
-            android:id="@+id/rootScrollView"
+            android:id="@+id/nsv_resource"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
+            android:elevation="15dp"
             android:fillViewport="true"
-            android:paddingTop="80dp"
             android:scrollbarThumbVertical="@drawable/gustatex_scrollbar_thumb_vertical"
             android:scrollbars="vertical"
-            tools:ignore="SpeakableTextPresentCheck">
+            app:behavior_hideable="false"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/rootView"
+            <com.lihang.ShadowLayout
+                android:id="@+id/shadow_resource"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:clickable="false"
+                app:hl_cornerRadius="@dimen/option_corner_radius"
+                app:hl_layoutBackground="@android:color/transparent"
+                app:hl_shadowColor="@color/black5"
+                app:hl_shadowHiddenBottom="true"
+                app:hl_shadowHiddenLeft="true"
+                app:hl_shadowHiddenRight="true"
+                app:hl_shadowLimit="20dp"
+                app:hl_shadowOffsetY="-6dp">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/infoLayout"
+
+                <com.gustate.uotan.view.smooth.SmoothCornerLayout
+                    android:id="@+id/rootView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginEnd="12dp"
-                    android:background="@drawable/uotan_bkg_option_normal"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:layout_height="match_parent"
+                    android:background="@drawable/uotan_bkg_option"
+                    app:scl_corner_radius_tl="@dimen/option_corner_radius"
+                    app:scl_corner_radius_tr="@dimen/option_corner_radius"
+                    app:scl_smoothness_radius="@dimen/normal_smoothness">
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/cardAvatar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        app:cardCornerRadius="12dp"
+                        android:id="@+id/img_tab"
+                        android:layout_width="60dp"
+                        android:layout_height="3dp"
+                        android:layout_marginTop="10dp"
+                        app:cardBackgroundColor="?attr/colorCardPress"
+                        app:cardCornerRadius="99dp"
                         app:cardElevation="0dp"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                        <ImageView
-                            android:id="@+id/cover"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:scaleType="centerCrop"
-                            tools:ignore="ImageContrastCheck"
-                            tools:srcCompat="@tools:sample/backgrounds/scenic" />
-                    </androidx.cardview.widget.CardView>
-
-                    <TextView
-                        android:id="@+id/tv_title"
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/tab_res"
+                        style="@style/GustateX.ResTabStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="16dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:maxLines="2"
-                        android:text="@string/title"
-                        android:textColor="?attr/colorOnCardPrimary"
-                        android:textSize="16sp"
-                        app:layout_constraintBottom_toBottomOf="@id/cardAvatar"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/cardAvatar"
-                        app:layout_constraintTop_toTopOf="@+id/cardAvatar" />
+                        android:layout_marginStart="6dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/img_tab"
+                        app:tabGravity="start"
+                        app:tabUnboundedRipple="false" />
 
-                    <FrameLayout
-                        android:id="@+id/divInfo"
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/pager_res"
                         android:layout_width="0dp"
-                        android:layout_height="0.5dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginEnd="16dp"
-                        android:background="?attr/colorOnCardSecondary"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/cardAvatar" />
-
-                    <TextView
-                        android:id="@+id/lblDevice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="12dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="@string/applicable_equipment"
-                        android:textColor="?attr/colorOnCardSecondary"
-                        android:textSize="14sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/divInfo"
-                        tools:ignore="TextContrastCheck" />
-
-                    <TextView
-                        android:id="@+id/tvDevice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="@string/num_zero"
-                        android:textColor="?attr/colorOnCardPrimary"
-                        android:textSize="14sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/lblDevice"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/lblDevice"
-                        tools:ignore="HardcodedText" />
-
-                    <TextView
-                        android:id="@+id/lblChannel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="5dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="@string/download_channel"
-                        android:textColor="?attr/colorOnCardSecondary"
-                        android:textSize="14sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/lblDevice"
-                        tools:ignore="TextContrastCheck" />
-
-                    <TextView
-                        android:id="@+id/tvChannel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="@string/num_zero"
-                        android:textColor="?attr/colorOnCardPrimary"
-                        android:textSize="14sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/lblChannel"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/lblChannel"
-                        tools:ignore="HardcodedText" />
-
-                    <TextView
-                        android:id="@+id/lblSize"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="5dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="@string/file_size"
-                        android:textColor="?attr/colorOnCardSecondary"
-                        android:textSize="14sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/lblChannel"
-                        tools:ignore="TextContrastCheck" />
-
-                    <TextView
-                        android:id="@+id/tvSize"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="@string/num_zero"
-                        android:textColor="?attr/colorOnCardPrimary"
-                        android:textSize="14sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/lblSize"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/lblSize"
-                        tools:ignore="HardcodedText" />
-
-                    <TextView
-                        android:id="@+id/lblCode"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="5dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="@string/extracted_code"
-                        android:textColor="?attr/colorOnCardSecondary"
-                        android:textSize="14sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/lblSize"
-                        tools:ignore="TextContrastCheck" />
-
-                    <TextView
-                        android:id="@+id/tvCode"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="@string/num_zero"
-                        android:textColor="?attr/colorOnCardPrimary"
-                        android:textSize="14sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/lblCode"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/lblCode"
-                        tools:ignore="HardcodedText" />
-
-                    <TextView
-                        android:id="@+id/lblAuthor"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="5dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="@string/author"
-                        android:textColor="?attr/colorOnCardSecondary"
-                        android:textSize="14sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/lblCode"
-                        tools:ignore="TextContrastCheck" />
-
-                    <TextView
-                        android:id="@+id/tvAuthor"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="@string/num_zero"
-                        android:textColor="?attr/colorOnCardPrimary"
-                        android:textSize="14sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/lblAuthor"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/lblAuthor"
-                        tools:ignore="HardcodedText" />
-
-                    <TextView
-                        android:id="@+id/lblDownload"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="5dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="@string/download"
-                        android:textColor="?attr/colorOnCardSecondary"
-                        android:textSize="14sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/lblAuthor"
-                        tools:ignore="TextContrastCheck" />
-
-                    <TextView
-                        android:id="@+id/tvDownload"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="@string/num_zero"
-                        android:textColor="?attr/colorOnCardPrimary"
-                        android:textSize="14sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/lblDownload"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/lblDownload"
-                        tools:ignore="HardcodedText" />
-
-                    <TextView
-                        android:id="@+id/lblView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="5dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="@string/view"
-                        android:textColor="?attr/colorOnCardSecondary"
-                        android:textSize="14sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/lblDownload"
-                        tools:ignore="TextContrastCheck" />
-
-                    <TextView
-                        android:id="@+id/tvView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="@string/num_zero"
-                        android:textColor="?attr/colorOnCardPrimary"
-                        android:textSize="14sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/lblView"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/lblView"
-                        tools:ignore="HardcodedText" />
-
-                    <TextView
-                        android:id="@+id/lblFirst"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="5dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="@string/first_release"
-                        android:textColor="?attr/colorOnCardSecondary"
-                        android:textSize="14sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/lblView"
-                        tools:ignore="TextContrastCheck" />
-
-                    <TextView
-                        android:id="@+id/tvFirst"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="@string/num_zero"
-                        android:textColor="?attr/colorOnCardPrimary"
-                        android:textSize="14sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/lblFirst"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/lblFirst"
-                        tools:ignore="HardcodedText" />
-
-                    <TextView
-                        android:id="@+id/lblLast"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="5dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="@string/last_update"
-                        android:textColor="?attr/colorOnCardSecondary"
-                        android:textSize="14sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/lblFirst"
-                        tools:ignore="TextContrastCheck" />
-
-                    <TextView
-                        android:id="@+id/tvLast"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="@string/num_zero"
-                        android:textColor="?attr/colorOnCardPrimary"
-                        android:textSize="14sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/lblLast"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/lblLast"
-                        tools:ignore="HardcodedText" />
-
-                    <FrameLayout
-                        android:id="@+id/divBtn"
-                        android:layout_width="0dp"
-                        android:layout_height="0.5dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginEnd="16dp"
-                        android:background="?attr/colorOnCardSecondary"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tvLast" />
-
-                    <TextView
-                        android:id="@+id/btnDownload"
-                        android:layout_width="0dp"
-                        android:layout_height="50dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginBottom="16dp"
-                        android:background="@drawable/uotan_btn_filled"
-                        android:fontFamily="sans-serif-medium"
-                        android:gravity="center"
-                        android:text="@string/download"
-                        android:textColor="?attr/colorOnFilledButton"
-                        android:textSize="16sp"
+                        android:layout_height="0dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/divBtn"
-                        tools:ignore="HardcodedText,TextContrastCheck" />
+                        app:layout_constraintTop_toBottomOf="@+id/tab_res" />
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.gustate.uotan.view.smooth.SmoothCornerLayout>
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/contentLayout"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="12dp"
-                    android:background="@drawable/uotan_bkg_option_normal"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/infoLayout">
-
-                    <TextView
-                        android:id="@+id/tvContent"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginEnd="12dp"
-                        android:layout_marginBottom="12dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:lineSpacingExtra="6dp"
-                        android:textColor="?attr/colorOnBackgroundPrimary"
-                        android:textIsSelectable="true"
-                        android:textSize="16sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:ignore="SpeakableTextPresentCheck" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/contentLayout" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.lihang.ShadowLayout>
         </androidx.core.widget.NestedScrollView>
-    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 
-    <view
-        android:id="@+id/headerBarBlur"
-        class="net.center.blurview.ShapeBlurView"
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <net.center.blurview.ShapeBlurView
+        android:id="@+id/header_bar_blur"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         app:blur_overlay_color="@android:color/transparent"
         app:blur_radius="25dp"
         app:layout_constraintBottom_toBottomOf="@+id/header_bar_layout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
-        android:id="@+id/headerBarCover"
+        android:id="@+id/header_bar_cover"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:alpha="0.6"
+        android:alpha="0.9"
         android:background="?attr/colorBackground"
-        app:layout_constraintBottom_toBottomOf="@+id/headerBarBlur"
+        app:layout_constraintBottom_toBottomOf="@+id/header_bar_blur"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -456,96 +316,116 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/back"
+            android:id="@+id/btn_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="17dp"
+            android:layout_marginStart="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_back" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/header"
+            android:id="@+id/layout_user"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="18dp"
-            android:layout_marginEnd="18dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/collect"
-            app:layout_constraintStart_toEndOf="@+id/back"
+            app:layout_constraintEnd_toStartOf="@+id/btn_follow"
+            app:layout_constraintStart_toEndOf="@+id/btn_back"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/userAvatarCard"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                app:cardBackgroundColor="@android:color/transparent"
-                app:cardCornerRadius="99dp"
-                app:cardElevation="0dp"
+            <ImageView
+                android:id="@+id/img_avatar"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:id="@+id/userAvatar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    app:srcCompat="@drawable/avatar_account"
-                    tools:ignore="ImageContrastCheck" />
-
-            </androidx.cardview.widget.CardView>
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/avatar_account"
+                tools:ignore="ImageContrastCheck" />
 
             <TextView
-                android:id="@+id/userNameText"
+                android:id="@+id/tv_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="10dp"
                 android:fontFamily="sans-serif-medium"
                 android:text="@string/user_name"
                 android:textColor="?attr/colorOnBackgroundPrimary"
                 android:textFontWeight="400"
-                android:textSize="16sp"
-                app:layout_constraintStart_toEndOf="@+id/userAvatarCard"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@+id/img_avatar"
+                app:layout_constraintTop_toTopOf="@+id/img_avatar" />
 
             <TextView
-                android:id="@+id/time"
+                android:id="@+id/tv_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 android:text="@string/time"
                 android:textColor="?attr/colorOnBackgroundSecondary"
                 android:textFontWeight="400"
                 android:textSize="10sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/userAvatarCard"
+                app:layout_constraintBottom_toBottomOf="@+id/img_avatar"
+                app:layout_constraintStart_toStartOf="@+id/tv_username"
                 tools:ignore="SmallSp,TextContrastCheck" />
-
-            <TextView
-                android:id="@+id/tab_follow"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:background="@drawable/uotan_btn_filled"
-                android:gravity="center"
-                android:paddingLeft="24dp"
-                android:paddingRight="24dp"
-                android:text="@string/follow"
-                android:textColor="?attr/colorOnFilledButton"
-                android:textFontWeight="500"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="TextContrastCheck" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <ImageView
-            android:id="@+id/collect"
+        <com.gustate.uotan.view.smooth.SmoothCornerLayout
+            android:id="@+id/btn_follow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="17dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/uotan_btn_filled"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_collect"
+            app:layout_constraintTop_toTopOf="parent"
+            app:scl_corner_radius="@dimen/normal_corner_radius"
+            app:scl_smoothness_radius="@dimen/normal_smoothness">
+
+            <TextView
+                android:id="@+id/tv_follow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="18dp"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:text="@string/follow"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </com.gustate.uotan.view.smooth.SmoothCornerLayout>
+
+        <ImageView
+            android:id="@+id/loading_follow"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_follow"
+            app:layout_constraintEnd_toEndOf="@+id/btn_follow"
+            app:layout_constraintStart_toStartOf="@+id/btn_follow"
+            app:layout_constraintTop_toTopOf="@+id/btn_follow"
+            app:srcCompat="@drawable/ic_loading" />
+
+        <ImageButton
+            android:id="@+id/btn_collect"
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:layout_marginEnd="8dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/gustatex_btn_none_bkg"
+            android:foregroundGravity="center"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -553,39 +433,30 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <View
-        android:id="@+id/divBottomBar"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="?attr/colorOnCardSecondary"
-        app:layout_constraintBottom_toTopOf="@+id/bottomBarBlur"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <view
-        android:id="@+id/bottomBarBlur"
-        class="net.center.blurview.ShapeBlurView"
+    <net.center.blurview.ShapeBlurView
+        android:id="@+id/blur_bottom_bar"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        app:blur_overlay_color="@android:color/transparent"
         app:blur_radius="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/bottomBar" />
+        app:layout_constraintTop_toTopOf="@+id/layout_bottom_bar" />
 
     <View
-        android:id="@+id/bottomBarCover"
+        android:id="@+id/bkg_bottom_bar"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:alpha="0.6"
+        android:alpha="0.9"
         android:background="?attr/colorBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/bottomBarBlur" />
+        app:layout_constraintTop_toTopOf="@+id/blur_bottom_bar" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/bottomBar"
+        android:id="@+id/layout_bottom_bar"
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:layout_marginBottom="20dp"
@@ -593,99 +464,94 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/btnComment"
+        <com.gustate.uotan.view.smooth.SmoothCornerLayout
+            android:id="@+id/btn_reply"
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:alpha="0.8"
+            android:layout_marginEnd="12dp"
             android:background="@drawable/uotan_bkg_option"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btn_react"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:scl_corner_radius="@dimen/option_corner_radius"
+            app:scl_smoothness_radius="@dimen/normal_smoothness">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/tv_reply"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/please_comment"
+                android:textColor="?attr/colorOnBackgroundSecondary"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </com.gustate.uotan.view.smooth.SmoothCornerLayout>
 
-        <TextView
-            android:id="@+id/comment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="@string/please_comment"
-            android:textColor="?attr/colorOnBackgroundSecondary"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@+id/btnComment"
-            app:layout_constraintStart_toStartOf="@+id/btnComment"
-            app:layout_constraintTop_toTopOf="@+id/btnComment" />
-
-        <ImageView
+        <ImageButton
             android:id="@+id/btn_react"
-            android:layout_width="17dp"
-            android:layout_height="17dp"
-            android:layout_marginEnd="2dp"
-            app:layout_constraintBottom_toBottomOf="@+id/btn_post"
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:layout_marginEnd="-5dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/gustatex_btn_none_bkg"
+            android:contentDescription="@string/favourite_count"
+            android:foregroundGravity="center"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tv_react_count"
-            app:layout_constraintTop_toTopOf="@+id/btn_post"
-            app:srcCompat="@drawable/ic_favourite" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_favourite"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <TextView
             android:id="@+id/tv_react_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-3dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="6dp"
             android:text="@string/num_zero"
             android:textColor="?attr/colorOnBackgroundSecondary"
-            android:textSize="10sp"
-            app:layout_constraintEnd_toStartOf="@+id/btn_post"
+            android:textSize="11sp"
+            app:layout_constraintEnd_toStartOf="@+id/btn_share"
             app:layout_constraintTop_toTopOf="@+id/btn_react" />
 
-        <ImageView
-            android:id="@+id/btn_post"
-            android:layout_width="17dp"
-            android:layout_height="17dp"
-            android:layout_marginEnd="2dp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tv_post_count"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_bottom_comment" />
-
-        <TextView
-            android:id="@+id/tv_post_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="-3dp"
-            android:layout_marginEnd="16dp"
-            android:text="@string/num_zero"
-            android:textColor="?attr/colorOnBackgroundSecondary"
-            android:textSize="10sp"
-            android:visibility="gone"
-            app:layout_constraintEnd_toStartOf="@+id/btn_share"
-            app:layout_constraintTop_toTopOf="@+id/btn_post" />
-
-        <ImageView
+        <ImageButton
             android:id="@+id/btn_share"
-            android:layout_width="17dp"
-            android:layout_height="17dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="1dp"
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/gustatex_btn_none_bkg"
+            android:contentDescription="@string/share"
+            android:foregroundGravity="center"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btn_more"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_share" />
+            app:srcCompat="@drawable/ic_share"
+            tools:ignore="TouchTargetSizeCheck" />
 
-        <ImageView
+        <ImageButton
             android:id="@+id/btn_more"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:layout_marginEnd="8dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/gustatex_btn_none_bkg"
+            android:contentDescription="@string/more"
+            android:foregroundGravity="center"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_more" />
+            app:srcCompat="@drawable/ic_more"
+            tools:ignore="TouchTargetSizeCheck" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

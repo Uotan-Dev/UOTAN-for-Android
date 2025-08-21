@@ -34,7 +34,7 @@ class UpdaterActivity : BaseActivity() {
         private val updateLogList = mutableListOf<UpdateLog>()
         inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
             val title: TextView = view.findViewById(R.id.tv_title)
-            val describe: TextView = view.findViewById(R.id.describe)
+            val describe: TextView = view.findViewById(R.id.tv_describe)
         }
         override fun onCreateViewHolder(
             parent: ViewGroup,

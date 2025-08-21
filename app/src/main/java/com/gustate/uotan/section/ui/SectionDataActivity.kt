@@ -98,7 +98,7 @@ class SectionDataActivity : BaseActivity() {
         Glide.with(this)
             .load(Utils.Companion.baseUrl + ico)
             .error(R.drawable.ic_uo)
-            .into(binding.cardView5)
+            .into(binding.imgCover)
         observerList()
         binding.btnExpand.setOnClickListener {
             val willExpand = !topAdapter.isExpanded

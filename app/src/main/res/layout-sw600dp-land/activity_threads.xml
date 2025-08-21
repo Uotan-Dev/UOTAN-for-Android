@@ -209,12 +209,12 @@
                         android:layout_marginTop="6dp"
                         android:layout_marginEnd="12dp"
                         android:background="@drawable/uotan_bkg_option_normal"
-                        app:cornerRadius="@dimen/normal_corner_radius"
+                        app:scl_corner_radius="@dimen/normal_corner_radius"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:smoothness="@dimen/normal_smoothness">
+                        app:scl_smoothness_radius="@dimen/normal_smoothness">
 
                         <com.gustate.uotan.view.smooth.SmoothCornerLayout
                             android:id="@+id/cardJingTie"
@@ -224,10 +224,10 @@
                             android:layout_marginTop="12dp"
                             android:background="?attr/colorFilledTonalButtonNormal"
                             android:visibility="gone"
-                            app:cornerRadius="12dp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/rv_content"
-                            app:smoothness="0.618">
+                            app:scl_corner_radius="@dimen/normal_corner_radius"
+                            app:scl_smoothness_radius="@dimen/normal_corner_radius">
 
                             <TextView
                                 android:id="@+id/tvJingTie"
@@ -252,11 +252,11 @@
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="14dp"
                             android:background="@drawable/uotan_btn_filled"
-                            app:cornerRadius="@dimen/normal_corner_radius"
+                            app:scl_corner_radius="@dimen/normal_corner_radius"
                             app:layout_constraintBottom_toBottomOf="@+id/layout_user"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="@+id/layout_user"
-                            app:smoothness="@dimen/normal_smoothness">
+                            app:scl_smoothness_radius="@dimen/normal_smoothness">
 
                             <TextView
                                 android:id="@+id/tv_follow"
@@ -394,13 +394,13 @@
             android:layout_marginBottom="24dp"
             android:background="@color/color_btn_floating"
             android:tag="pad"
-            app:cornerRadius="24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:scl_border_color="@color/color_btn_floating"
             app:scl_border_width="1dp"
-            app:smoothness="0.618">
+            app:scl_corner_radius="@dimen/dock_corner_radius"
+            app:scl_smoothness_radius="@dimen/normal_smoothness">
 
             <net.center.blurview.ShapeBlurView
                 android:id="@+id/blur_reply"
@@ -456,11 +456,11 @@
                     android:layout_marginEnd="24dp"
                     android:background="?attr/colorFilledTonalButtonNormal"
                     android:visibility="gone"
-                    app:cornerRadius="12dp"
+                    app:scl_corner_radius="12dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_posts"
-                    app:smoothness="0.618">
+                    app:scl_smoothness_radius="0.618">
 
                     <TextView
                         android:id="@+id/tvPostLocked"

@@ -31,6 +31,7 @@ constraintlayout = "2.2.1"
 okhttp = "4.12.0"
 richtext = "3.0.7"
 room = "2.7.0"
+shadowlayout = "3.4.1"
 shapeblurview = "1.0.5"
 activity = "1.10.1"
 legacySupportV4 = "1.0.0"
@@ -82,6 +83,7 @@ refreshlayout = { module = "io.github.scwang90:refresh-layout-kernel", version.r
 refreshlayout-classicsheader = { module = "io.github.scwang90:refresh-header-classics", version.ref = "refreshlayout" }
 refreshlayout-classicsfooter = { module = "io.github.scwang90:refresh-footer-classics", version.ref = "refreshlayout" }
 richtext = { module = "com.zzhoujay.richtext:richtext", version.ref = "richtext" }
+shadowlayout = { module = "com.github.lihangleo2:ShadowLayout", version.ref = "shadowlayout" }
 shapeblurview = { module = "com.github.centerzx:ShapeBlurView", version.ref = "shapeblurview" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-legacy-support-v4 = { group = "androidx.legacy", name = "legacy-support-v4", version.ref = "legacySupportV4" }

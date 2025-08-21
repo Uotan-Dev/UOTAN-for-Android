@@ -15,67 +15,84 @@
         android:layout_marginBottom="10dp"
         android:background="@drawable/uotan_bkg_option"
         android:paddingBottom="10dp"
-        app:cornerRadius="@dimen/normal_corner_radius"
+        app:scl_corner_radius="@dimen/normal_corner_radius"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:smoothness="@dimen/normal_smoothness">
+        app:layout_constraintVertical_bias="0.0"
+        app:scl_smoothness_radius="@dimen/normal_smoothness">
 
-        <ImageView
-            android:id="@+id/img_avatar"
-            android:layout_width="38dp"
-            android:layout_height="38dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_user"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintEnd_toStartOf="@+id/btn_react"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/avatar_account"
-            tools:ignore="ImageContrastCheck" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/tv_username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="@string/user_name"
-            android:textColor="?attr/colorOnCardPrimary"
-            android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@+id/img_avatar"
-            app:layout_constraintTop_toTopOf="@+id/img_avatar" />
+            <ImageView
+                android:id="@+id/img_avatar"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/avatar_account"
+                tools:ignore="ImageContrastCheck" />
 
-        <TextView
-            android:id="@+id/tv_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/time"
-            android:textColor="?attr/colorOnCardSecondary"
-            android:textSize="10sp"
-            app:layout_constraintBottom_toBottomOf="@+id/img_avatar"
-            app:layout_constraintStart_toStartOf="@+id/tv_username"
-            tools:ignore="SmallSp,TextContrastCheck" />
+            <TextView
+                android:id="@+id/tv_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/user_name"
+                android:textColor="?attr/colorOnBackgroundPrimary"
+                android:textFontWeight="400"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@+id/img_avatar"
+                app:layout_constraintTop_toTopOf="@+id/img_avatar" />
 
-        <TextView
-            android:id="@+id/tv_ip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
-            android:text="@string/ip_location"
-            android:textColor="?attr/colorOnBackgroundSecondary"
-            android:textFontWeight="400"
-            android:textSize="10sp"
-            app:layout_constraintBottom_toBottomOf="@+id/img_avatar"
-            app:layout_constraintStart_toEndOf="@+id/tv_time"
-            tools:ignore="SmallSp,TextContrastCheck" />
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/time"
+                android:textColor="?attr/colorOnBackgroundSecondary"
+                android:textFontWeight="400"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="@+id/img_avatar"
+                app:layout_constraintStart_toStartOf="@+id/tv_username"
+                tools:ignore="SmallSp,TextContrastCheck" />
+
+            <TextView
+                android:id="@+id/tv_ip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:text="@string/ip_location"
+                android:textColor="?attr/colorOnBackgroundSecondary"
+                android:textFontWeight="400"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_time"
+                app:layout_constraintStart_toEndOf="@+id/tv_time"
+                tools:ignore="SmallSp,TextContrastCheck" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView
             android:id="@+id/btn_react"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="18dp"
+            android:layout_marginEnd="12dp"
+            app:layout_constraintBottom_toBottomOf="@+id/layout_user"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/layout_user"
             app:srcCompat="@drawable/ic_favourite"
             tools:ignore="ImageContrastCheck" />
 
@@ -83,16 +100,37 @@
             android:id="@+id/tv_content"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="4dp"
             android:fontFamily="sans-serif-medium"
             android:text="@string/title"
             android:textColor="?attr/colorOnCardPrimary"
             android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/tv_username"
-            app:layout_constraintTop_toBottomOf="@+id/img_avatar" />
+            app:layout_constraintEnd_toEndOf="@+id/btn_react"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_user" />
+
+        <View
+            android:id="@+id/nav_reply"
+            android:layout_width="2dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/uotan_btn_filled_normal"
+            app:layout_constraintBottom_toBottomOf="@+id/rv_reply"
+            app:layout_constraintStart_toStartOf="@+id/tv_content"
+            app:layout_constraintTop_toTopOf="@+id/rv_reply" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_reply"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="8dp"
+            android:nestedScrollingEnabled="false"
+            app:layout_constraintEnd_toEndOf="@+id/tv_content"
+            app:layout_constraintStart_toEndOf="@+id/nav_reply"
+            app:layout_constraintTop_toBottomOf="@+id/tv_content" />
 
     </com.gustate.uotan.view.smooth.SmoothCornerLayout>
 

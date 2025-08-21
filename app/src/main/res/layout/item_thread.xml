@@ -18,8 +18,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:cornerRadius="14dp"
-        app:smoothness="0.618">
+        app:scl_corner_radius="14dp"
+        app:scl_smoothness_radius="0.618">
 
         <com.gustate.uotan.view.smooth.SmoothCornerLayout
             android:id="@+id/card_cover"
@@ -31,8 +31,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:cornerRadius="8dp"
-            app:smoothness="0.618">
+            app:scl_corner_radius="8dp"
+            app:scl_smoothness_radius="0.618">
 
             <ImageView
                 android:id="@+id/img_cover"

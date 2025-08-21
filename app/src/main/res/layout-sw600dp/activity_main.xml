@@ -40,12 +40,12 @@
             android:layout_marginStart="12dp"
             android:layout_marginTop="28dp"
             android:layout_marginEnd="12dp"
-            android:background="@color/color_nav_option_check"
-            app:cornerRadius="14dp"
+            android:background="@drawable/gustatex_nav_option_check"
+            app:scl_corner_radius="14dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/img_uotan"
-            app:smoothness="0.618">
+            app:scl_smoothness_radius="0.618">
 
             <ImageView
                 android:id="@+id/img_home_pad"
@@ -80,12 +80,12 @@
             android:layout_marginStart="12dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="12dp"
-            android:background="@color/color_nav_option_uncheck"
-            app:cornerRadius="14dp"
+            android:background="@drawable/gustatex_nav_option_uncheck"
+            app:scl_corner_radius="14dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/home_tab_pad"
-            app:smoothness="0.618">
+            app:scl_smoothness_radius="0.618">
 
             <ImageView
                 android:id="@+id/img_plate_pad"
@@ -120,12 +120,12 @@
             android:layout_marginStart="12dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="12dp"
-            android:background="@color/color_nav_option_uncheck"
-            app:cornerRadius="14dp"
+            android:background="@drawable/gustatex_nav_option_uncheck"
+            app:scl_corner_radius="14dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/plate_tab_pad"
-            app:smoothness="0.618">
+            app:scl_smoothness_radius="0.618">
 
             <ImageView
                 android:id="@+id/img_notice_pad"
@@ -160,12 +160,12 @@
             android:layout_marginStart="12dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="12dp"
-            android:background="@color/color_nav_option_uncheck"
-            app:cornerRadius="14dp"
+            android:background="@drawable/gustatex_nav_option_uncheck"
+            app:scl_corner_radius="14dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/notice_tab_pad"
-            app:smoothness="0.618">
+            app:scl_smoothness_radius="0.618">
 
             <ImageView
                 android:id="@+id/img_res_pad"
@@ -201,12 +201,12 @@
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
             android:layout_marginBottom="12dp"
-            android:background="@color/color_nav_option_uncheck"
-            app:cornerRadius="14dp"
+            android:background="@drawable/gustatex_nav_option_uncheck"
+            app:scl_corner_radius="14dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:smoothness="0.618">
+            app:scl_smoothness_radius="0.618">
 
             <ImageView
                 android:id="@+id/img_avatar"

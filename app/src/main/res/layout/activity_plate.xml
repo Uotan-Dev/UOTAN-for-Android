@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.core.widget.NestedScrollView
-            android:id="@+id/rootScrollView"
+            android:id="@+id/nsv_resource"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fillViewport="true"
@@ -35,122 +35,140 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/bigTitle"
-                    android:layout_width="match_parent"
+                <com.gustate.uotan.view.smooth.SmoothCornerLayout
+                    android:id="@+id/bigTitleLayout"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/bigTitleLayout"
-                        android:layout_width="0dp"
+                    <com.gustate.uotan.view.smooth.SmoothCornerLayout
+                        android:id="@+id/btn_follow"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:layout_marginEnd="12dp"
-                        android:background="@drawable/uotan_bkg_option_normal"
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/uotan_btn_filled"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvBigTitle"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        app:layout_constraintTop_toTopOf="@+id/tvBigTitle"
+                        app:scl_corner_radius="@dimen/normal_corner_radius"
+                        app:scl_smoothness_radius="@dimen/normal_smoothness">
 
                         <TextView
-                            android:id="@+id/bigFollow2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="36dp"
-                            android:layout_marginEnd="16dp"
-                            android:background="@drawable/uotan_btn_filled"
-                            android:fontFamily="sans-serif-medium"
-                            android:gravity="center"
-                            android:paddingLeft="24dp"
-                            android:paddingRight="24dp"
-                            android:text="@string/follow"
-                            android:textColor="@color/white"
-                            android:textSize="12sp"
-                            app:layout_constraintBottom_toBottomOf="@+id/cardView5"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/cardView5" />
-
-                        <com.google.android.material.imageview.ShapeableImageView
-                            android:id="@+id/cardView5"
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="16dp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/tvBigTitle"
+                            android:id="@+id/tv_follow"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="18dp"
-                            android:fontFamily="sans-serif-black"
-                            android:text="@string/section"
-                            android:textColor="?attr/colorOnCardPrimary"
-                            android:textSize="18sp"
-                            app:layout_constraintBottom_toBottomOf="@+id/cardView5"
-                            app:layout_constraintStart_toEndOf="@+id/cardView5"
-                            app:layout_constraintTop_toTopOf="@+id/cardView5" />
-
-                        <TextView
-                            android:id="@+id/tvDescribe"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
-                            android:fontFamily="sans-serif-medium"
-                            android:text="@string/describe"
-                            android:textColor="?attr/colorOnCardSecondary"
-                            android:textSize="14sp"
-                            app:layout_constraintEnd_toEndOf="@+id/bigFollow2"
-                            app:layout_constraintStart_toStartOf="@+id/cardView5"
-                            app:layout_constraintTop_toBottomOf="@+id/cardView5" />
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/topRecyclerView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
-                            app:layout_constraintBottom_toTopOf="@+id/btnExpand"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.0"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/tvDescribe" />
-
-                        <TextView
-                            android:id="@+id/btnExpand"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginEnd="8dp"
-                            android:layout_marginBottom="10dp"
-                            android:background="@drawable/uotan_btn_tonal"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="18dp"
+                            android:layout_marginBottom="8dp"
                             android:fontFamily="sans-serif-medium"
                             android:gravity="center"
-                            android:paddingTop="10dp"
-                            android:paddingBottom="10dp"
-                            android:text="@string/expand"
-                            android:textColor="?attr/colorOnFilledTonalButton"
-                            android:textSize="16sp"
-                            android:visibility="gone"
+                            android:text="@string/follow"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent" />
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    </com.gustate.uotan.view.smooth.SmoothCornerLayout>
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    <com.gustate.uotan.view.smooth.SmoothCornerLayout
+                        android:id="@+id/scl_cover"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:background="?attr/colorCardNormal"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:scl_corner_radius="@dimen/normal_corner_radius"
+                        app:scl_smoothness_radius="@dimen/normal_smoothness">
+
+                        <ImageView
+                            android:id="@+id/img_cover"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:srcCompat="@tools:sample/avatars" />
+                    </com.gustate.uotan.view.smooth.SmoothCornerLayout>
+
+                    <TextView
+                        android:id="@+id/tvBigTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="18dp"
+                        android:fontFamily="sans-serif-black"
+                        android:text="@string/section"
+                        android:textColor="?attr/colorOnCardPrimary"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/scl_cover"
+                        app:layout_constraintStart_toEndOf="@+id/scl_cover"
+                        app:layout_constraintTop_toTopOf="@+id/scl_cover" />
+
+                    <TextView
+                        android:id="@+id/tvDescribe"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginEnd="4dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="@string/describe"
+                        android:textColor="?attr/colorOnCardSecondary"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="@+id/btn_follow"
+                        app:layout_constraintStart_toStartOf="@+id/scl_cover"
+                        app:layout_constraintTop_toBottomOf="@+id/scl_cover" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/topRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintBottom_toTopOf="@+id/btnExpand"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvDescribe" />
+
+                    <TextView
+                        android:id="@+id/btnExpand"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/uotan_btn_tonal"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="center"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:text="@string/expand"
+                        android:textColor="?attr/colorOnFilledTonalButton"
+                        android:textSize="16sp"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                </com.gustate.uotan.view.smooth.SmoothCornerLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:paddingStart="7dp"
                     android:paddingEnd="7dp"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/bigTitle" />
+                    app:layout_constraintTop_toBottomOf="@+id/bigTitleLayout" />
 
                 <ImageView
                     android:id="@+id/img_none_post"
@@ -160,7 +178,7 @@
                     android:src="@drawable/ic_no_data"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/bigTitle" />
+                    app:layout_constraintTop_toBottomOf="@+id/bigTitleLayout" />
 
                 <TextView
                     android:id="@+id/tv_none_post"
@@ -179,11 +197,11 @@
                     android:id="@+id/img_loading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="160dp"
+                    android:layout_marginTop="125dp"
                     android:src="@drawable/ic_loading"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/bigTitle" />
+                    app:layout_constraintTop_toBottomOf="@+id/bigTitleLayout" />
 
                 <TextView
                     android:id="@+id/tv_loading"

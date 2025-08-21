@@ -1,5 +1,6 @@
 package com.gustate.uotan.section.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.ViewGroup
 import androidx.activity.viewModels
@@ -17,8 +18,8 @@ class CategoriesActivity : BaseActivity() {
     // 版块大类私有变量
     private lateinit var binding: ActivityCategoriesBinding
     private lateinit var errorDialog: ErrorDialog
+    private lateinit var adapter: SectionAdapter
     private val viewModel by viewModels<CategoriesViewModel>()
-    private val adapter = SectionAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +35,20 @@ class CategoriesActivity : BaseActivity() {
                 topMargin = systemBars.top
             }
             insets
+        }
+        adapter = SectionAdapter().apply {
+            onItemClick = { link, cover, title ->
+                startActivity(
+                    Intent(
+                        this@CategoriesActivity,
+                        SectionDataActivity::class.java
+                    ).apply {
+                        putExtra("link", link)
+                        putExtra("cover", cover)
+                        putExtra("title", title)
+                    }
+                )
+            }
         }
         binding.rvSection.adapter = adapter
         binding.rvSection.layoutManager = LinearLayoutManager(this)

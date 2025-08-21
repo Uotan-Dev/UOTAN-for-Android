@@ -1,13 +1,11 @@
 package com.gustate.uotan.threads.data.api
 
-import android.util.Log
 import com.google.gson.Gson
 import com.gustate.uotan.BuildConfig
 import com.gustate.uotan.threads.data.model.Post
 import com.gustate.uotan.threads.data.model.PostList
-import com.gustate.uotan.threads.data.model.Thread
+import com.gustate.uotan.threads.data.model.post.PostResponse
 import com.gustate.uotan.utils.Utils.Companion.Cookies
-import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
 import com.gustate.uotan.utils.Utils.Companion.baseUrl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -20,36 +18,8 @@ class ThreadsApiService {
 
     private val okHttpClient = OkHttpClient()
 
-    suspend fun getThread(
-        posts: String,
-        onSuccess: (Thread) -> Unit,
-        onException: (Exception) -> Unit
-    ) = withContext(Dispatchers.IO) {
-        try {
-            val client = OkHttpClient.Builder()
-                .build()
-            val request = Request.Builder()
-                .url("$baseUrl/api$posts")
-                .addHeader("User-Agent", USER_AGENT)
-                .addHeader("XF-Api-Key", BuildConfig.xfApiKey)
-                .addHeader("XF-Api-User", Cookies["xf_user"] ?: "")
-                .build()
-            val allJson = JSONObject(client.newCall(request).execute().body?.string()?:"")
-            val threadJson = allJson.getString("thread")
-            val thread = Gson().fromJson(threadJson, Thread::class.java)
-            Log.e("thread", thread.toString())
-            withContext(Dispatchers.Main) {
-                onSuccess(thread)
-            }
-        } catch (e: Exception) {
-            withContext(Dispatchers.Main) {
-                onException(e)
-            }
-        }
-    }
-
     suspend fun getThreadsAllPosts(
-        posts: String, page: Int,
+        threadId: String, page: Int,
         onSuccess: (PostList) -> Unit,
         onException: (Exception) -> Unit
     ) = withContext(Dispatchers.IO) {
@@ -57,7 +27,7 @@ class ThreadsApiService {
             val client = OkHttpClient.Builder()
                 .build()
             val request = Request.Builder()
-                .url("$baseUrl/api$posts" + "posts?page=$page")
+                .url("$baseUrl/api$threadId" + "posts?page=$page")
                 .addHeader("User-Agent", "UotanApp/1.0")
                 .addHeader("XF-Api-Key", BuildConfig.xfApiKey)
                 .addHeader("XF-Api-User", Cookies["xf_user"] ?: "")
@@ -68,9 +38,40 @@ class ThreadsApiService {
                 onSuccess(threadsAndPosts)
             }
         } catch (e: Exception) {
-           withContext(Dispatchers.Main) {
+            withContext(Dispatchers.Main) {
                 onException(e)
             }
+        }
+    }
+
+    suspend fun getPostAllReply(
+        postList: List<Post>,
+        onSuccess: (MutableList<PostResponse>) -> Unit,
+        onThrowable: (Throwable) -> Unit
+    ) = withContext(Dispatchers.IO) {
+        try {
+            val replyPostList = mutableListOf<PostResponse>()
+            postList.forEach { post ->
+                val client = OkHttpClient.Builder()
+                    .build()
+                val request = Request.Builder()
+                    .url("$baseUrl/api/posts/${post.postID}")
+                    .addHeader("User-Agent", "UotanApp/1.0")
+                    .addHeader("XF-Api-Key", BuildConfig.xfApiKey)
+                    .addHeader("XF-Api-User", Cookies["xf_user"] ?: "")
+                    .build()
+                val json = client.newCall(request).execute().body?.string()
+                val postResponse = Gson().fromJson(json, PostResponse::class.java)
+                replyPostList.add(postResponse)
+            }
+            withContext(Dispatchers.Main) {
+                onSuccess(replyPostList)
+            }
+        } catch (throwable: Throwable) {
+            throw throwable
+            /*withContext(Dispatchers.Main) {
+                onThrowable(throwable)
+            }*/
         }
     }
 
@@ -176,7 +177,9 @@ class ThreadsApiService {
             okHttpClient.newCall(request).execute().use { response ->
                 val responseBody = response.body?.string()
                 if (!response.isSuccessful) {
-                    onFailure(response.code, response.body?.string() ?: "")
+                    withContext(Dispatchers.Main) {
+                        onFailure(response.code, response.body?.string() ?: "")
+                    }
                     return@withContext
                 }
                 responseBody?.let {
@@ -194,5 +197,4 @@ class ThreadsApiService {
             }
         }
     }
-
 }

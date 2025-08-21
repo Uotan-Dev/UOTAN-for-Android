@@ -204,4 +204,13 @@
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
+    <style name="GustateX.ResTabStyle" parent="Widget.Material3.TabLayout">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="tabTextColor">@color/color_text_res_tabs</item>
+        <item name="tabIndicator">@drawable/uotan_indicator_res</item>-
+        <item name="tabIndicatorColor">?attr/colorFilledButtonNormal</item>
+        <item name="tabRippleColor">@android:color/transparent</item>
+        <item name="tabIndicatorFullWidth">false</item>
+    </style>
+
 </resources>

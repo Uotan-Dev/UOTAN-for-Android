@@ -231,4 +231,6 @@
     <string name="dialog_restart_ensure">修正が有効になるようにソフトウェアを再起動してください</string>
     <string name="restart_later">後で再起動</string>
     <string name="restart_now">今すぐ再起動</string>
+    <string name="res_details">リソースの詳細</string>
+    <string name="historical_version">履歴バージョン</string>
 </resources>

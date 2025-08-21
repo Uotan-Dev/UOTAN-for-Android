@@ -1,7 +1,7 @@
 package com.gustate.uotan.article
 
 sealed class ContentBlock {
-    data class TextBlock(val html: String) : ContentBlock()
+    data class TextBlock(val html: CharSequence) : ContentBlock()
     data class TableListBlock(val rows: List<List<String>>) : ContentBlock()
     data class CodeBlock(val code: String, val lang: String? = null) : ContentBlock()
     data class ImageBlock(val src: String, val alt: String) : ContentBlock()

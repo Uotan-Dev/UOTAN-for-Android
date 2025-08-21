@@ -58,18 +58,18 @@ open class SmoothCornerLayout @JvmOverloads constructor(
 
     init {
         context.withStyledAttributes(attrs, R.styleable.SmoothCornerLayout) {
-            val radius = getDimension(R.styleable.SmoothCornerLayout_cornerRadius, 0f)
-            val smoothness = getFloat(R.styleable.SmoothCornerLayout_smoothness, DEFAULT_SMOOTHNESS)
+            val radius = getDimension(R.styleable.SmoothCornerLayout_scl_corner_radius, 0f)
+            val smoothness = getFloat(R.styleable.SmoothCornerLayout_scl_smoothness_radius, DEFAULT_SMOOTHNESS)
 
             // 读取圆角参数
-            cornerRadiusTL = getDimension(R.styleable.SmoothCornerLayout_cornerRadiusTL, radius)
-            smoothnessTL = getFloat(R.styleable.SmoothCornerLayout_smoothnessTL, smoothness)
-            cornerRadiusTR = getDimension(R.styleable.SmoothCornerLayout_cornerRadiusTR, radius)
-            smoothnessTR = getFloat(R.styleable.SmoothCornerLayout_smoothnessTR, smoothness)
-            cornerRadiusBR = getDimension(R.styleable.SmoothCornerLayout_cornerRadiusBR, radius)
-            smoothnessBR = getFloat(R.styleable.SmoothCornerLayout_smoothnessBR, smoothness)
-            cornerRadiusBL = getDimension(R.styleable.SmoothCornerLayout_cornerRadiusBL, radius)
-            smoothnessBL = getFloat(R.styleable.SmoothCornerLayout_smoothnessBL, smoothness)
+            cornerRadiusTL = getDimension(R.styleable.SmoothCornerLayout_scl_corner_radius_tl, radius)
+            smoothnessTL = getFloat(R.styleable.SmoothCornerLayout_scl_smoothness_radius_tl, smoothness)
+            cornerRadiusTR = getDimension(R.styleable.SmoothCornerLayout_scl_corner_radius_tr, radius)
+            smoothnessTR = getFloat(R.styleable.SmoothCornerLayout_scl_smoothness_radius_tr, smoothness)
+            cornerRadiusBR = getDimension(R.styleable.SmoothCornerLayout_scl_corner_radius_br, radius)
+            smoothnessBR = getFloat(R.styleable.SmoothCornerLayout_scl_smoothness_radius_br, smoothness)
+            cornerRadiusBL = getDimension(R.styleable.SmoothCornerLayout_scl_corner_radius_bl, radius)
+            smoothnessBL = getFloat(R.styleable.SmoothCornerLayout_scl_smoothness_radius_bl, smoothness)
 
             // 读取边框参数
             borderWidth = getDimension(R.styleable.SmoothCornerLayout_scl_border_width, 0f)

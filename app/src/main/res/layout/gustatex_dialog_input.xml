@@ -62,7 +62,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/describe"
+                android:id="@+id/tv_describe"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="26dp"
@@ -98,11 +98,11 @@
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/describe"
+                app:layout_constraintTop_toBottomOf="@id/tv_describe"
                 tools:ignore="Autofill,TextContrastCheck,VisualLintTextFieldSize" />
 
             <TextView
-                android:id="@+id/cancel"
+                android:id="@+id/btn_cancel"
                 android:layout_width="0dp"
                 android:layout_height="42dp"
                 android:layout_marginStart="18dp"
@@ -116,12 +116,12 @@
                 android:textColor="?attr/colorOnFilledTonalButton"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/ok"
+                app:layout_constraintEnd_toStartOf="@+id/btn_ok"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/etContent" />
 
             <TextView
-                android:id="@+id/ok"
+                android:id="@+id/btn_ok"
                 android:layout_width="0dp"
                 android:layout_height="42dp"
                 android:layout_marginStart="4dp"
@@ -135,8 +135,8 @@
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/cancel"
-                app:layout_constraintTop_toTopOf="@+id/cancel"
+                app:layout_constraintStart_toEndOf="@+id/btn_cancel"
+                app:layout_constraintTop_toTopOf="@+id/btn_cancel"
                 tools:ignore="TextContrastCheck" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

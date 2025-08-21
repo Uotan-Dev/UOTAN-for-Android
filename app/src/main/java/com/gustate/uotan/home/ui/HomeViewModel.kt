@@ -31,12 +31,12 @@ class HomeViewModel : ViewModel() {
 
     // 供 View 观察的变量（不可直接修改这些变量，请修改开头为 “_” 的同名变量）
     // Pager 页数
-    val pagerPage: MutableLiveData<Int> get() = _pagerPage
+    val pagerPage get() = _pagerPage
     // 推荐列表内容与状态
-    val recommendList: MutableLiveData<List<RecommendItem>> get() = _recommendList
-    val isRecommendLastPage: MutableLiveData<Boolean> get() = _isRecommendLastPage
+    val recommendList get() = _recommendList
+    val isRecommendLastPage get() = _isRecommendLastPage
     // 最新列表内容
-    val latestList: MutableLiveData<List<LatestItem>> get() = _latestList
+    val latestList get() = _latestList
 
     /**
      * 初始化 Pager 页码控制

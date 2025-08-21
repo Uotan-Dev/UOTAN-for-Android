@@ -119,8 +119,8 @@ class MainActivity : BaseActivity() {
                 binding.resTabPad, binding.mineTabPad)
             tabs.forEachIndexed { index, tab ->
                 tab?.setBackgroundResource(
-                    if (index == it) R.color.color_nav_option_check
-                    else R.color.color_nav_option_uncheck
+                    if (index == it) R.drawable.gustatex_nav_option_check
+                    else R.drawable.gustatex_nav_option_uncheck
                 )
             }
         }

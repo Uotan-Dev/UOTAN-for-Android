@@ -105,22 +105,27 @@
     </declare-styleable>
 
     <declare-styleable name="SmoothCornerLayout">
-        <attr name="cornerRadius" format="dimension" />
-        <attr name="smoothness" format="float" />
+        <attr name="scl_corner_radius" format="dimension" />
+        <attr name="scl_smoothness_radius" format="float" />
 
-        <attr name="cornerRadiusTL" format="dimension" />
-        <attr name="smoothnessTL" format="float" />
-        <attr name="cornerRadiusTR" format="dimension" />
-        <attr name="smoothnessTR" format="float" />
-        <attr name="cornerRadiusBR" format="dimension" />
-        <attr name="smoothnessBR" format="float" />
-        <attr name="cornerRadiusBL" format="dimension" />
-        <attr name="smoothnessBL" format="float" />
+        <attr name="scl_corner_radius_tl" format="dimension" />
+        <attr name="scl_smoothness_radius_tl" format="float" />
+        <attr name="scl_corner_radius_tr" format="dimension" />
+        <attr name="scl_smoothness_radius_tr" format="float" />
+        <attr name="scl_corner_radius_br" format="dimension" />
+        <attr name="scl_smoothness_radius_br" format="float" />
+        <attr name="scl_corner_radius_bl" format="dimension" />
+        <attr name="scl_smoothness_radius_bl" format="float" />
         <!-- 边框 -->
         <attr name="scl_border_width" format="dimension"/>
         <attr name="scl_border_color" format="color"/>
         <!-- 是否裁剪子视图 -->
         <attr name="clipChildren" format="boolean" />
+
+        <attr name="scl_shadow_color" format="color" />
+        <attr name="scl_shadow_radius" format="dimension" />
+        <attr name="scl_shadow_x" format="dimension" />
+        <attr name="scl_shadow_y" format="dimension" />
     </declare-styleable>
 
 </resources>

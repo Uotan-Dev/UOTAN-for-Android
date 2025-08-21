@@ -249,4 +249,7 @@
     <string name="dialog_restart_ensure">Please restart the software to ensure that the modifications take effect</string>
     <string name="restart_later">Restart later</string>
     <string name="restart_now">Restart Now</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="res_details">Resource Details</string>
+    <string name="historical_version">Historical Version</string>
 </resources>

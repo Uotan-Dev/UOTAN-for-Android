@@ -4,4 +4,8 @@
     <dimen name="normal_smoothness">0.618</dimen>
     <dimen name="normal_corner_radius">14dp</dimen>
     <dimen name="option_corner_radius">18dp</dimen>
+    <dimen name="dock_corner_radius">24dp</dimen>
+    <dimen name="dialog_corner_radius">36dp</dimen>
+    <dimen name="dialog_button_corner_radius_new">99dp</dimen>
+    <dimen name="dialog_button_elevation_new">0dp</dimen>
 </resources>

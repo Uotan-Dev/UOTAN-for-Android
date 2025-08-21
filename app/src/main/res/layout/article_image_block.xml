@@ -11,11 +11,11 @@
         android:id="@+id/card_image"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:cornerRadius="12dp"
-        app:smoothness="0.618"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:scl_corner_radius="@dimen/normal_corner_radius"
+        app:scl_smoothness_radius="@dimen/normal_smoothness">
 
         <ImageView
             android:id="@+id/img_content"

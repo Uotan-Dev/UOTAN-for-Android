@@ -33,7 +33,6 @@ import com.gustate.uotan.article.imageviewer.ImageLoader
 import com.gustate.uotan.article.imageviewer.ImageTransformer
 import com.gustate.uotan.databinding.ActivityThreadsBinding
 import com.gustate.uotan.gustatex.dialog.InfoDialog
-import com.gustate.uotan.gustatex.dialog.LoadingDialog
 import com.gustate.uotan.threads.data.model.ThreadPhoto
 import com.gustate.uotan.ui.activity.UserActivity
 import com.gustate.uotan.utils.Helpers.Companion.avatarOptions
@@ -43,6 +42,7 @@ import com.gustate.uotan.utils.Utils.Companion.errorDialog
 import com.gustate.uotan.utils.Utils.Companion.getThemeColor
 import com.gustate.uotan.utils.data.model.Attachment
 import com.kongzue.dialogx.dialogs.BottomDialog
+import com.kongzue.dialogx.dialogs.WaitDialog
 import com.kongzue.dialogx.interfaces.OnBindView
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import java.text.SimpleDateFormat
@@ -55,8 +55,7 @@ class ThreadsActivity : BaseActivity() {
     //
     private lateinit var binding: ActivityThreadsBinding
     private lateinit var contentAdapter: ContentAdapter
-    private lateinit var adapter: PostsAdapter
-    private lateinit var loadingDialog: LoadingDialog
+    private lateinit var postsAdapter: PostsAdapter
 
     private var colorOnFilledButton = 0
     private var colorOnFilledTonalButton = 0
@@ -67,13 +66,12 @@ class ThreadsActivity : BaseActivity() {
     private val viewModel: ThreadsViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        loadingDialog = LoadingDialog(this)
         binding = ActivityThreadsBinding.inflate(layoutInflater)
         colorOnFilledButton = getThemeColor(this, R.attr.colorOnFilledButton)
         colorOnFilledTonalButton = getThemeColor(this, R.attr.colorOnFilledTonalButton)
         setContentView(binding.root)
-        adapter = PostsAdapter()
-        binding.rvPosts.adapter = adapter
+        postsAdapter = PostsAdapter()
+        binding.rvPosts.adapter = postsAdapter
         binding.rvPosts.layoutManager = LinearLayoutManager(this)
         contentAdapter = ContentAdapter().apply {
             onImageClick = { id, url ->
@@ -89,6 +87,10 @@ class ThreadsActivity : BaseActivity() {
         viewModel.loadInitialThreadsAndPosts(
             threadOrPostId = threadOrPost, isRefresh = false, onSuccess = {},
             onException = { errorDialog(this, "ERROR", it.toString()) }
+        )
+        viewModel.loadThreadInfo(
+            threadOrPostId = threadOrPost, isRefresh = false, onSuccess = {},
+            onThrowable = {}
         )
         setRefreshLayoutListener(threadOrPost)
         showShareDialog(threadOrPost)
@@ -133,6 +135,13 @@ class ThreadsActivity : BaseActivity() {
                 ).putExtra("url", viewModel.threadPost.value?.user?.viewURL?.replace(baseUrl, ""))
             )
         }
+        viewModel.postsReply.observe(this) {
+            it.forEach { a ->
+                postsAdapter.setRepliesForPost(
+                    a.post.postId, a.replyPosts
+                )
+            }
+        }
         // background drawable alpha 128
         val lb = binding.btnReply.background
         lb?.alpha = 128
@@ -155,14 +164,15 @@ class ThreadsActivity : BaseActivity() {
                     val btnPost = v.findViewById<View>(R.id.btnPost)
                     val edtContent = v.findViewById<EditText>(R.id.edtContent)
                     btnPost?.setOnClickListener {
-                        loadingDialog.show()
+                        WaitDialog.show("Please Wait!")
+                        //loadingDialog.show()
                         val message = edtContent?.text.toString()
                         viewModel.replyThreads(
                             message = message,
                             onSuccess = {
-                                loadingDialog.dismiss()
+                                //loadingDialog.dismiss()
                                 dialog.dismiss()
-                                adapter.addNewReply(binding.rvPosts, it)
+                                postsAdapter.addNewReply(binding.rvPosts, it)
                                 Toast.makeText(
                                     this@ThreadsActivity,
                                     R.string.published_successfully,
@@ -289,7 +299,7 @@ class ThreadsActivity : BaseActivity() {
         updateThreadsContent()
         updateThreadsInfo()
         viewModel.posts.observe(this) {
-            adapter.submitList(it)
+            postsAdapter.submitList(it)
         }
         viewModel.isLastPage.observe(this) {
             binding.srlRoot?.setNoMoreData(it)
@@ -322,15 +332,6 @@ class ThreadsActivity : BaseActivity() {
             binding.tvTime.text = dateFormat.format(Date(it.postDate * 1000L))
             binding.tvIp.text = it.user.location
             // 主题内容更新
-            viewModel.threadInfo.observe(this) {
-                it.title.let { title ->
-                    if (title.isNotEmpty()) {
-                        binding.tvTitle.text = title
-                    } else {
-                        binding.tvTitle.isGone = false
-                    }
-                }
-            }
             var threadsHtml = it.messageParsed
             it.attachments?.forEach {
                 threadsHtml = threadsHtml
@@ -406,6 +407,9 @@ class ThreadsActivity : BaseActivity() {
         viewModel.isThreadsJingTie.observe(this) {
             binding.cardJingTie.isGone = !it
         }
+        viewModel.threadTitle.observe(this) {
+            binding.tvTitle.text = it
+        }
     }
 
     private fun changeAuthorFollowState() {
@@ -479,7 +483,7 @@ class ThreadsActivity : BaseActivity() {
                     setType("text/plain")
                     putExtra(
                         Intent.EXTRA_TEXT,
-                        "【${viewModel.threadInfo.value?.title} - ${getString(R.string.app_name)}】 ${baseUrl + url}"
+                        "【${viewModel.threadTitle.value} - ${getString(R.string.app_name)}】 ${baseUrl + url}"
                     )
                 },
                 null
@@ -517,7 +521,7 @@ class ThreadsActivity : BaseActivity() {
             // 获取 ClipboardManager 实例
             val clipboard = this.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
             // 创建 ClipData 对象（带标签和内容）
-            val clipData = ClipData.newPlainText(viewModel.threadInfo.value?.title, baseUrl + url)
+            val clipData = ClipData.newPlainText(viewModel.threadTitle.value, baseUrl + url)
             // 设置到系统剪贴板
             clipboard.setPrimaryClip(clipData)
             Toast.makeText(this, R.string.link_copied_clipboard, Toast.LENGTH_SHORT).show()
@@ -553,11 +557,11 @@ class ThreadsActivity : BaseActivity() {
         val postId = viewModel.threadPost.value?.postID ?:"0"
         btnIp?.setOnClickListener {
             dialog?.dismiss()
-            loadingDialog.show()
+            WaitDialog.show("Please Wait!")
             viewModel.fetchIp(
                 postId = postId.toString(),
                 onSuccess = {
-                    loadingDialog.cancel()
+                    WaitDialog.dismiss()
                     val infoDialog = InfoDialog(this).apply {
                         setTitle(getString(R.string.ip_location))
                         setDescription(it)

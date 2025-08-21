@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="56dp"
     android:background="@drawable/uotan_bkg_option"
-    app:cornerRadius="@dimen/option_corner_radius"
-    app:smoothness="@dimen/normal_smoothness">
+    app:scl_corner_radius="@dimen/option_corner_radius"
+    app:scl_smoothness_radius="@dimen/normal_smoothness">
 
     <ImageView
         android:id="@+id/img_option"

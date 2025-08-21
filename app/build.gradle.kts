@@ -117,4 +117,6 @@ dependencies {
     implementation(libs.blurview)
 
     implementation(project(":imageviewer"))
+
+    implementation(libs.shadowlayout)
 }

@@ -4,7 +4,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.gustate.uotan.home.ui.HomeFragment
 import com.gustate.uotan.section.ui.SectionFragment
-import com.gustate.uotan.fragment.resource.ResFragment
+import com.gustate.uotan.resource.ui.ResFragment
 import com.gustate.uotan.fragment.user.MeFragment
 import com.gustate.uotan.message.ui.MessageFragment
 

@@ -67,7 +67,7 @@
             android:name=".ui.activity.AboutActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activity.ResourceActivity"
+            android:name=".resource.ui.details.ResourceActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activity.FindUpdateActivity"

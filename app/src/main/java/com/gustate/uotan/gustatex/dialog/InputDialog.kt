@@ -28,9 +28,9 @@ class InputDialog(context: Context) : Dialog(context, R.style.Gustatex_Dialog) {
         setContentView(binding.root)
 
         binding.tvTitle.text = pendingTitle
-        binding.describe.text = pendingDescription
-        binding.cancel.text = pendingCancel
-        binding.ok.text = pendingConfirm
+        binding.tvDescribe.text = pendingDescription
+        binding.btnCancel.text = pendingCancel
+        binding.btnCancel.text = pendingConfirm
 
         initWindowSettings()
         setupClickListeners()
@@ -49,14 +49,14 @@ class InputDialog(context: Context) : Dialog(context, R.style.Gustatex_Dialog) {
     }
 
     private fun setupClickListeners() {
-        binding.ok.setOnClickListener {
+        binding.btnOk.setOnClickListener {
             inputText = binding.etContent.text.toString().trim()
             if (inputText.isNotEmpty()) {
                 onConfirm?.invoke(inputText)
             }
         }
 
-        binding.cancel.setOnClickListener {
+        binding.btnCancel.setOnClickListener {
             onCancel?.invoke()
         }
     }

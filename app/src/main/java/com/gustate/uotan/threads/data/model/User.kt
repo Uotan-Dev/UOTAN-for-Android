@@ -12,7 +12,7 @@ data class User(
     val can_view_profile: Boolean,
     val can_view_profile_posts: Boolean,
     val can_warn: Boolean,
-    val custom_fields: CustomFields,
+    val custom_fields: CustomFieldsX,
     val is_banned: Boolean,
     val is_followed: Boolean,
     val is_ignored: Boolean,

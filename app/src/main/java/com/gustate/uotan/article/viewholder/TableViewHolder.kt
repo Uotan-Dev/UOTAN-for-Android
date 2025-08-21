@@ -64,7 +64,7 @@ class TableViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             when (block) {
                 is TextBlock -> {
                     val tv = TextView(container.context).apply {
-                        text = HtmlCompat.fromHtml(block.html, HtmlCompat.FROM_HTML_MODE_COMPACT)
+                        text = block.html
                         movementMethod = LinkMovementMethod.getInstance()
                         gravity = CENTER
                     }

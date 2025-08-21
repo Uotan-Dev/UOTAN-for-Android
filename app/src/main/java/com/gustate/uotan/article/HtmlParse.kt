@@ -1,6 +1,10 @@
 package com.gustate.uotan.article
 
+import android.text.Html
+import android.text.SpannableStringBuilder
+import android.text.style.URLSpan
 import com.gustate.uotan.article.ContentBlock.*
+import com.gustate.uotan.utils.UotanLinkSpan
 import org.jsoup.nodes.*
 import org.jsoup.Jsoup
 
@@ -16,30 +20,41 @@ object HtmlParse {
         val blocks = mutableListOf<ContentBlock>()
         val currentText = StringBuilder()
 
-        //行内标签集合
-        val inlineTags = setOf("b", "strong", "i", "em", "span", "a", "br")
-
-        fun flushText() {
-            if (currentText.isNotEmpty()) {
-                blocks.add(TextBlock(currentText.toString().trim()))
-                currentText.clear()
-            }
-        }
         for (node in nodes) {
             when (node) {
                 is Element -> {
-                    if (node.tagName() in inlineTags) {
-
-                    }
-                    flushText() // 先处理累积的文本
                     when (node.tagName()) {
-                        "a" -> handleLink(node, blocks)
-                        "img" -> handleImage(node, blocks)
-                        "span" -> handleMediaEmbed(node, blocks)
-                        "iframe" -> handleIframe(node, blocks)
-                        "br" -> {} // 忽略换行标签
-                        "div", "p" -> blocks.addAll(parseNodes(node.childNodes())) // 递归处理容器
+                        "a" -> {
+                            handleLink(node, blocks, currentText)
+                        }
+                        "img" -> {
+                            // 处理累积文本
+                            flushText(currentText, blocks)
+                            handleImage(node, blocks)
+                        }
+                        "span" -> {
+                            // 处理累积文本
+                            flushText(currentText, blocks)
+                            handleMediaEmbed(node, blocks)
+                        }
+                        "iframe" -> {
+                            // 处理累积文本
+                            flushText(currentText, blocks)
+                            handleIframe(node, blocks)
+                        }
+                        "br" -> {
+                            // 处理累积文本
+                            flushText(currentText, blocks)
+                        }
+                        "div", "p" -> {
+                            // 处理累积文本
+                            flushText(currentText, blocks)
+                            // 递归处理容器
+                            blocks.addAll(parseNodes(node.childNodes()))
+                        }
                         "ul" -> {
+                            // 处理累积文本
+                            flushText(currentText, blocks)
                             // 处理无序列表
                             val listItems = node.getElementsByTag("li")
                             for (item in listItems) {
@@ -55,6 +70,8 @@ object HtmlParse {
                             }
                         }
                         "ol" -> {
+                            // 处理累积文本
+                            flushText(currentText, blocks)
                             // 处理有序列表
                             val listItems = node.getElementsByTag("li")
                             var counter = 1
@@ -72,18 +89,34 @@ object HtmlParse {
                         }
                         "li" -> {
                             // 直接处理孤立的 li 标签
-                            flushText()
+                            flushText(currentText, blocks)
                             blocks.addAll(parseNodes(node.childNodes(), false))
                         }
-                        "h1", "h2", "h3", "h4", "h5", "h6" -> handleHeading(node, blocks)
-                        "table" -> if (allowTable) handleTable(node, blocks) else node.html()
-                        "tr" -> if (allowTable) handleTableRow(node, blocks) else node.html()
-                        "td", "th" -> if (allowTable) handleTableCell(node, blocks) else node.html()
+                        "h1", "h2", "h3", "h4", "h5", "h6" -> {
+                            // 处理累积文本
+                            flushText(currentText, blocks)
+                            handleHeading(node, blocks)
+                        }
+                        "table" -> {
+                            // 处理累积文本
+                            flushText(currentText, blocks)
+                            if (allowTable) handleTable(node, blocks) else node.html()
+                        }
+                        "tr" -> {
+                            // 处理累积文本
+                            flushText(currentText, blocks)
+                            if (allowTable) handleTableRow(node, blocks) else node.html()
+                        }
+                        "td", "th" -> {
+                            // 处理累积文本
+                            flushText(currentText, blocks)
+                            if (allowTable) handleTableCell(node, blocks) else node.html()
+                        }
                         else -> {
-                            // 对于其他标签，提取其文本内容
-                            val text = node.html()
+                            // 对于其他标签，提取其文本内容，并且此分支不处理累积文本，直到遇到软件可处理的元素标签
+                            val text = node.outerHtml()
                             if (text.isNotEmpty()) {
-                                blocks.add(TextBlock(text))
+                                currentText.append(text)
                             }
                         }
                     }
@@ -98,7 +131,7 @@ object HtmlParse {
                 }
             }
         }
-        flushText() // 处理最后剩余的文本
+        flushText(currentText, blocks) // 处理最后剩余的文本
         return blocks
     }
 
@@ -118,10 +151,11 @@ object HtmlParse {
         }
     }
 
-    private fun handleLink(element: Element, blocks: MutableList<ContentBlock>) {
+    private fun handleLink(element: Element, blocks: MutableList<ContentBlock>, currentText: StringBuilder) {
         // 处理包含图片的链接
         val images = element.select("img")
         if (images.isNotEmpty()) {
+            flushText(currentText, blocks)
             images.forEach { img ->
                 val src = img.attr("src")
                 val alt = img.attr("alt")
@@ -130,11 +164,37 @@ object HtmlParse {
                 }
             }
         } else {
-            // 处理普通文本链接
-            val text = element.text().trim()
+            val text = element.outerHtml()
             if (text.isNotEmpty()) {
-                blocks.add(TextBlock("<a href=\"${element.attr("href")}\">$text</a>"))
+                currentText.append(text)
             }
+        }
+    }
+
+    private fun flushText(
+        currentText: StringBuilder,
+        blocks: MutableList<ContentBlock>
+    ) {
+        if (currentText.isNotEmpty()) {
+            val spanned = Html.fromHtml(
+                currentText.toString(),
+                Html.FROM_HTML_MODE_COMPACT
+            )
+            val spannable = spanned as? SpannableStringBuilder ?: SpannableStringBuilder(spanned)
+            val urlSpans = spannable.getSpans(0, spannable.length, URLSpan::class.java)
+            for (span in urlSpans) {
+                val start = spannable.getSpanStart(span)
+                val end = spannable.getSpanEnd(span)
+                val flags = spannable.getSpanFlags(span)
+                val url = span.url
+                // 移除原有的URLSpan
+                spannable.removeSpan(span)
+                // 添加自定义的Span
+                val noUnderlineSpan = UotanLinkSpan(url)
+                spannable.setSpan(noUnderlineSpan, start, end, flags)
+            }
+            blocks.add(TextBlock(spanned))
+            currentText.clear()
         }
     }
 

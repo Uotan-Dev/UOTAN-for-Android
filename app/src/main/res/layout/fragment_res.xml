@@ -5,140 +5,220 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.resource.ResFragment">
+    android:clipToPadding="true"
+    tools:context=".settings.ui.DomainActivity">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/coordinatorLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:paddingTop="80dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorBackground"
-            app:liftOnScrollColor="?attr/colorBackground">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/bigTitle"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="28dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_scrollFlags="scroll|snap">
-
-                <TextView
-                    android:id="@+id/bigTitleTrends"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif"
-                    android:text="@string/trends"
-                    android:textColor="?attr/colorOnBackgroundPrimary"
-                    android:textSize="30sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/bigTitleCategorize"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:fontFamily="sans-serif"
-                    android:text="@string/categorize"
-                    android:textColor="?attr/colorOnBackgroundSecondary"
-                    android:textSize="30sp"
-                    app:layout_constraintStart_toEndOf="@+id/bigTitleTrends"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.appbar.AppBarLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/viewPager"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-    <view
-        android:id="@+id/headerBarBlur"
-        class="net.center.blurview.ShapeBlurView"
-        android:layout_width="wrap_content"
+        android:id="@+id/rootLayout"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        app:blur_overlay_color="@android:color/transparent"
-        app:blur_radius="25dp"
-        app:layout_constraintBottom_toBottomOf="@+id/header_bar_layout"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="UnknownIdInLayout" />
+        app:statusBarBackground="@android:color/transparent">
 
-    <View
-        android:id="@+id/headerBarCover"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:alpha="0.6"
-        android:background="?attr/colorBackground"
-        app:layout_constraintBottom_toBottomOf="@+id/headerBarBlur"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <com.scwang.smart.refresh.layout.SmartRefreshLayout
+            android:id="@+id/srlRoot"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="-116dp"
+            android:clipToPadding="false"
+            android:paddingTop="116dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:srlEnablePureScrollMode="true">
 
-    <View
-        android:id="@+id/statusBarView"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/header_bar_layout"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/statusBarView">
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/nsv_resource"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true"
+                android:scrollbarThumbVertical="@drawable/gustatex_scrollbar_thumb_vertical"
+                android:scrollbars="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/rootView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/recommendTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="18dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="18dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="@string/selected_recommendations"
+                        android:textColor="?attr/colorOnBackgroundTertiary"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="TextContrastCheck" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvTrends"
+                        android:layout_width="0dp"
+                        android:layout_height="200dp"
+                        android:layout_marginTop="12dp"
+                        android:clipToPadding="false"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="12dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/recommendTitle"
+                        tools:ignore="TextSizeCheck,SpeakableTextPresentCheck">
+
+                    </androidx.recyclerview.widget.RecyclerView>
+
+                    <TextView
+                        android:id="@+id/latestTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="18dp"
+                        android:layout_marginEnd="16dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="@string/categorize"
+                        android:textColor="?attr/colorOnBackgroundTertiary"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/btn_type"
+                        app:layout_constraintEnd_toStartOf="@+id/btn_type"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/btn_type"
+                        tools:ignore="TextContrastCheck" />
+
+                    <com.gustate.uotan.view.smooth.SmoothCornerLayout
+                        android:id="@+id/btn_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="18dp"
+                        android:background="@drawable/uotan_btn_filled"
+                        app:scl_corner_radius="@dimen/normal_corner_radius"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/rvTrends"
+                        app:scl_smoothness_radius="@dimen/normal_smoothness">
+
+                        <TextView
+                            android:id="@+id/tv_type"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="12dp"
+                            android:layout_marginBottom="8dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:gravity="center"
+                            android:text="@string/all_types"
+                            android:textColor="?attr/colorOnFilledButton"
+                            android:textSize="12sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                        </TextView>
+                    </com.gustate.uotan.view.smooth.SmoothCornerLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvLatest"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/btn_type" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.core.widget.NestedScrollView>
+        </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:id="@+id/headerBarBlurLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/titleTrends"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/trends"
-                android:textColor="?attr/colorOnBackgroundPrimary"
-                android:textSize="20sp"
+            <net.center.blurview.ShapeBlurView
+                android:id="@+id/headerBarBlur"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:blur_overlay_color="@android:color/transparent"
+                app:blur_radius="25dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/titleCategorize"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/categorize"
-                android:textColor="?attr/colorOnBackgroundSecondary"
-                android:textSize="20sp"
-                app:layout_constraintStart_toEndOf="@+id/titleTrends"
+            <View
+                android:id="@+id/headerBarCover"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha="0.6"
+                android:background="?attr/colorBackground"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/headerBarBlurContent"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@android:color/transparent"
+            app:liftOnScrollColor="@android:color/transparent"
+            app:statusBarForeground="@android:color/transparent">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapsingToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="116dp"
+                android:background="@android:color/transparent"
+                android:baselineAligned="false"
+                android:fitsSystemWindows="true"
+                app:collapsedTitleGravity="start"
+                app:collapsedTitleTextAppearance="@style/CollapsedTitleStyle"
+                app:collapsedTitleTextColor="?attr/colorOnBackgroundPrimary"
+                app:contentScrim="@android:color/transparent"
+                app:expandedTitleMarginStart="16dp"
+                app:expandedTitleTextAppearance="@style/ExpendedTitleStyle"
+                app:expandedTitleTextColor="?attr/colorOnBackgroundPrimary"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+                app:statusBarScrim="@android:color/transparent"
+                app:title="@string/resource"
+                app:titleCollapseMode="scale"
+                app:titleEnabled="true"
+                app:toolbarId="@id/toolBar">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@android:color/transparent"
+                    android:fitsSystemWindows="true"
+                    app:contentInsetStartWithNavigation="12dp"
+                    app:layout_collapseMode="pin" />
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

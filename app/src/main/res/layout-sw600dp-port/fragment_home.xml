@@ -27,19 +27,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <com.gustate.uotan.gustatex.view.SmoothCornerLayout
+        <com.gustate.uotan.view.smooth.SmoothCornerLayout
             android:id="@+id/layout_tabs"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:layout_marginTop="12dp"
             android:background="@color/color_btn_floating"
-            app:cornerRadius="24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:scl_border_color="@color/color_btn_floating"
             app:scl_border_width="1dp"
-            app:smoothness="0.6">
+            app:scl_corner_radius="@dimen/dock_corner_radius"
+            app:scl_smoothness_radius="@dimen/normal_smoothness">
 
             <net.center.blurview.ShapeBlurView
                 android:id="@+id/blur_tabs"
@@ -82,9 +82,9 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tab_latest"
                 app:layout_constraintTop_toTopOf="parent" />
-        </com.gustate.uotan.gustatex.view.SmoothCornerLayout>
+        </com.gustate.uotan.view.smooth.SmoothCornerLayout>
 
-        <com.gustate.uotan.gustatex.view.SmoothCornerLayout
+        <com.gustate.uotan.view.smooth.SmoothCornerLayout
             android:id="@+id/layout_search"
             android:layout_width="300dp"
             android:layout_height="60dp"
@@ -92,13 +92,13 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="12dp"
             android:background="@color/color_btn_floating"
-            app:cornerRadius="24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layout_tabs"
             app:scl_border_color="@color/color_btn_floating"
             app:scl_border_width="1dp"
-            app:smoothness="0.6">
+            app:scl_corner_radius="@dimen/dock_corner_radius"
+            app:scl_smoothness_radius="@dimen/normal_smoothness">
 
             <net.center.blurview.ShapeBlurView
                 android:id="@+id/blur_search"
@@ -133,9 +133,9 @@
                 app:layout_constraintStart_toEndOf="@+id/ico_search"
                 app:layout_constraintTop_toTopOf="parent" />
 
-        </com.gustate.uotan.gustatex.view.SmoothCornerLayout>
+        </com.gustate.uotan.view.smooth.SmoothCornerLayout>
 
-        <com.gustate.uotan.gustatex.view.SmoothCornerLayout
+        <com.gustate.uotan.view.smooth.SmoothCornerLayout
             android:id="@+id/layout_post"
             android:layout_width="60dp"
             android:layout_height="60dp"
@@ -144,14 +144,14 @@
             android:layout_marginEnd="12dp"
             android:layout_marginBottom="12dp"
             android:background="@color/color_btn_floating"
-            app:cornerRadius="24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/layout_search"
             app:layout_constraintTop_toBottomOf="@+id/layout_tabs"
             app:scl_border_color="@color/color_btn_floating"
             app:scl_border_width="1dp"
-            app:smoothness="0.6">
+            app:scl_corner_radius="@dimen/dock_corner_radius"
+            app:scl_smoothness_radius="@dimen/normal_smoothness">
 
             <net.center.blurview.ShapeBlurView
                 android:id="@+id/blur_post"
@@ -173,7 +173,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-        </com.gustate.uotan.gustatex.view.SmoothCornerLayout>
+        </com.gustate.uotan.view.smooth.SmoothCornerLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

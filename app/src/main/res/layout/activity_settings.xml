@@ -29,7 +29,7 @@
             app:srlEnablePureScrollMode="true">
 
             <androidx.core.widget.NestedScrollView
-                android:id="@+id/rootScrollView"
+                android:id="@+id/nsv_resource"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fillViewport="true"
@@ -52,11 +52,11 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="12dp"
                         android:background="@drawable/uotan_bkg_option_normal"
-                        app:cornerRadius="@dimen/option_corner_radius"
+                        app:scl_corner_radius="@dimen/option_corner_radius"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:smoothness="@dimen/normal_smoothness">
+                        app:scl_smoothness_radius="@dimen/normal_smoothness">
 
                         <com.gustate.uotan.view.option.OptionView
                             android:id="@+id/aboutOption"
@@ -100,11 +100,11 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="12dp"
                         android:background="@drawable/uotan_bkg_option_normal"
-                        app:cornerRadius="@dimen/option_corner_radius"
+                        app:scl_corner_radius="@dimen/option_corner_radius"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/setThemeOption"
-                        app:smoothness="@dimen/normal_smoothness">
+                        app:scl_smoothness_radius="@dimen/normal_smoothness">
 
                         <com.gustate.uotan.view.option.OptionView
                             android:id="@+id/setUserOption"

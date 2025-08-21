@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".home.ui.HomeFragment">
 
-
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/pager_home"
         android:layout_width="0dp"
@@ -43,8 +42,8 @@
                 app:layout_constraintEnd_toStartOf="@+id/layout_post"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:cornerRadius="14dp"
-                app:smoothness="0.618">
+                app:scl_corner_radius="@dimen/normal_corner_radius"
+                app:scl_smoothness_radius="@dimen/normal_smoothness">
 
                 <ImageView
                     android:id="@+id/ico_search"
@@ -80,8 +79,8 @@
                 android:background="@drawable/uotan_bkg_option"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:cornerRadius="14dp"
-                app:smoothness="0.618">
+                app:scl_corner_radius="@dimen/normal_corner_radius"
+                app:scl_smoothness_radius="@dimen/normal_smoothness">
 
                 <ImageView
                     android:id="@+id/ico_post"

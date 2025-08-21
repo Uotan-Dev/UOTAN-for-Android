@@ -55,10 +55,16 @@ class SectionFragment : Fragment() {
                 ?.updateLayoutParams<ViewGroup.LayoutParams> { height = systemBars.top }
             binding.appBarLayout
                 ?.updateLayoutParams<ViewGroup.MarginLayoutParams> { topMargin = systemBars.top }
-            binding.rvCategories.setPadding(
-                12f.dpToPx(requireContext()).roundToInt(),
-                systemBars.top, 0, systemBars.bottom
-            )
+            binding.rvCategories.let {
+                it.setPadding(
+                    12f.dpToPx(requireContext()).roundToInt(),
+                    when(it.tag){
+                        "pad_land", "pad_port" -> systemBars.top
+                        else -> 0
+                    },
+                    0, systemBars.bottom
+                )
+            }
             binding.rvSection.let {
                 when (it.tag) {
                     "pad_port" -> {
