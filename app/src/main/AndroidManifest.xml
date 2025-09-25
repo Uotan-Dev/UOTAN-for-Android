@@ -20,16 +20,20 @@
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
-        android:name=".App"
+        android:name=".UotanApplication"
         android:allowBackup="true"
-        android:dataExtractionRules="@xml/data_extraction_rules"
-        android:fullBackupContent="@xml/backup_rules"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Base.Theme.Uotan">
+        <activity
+            android:name=".welcome.ui.WelcomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".settings.ui.profile.ProfileActivity"
+            android:exported="false" />
         <activity
             android:name=".section.ui.CategoriesActivity"
             android:exported="false" />
@@ -40,10 +44,10 @@
             android:name=".threads.ui.ThreadsActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activity.UserActivity"
+            android:name=".user.ui.UserActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activity.StartupActivity"
+            android:name=".startup.ui.StartupActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -58,13 +62,13 @@
             android:name=".ui.activity.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activity.SettingsActivity"
+            android:name=".settings.ui.SettingsActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activity.UpdatePolicyActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activity.AboutActivity"
+            android:name=".settings.ui.about.AboutActivity"
             android:exported="false" />
         <activity
             android:name=".resource.ui.details.ResourceActivity"
@@ -76,22 +80,22 @@
             android:name=".section.ui.SectionDataActivity"
             android:exported="false" />
         <activity
-            android:name=".SearchResultActivity"
+            android:name=".search.ui.SearchResultActivity"
             android:exported="false" />
         <activity
-            android:name=".SearchActivity"
+            android:name=".search.ui.SearchActivity"
             android:exported="false" />
         <activity
             android:name=".AgreementPolicyActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activity.PolicyActivity"
+            android:name=".settings.ui.PolicyActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activity.UpdaterActivity"
             android:exported="false" />
         <activity
-            android:name=".ThemeActivity"
+            android:name=".settings.ui.ThemeActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activity.SelectSectionActivity"

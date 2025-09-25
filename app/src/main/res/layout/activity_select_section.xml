@@ -50,7 +50,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
                     android:id="@+id/plateLayout"
                     android:layout_width="96dp"
                     android:layout_height="wrap_content"
@@ -59,7 +59,8 @@
                     android:background="@drawable/uotan_bkg_option"
                     android:overScrollMode="ifContentScrolls"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:scl_corner_radius="@dimen/option_corner_radius">
 
                     <TextView
                         android:id="@+id/tab_xiaomi"
@@ -273,7 +274,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tab_system_app"
                         tools:ignore="TextContrastCheck" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
 

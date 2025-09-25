@@ -8,13 +8,12 @@ import com.gustate.uotan.BaseActivity
 import com.gustate.uotan.R
 import com.gustate.uotan.anim.TransitionAnimConfig
 import com.gustate.uotan.fragment.login.FirstFragment
-import com.gustate.uotan.utils.Utils.Companion.openImmersion
+import com.gustate.uotan.utils.Utils.openImmersion
 
 /**
  * 登录页面 (Activity)
  * JiaGuZhuangZhi Miles
  * Gustate 02/23/2025
- * I Love Jiang’Xun
  */
 
 class LoginActivity : BaseActivity(), FragmentNavigation {

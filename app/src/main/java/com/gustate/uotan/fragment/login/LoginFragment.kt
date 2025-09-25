@@ -1,4 +1,4 @@
-package com.gustate.uotan.fragment.login
+/*package com.gustate.uotan.fragment.login
 
 import android.content.Context
 import android.content.Intent
@@ -21,16 +21,16 @@ import com.gustate.uotan.ui.activity.BindPhoneActivity
 import com.gustate.uotan.ui.activity.LoginActivity
 import com.gustate.uotan.main.ui.MainActivity
 import com.gustate.uotan.ui.activity.UpdatePolicyActivity
-import com.gustate.uotan.gustatex.dialog.LoadingDialog
-import com.gustate.uotan.utils.Utils.Companion.baseUrl
-import com.gustate.uotan.utils.Utils.Companion.Cookies
-import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
-import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
-import com.gustate.uotan.utils.Utils.Companion.isLogin
-import com.gustate.uotan.utils.Utils.Companion.saveToExternalPrivateDir
+import com.gustate.uotan.dialog.LoadingDialog
+import com.gustate.uotan.user.data.parse.MeParse
+import com.gustate.uotan.utils.Utils.baseUrl
+import com.gustate.uotan.utils.Utils.Cookies
+import com.gustate.uotan.utils.Utils.TIMEOUT_MS
+import com.gustate.uotan.utils.Utils.USER_AGENT
+import com.gustate.uotan.utils.Utils.isLogin
+import com.gustate.uotan.utils.Utils.saveToExternalPrivateDir
 import com.gustate.uotan.utils.parse.data.CookiesManager
 import com.gustate.uotan.utils.parse.user.LoginParse
-import com.gustate.uotan.utils.parse.user.MeParse.Companion.fetchMeData
 import com.gustate.uotan.utils.room.User
 import com.gustate.uotan.utils.room.UserViewModel
 import kotlinx.coroutines.Dispatchers
@@ -48,6 +48,7 @@ import org.jsoup.Jsoup
 class LoginFragment : Fragment() {
 
     private lateinit var viewModel: UserViewModel
+    private val mp = MeParse()
 
     /**
      * 加载视图时
@@ -216,7 +217,7 @@ class LoginFragment : Fragment() {
                                 // 结束正在登录状态
                                 isLoggingIn = false
                                 // 获取当前用户的基本信息
-                                val userData = fetchMeData()
+                                val userData = mp.fetchMeData()
                                 // 缓存基本信息链接
                                 viewModel.insert(User(0, userData.userName, userData.cover,
                                     userData.avatar, userData.signature, userData.auth,
@@ -377,4 +378,4 @@ class LoginFragment : Fragment() {
             Cookies
         )
     }
-}
+}*/

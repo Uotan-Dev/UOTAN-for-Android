@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:layoutDescription="@xml/fragment_first_scene"
     tools:context=".fragment.login.FirstFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/back"
+            android:id="@+id/btn_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="17dp"
@@ -56,42 +57,66 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/welcome" />
 
-    <TextView
-        android:id="@+id/register"
+    <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+        android:id="@+id/btn_register"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/uotan_btn_filled"
-        android:fontFamily="sans-serif-medium"
-        android:gravity="center"
-        android:text="@string/first_register"
-        android:textColor="?attr/colorOnFilledButton"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/login"
+        app:layout_constraintBottom_toTopOf="@+id/btn_login"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:scl_corner_radius="@dimen/normal_corner_radius"
+        app:scl_smoothness_radius="@dimen/normal_smoothness">
 
-    <TextView
-        android:id="@+id/login"
+        <TextView
+            android:id="@+id/tv_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/first_register"
+            android:textColor="?attr/colorOnFilledButton"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+
+    <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+        android:id="@+id/btn_login"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="60dp"
         android:background="@drawable/uotan_btn_tonal"
-        android:fontFamily="sans-serif-medium"
-        android:gravity="center"
-        android:text="@string/first_login"
-        android:textColor="?attr/colorOnFilledTonalButton"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/noLogin"
+        app:layout_constraintBottom_toTopOf="@+id/tv_look_first"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:scl_corner_radius="@dimen/normal_corner_radius"
+        app:scl_smoothness_radius="@dimen/normal_smoothness">
+
+        <TextView
+            android:id="@+id/tv_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/first_login"
+            android:textColor="?attr/colorOnFilledTonalButton"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
 
     <TextView
-        android:id="@+id/noLogin"
+        android:id="@+id/tv_look_first"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="45dp"
@@ -103,4 +128,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.motion.widget.MotionLayout>

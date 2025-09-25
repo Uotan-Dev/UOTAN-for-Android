@@ -1,12 +1,12 @@
 package com.gustate.uotan.utils.parse.user
 
 import android.content.Context
-import com.gustate.uotan.utils.Utils.Companion.baseUrl
-import com.gustate.uotan.utils.Utils.Companion.Cookies
-import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
-import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
+import com.gustate.uotan.utils.Utils.baseUrl
+import com.gustate.uotan.utils.Utils.USER_AGENT
+import com.gustate.uotan.utils.network.HttpClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.Request
 import org.jsoup.Jsoup
 
 /**
@@ -39,12 +39,13 @@ class PolicyParse {
          */
         suspend fun readPolicy(context: Context): PolicyUpdateInfo = withContext(Dispatchers.IO) {
 
-            /** 获取网页 Document 文档 **/
-            val document = Jsoup.connect(baseUrl)
-                .userAgent(USER_AGENT)
-                .timeout(TIMEOUT_MS)
-                .cookies(Cookies)
-                .get()
+            val client = HttpClient.getClient()
+            val request = Request.Builder()
+                .url(baseUrl)
+                .header("User-Agent", USER_AGENT)
+                .build()
+            val response = client.newCall(request).execute()
+            val document = Jsoup.parse(response.body.string())
 
             /** 获取隐私政策更新时间 **/
             // 获取根 Element

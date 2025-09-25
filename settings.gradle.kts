@@ -22,4 +22,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "Uotan"
 include(":app")
-include(":imageviewer")

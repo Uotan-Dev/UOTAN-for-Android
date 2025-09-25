@@ -96,7 +96,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <TextView
-                        android:id="@+id/userName"
+                        android:id="@+id/tv_username"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="18dp"
@@ -109,7 +109,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
                     <ImageButton
-                        android:id="@+id/btnSettings"
+                        android:id="@+id/btn_setting"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
@@ -133,7 +133,7 @@
                         android:textSize="14sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/userName" />
+                        app:layout_constraintTop_toBottomOf="@+id/tv_username" />
 
                     <ImageView
                         android:id="@+id/authIcon"
@@ -160,7 +160,7 @@
                         app:layout_constraintStart_toEndOf="@+id/authIcon"
                         app:layout_constraintTop_toTopOf="@+id/authIcon" />
 
-                    <com.gustate.uotan.view.smooth.SmoothCornerLayout
+                    <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
                         android:id="@+id/btn_clock_in"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
@@ -189,7 +189,7 @@
                             app:layout_constraintTop_toTopOf="parent">
 
                         </TextView>
-                    </com.gustate.uotan.view.smooth.SmoothCornerLayout>
+                    </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
 
                     <LinearLayout
                         android:id="@+id/linearLayout"
@@ -264,7 +264,7 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <com.scwang.smart.refresh.layout.SmartRefreshLayout
-            android:id="@+id/srlContent"
+            android:id="@+id/srl_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="-20dp"
@@ -283,187 +283,202 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
+                    <LinearLayout
+                        android:id="@+id/header_mod"
+                        android:layout_width="0dp"
+                        android:layout_height="98dp"
+                        android:layout_marginTop="12dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/img_tab2">
+
+                        <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+                            android:id="@+id/scl_collect"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginBottom="12dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/uotan_bkg_option"
+                            app:scl_corner_radius="@dimen/option_corner_radius"
+                            app:scl_smoothness_radius="@dimen/normal_smoothness">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/collectLayout"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <ImageView
+                                    android:id="@+id/collectIcon"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:srcCompat="@drawable/ic_option_collect" />
+
+                                <TextView
+                                    android:id="@+id/collectText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    android:fontFamily="sans-serif-medium"
+                                    android:text="@string/collect"
+                                    android:textColor="?attr/colorOnCardPrimary"
+                                    android:textSize="12sp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/collectIcon" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+                        </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+
+                        <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+                            android:id="@+id/scl_res"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginBottom="12dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/uotan_bkg_option"
+                            app:layout_constraintStart_toEndOf="@+id/scl_collect"
+                            app:layout_constraintTop_toTopOf="@+id/scl_collect"
+                            app:scl_corner_radius="@dimen/option_corner_radius"
+                            app:scl_smoothness_radius="@dimen/normal_smoothness">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/resLayout"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <ImageView
+                                    android:id="@+id/resIcon"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:srcCompat="@drawable/ic_option_resource" />
+
+                                <TextView
+                                    android:id="@+id/resText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    android:fontFamily="sans-serif-medium"
+                                    android:text="@string/resource"
+                                    android:textColor="?attr/colorOnCardPrimary"
+                                    android:textSize="12sp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/resIcon" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+                        </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+
+                        <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+                            android:id="@+id/scl_asset"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="12dp"
+                            android:layout_marginBottom="12dp"
+                            android:layout_weight="2"
+                            android:background="@drawable/uotan_bkg_option"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/scl_res"
+                            app:layout_constraintTop_toTopOf="@+id/scl_res"
+                            app:scl_corner_radius="@dimen/option_corner_radius"
+                            app:scl_smoothness_radius="@dimen/normal_smoothness">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/layout_asset"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <ImageView
+                                    android:id="@+id/pointsIcon"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginTop="12dp"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/uCoinsIcon"
+                                    app:srcCompat="@drawable/ic_option_points" />
+
+                                <TextView
+                                    android:id="@+id/points"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginBottom="4dp"
+                                    android:fontFamily="sans-serif-medium"
+                                    android:text="@string/num_zero"
+                                    android:textColor="?attr/colorOnCardPrimary"
+                                    android:textSize="12sp"
+                                    app:layout_constraintBottom_toBottomOf="@+id/pointsIcon"
+                                    app:layout_constraintStart_toEndOf="@+id/pointsIcon"
+                                    app:layout_constraintTop_toTopOf="@+id/pointsIcon" />
+
+                                <ImageView
+                                    android:id="@+id/uCoinsIcon"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:srcCompat="@drawable/ic_option_coins" />
+
+                                <TextView
+                                    android:id="@+id/uCoin"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginBottom="4dp"
+                                    android:fontFamily="sans-serif-medium"
+                                    android:text="@string/num_zero"
+                                    android:textColor="?attr/colorOnCardPrimary"
+                                    android:textSize="12sp"
+                                    app:layout_constraintBottom_toBottomOf="@+id/uCoinsIcon"
+                                    app:layout_constraintStart_toEndOf="@+id/uCoinsIcon"
+                                    app:layout_constraintTop_toTopOf="@+id/uCoinsIcon" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+                        </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+                    </LinearLayout>
+
                     <ImageView
                         android:id="@+id/img_tab2"
                         android:layout_width="60dp"
                         android:layout_height="3dp"
                         android:layout_centerHorizontal="true"
+                        android:layout_marginTop="12dp"
                         android:src="@drawable/rect_dialogx_material_you_dialogtap"
-                        app:layout_constraintBottom_toTopOf="@+id/resCard"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <com.gustate.uotan.view.smooth.SmoothCornerLayout
-                        android:id="@+id/collectCard"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:layout_marginStart="12dp"
-                        android:layout_marginTop="28dp"
-                        android:background="@drawable/uotan_bkg_option"
-                        app:scl_corner_radius="@dimen/option_corner_radius"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:scl_smoothness_radius="@dimen/normal_smoothness">
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/collectLayout"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                            <ImageView
-                                android:id="@+id/collectIcon"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:srcCompat="@drawable/ic_option_collect" />
-
-                            <TextView
-                                android:id="@+id/collectText"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:fontFamily="sans-serif-medium"
-                                android:text="@string/collect"
-                                android:textColor="?attr/colorOnCardPrimary"
-                                android:textSize="12sp"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/collectIcon" />
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-                    </com.gustate.uotan.view.smooth.SmoothCornerLayout>
-
-                    <com.gustate.uotan.view.smooth.SmoothCornerLayout
-                        android:id="@+id/resCard"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:layout_marginStart="10dp"
-                        android:background="@drawable/uotan_bkg_option"
-                        app:scl_corner_radius="@dimen/option_corner_radius"
-                        app:layout_constraintStart_toEndOf="@+id/collectCard"
-                        app:layout_constraintTop_toTopOf="@+id/collectCard"
-                        app:scl_smoothness_radius="@dimen/normal_smoothness">
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/resLayout"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                            <ImageView
-                                android:id="@+id/resIcon"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:srcCompat="@drawable/ic_option_resource" />
-
-                            <TextView
-                                android:id="@+id/resText"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:fontFamily="sans-serif-medium"
-                                android:text="@string/resource"
-                                android:textColor="?attr/colorOnCardPrimary"
-                                android:textSize="12sp"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/resIcon" />
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-                    </com.gustate.uotan.view.smooth.SmoothCornerLayout>
-
-                    <com.gustate.uotan.view.smooth.SmoothCornerLayout
-                        android:id="@+id/pointsLayout"
-                        android:layout_width="0dp"
-                        android:layout_height="70dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="12dp"
-                        android:background="@drawable/uotan_bkg_option"
-                        app:scl_corner_radius="@dimen/option_corner_radius"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/resCard"
-                        app:layout_constraintTop_toTopOf="@+id/resCard"
-                        app:scl_smoothness_radius="@dimen/normal_smoothness">
-
-                        <ImageView
-                            android:id="@+id/pointsIcon"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="10dp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/ic_option_points" />
-
-                        <TextView
-                            android:id="@+id/points"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:fontFamily="sans-serif-medium"
-                            android:text="@string/num_zero"
-                            android:textColor="?attr/colorOnCardPrimary"
-                            android:textSize="12sp"
-                            app:layout_constraintBottom_toBottomOf="@+id/pointsIcon"
-                            app:layout_constraintStart_toEndOf="@+id/pointsIcon"
-                            app:layout_constraintTop_toTopOf="@+id/pointsIcon" />
-
-                        <ImageView
-                            android:id="@+id/uCoinsIcon"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginBottom="10dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:srcCompat="@drawable/ic_option_coins" />
-
-                        <TextView
-                            android:id="@+id/uCoin"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:fontFamily="sans-serif-medium"
-                            android:text="@string/num_zero"
-                            android:textColor="?attr/colorOnCardPrimary"
-                            android:textSize="12sp"
-                            app:layout_constraintBottom_toBottomOf="@+id/uCoinsIcon"
-                            app:layout_constraintStart_toEndOf="@+id/uCoinsIcon"
-                            app:layout_constraintTop_toTopOf="@+id/uCoinsIcon" />
-                    </com.gustate.uotan.view.smooth.SmoothCornerLayout>
-
-                    <TextView
-                        android:id="@+id/textView6"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:background="@android:color/transparent"
-                        app:layout_constraintEnd_toEndOf="@+id/pointsLayout"
-                        app:layout_constraintStart_toStartOf="@+id/collectCard"
-                        app:layout_constraintTop_toBottomOf="@+id/collectCard" />
-
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerView"
+                        android:id="@+id/rv_posts"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:paddingStart="7dp"
                         android:paddingEnd="7dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+                        app:layout_constraintTop_toBottomOf="@+id/header_mod" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.core.widget.NestedScrollView>
@@ -525,7 +540,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
-                android:id="@+id/btnSettings2"
+                android:id="@+id/btn_setting_header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="18dp"

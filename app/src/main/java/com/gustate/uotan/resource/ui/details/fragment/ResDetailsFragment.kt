@@ -1,12 +1,18 @@
 package com.gustate.uotan.resource.ui.details.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.github.iielse.imageviewer.ImageViewerBuilder
 import com.github.iielse.imageviewer.core.Photo
 import com.github.iielse.imageviewer.core.SimpleDataProvider
@@ -18,6 +24,8 @@ import com.gustate.uotan.article.imageviewer.ImageTransformer
 import com.gustate.uotan.databinding.FragmentResDetailsBinding
 import com.gustate.uotan.resource.ui.details.ResDetailsViewModel
 import com.gustate.uotan.threads.data.model.ThreadPhoto
+import com.gustate.uotan.utils.Utils.dpToPx
+import kotlin.math.roundToInt
 
 class ResDetailsFragment : Fragment() {
 
@@ -48,6 +56,15 @@ class ResDetailsFragment : Fragment() {
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            val bottomMenuHeight = context?.let { 65f.dpToPx(it).roundToInt() } ?: 0
+            binding.rvDetails.setPadding(
+                binding.rvDetails.paddingLeft, binding.rvDetails.paddingTop,
+                binding.rvDetails.paddingRight, systemBars.bottom + bottomMenuHeight)
+            insets
+        }
+
         detailsAdapter = ContentAdapter().apply {
             onImageClick = { id, url ->
                 showPictureViewer(id.toLong(), url)
@@ -55,6 +72,7 @@ class ResDetailsFragment : Fragment() {
         }
         binding.rvDetails.layoutManager = LinearLayoutManager(requireContext())
         binding.rvDetails.adapter = detailsAdapter
+
         viewModel.details.observe(viewLifecycleOwner) {
             val content = HtmlParse.parse(it.content)
             detailsAdapter.updateContent(content)

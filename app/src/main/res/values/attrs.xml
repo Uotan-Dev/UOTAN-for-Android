@@ -77,31 +77,22 @@
         <attr name="optionTitle_onlyTitle" format="string" />
     </declare-styleable>
 
+    <declare-styleable name="OptionDetailView">
+        <attr name="android:background" format="reference" />
+        <attr name="odv_title" format="string" />
+        <attr name="odv_detail" format="string" />
+        <attr name="odv_arrow_gone" format="boolean" />
+    </declare-styleable>
+
     <declare-styleable name="OptionTitleAndDescribeView">
         <attr name="optionTitle_tiltleAndDescribe" format="string" />
         <attr name="optionDescribe_tiltleAndDescribe" format="string" />
     </declare-styleable>
 
     <declare-styleable name="OptionUserView">
-        <attr name="optionAvatar_user" format="reference" />
-        <attr name="optionTitle_user" format="string" />
-        <attr name="optionDescribe_user" format="string" />
-    </declare-styleable>
-
-    <declare-styleable name="FadingBlurView">
-        <attr name="fadeHeight" format="dimension"/>
-    </declare-styleable>
-
-    <declare-styleable name="SuperEllipseLayout">
-        <attr name="android:background" />
-        <attr name="sel_corner_radius" format="dimension" />
-        <!-- 添加淡入淡出时间属性 -->
-        <attr name="sel_enter_fade_duration" format="integer" />
-        <attr name="sel_exit_fade_duration" format="integer" />
-        <attr name="sel_curve_n" format="float"/>
-        <attr name="sel_curve_r" format="float"/>
-        <attr name="sel_border_color" format="color"/>
-        <attr name="sel_border_width" format="dimension"/>
+        <attr name="ouv_avatar_assets" format="string" />
+        <attr name="ouv_title" format="string" />
+        <attr name="ouv_describe" format="string" />
     </declare-styleable>
 
     <declare-styleable name="SmoothCornerLayout">

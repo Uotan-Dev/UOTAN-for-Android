@@ -14,13 +14,13 @@ import com.bumptech.glide.Glide
 import com.gustate.uotan.BaseActivity
 import com.gustate.uotan.R
 import com.gustate.uotan.databinding.ActivityMainBinding
-import com.gustate.uotan.ui.activity.SettingsActivity
-import com.gustate.uotan.utils.Helpers.Companion.avatarOptions
+import com.gustate.uotan.settings.ui.SettingsActivity
+import com.gustate.uotan.utils.Helpers.avatarOptions
 import com.gustate.uotan.utils.Utils
-import com.gustate.uotan.utils.Utils.Companion.dpToPx
-import com.gustate.uotan.utils.Utils.Companion.errorDialog
-import com.gustate.uotan.utils.Utils.Companion.getThemeColor
-import com.gustate.uotan.utils.Utils.Companion.idToAvatar
+import com.gustate.uotan.utils.Utils.dpToPx
+import com.gustate.uotan.utils.Utils.errorDialog
+import com.gustate.uotan.utils.Utils.getThemeColor
+import com.gustate.uotan.utils.Utils.idToAvatar
 import com.gustate.uotan.utils.room.UserViewModel
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
@@ -143,7 +143,7 @@ class MainActivity : BaseActivity() {
         // 启用边到边设计
         enableEdgeToEdge()
         // 针对部分系统的系统栏沉浸
-        Utils.Companion.openImmersion(window)
+        Utils.openImmersion(window)
         // 使用 ViewCompat 的回调函数
         ViewCompat.setOnApplyWindowInsetsListener(binding.main) { _, insets ->
             // 获取系统栏高度 (包含 top, bottom, left 和 right)

@@ -1,37 +1,39 @@
 package com.gustate.uotan.user.data.api
 
+import android.util.Log
 import com.google.gson.Gson
 import com.gustate.uotan.BuildConfig
-import com.gustate.uotan.user.data.model.User
-import com.gustate.uotan.utils.Utils.Companion.baseUrl
-import com.gustate.uotan.utils.Utils.Companion.Cookies
-import com.gustate.uotan.utils.Utils.Companion.convertCookiesToString
+import com.gustate.uotan.user.data.model.MeModel
+import com.gustate.uotan.utils.Utils.baseUrl
+import com.gustate.uotan.utils.network.HttpClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import okhttp3.OkHttpClient
 import okhttp3.Request
 
 class MineApiService {
     suspend fun getMeUserInfo(
-        onSuccess: (User) -> Unit,
+        onSuccess: (MeModel) -> Unit,
         onException: (Exception) -> Unit
     ) = withContext(Dispatchers.IO) {
         try {
-            val client = OkHttpClient.Builder()
-                .build()
+            val client = HttpClient.getClient()
             val request = Request.Builder()
                 .url("$baseUrl/api/me/")
                 .addHeader("User-Agent", "UotanApp/1.0")
                 .addHeader("XF-Api-Key", BuildConfig.xfApiKey)
-                .addHeader("Cookie", convertCookiesToString(Cookies))
+                .addHeader("XF-Api-User",
+                    HttpClient.getAllCookies()["xf_user"] ?: "")
                 .build()
-            val json = client.newCall(request).execute().body?.string()
-            val user = Gson().fromJson(json, User::class.java)
+            val json = client.newCall(request).execute().body.string()
+            val user = Gson().fromJson(json, MeModel::class.java)
+
+            Log.e("e", json)
             withContext(Dispatchers.Main) {
                 onSuccess(user)
             }
         } catch (e: Exception) {
             withContext(Dispatchers.Main) {
+                Log.e("e", e.message ?:"")
                 onException(e)
             }
         }

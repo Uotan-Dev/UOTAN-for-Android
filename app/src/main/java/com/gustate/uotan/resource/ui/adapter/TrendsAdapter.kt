@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.gustate.uotan.R
 import com.gustate.uotan.databinding.ItemResourceTrendsBinding
 import com.gustate.uotan.resource.data.model.ResourceItem
-import com.gustate.uotan.utils.Utils.Companion.baseUrl
+import com.gustate.uotan.utils.Utils.baseUrl
 
 class TrendsAdapter() : ListAdapter<ResourceItem, TrendsAdapter.ViewHolder>(DiffCallback()) {
     // 点击监听接口

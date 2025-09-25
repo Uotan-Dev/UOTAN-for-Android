@@ -1,14 +1,14 @@
 package com.gustate.uotan.user.data.repository
 
 import com.gustate.uotan.user.data.api.MineApiService
-import com.gustate.uotan.user.data.model.User
+import com.gustate.uotan.user.data.model.MeModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class MineRepository {
     private val mineApiService = MineApiService()
     suspend fun getMeUserInfo(
-        onSuccess: (User) -> Unit,
+        onSuccess: (MeModel) -> Unit,
         onException: (Exception) -> Unit
     ) = withContext(Dispatchers.IO) {
         mineApiService.getMeUserInfo(

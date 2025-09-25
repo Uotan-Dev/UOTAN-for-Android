@@ -39,7 +39,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.gustate.uotan.gustatex.view.ScrollControllerListView
+    <com.gustate.uotan.ui.view.scrollcontroller.ScrollControllerListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="580dp"

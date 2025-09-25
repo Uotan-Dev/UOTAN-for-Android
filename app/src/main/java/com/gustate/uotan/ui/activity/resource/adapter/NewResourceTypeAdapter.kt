@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.gustate.uotan.R
 import com.gustate.uotan.databinding.RecyclerDownloadTypeBinding
-import com.gustate.uotan.resource.data.parse.ResourceData.PurchaseData
+import com.gustate.uotan.resource.data.model.PurchaseData
 import kotlin.collections.mutableListOf
 
 class NewResourceTypeAdapter(): Adapter<NewResourceTypeAdapter.ViewHolder>() {
@@ -30,7 +30,7 @@ class NewResourceTypeAdapter(): Adapter<NewResourceTypeAdapter.ViewHolder>() {
         val content = newResourceList[position]
         val context = holder.itemView.context
         binding.tvDrive.text = content.driveName
-        binding.btnDownload.text = if (!content.isPaid) {
+        binding.tvDownload.text = if (!content.isPaid) {
             context.getString(R.string.buy_download, content.price)
         } else {
             context.getString(R.string.buy_download, "")

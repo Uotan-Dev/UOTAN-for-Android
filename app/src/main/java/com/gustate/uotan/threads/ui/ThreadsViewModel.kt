@@ -7,7 +7,7 @@ import com.gustate.uotan.threads.data.model.Post
 import com.gustate.uotan.threads.data.model.post.PostResponse
 import com.gustate.uotan.threads.data.parse.ThreadsParse
 import com.gustate.uotan.threads.data.repository.ThreadsRepository
-import com.gustate.uotan.utils.Utils.Companion.baseUrl
+import com.gustate.uotan.utils.Utils.baseUrl
 import kotlinx.coroutines.launch
 
 class ThreadsViewModel : ViewModel() {
@@ -86,7 +86,7 @@ class ThreadsViewModel : ViewModel() {
                     val th = mp[0]
                     _threadPost.value = th
                     _isThreadsReact.value = th.isReactedTo
-                    _isThreadsAuthorFollow.value = th.user.isFollowed
+                    _isThreadsAuthorFollow.value = th.user.is_followed
                     _threadsReactCount.value = th.reactionScore
                     _threadsReplyCount.value = it.pagination.shown - 1
                     mp.removeAt(0)
@@ -191,7 +191,7 @@ class ThreadsViewModel : ViewModel() {
         _isFollowing.value = true
         viewModelScope.launch {
             tp.follow(
-                memberUrl = _threadPost.value?.user?.viewURL?: "",
+                memberUrl = _threadPost.value?.user?.view_url?: "",
                 onSuccess = {
                     _isThreadsAuthorFollow.value.let {
                         _isThreadsAuthorFollow.value = it != true

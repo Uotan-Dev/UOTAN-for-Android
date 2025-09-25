@@ -2,7 +2,6 @@ package com.gustate.uotan.threads.data.model
 
 import com.google.gson.annotations.SerializedName
 import com.gustate.uotan.utils.data.model.Attachment
-import com.gustate.uotan.user.data.model.User
 
 data class Post (
     @SerializedName("attach_count")

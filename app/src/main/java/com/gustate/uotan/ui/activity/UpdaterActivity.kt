@@ -20,7 +20,7 @@ import com.gustate.uotan.BaseActivity
 import com.gustate.uotan.R
 import com.gustate.uotan.databinding.ActivityUpdaterBinding
 import com.gustate.uotan.utils.Utils
-import com.gustate.uotan.utils.Utils.Companion.dpToPx
+import com.gustate.uotan.utils.Utils.dpToPx
 import com.gustate.uotan.utils.parse.update.UpdateLog
 import com.gustate.uotan.utils.parse.update.UpdateParse
 import com.gustate.uotan.utils.parse.update.UpdateParse.Companion.isVerLow
@@ -125,16 +125,14 @@ class UpdaterActivity : BaseActivity() {
     }
     private fun setUpdateButton() {
         if (hasNewVersion) {
-            binding.chkUpdate.apply {
-                text = getText(R.string.go_update)
-                setOnClickListener {
-                    startActivity(
-                        Intent(
-                            this@UpdaterActivity,
-                            FindUpdateActivity::class.java
-                        )
+            binding.tvUpdate.text = getText(R.string.go_update)
+            binding.chkUpdate.setOnClickListener {
+                startActivity(
+                    Intent(
+                        this@UpdaterActivity,
+                        FindUpdateActivity::class.java
                     )
-                }
+                )
             }
             binding.btnNewVer.isGone = false
             binding.btnNewVer.setOnClickListener {
@@ -146,12 +144,10 @@ class UpdaterActivity : BaseActivity() {
                 )
             }
         } else {
-            binding.chkUpdate.apply {
-                text = getText(R.string.check_for_updates)
-                setOnClickListener {
-                    lifecycleScope.launch {
-                        checkUpdate()
-                    }
+            binding.tvUpdate.text =getText(R.string.check_for_updates)
+            binding.chkUpdate.setOnClickListener {
+                lifecycleScope.launch {
+                    checkUpdate()
                 }
             }
             binding.btnNewVer.setOnClickListener { null }

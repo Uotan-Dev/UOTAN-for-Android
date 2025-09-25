@@ -1,12 +1,12 @@
 package com.gustate.uotan.home.data.parse
 
 import com.gustate.uotan.home.data.model.LatestItem
-import com.gustate.uotan.utils.Utils.Companion.baseUrl
-import com.gustate.uotan.utils.Utils.Companion.Cookies
-import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
-import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
+import com.gustate.uotan.utils.Utils.baseUrl
+import com.gustate.uotan.utils.Utils.USER_AGENT
+import com.gustate.uotan.utils.network.HttpClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.Request
 import org.jsoup.Jsoup
 
 class LatestParse {
@@ -23,12 +23,14 @@ class LatestParse {
         try {
             // 储存结果的变量
             val latestList = mutableListOf<LatestItem>()
+            val client = HttpClient.getClient()
             // 解析网页
-            val document = Jsoup.connect("$baseUrl/whats-new/")
-                .userAgent(USER_AGENT)
-                .timeout(TIMEOUT_MS)
-                .cookies(Cookies)
-                .get()
+            val request = Request.Builder()
+                .url("$baseUrl/whats-new/")
+                .header("User-Agent", USER_AGENT)
+                .build()
+            val response = client.newCall(request).execute()
+            val document = Jsoup.parse(response.body.string())
             // 获取全部帖子元素
             val elements = document
                 .getElementsByClass("structItemContainer")
@@ -41,8 +43,12 @@ class LatestParse {
                     .getElementsByClass("structItem-cell structItem-cell--icon")
                     .first()
                 val cover = if (
-                    coverElement!!.getElementsByTag("img").attr("src") != "https://www.uotan.cn/img/forums/%E5%B8%96%E5%AD%90.png"
-                    && coverElement.getElementsByTag("img").attr("src") != ""
+                    coverElement!!
+                        .getElementsByTag("img")
+                        .attr("src")
+                    != "https://www.uotan.cn/img/forums/%E5%B8%96%E5%AD%90.png"
+                    && coverElement.getElementsByTag("img").attr("src")
+                    != ""
                 ) {
                     baseUrl + coverElement.getElementsByTag("img").attr("src")
                 } else {

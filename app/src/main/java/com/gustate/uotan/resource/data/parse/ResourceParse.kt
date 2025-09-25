@@ -3,12 +3,12 @@ package com.gustate.uotan.resource.data.parse
 import com.gustate.uotan.resource.data.model.AllResourceFetchResult
 import com.gustate.uotan.resource.data.model.ResourceItem
 import com.gustate.uotan.resource.data.model.ResourcePlateItem
-import com.gustate.uotan.utils.Utils.Companion.baseUrl
-import com.gustate.uotan.utils.Utils.Companion.Cookies
-import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
-import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
+import com.gustate.uotan.utils.Utils.baseUrl
+import com.gustate.uotan.utils.Utils.USER_AGENT
+import com.gustate.uotan.utils.network.HttpClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.Request
 import org.jsoup.Jsoup
 
 class ResourceParse {
@@ -24,11 +24,13 @@ class ResourceParse {
     ) = withContext(Dispatchers.IO) {
         try {
             val result = mutableListOf<ResourceItem>()
-            val document = Jsoup
-                .connect("$baseUrl/resources/featured")
-                .userAgent(USER_AGENT)
-                .timeout(TIMEOUT_MS)
-                .get()
+            val client = HttpClient.getClient()
+            val request = Request.Builder()
+                .url("$baseUrl/resources/featured")
+                .header("User-Agent", USER_AGENT)
+                .build()
+            val response = client.newCall(request).execute()
+            val document = Jsoup.parse(response.body.string())
             val structItemContainer = document
                 .getElementsByClass("structItemContainer")
                 .first()
@@ -105,16 +107,18 @@ class ResourceParse {
         try {
             val result = mutableListOf<ResourceItem>()
             val pageContent = if (page == 1) "/" else "/?page=$page"
-            val document = Jsoup
-                .connect(
-                    "$baseUrl/resources${
-                        categories.replace("/resources", "").removeSuffix("/")
+            val client = HttpClient.getClient()
+            val request = Request.Builder()
+                .url(
+                    "$baseUrl/resources${categories
+                        .replace("/resources", "")
+                        .removeSuffix("/")
                     }${pageContent}"
                 )
-                .userAgent(USER_AGENT)
-                .cookies(Cookies)
-                .timeout(TIMEOUT_MS)
-                .get()
+                .header("User-Agent", USER_AGENT)
+                .build()
+            val response = client.newCall(request).execute()
+            val document = Jsoup.parse(response.body.string())
             val totalPage = document
                 .getElementsByClass("pageNav-main")
                 .first()
@@ -207,12 +211,13 @@ class ResourceParse {
     ) = withContext(Dispatchers.IO) {
         try {
             val result = mutableListOf<ResourcePlateItem>()
-            val document = Jsoup
-                .connect("$baseUrl/resources/")
-                .userAgent(USER_AGENT)
-                .cookies(Cookies)
-                .timeout(TIMEOUT_MS)
-                .get()
+            val client = HttpClient.getClient()
+            val request = Request.Builder()
+                .url("$baseUrl/resources/")
+                .header("User-Agent", USER_AGENT)
+                .build()
+            val response = client.newCall(request).execute()
+            val document = Jsoup.parse(response.body.string())
             val categoryLists = document
                 .getElementsByClass("categoryList toggleTarget is-active")
                 .first()

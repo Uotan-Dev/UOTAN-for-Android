@@ -19,7 +19,7 @@ import com.gustate.uotan.article.ContentBlock.ImageBlock
 import com.gustate.uotan.article.ContentBlock.TableBlock
 import com.gustate.uotan.article.ContentBlock.TableCellBlock
 import com.gustate.uotan.article.ContentBlock.TextBlock
-import com.gustate.uotan.utils.Utils.Companion.dpToPx
+import com.gustate.uotan.utils.Utils.dpToPx
 import kotlin.math.roundToInt
 
 class TableViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

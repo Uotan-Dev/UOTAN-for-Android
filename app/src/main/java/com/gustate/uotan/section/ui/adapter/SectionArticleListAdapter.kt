@@ -14,9 +14,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.gustate.uotan.R
 import com.gustate.uotan.section.data.model.SectionDataItem
-import com.gustate.uotan.utils.Helpers.Companion.avatarOptions
+import com.gustate.uotan.utils.Helpers.avatarOptions
 import com.gustate.uotan.utils.Utils
-import com.gustate.uotan.utils.Utils.Companion.dpToPx
+import com.gustate.uotan.utils.Utils.dpToPx
 import kotlin.math.roundToInt
 
 class SectionArticleListAdapter : ListAdapter<SectionDataItem, SectionArticleListAdapter.ViewHolder>(
@@ -56,7 +56,7 @@ class SectionArticleListAdapter : ListAdapter<SectionDataItem, SectionArticleLis
         if (content.cover.isNotEmpty() && !content.cover.startsWith("/img/forums/")) {
             holder.coverImage.isVisible = true
             Glide.with(holder.itemView.context)
-                .load(Utils.Companion.baseUrl + content.cover)
+                .load(Utils.baseUrl + content.cover)
                 .into(holder.coverImage)
             val userParams = holder.userLayout.layoutParams as ViewGroup.MarginLayoutParams
             userParams.topMargin = (12f.dpToPx(holder.itemView.context)).roundToInt()
@@ -67,7 +67,7 @@ class SectionArticleListAdapter : ListAdapter<SectionDataItem, SectionArticleLis
             userParams.topMargin = 0
             holder.userLayout.layoutParams = userParams
         }
-        val avatarUrl = Utils.Companion.idToAvatar(content.id)
+        val avatarUrl = Utils.idToAvatar(content.id)
         Glide.with(holder.itemView.context)
             .load(avatarUrl)
             .apply(avatarOptions)

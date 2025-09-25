@@ -77,26 +77,25 @@
     <string name="theme">Theme</string>
     <string name="network">Network</string>
     <string name="user_agreement_policy">User Agreement and Policy</string>
-    <string name="coreteam_01" translatable="false">明辉映梦</string>
-    <string name="coreteam_02" translatable="false">流年</string>
-    <string name="coreteam_03">暮间雾</string>
-    <string name="coreteam_04" translatable="false">yuzh</string>
-    <string name="coreteam_05" translatable="false">lemo</string>
-    <string name="coreteam_06" translatable="false">星鸿</string>
-    <string name="coreteam_07" translatable="false">zach</string>
-    <string name="coreteam_08" translatable="false">皓洋</string>
-    <string name="specialthanks_01" translatable="false">Rayzggz</string>
-    <string name="specialthanks_02" translatable="false">汩汩加热装置</string>
-    <string name="coreteam_describe_03">Co-Founder</string>
-    <string name="coreteam_describe_05">Product/Design</string>
-    <string name="coreteam_describe_06">Website DevOps</string>
-    <string name="coreteam_describe_01">Founder</string>
-    <string name="coreteam_describe_02">Co-Founder</string>
-    <string name="coreteam_describe_04">Community Development</string>
-    <string name="coreteam_describe_07">Website manpower</string>
-    <string name="coreteam_describe_08">Website Development</string>
-    <string name="specialthanks_describe_01">Technical support</string>
-    <string name="specialthanks_describe_02">Android APP development</string>
+    <string name="core_mhym" translatable="false">明辉映梦</string>
+    <string name="core_ln" translatable="false">流年</string>
+    <string name="core_mjw">MJW</string>
+    <string name="core_yuzh" translatable="false">yuzh</string>
+    <string name="core_lemo" translatable="false">lemo</string>
+    <string name="core_xh" translatable="false">星鸿</string>
+    <string name="core_zach" translatable="false">zach</string>
+    <string name="core_hy" translatable="false">皓洋</string>
+    <string name="thanks_rayzggz" translatable="false">Rayzggz</string>
+    <string name="core_describe_ln">Co-Founder</string>
+    <string name="core_describe_lemo">Product/Design</string>
+    <string name="core_describe_xh">Website DevOps</string>
+    <string name="core_describe_mhym">Founder</string>
+    <string name="core_describe_mjw">Co-Founder</string>
+    <string name="core_describe_yuzh">Community Development</string>
+    <string name="core_describe_zach">Website manpower</string>
+    <string name="core_describe_hy">Website Development</string>
+    <string name="thanks_describe_rayzggz">Technical support</string>
+    <string name="thanks_describe_gustate">Android APP development</string>
     <string name="uotan_describe">Greetings! It is a pleasure to meet fellow digital enthusiasts like you in this vast tech ecosystem.\nWe have walked the same path - bewildered by fragmented online resources, wearied by scavenging across websites for usable information. Yet we have always envisioned building a Mi-fan-centric content community where valuable knowledge transcends isolated islands, creating a pure digital space for like-minded enthusiasts.\nOur core philosophy remains unchanged: to embrace a more open information ecosystem, maximize content value, and empower creators to foster a virtuous cycle.\nDespite financial constraints and staffing challenges, we have persevered.\nSince 2020, our web and app platforms have undergone strategic iterations, charting clearer development trajectories. This progress owes to our content team\'s dedication - your open-source spirit has enriched UOTAN Community with creative brilliance.\nThis is UOTAN Community: committed to building better device-enthusiast content ecosystems.\nThrough it all, we remain steadfast.</string>
     <string name="version_code">Version Code</string>
     <string name="version_name">Version Name</string>
@@ -252,4 +251,24 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="res_details">Resource Details</string>
     <string name="historical_version">Historical Version</string>
+    <string name="official_website">Official Website</string>
+    <string name="thanks_gustate">Gustate</string>
+    <string name="email_address">E-Mail address</string>
+    <string name="avatar">Avatar</string>
+    <string name="tip_pravicy">UOTAN is well aware of the importance of personal information to you. We have always solemnly committed to protecting the personal information and privacy security of users who use our products and services in the Youtan Community.</string>
+    <string name="basic_personal_information">Basic personal information</string>
+    <string name="rename_user">Rename User</string>
+    <string name="logout">Logout</string>
+    <string name="error">Error</string>
+    <string name="change_username_time">You can only change your username once a month</string>
+    <string name="modified_successfully">Modified successfully</string>
+    <string name="hint_new_username">New Username</string>
+    <string name="reason_for_modification">Reason for modification</string>
+    <string name="agreement_text">Agree to the %1$s, %2$s, %3$s, %4$s</string>
+    <string name="back">Back</string>
+    <string name="all">All</string>
+    <string name="thread">Thread</string>
+    <string name="help">Help</string>
+    <string name="work_order">Work Order</string>
+    <string name="res">Resource</string>
 </resources>

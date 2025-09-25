@@ -21,9 +21,9 @@ import com.gustate.uotan.BaseActivity
 import com.gustate.uotan.R
 import com.gustate.uotan.ui.activity.UpdaterActivity.UpdateLogAdapter
 import com.gustate.uotan.databinding.ActivityFindUpdateBinding
-import com.gustate.uotan.gustatex.dialog.InfoDialog
-import com.gustate.uotan.utils.Utils.Companion.downloadFile
-import com.gustate.uotan.utils.Utils.Companion.dpToPx
+import com.gustate.uotan.dialog.InfoDialog
+import com.gustate.uotan.utils.Utils.downloadFile
+import com.gustate.uotan.utils.Utils.dpToPx
 import com.gustate.uotan.utils.parse.update.UpdateParse.Companion.fetchNewVersion
 import com.tonyodev.fetch2.Download
 import com.tonyodev.fetch2.Error

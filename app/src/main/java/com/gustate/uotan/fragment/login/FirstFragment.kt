@@ -10,6 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.gustate.uotan.R
+import com.gustate.uotan.databinding.FragmentFirstBinding
 import com.gustate.uotan.ui.activity.LoginActivity
 import com.gustate.uotan.main.ui.MainActivity
 
@@ -17,10 +18,12 @@ import com.gustate.uotan.main.ui.MainActivity
  * 欢迎页面 (Fragment)
  * JiaGuZhuangZhi Miles
  * Gustate 02/23/2025
- * I Love Jiang’Xun
  */
 
 class FirstFragment : Fragment() {
+
+    private var _binding: FragmentFirstBinding? = null
+    private val binding get() = _binding!!
 
     /**
      * 加载视图时
@@ -30,12 +33,9 @@ class FirstFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        _binding = FragmentFirstBinding.inflate(layoutInflater, container, false)
         // 加载布局
-        return inflater.inflate(
-            R.layout.fragment_first,
-            container,
-            false
-        )
+        return binding.root
     }
 
     /**
@@ -43,20 +43,6 @@ class FirstFragment : Fragment() {
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        /** 从布局中取出需要调用的视图 **/
-        // 系统通知栏占位布局
-        val statusBarView = view.findViewById<View>(R.id.statusBarView)
-        // 系统导航栏占位布局
-        val gestureView = view.findViewById<View>(R.id.gestureView)
-        // 返回按钮
-        val back = view.findViewById<View>(R.id.back)
-        // 注册按钮
-        val register = view.findViewById<View>(R.id.register)
-        // 登录按钮
-        val login = view.findViewById<View>(R.id.login)
-        // 先看看按钮
-        val lookFirst = view.findViewById<View>(R.id.noLogin)
 
         /** 获取系统栏高度并同步到占位布局 **/
         ViewCompat.setOnApplyWindowInsetsListener(view.rootView) { v, insets ->
@@ -67,26 +53,30 @@ class FirstFragment : Fragment() {
 
         /** 设置监听 **/
         // 为返回按钮设置监听
-        back.setOnClickListener {
+        binding.btnBack.setOnClickListener {
             // 结束当前 Activity
             activity?.finish()
         }
         // 为注册按钮添加点击监听
-        register.setOnClickListener {
+        binding.btnRegister.setOnClickListener {
             // 开发中...
             Toast.makeText(context, R.string.developing, Toast.LENGTH_SHORT).show()
         }
         // 为登录按钮添加点击监听
-        login.setOnClickListener {
-            // 切换到登录页面 (Fragment)
-            (activity as? LoginActivity)?.switchFragment(LoginFragment())
+        binding.btnLogin.setOnClickListener {
+            Toast.makeText(context, R.string.developing, Toast.LENGTH_SHORT).show()
         }
         // 为先看看按钮添加监听
-        lookFirst.setOnClickListener {
+        binding.tvLookFirst.setOnClickListener {
             // 启动 MainActivity
             startActivity(Intent(context, MainActivity::class.java))
             // 结束当前 Activity
             activity?.finish()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

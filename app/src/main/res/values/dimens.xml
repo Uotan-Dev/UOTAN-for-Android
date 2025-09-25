@@ -8,4 +8,6 @@
     <dimen name="dialog_corner_radius">36dp</dimen>
     <dimen name="dialog_button_corner_radius_new">99dp</dimen>
     <dimen name="dialog_button_elevation_new">0dp</dimen>
+
+    <dimen name="about_logo_area_height">400dp</dimen>
 </resources>

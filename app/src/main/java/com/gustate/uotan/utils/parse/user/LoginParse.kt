@@ -1,8 +1,8 @@
 package com.gustate.uotan.utils.parse.user
 
-import com.gustate.uotan.utils.Utils.Companion.baseUrl
-import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
-import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
+import com.gustate.uotan.utils.Utils.baseUrl
+import com.gustate.uotan.utils.Utils.TIMEOUT_MS
+import com.gustate.uotan.utils.Utils.USER_AGENT
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.jsoup.Connection

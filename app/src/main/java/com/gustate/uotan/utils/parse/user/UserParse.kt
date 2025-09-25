@@ -1,17 +1,15 @@
 package com.gustate.uotan.utils.parse.user
 
-import com.gustate.uotan.utils.Utils.Companion.baseUrl
-import com.gustate.uotan.utils.Utils.Companion.Cookies
-import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
-import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
+import com.gustate.uotan.utils.Utils.baseUrl
+import com.gustate.uotan.utils.Utils.USER_AGENT
+import com.gustate.uotan.utils.network.HttpClient
+import com.gustate.uotan.utils.network.SecurityParse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.MultipartBody
-import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
-import java.io.IOException
 
 class UserParse {
     companion object {
@@ -156,13 +154,9 @@ class UserParse {
         /**
          *  关注/取消关注
          */
-        suspend fun follow(
-            url: String,
-            cookiesString: String,
-            xfToken: String
-        ): Boolean = withContext(Dispatchers.IO) {
-            // 实例化 OkHttpClient
-            val client = OkHttpClient()
+        suspend fun follow(url: String): Boolean = withContext(Dispatchers.IO) {
+            val client = HttpClient.getClient()
+            val xfToken = SecurityParse.parseHiddenXfToken(url)
             // 创建 MultipartBody
             val requestBody = MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
@@ -176,23 +170,15 @@ class UserParse {
             // 创建 Request
             val request = Request.Builder()
                 .url("${baseUrl + url}follow")
-                .addHeader("Cookie", cookiesString)
                 .addHeader("User-Agent", USER_AGENT)
-                .addHeader("Origin", baseUrl)
-                .addHeader("Referer", url)
-                .addHeader(
-                    "Accept",
-                    "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
-                )
-                .addHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
                 .post(requestBody)
                 .build()
-            return@withContext try {
+            try {
                 val execute = client
                     .newCall(request)
                     .execute()
                 return@withContext execute.isSuccessful
-            } catch (e: IOException) {
+            } catch (e: Exception) {
                 return@withContext false
             }
         }
@@ -201,12 +187,13 @@ class UserParse {
          * 关注/取消关注
          */
         private suspend fun getMemberDoc(url: String): Document = withContext(Dispatchers.IO) {
-            val document = Jsoup
-                .connect(baseUrl + url)
-                .cookies(Cookies)
-                .userAgent(USER_AGENT)
-                .timeout(TIMEOUT_MS)
-                .get()
+            val client = HttpClient.getClient()
+            val request = Request.Builder()
+                .url(baseUrl + url)
+                .header("User-Agent", USER_AGENT)
+                .build()
+            val response = client.newCall(request).execute()
+            val document = Jsoup.parse(response.body.string())
             return@withContext document
         }
     }

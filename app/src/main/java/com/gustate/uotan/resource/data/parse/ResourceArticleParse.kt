@@ -1,16 +1,17 @@
 package com.gustate.uotan.resource.data.parse
 
 import android.util.Log
+import com.gustate.uotan.resource.data.model.PurchaseData
 import com.gustate.uotan.resource.data.model.ResReplyData
 import com.gustate.uotan.resource.data.model.ResourceArticle
-import com.gustate.uotan.utils.Utils.Companion.baseUrl
-import com.gustate.uotan.utils.Utils.Companion.Cookies
-import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
-import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
+import com.gustate.uotan.resource.data.model.ResourceType
+import com.gustate.uotan.utils.Utils.USER_AGENT
+import com.gustate.uotan.utils.Utils.baseUrl
+import com.gustate.uotan.utils.network.HttpClient
+import com.gustate.uotan.utils.network.SecurityParse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.MultipartBody
-import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
@@ -22,12 +23,13 @@ class ResourceArticleParse {
         onThrowable: (Throwable) -> Unit
     ) = withContext(Dispatchers.IO) {
         try {
-            val document = Jsoup
-                .connect(baseUrl + url)
-                .userAgent(USER_AGENT)
-                .cookies(Cookies)
-                .timeout(TIMEOUT_MS)
-                .get()
+            val client = HttpClient.getClient()
+            val request = Request.Builder()
+                .url(baseUrl + url)
+                .header("User-Agent", USER_AGENT)
+                .build()
+            val response = client.newCall(request).execute()
+            val document = Jsoup.parse(response.body.string())
             val title = document
                 .getElementsByClass("p-title-value")
                 .first()
@@ -48,10 +50,6 @@ class ResourceArticleParse {
             var downloadPosition = 100
             var sizePosition = 100
             var passwordPosition = 100
-            var device = ""
-            var downloadType = ""
-            var size = ""
-            var password = ""
             if (customField != null) {
                 for (index in customField.indices) {
                     val typeName = customField[index]
@@ -67,27 +65,23 @@ class ResourceArticleParse {
                     }
                 }
             }
-            device = if (devicePosition != 100) {
+            val device = if (devicePosition != 100) {
                 customField
                     ?.get(devicePosition)
                     ?.getElementsByTag("dd")
                     ?.first()
                     ?.text()
                     ?: ""
-            } else {
-                ""
-            }
-            downloadType = if (downloadPosition != 100) {
+            } else ""
+            val downloadType = if (downloadPosition != 100) {
                 customField
                     ?.get(downloadPosition)
                     ?.getElementsByTag("dd")
                     ?.first()
                     ?.text()
                     ?: ""
-            } else {
-                ""
-            }
-            size = if (sizePosition != 100) {
+            } else ""
+            val size = if (sizePosition != 100) {
                 customField
                     ?.get(sizePosition)
                     ?.getElementsByTag("dd")
@@ -95,7 +89,7 @@ class ResourceArticleParse {
                     ?.text()
                     ?: ""
             } else ""
-            password = if (passwordPosition != 100) {
+            val password = if (passwordPosition != 100) {
                 customField
                     ?.get(passwordPosition)
                     ?.getElementsByTag("dd")
@@ -131,12 +125,12 @@ class ResourceArticleParse {
                 ?.first()
                 ?.attr("data-user-id")
                 ?: ""
-            val authorDocument = Jsoup
-                .connect("$baseUrl/members/$authorId/")
-                .userAgent(USER_AGENT)
-                .cookies(Cookies)
-                .timeout(TIMEOUT_MS)
-                .get()
+            val authorRequest = Request.Builder()
+                .url("$baseUrl/members/$authorId/")
+                .header("User-Agent", USER_AGENT)
+                .build()
+            val authorResponse = client.newCall(authorRequest).execute()
+            val authorDocument = Jsoup.parse(authorResponse.body.string())
             val authorAvatar = authorDocument
                 .getElementsByClass("avatarWrapper")
                 .first()
@@ -190,11 +184,13 @@ class ResourceArticleParse {
                 ?.attr("href")
                 ?: ""
             val numberOfLikes = if (loveLink != "") {
-                val loveDocument = Jsoup.connect("$baseUrl$loveLink/")
-                    .userAgent(USER_AGENT)
-                    .timeout(TIMEOUT_MS)
-                    .cookies(Cookies)
-                    .get()
+                val client = HttpClient.getClient()
+                val loveRequest = Request.Builder()
+                    .url("$baseUrl$loveLink/")
+                    .header("User-Agent", USER_AGENT)
+                    .build()
+                val loveResponse = client.newCall(loveRequest).execute()
+                val loveDocument = Jsoup.parse(loveResponse.body.string())
                 val loveString = loveDocument
                     .getElementsByClass("tabs-tab tabs-tab--reaction0 is-active").first()?.text()
                 loveString!!.replace("[^0-9]".toRegex(), "")
@@ -222,6 +218,7 @@ class ResourceArticleParse {
                 ?: ""
             val isReact = if (reactContent.length >= 2) {
                 reactContent.substring(0..1) == "您,"
+                        || reactContent.substring(0..1) == "您和"
             } else if (reactContent.length == 1) {
                 reactContent == "您"
             } else false
@@ -231,16 +228,10 @@ class ResourceArticleParse {
                 ?.text()
                 ?: ""
             val isBookMark = bookMarkContent == "编辑收藏"
-            val bookMarkUrl = document
-                .select("a[class^='bookmarkLink']")
-                .first()
-                ?.attr("href")
-                ?: ""
             val result = ResourceArticle(
                 title, cover, device, downloadType, size, password,
                 author, authorUrl, authorId, authorAvatar, downloadCount, viewCount, firstPost,
-                latestPost, downloadUrl, content, numberOfLikes, reactUrl, isReact, isBookMark,
-                bookMarkUrl)
+                latestPost, downloadUrl, content, numberOfLikes, reactUrl, isReact, isBookMark)
             withContext(Dispatchers.Main) {
                 onSuccess(result)
             }
@@ -257,13 +248,13 @@ class ResourceArticleParse {
         onThrowable: (Throwable) -> Unit
     ) = withContext(Dispatchers.IO) {
         try {
-            Log.e("e", baseUrl + url + "reviews")
-            val document = Jsoup
-                .connect(baseUrl + url + "reviews")
-                .cookies(Cookies)
-                .timeout(TIMEOUT_MS)
-                .userAgent(USER_AGENT)
-                .get()
+            val client = HttpClient.getClient()
+            val request = Request.Builder()
+                .url(baseUrl + url + "reviews")
+                .header("User-Agent", USER_AGENT)
+                .build()
+            val response = client.newCall(request).execute()
+            val document = Jsoup.parse(response.body.string())
             val messages = document
                 .getElementsByClass("message message--simple")
             val resReplyList = mutableListOf<ResReplyData>()
@@ -312,47 +303,46 @@ class ResourceArticleParse {
             }
         } catch (throwable: Throwable) {
             withContext(Dispatchers.Main) {
-                Log.e("e", throwable.message?:"")
                 onThrowable(throwable)
             }
         }
     }
 
-    suspend fun getPurchaseData(url: String): MutableList<ResourceData.PurchaseData> = withContext(
+    suspend fun getPurchaseData(url: String): MutableList<PurchaseData> = withContext(
         Dispatchers.IO) {
-        val response = Jsoup
-            .connect(baseUrl + url)
-            .cookies(Cookies)
-            .timeout(TIMEOUT_MS)
-            .userAgent(USER_AGENT)
-            .execute()
-        val document = response.parse()
+        val client = HttpClient.getClient()
+        val request = Request.Builder()
+            .url(baseUrl + url)
+            .header("User-Agent", USER_AGENT)
+            .build()
+        val response = client.newCall(request).execute()
+        val document = Jsoup.parse(response.body.string())
         val title = document.getElementsByClass("p-title-value").first()?.text()?: ""
         val resType = when {
-            title == "选择网盘…" -> ResourceData.ResourceType.New
-            title.startsWith("购买:") -> ResourceData.ResourceType.Old
-            else -> ResourceData.ResourceType.Other
+            title == "选择网盘…" -> ResourceType.New
+            title.startsWith("购买:") -> ResourceType.Old
+            else -> ResourceType.Other
         }
         when (resType) {
-            ResourceData.ResourceType.New -> {
+            ResourceType.New -> {
                 return@withContext getNewResInfo(document)
             }
-            ResourceData.ResourceType.Old -> {
+            ResourceType.Old -> {
                 return@withContext getOldResInfo(url, document)
             }
-            ResourceData.ResourceType.Other -> {
+            ResourceType.Other -> {
                 return@withContext mutableListOf(
-                    ResourceData.PurchaseData(
-                        ResourceData.ResourceType.Other, false, "",
-                        "", "", response.url().toString()
+                    PurchaseData(
+                        ResourceType.Other, false, "",
+                        "", "", response.request.url.toString()
                     )
                 )
             }
         }
     }
 
-    fun getNewResInfo(document: Document): MutableList<ResourceData.PurchaseData> {
-        val newPurchaseInfoList = mutableListOf<ResourceData.PurchaseData>()
+    fun getNewResInfo(document: Document): MutableList<PurchaseData> {
+        val newPurchaseInfoList = mutableListOf<PurchaseData>()
         val driveList = document.getElementsByClass("dataList-row")
         driveList.forEach {
             val isPaid = it
@@ -367,7 +357,6 @@ class ResourceArticleParse {
             val code = it
                 .getElementsByClass("dataList-cell")[1]
                 .text()
-                ?: ""
             val price = it
                 .getElementsByClass("dataList-cell dataList-cell--min")
                 .first()
@@ -381,17 +370,14 @@ class ResourceArticleParse {
                 ?.attr("href")
                 ?: ""
             newPurchaseInfoList.add(
-                ResourceData.PurchaseData(
-                    ResourceData.ResourceType.New, isPaid, driveName, code,
-                    price, url
-                )
+                PurchaseData(ResourceType.New, isPaid, driveName, code, price, url)
             )
         }
         newPurchaseInfoList.removeAt(0)
         return newPurchaseInfoList
     }
 
-    fun getOldResInfo(url: String, document: Document): MutableList<ResourceData.PurchaseData> {
+    fun getOldResInfo(url: String, document: Document): MutableList<PurchaseData> {
         val price = document
             .getElementsByClass("formRow")
             .first()
@@ -399,25 +385,18 @@ class ResourceArticleParse {
             ?.text()
             ?: ""
         return mutableListOf(
-            ResourceData.PurchaseData(
-                ResourceData.ResourceType.Old,
-                false,
-                "",
-                "",
-                price,
-                url
-            )
+            PurchaseData(
+                ResourceType.Old, false, "", "", price, url)
         )
     }
 
     suspend fun buyResource(
         url: String,
-        xfToken: String,
-        cookiesString: String,
         onSuccess: () -> Unit,
         onException: (String) -> Unit
     ) = withContext(Dispatchers.IO) {
-        val client = OkHttpClient()
+        val xfToken = SecurityParse.parseHiddenXfToken(baseUrl + url)
+        val client = HttpClient.getClient()
         val requestBody = MultipartBody.Builder()
             .setType(MultipartBody.FORM)
             .addFormDataPart("_xfToken", xfToken)
@@ -429,21 +408,14 @@ class ResourceArticleParse {
             .build()
         val request = Request.Builder()
             .url(baseUrl + url)
-            .addHeader("Cookie", cookiesString)
             .addHeader("User-Agent", USER_AGENT)
-            .addHeader("Origin", baseUrl)
-            .addHeader("Referer", url)
-            .addHeader(
-                "Accept",
-                "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
-            )
-            .addHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
             .post(requestBody)
             .build()
         try {
             val response = client.newCall(request).execute()
             if (!response.isSuccessful) {
-                onException("HTTP错误: ${response.code}\n${response.headers}\n请求内容：${response.request}")
+                onException(
+                    "HTTP错误: ${response.code}\n${response.headers}\n请求内容：${response.request}")
             } else {
                 onSuccess()
             }
@@ -452,53 +424,222 @@ class ResourceArticleParse {
         }
     }
 
-    suspend fun reportResource(
+    suspend fun reactResource(
         url: String,
-        xfToken: String,
-        rating: String,
-        message: String,
-        cookiesString: String,
         onSuccess: () -> Unit,
-        onException: (String) -> Unit
+        onFailure: ((code: Int, body: String) -> Unit),
+        onException: (Exception) -> Unit
     ) = withContext(Dispatchers.IO) {
-        val client = OkHttpClient()
-        val requestBody = MultipartBody.Builder()
-            .setType(MultipartBody.FORM)
-            .addFormDataPart("_xfToken", xfToken)
-            .addFormDataPart("rating", rating)
-            .addFormDataPart("message", message)
-            .addFormDataPart("_xfRequestUri", url + "rate")
-            .addFormDataPart("_xfWithData", "1")
-            .addFormDataPart("_xfToken", xfToken)
-            .addFormDataPart("_xfResponseType", "json")
-            .build()
-        val request = Request.Builder()
-            .url(baseUrl + url + "rate")
-            .addHeader("Cookie", cookiesString)
-            .addHeader("User-Agent", USER_AGENT)
-            .addHeader("Origin", baseUrl)
-            .addHeader("Referer", url + "rate")
-            .addHeader(
-                "Accept",
-                "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
-            )
-            .addHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
-            .post(requestBody)
-            .build()
         try {
-            val response = client.newCall(request).execute()
-            if (!response.isSuccessful) {
-                withContext(Dispatchers.Main) {
-                    onException("HTTP错误: ${response.code}\n${response.headers}\n请求内容：${response.request}")
+            val client = HttpClient.getClient()
+            val xfToken = SecurityParse.parseHiddenXfToken(url)
+            val requestBody = MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("_xfToken", xfToken)
+                .addFormDataPart("reaction_id", "1")
+                .build()
+            val request = Request.Builder()
+                .url(baseUrl + url)
+                .addHeader("User-Agent", USER_AGENT)
+                .post(requestBody)
+                .build()
+            client.newCall(request).execute().use { response ->
+                val responseBody = response.body.string()
+                if (!response.isSuccessful) {
+                    withContext(Dispatchers.Main) {
+                        onFailure(response.code, responseBody)
+                    }
+                    return@withContext
                 }
-            } else {
                 withContext(Dispatchers.Main) {
                     onSuccess()
                 }
             }
         } catch (e: Exception) {
             withContext(Dispatchers.Main) {
-                onException(e.message ?: "未知错误")
+                onException(e)
+            }
+        }
+    }
+
+    /**
+     *  检测关注状态
+     */
+    suspend fun isFollowAuthor(
+        url: String,
+        onSuccess: (Boolean) -> Unit,
+        onException: (Exception) -> Unit
+    ) = withContext(Dispatchers.IO) {
+        try {
+            val client = HttpClient.getClient()
+            Log.e("e", url)
+            val request = Request.Builder()
+                .url(baseUrl + url)
+                .header("User-Agent", USER_AGENT)
+                .build()
+            val response = client.newCall(request).execute()
+            val document = Jsoup.parse(response.body.string())
+            val followContent = document
+                .getElementsByClass("memberHeader-buttons")
+                .first()
+                ?.getElementsByClass("button-text")
+                ?.first()
+                ?.text()
+                ?: ""
+            Log.e("e", followContent+ "111")
+            val isFollow = followContent == "已关注"
+            withContext(Dispatchers.Main) {
+                onSuccess(isFollow)
+            }
+        } catch (e: Exception) {
+            withContext(Dispatchers.Main) {
+                onException(e)
+            }
+        }
+    }
+
+    /**
+     *  关注/取消关注
+     */
+    suspend fun onFollowAuthor(
+        url: String,
+        onSuccess: () -> Unit,
+        onFailure: ((code: Int, body: String) -> Unit),
+        onException: (Exception) -> Unit
+    ) = withContext(Dispatchers.IO) {
+        try {
+            val client = HttpClient.getClient()
+            val xfToken = SecurityParse.parseHiddenXfToken(url)
+            val requestBody = MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("_xfToken", xfToken)
+                .addFormDataPart("_xfRedirect", baseUrl + url)
+                .addFormDataPart("_xfRequestUri", "${url}follow")
+                .addFormDataPart("_xfWithData", "1")
+                .addFormDataPart("_xfToken", xfToken)
+                .addFormDataPart("_xfResponseType", "json")
+                .build()
+            val request = Request.Builder()
+                .url("${baseUrl + url}follow")
+                .addHeader("User-Agent", USER_AGENT)
+                .post(requestBody)
+                .build()
+            client.newCall(request).execute().use { response ->
+                val responseBody = response.body.string()
+                if (!response.isSuccessful) {
+                    withContext(Dispatchers.Main) {
+                        onFailure(response.code, responseBody)
+                    }
+                    return@withContext
+                }
+                withContext(Dispatchers.Main) {
+                    onSuccess()
+                }
+            }
+        } catch (e: Exception) {
+            withContext(Dispatchers.Main) {
+                onException(e)
+            }
+        }
+    }
+
+    suspend fun onBookMark(
+        url: String,
+        isMarked: Boolean,
+        onSuccess: () -> Unit,
+        onFailure: ((code: Int, body: String) -> Unit),
+        onException: (Exception) -> Unit
+    ) = withContext(Dispatchers.IO) {
+        val bookMarkUrl = "$baseUrl$url/bookmark"
+        try {
+            val client = HttpClient.getClient()
+            val xfToken = SecurityParse.parseHiddenXfToken(url)
+            // 创建 MultipartBody
+            val addRequestBody = MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("labels", "")
+                .addFormDataPart("message", "")
+                .addFormDataPart("_xfRequestUri", bookMarkUrl)
+                .addFormDataPart("_xfWithData", "1")
+                .addFormDataPart("_xfToken", xfToken)
+                .addFormDataPart("_xfResponseType", "json")
+                .build()
+            val delRequestBody = MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("labels", "")
+                .addFormDataPart("message", "")
+                .addFormDataPart("delete", "undefined")
+                .addFormDataPart("_xfRequestUri", bookMarkUrl)
+                .addFormDataPart("_xfWithData", "1")
+                .addFormDataPart("_xfToken", xfToken)
+                .addFormDataPart("_xfResponseType", "json")
+                .build()
+            // 创建 Request
+            val request = Request.Builder()
+                .url(bookMarkUrl)
+                .addHeader("User-Agent", USER_AGENT)
+                .post(if (isMarked) delRequestBody else addRequestBody)
+                .build()
+            client.newCall(request).execute().use { response ->
+                val responseBody = response.body.string()
+                if (!response.isSuccessful) {
+                    withContext(Dispatchers.Main) {
+                        onFailure(response.code, responseBody)
+                    }
+                    return@withContext
+                }
+                withContext(Dispatchers.Main) {
+                    onSuccess()
+                }
+            }
+        } catch (e: Exception) {
+            withContext(Dispatchers.Main) {
+                onException(e)
+            }
+        }
+    }
+
+    suspend fun onReply(
+        url: String,
+        rating: String,
+        message: String,
+        onSuccess: () -> Unit,
+        onFailure: ((code: Int, body: String) -> Unit),
+        onException: (Exception) -> Unit
+    ) = withContext(Dispatchers.IO) {
+        try {
+            val client = HttpClient.getClient()
+            val xfToken = SecurityParse.parseHiddenXfToken(url)
+            val requestBody = MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("_xfToken", xfToken)
+                .addFormDataPart("rating", rating)
+                .addFormDataPart("message", message)
+                .addFormDataPart("_xfRequestUri", url)
+                .addFormDataPart("_xfWithData", "1")
+                .addFormDataPart("_xfToken", xfToken)
+                .addFormDataPart("_xfResponseType", "json")
+                .build()
+            val request = Request.Builder()
+                .url(baseUrl + url + "rate")
+                .addHeader("User-Agent", USER_AGENT)
+                .post(requestBody)
+                .build()
+            client.newCall(request).execute().use { response ->
+                val responseBody = response.body.string()
+                if (!response.isSuccessful) {
+                    withContext(Dispatchers.Main) {
+                        onFailure(response.code, responseBody)
+                    }
+                    return@withContext
+                }
+                withContext(Dispatchers.Main) {
+                    onSuccess()
+                }
+            }
+        } catch (e: Exception) {
+            withContext(Dispatchers.Main) {
+                onException(e)
             }
         }
     }

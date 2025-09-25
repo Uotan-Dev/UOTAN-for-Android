@@ -1,4 +1,4 @@
-package com.gustate.uotan.fragment.login
+/*package com.gustate.uotan.fragment.login
 
 import android.content.Context
 import android.content.Intent
@@ -19,12 +19,10 @@ import com.gustate.uotan.R
 import com.gustate.uotan.ui.activity.BindPhoneActivity
 import com.gustate.uotan.main.ui.MainActivity
 import com.gustate.uotan.ui.activity.UpdatePolicyActivity
-import com.gustate.uotan.gustatex.dialog.LoadingDialog
-import com.gustate.uotan.utils.Utils.Companion.baseUrl
-import com.gustate.uotan.utils.Utils.Companion.Cookies
-import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
-import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
-import com.gustate.uotan.utils.Utils.Companion.isLogin
+import com.gustate.uotan.dialog.LoadingDialog
+import com.gustate.uotan.utils.Utils.baseUrl
+import com.gustate.uotan.utils.Utils.USER_AGENT
+import com.gustate.uotan.utils.Utils.isLogin
 import com.gustate.uotan.utils.parse.data.CookiesManager
 import com.gustate.uotan.utils.parse.user.LoginParse
 import kotlinx.coroutines.Dispatchers
@@ -301,4 +299,4 @@ class TwoStepFragment : Fragment() {
         )
     }
 
-}
+}*/

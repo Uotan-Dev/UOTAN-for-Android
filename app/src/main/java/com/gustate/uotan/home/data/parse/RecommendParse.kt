@@ -2,12 +2,12 @@ package com.gustate.uotan.home.data.parse
 
 import com.gustate.uotan.home.data.model.Recommend
 import com.gustate.uotan.home.data.model.RecommendItem
-import com.gustate.uotan.utils.Utils.Companion.baseUrl
-import com.gustate.uotan.utils.Utils.Companion.Cookies
-import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
-import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
+import com.gustate.uotan.utils.Utils.baseUrl
+import com.gustate.uotan.utils.Utils.USER_AGENT
+import com.gustate.uotan.utils.network.HttpClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.Request
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 
@@ -29,11 +29,13 @@ class RecommendParse {
             val recommendList = mutableListOf<RecommendItem>()
             // 爬取页面
             val pageUrl = buildPageUrl(page)
-            val document = Jsoup.connect(pageUrl)
-                .userAgent(USER_AGENT)
-                .timeout(TIMEOUT_MS)
-                .cookies(Cookies)
-                .get()
+            val client = HttpClient.getClient()
+            val request = Request.Builder()
+                .url(pageUrl)
+                .header("User-Agent", USER_AGENT)
+                .build()
+            val response = client.newCall(request).execute()
+            val document = Jsoup.parse(response.body.string())
             val totalPage = parsePager(document)
             val content = document
                 .getElementsByClass("block  porta-masonry")

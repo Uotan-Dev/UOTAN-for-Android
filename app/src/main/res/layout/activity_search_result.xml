@@ -5,14 +5,12 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SearchResultActivity">
+    tools:context=".search.ui.SearchResultActivity">
 
     <com.scwang.smart.refresh.layout.SmartRefreshLayout
         android:id="@+id/srlRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:paddingTop="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,7 +20,11 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:paddingStart="7dp"
+            android:paddingEnd="7dp"
             android:scrollbarThumbVertical="@drawable/gustatex_scrollbar_thumb_vertical"
+            android:scrollbarStyle="outsideOverlay"
             android:scrollbars="vertical" />
 
     </com.scwang.smart.refresh.layout.SmartRefreshLayout>
@@ -74,7 +76,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_back" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
             android:id="@+id/btn_reply"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -87,9 +89,11 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/back"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:scl_corner_radius="@dimen/option_corner_radius"
+            app:scl_smoothness_radius="@dimen/normal_smoothness">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
 
         <TextView
             android:id="@+id/etSearch"
@@ -98,7 +102,7 @@
             android:background="@android:color/transparent"
             android:ellipsize="end"
             android:ems="10"
-            android:fontFamily="@font/mi_sans_medium"
+            android:fontFamily="sans-serif-medium"
             android:gravity="center|start"
             android:hint="@string/search_all"
             android:maxLines="1"

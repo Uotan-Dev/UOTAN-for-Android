@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.google.android.flexbox.FlexDirection.ROW
 import com.google.android.flexbox.FlexWrap.WRAP
@@ -26,6 +25,7 @@ import com.gustate.uotan.resource.data.model.ResourcePlateItem
 import com.gustate.uotan.resource.ui.adapter.ResourceAdapter
 import com.gustate.uotan.resource.ui.adapter.TrendsAdapter
 import com.gustate.uotan.resource.ui.details.ResourceActivity
+import com.gustate.uotan.ui.view.scrollcontroller.DialogRecyclerView
 import com.kongzue.dialogx.dialogs.BottomDialog
 import com.kongzue.dialogx.interfaces.OnBindView
 
@@ -113,7 +113,7 @@ class ResFragment : Fragment() {
                         dialog: BottomDialog?,
                         v: View?
                     ) {
-                        val recyclerView = v?.findViewById<RecyclerView>(R.id.recyclerView)
+                        val recyclerView = v?.findViewById<DialogRecyclerView>(R.id.recyclerView)
                         val adapter = ResTypeAdapter().apply {
                             onDismissDialog = { name, url ->
                                 viewModel.setPlateType(
@@ -148,7 +148,7 @@ class ResFragment : Fragment() {
         private val resTypeList = mutableListOf<ResourcePlateItem>()
         var onDismissDialog: ((String, String) -> Unit)? = null
         inner class ViewHolder(private val binding: ItemResourceTypeBinding)
-            : RecyclerView.ViewHolder(binding.root) {
+            : androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root) {
                 fun bind(item: ResourcePlateItem) {
                     with(binding) {
                         tvTitle.text = item.plate
@@ -196,7 +196,7 @@ class ResFragment : Fragment() {
             private val resUrlList = mutableListOf<String>()
             var onItemClick: ((String, String) -> Unit)? = null
             inner class ViewHolder(private val binding: ItemResourceTypeCellBinding)
-                : RecyclerView.ViewHolder(binding.root) {
+                : androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root) {
                     fun bind(name: String, url: String) {
                         with(binding) {
                             tvResType.text = name

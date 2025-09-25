@@ -1,11 +1,11 @@
 package com.gustate.uotan.utils.parse.notice
 
-import com.gustate.uotan.utils.Utils.Companion.baseUrl
-import com.gustate.uotan.utils.Utils.Companion.Cookies
-import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
-import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
+import com.gustate.uotan.utils.Utils.baseUrl
+import com.gustate.uotan.utils.Utils.USER_AGENT
+import com.gustate.uotan.utils.network.HttpClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.Request
 import org.jsoup.Connection
 import org.jsoup.Jsoup
 
@@ -43,12 +43,13 @@ class NoticeParse {
     companion object {
         suspend fun fetchNoticeData(): MutableList<NoticeItem> = withContext(Dispatchers.IO) {
             val result = mutableListOf<NoticeItem>()
-            val document = Jsoup
-                .connect("https://www.uotan.cn/account/alerts")
-                .userAgent(USER_AGENT)
-                .cookies(Cookies)
-                .timeout(TIMEOUT_MS)
-                .get()
+            val client = HttpClient.getClient()
+            val request = Request.Builder()
+                .url("$baseUrl/account/alerts")
+                .header("User-Agent", USER_AGENT)
+                .build()
+            val response = client.newCall(request).execute()
+            val document = Jsoup.parse(response.body.string())
             val container = document.select("div.notappalerts ol.listPlain")
             container.select("li.alert").forEach { element ->
                 // 头像处理
@@ -188,14 +189,15 @@ class NoticeParse {
             }
             return@withContext result
         }
-        suspend fun fetchLikesTotalPage(): Int = withContext(Dispatchers.IO) {
-            val document = Jsoup
-                .connect("$baseUrl/account/reactions?reaction_id=0&page=10000000000000000000000")
-                .userAgent(USER_AGENT)
-                .cookies(Cookies)
-                .method(Connection.Method.GET)
-                .timeout(TIMEOUT_MS)
-                .execute()
+
+        /*suspend fun fetchLikesTotalPage(): Int = withContext(Dispatchers.IO) {
+            val client = HttpClient.getClient()
+            val request = Request.Builder()
+                .url("$baseUrl/account/reactions?reaction_id=0&page=10000000000000000000")
+                .header("User-Agent", USER_AGENT)
+                .build()
+            val response = client.newCall(request).execute()
+            val document = Jsoup.parse(response.body.string())
             val pattern = Regex("page=(\\d+)")
             val totalPageCount = pattern
                 .find(document.url().toString())
@@ -204,15 +206,17 @@ class NoticeParse {
                 ?.value
                 ?.toIntOrNull()
             return@withContext totalPageCount!!
-        }
+        }*/
+
         suspend fun fetchLikesData(page: Int): MutableList<LikeItem> = withContext(Dispatchers.IO) {
             val result = mutableListOf<LikeItem>()
-            val document = Jsoup
-                .connect("$baseUrl/account/reactions?reaction_id=0&page=$page")
-                .userAgent(USER_AGENT)
-                .cookies(Cookies)
-                .timeout(TIMEOUT_MS)
-                .get()
+            val client = HttpClient.getClient()
+            val request = Request.Builder()
+                .url("$baseUrl/account/reactions?reaction_id=0&page=$page")
+                .header("User-Agent", USER_AGENT)
+                .build()
+            val response = client.newCall(request).execute()
+            val document = Jsoup.parse(response.body.string())
             val blockContainer = document
                 .getElementsByClass("block-body js-reactionList-0").first()
             val blockRows = blockContainer!!

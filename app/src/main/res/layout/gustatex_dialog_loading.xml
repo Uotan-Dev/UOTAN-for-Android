@@ -18,17 +18,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <androidx.cardview.widget.CardView
+        <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
             android:id="@+id/loadingCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:cardBackgroundColor="@android:color/transparent"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:scl_corner_radius="@dimen/dialog_corner_radius"
+            app:scl_smoothness_radius="@dimen/normal_smoothness">
 
             <ImageView
                 android:id="@+id/loadingImage"
@@ -36,7 +35,7 @@
                 android:layout_height="120dp"
                 android:scaleType="centerCrop"
                 app:srcCompat="@drawable/loading" />
-        </androidx.cardview.widget.CardView>
+        </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

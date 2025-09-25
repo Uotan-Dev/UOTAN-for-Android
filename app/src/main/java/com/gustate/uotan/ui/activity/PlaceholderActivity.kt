@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import com.gustate.uotan.BaseActivity
 import com.gustate.uotan.R
-import com.gustate.uotan.utils.Utils.Companion.openImmersion
+import com.gustate.uotan.utils.Utils.openImmersion
 
 class PlaceholderActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

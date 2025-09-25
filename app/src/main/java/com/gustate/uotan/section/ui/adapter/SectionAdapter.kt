@@ -28,7 +28,7 @@ class SectionAdapter : ListAdapter<SectionItem, SectionAdapter.ViewHolder>(DiffC
         val content = getItem(position)
         val binding = holder.binding
         Glide.with(holder.itemView.context)
-            .load(Utils.Companion.baseUrl + content.cover)
+            .load(Utils.baseUrl + content.cover)
             .error(R.drawable.ic_more_device)
             .into(binding.imgCover)
         binding.tvTitle.text = content.title

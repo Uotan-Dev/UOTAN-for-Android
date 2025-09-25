@@ -20,6 +20,5 @@ data class ResourceArticle (
     val numberOfLikes: String,
     val reactUrl: String,
     val isReact: Boolean,
-    val isBookMark: Boolean,
-    val bookMarkUrl: String
+    val isBookMark: Boolean
 )

@@ -1,23 +1,20 @@
 package com.gustate.uotan.threads.data.parse
 
 import com.gustate.uotan.threads.data.model.NoApiPostInfo
-import com.gustate.uotan.utils.Utils.Companion.Cookies
-import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
-import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
-import com.gustate.uotan.utils.Utils.Companion.baseUrl
+import com.gustate.uotan.utils.Utils.USER_AGENT
+import com.gustate.uotan.utils.Utils.baseUrl
+import com.gustate.uotan.utils.network.HttpClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.MultipartBody
-import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.jsoup.Jsoup
-import java.net.URLEncoder
 
 class ThreadsParse {
 
     // 解析主题私有变量
     // 实例化 OkHttpClient
-    private val okHttpClient = OkHttpClient()
+    private val client = HttpClient.getClient()
 
     suspend fun parseThreadsInfo(
         threads: String,
@@ -25,12 +22,13 @@ class ThreadsParse {
         onThrowable: (Throwable) -> Unit
     ) = withContext(Dispatchers.IO) {
         try {
-            val document = Jsoup
-                .connect(baseUrl + threads)
-                .cookies(Cookies)
-                .timeout(TIMEOUT_MS)
-                .userAgent(USER_AGENT)
-                .get()
+            val client = HttpClient.getClient()
+            val request = Request.Builder()
+                .url(baseUrl + threads)
+                .header("User-Agent", USER_AGENT)
+                .build()
+            val response = client.newCall(request).execute()
+            val document = Jsoup.parse(response.body.string())
             val pTitleElement = if (document.getElementsByClass("p-title ").first() != null)
                 document.getElementsByClass("p-title ").first()
             else document.getElementsByClass("p-title").first()
@@ -80,7 +78,6 @@ class ThreadsParse {
 
     /**
      *  关注/取消关注
-     *  @param userId
      */
     suspend fun follow(
         memberUrl: String,
@@ -90,29 +87,28 @@ class ThreadsParse {
     ) = withContext(Dispatchers.IO) {
         val followUrl = memberUrl + "follow"
         try {
-            val hiddenXfToken = parseHiddenXfToken(followUrl)
+            val xfToken = parseHiddenXfToken(followUrl)
             // 创建 MultipartBody
             val requestBody = MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("_xfRequestUri", memberUrl)
                 .addFormDataPart("_xfWithData", "1")
-                .addFormDataPart("_xfToken", hiddenXfToken.xfToken)
+                .addFormDataPart("_xfToken", xfToken)
                 .addFormDataPart("_xfResponseType", "json")
                 .build()
             // 创建 Request
             val request = Request.Builder()
                 .url(followUrl)
-                .addHeader("Cookie", hiddenXfToken.sessionCookie)
                 .addHeader("User-Agent", USER_AGENT)
                 .addHeader("Origin", baseUrl)
                 .addHeader("Referer", memberUrl)
                 .post(requestBody)
                 .build()
-            okHttpClient.newCall(request).execute().use { response ->
-                val responseBody = response.body?.string()
+            client.newCall(request).execute().use { response ->
+                val responseBody = response.body.string()
                 if (!response.isSuccessful) {
                     withContext(Dispatchers.Main) {
-                        onFailure(response.code, responseBody ?: "")
+                        onFailure(response.code, responseBody)
                     }
                     return@withContext
                 }
@@ -136,7 +132,7 @@ class ThreadsParse {
     ) = withContext(Dispatchers.IO) {
         val bookMarkUrl = postUrl + "bookmark"
         try {
-            val hiddenXfToken = parseHiddenXfToken(bookMarkUrl)
+            val xfToken = parseHiddenXfToken(bookMarkUrl)
             // 创建 MultipartBody
             val addRequestBody = MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
@@ -144,7 +140,7 @@ class ThreadsParse {
                 .addFormDataPart("message", "")
                 .addFormDataPart("_xfRequestUri", postUrl)
                 .addFormDataPart("_xfWithData", "1")
-                .addFormDataPart("_xfToken", hiddenXfToken.xfToken)
+                .addFormDataPart("_xfToken", xfToken)
                 .addFormDataPart("_xfResponseType", "json")
                 .build()
             val delRequestBody = MultipartBody.Builder()
@@ -154,23 +150,22 @@ class ThreadsParse {
                 .addFormDataPart("delete", "undefined")
                 .addFormDataPart("_xfRequestUri", postUrl)
                 .addFormDataPart("_xfWithData", "1")
-                .addFormDataPart("_xfToken", hiddenXfToken.xfToken)
+                .addFormDataPart("_xfToken", xfToken)
                 .addFormDataPart("_xfResponseType", "json")
                 .build()
             // 创建 Request
             val request = Request.Builder()
                 .url(bookMarkUrl)
-                .addHeader("Cookie", hiddenXfToken.sessionCookie)
                 .addHeader("User-Agent", USER_AGENT)
                 .addHeader("Origin", baseUrl)
                 .addHeader("Referer", postUrl)
                 .post(if (isMarked) delRequestBody else addRequestBody)
                 .build()
-            okHttpClient.newCall(request).execute().use { response ->
-                val responseBody = response.body?.string()
+            client.newCall(request).execute().use { response ->
+                val responseBody = response.body.string()
                 if (!response.isSuccessful) {
                     withContext(Dispatchers.Main) {
-                        onFailure(response.code, responseBody ?: "")
+                        onFailure(response.code, responseBody)
                     }
                     return@withContext
                 }
@@ -229,8 +224,6 @@ class ThreadsParse {
         onThrowable: (Throwable) -> Unit
     ) {
         try {
-            // 实例化 OkHttpClient
-            val client = OkHttpClient()
             // 创建 MultipartBody
             val requestBody = MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
@@ -244,7 +237,6 @@ class ThreadsParse {
             // 创建 Request
             val request = Request.Builder()
                 .url(baseUrl + url)
-                .addHeader("Cookie", Cookies.map2StringCookie())
                 .addHeader("User-Agent", USER_AGENT)
                 .addHeader("Origin", baseUrl)
                 .addHeader("Referer", url)
@@ -256,9 +248,9 @@ class ThreadsParse {
                 .post(requestBody)
                 .build()
             client.newCall(request).execute().use { response ->
-                val responseBody = response.body?.string()
+                val responseBody = response.body.string()
                 if (!response.isSuccessful) {
-                    onFailure(response.code, responseBody ?: "")
+                    onFailure(response.code, responseBody)
                     return
                 }
                 onSuccess()
@@ -274,12 +266,13 @@ class ThreadsParse {
         onThrowable: (Throwable) -> Unit
     ) = withContext(Dispatchers.IO) {
         try {
-            val document = Jsoup
-                .connect(url)
-                .cookies(Cookies)
-                .timeout(TIMEOUT_MS)
-                .userAgent(USER_AGENT)
-                .get()
+            val client = HttpClient.getClient()
+            val request = Request.Builder()
+                .url(url)
+                .header("User-Agent", USER_AGENT)
+                .build()
+            val response = client.newCall(request).execute()
+            val document = Jsoup.parse(response.body.string())
             val ip = document
                 .getElementsByClass("ip")
                 .first()
@@ -309,12 +302,13 @@ class ThreadsParse {
         onThrowable: (throwable: Throwable) -> Unit
     ) = withContext(Dispatchers.IO) {
         try {
-            val document = Jsoup
-                .connect(baseUrl + url)
-                .userAgent(USER_AGENT)
-                .timeout(TIMEOUT_MS)
-                .cookies(Cookies)
-                .get()
+            val client = HttpClient.getClient()
+            val request = Request.Builder()
+                .url(baseUrl + url)
+                .header("User-Agent", USER_AGENT)
+                .build()
+            val response = client.newCall(request).execute()
+            val document = Jsoup.parse(response.body.string())
             val xfToken = requireNotNull(
                 document.select("input[name=_xfToken]").first()?.attr("value")
             ) { "xfToken not found" }
@@ -330,58 +324,17 @@ class ThreadsParse {
         }
     }
 
-    data class HiddenXfToken(
-        val xfToken: String,
-        val sessionCookie: String
-    )
-
-    suspend fun parseHiddenXfToken(url: String): HiddenXfToken = withContext(Dispatchers.IO) {
-        val response = Jsoup
-            .connect(url)
-            .userAgent(USER_AGENT)
-            .timeout(TIMEOUT_MS)
-            .cookies(Cookies)
-            .execute()
-        val document = response.parse()
+    suspend fun parseHiddenXfToken(url: String): String = withContext(Dispatchers.IO) {
+        val client = HttpClient.getClient()
+        val request = Request.Builder()
+            .url(url)
+            .header("User-Agent", USER_AGENT)
+            .build()
+        val response = client.newCall(request).execute()
+        val document = Jsoup.parse(response.body.string())
         val xfToken = requireNotNull(
             document.select("input[name=_xfToken]").first()?.attr("value")
         ) { "xfToken not found" }
-        return@withContext HiddenXfToken(xfToken, response.cookies().map2StringCookie())
+        return@withContext xfToken
     }
-
-    data class HiddenInput(
-        val xfToken: String,
-        val attachmentHash: String,
-        val attachmentHashCombined: String
-    )
-
-    /**
-     * 解析一次性 post key
-     * @param url 主题地址
-     */
-    suspend fun parseHiddenInput(url: String): HiddenInput = withContext(Dispatchers.IO) {
-        val document = Jsoup
-            .connect(baseUrl + url)
-            .userAgent(USER_AGENT)
-            .timeout(TIMEOUT_MS)
-            .cookies(Cookies)
-            .get()
-        val xfToken = requireNotNull(
-            document.select("input[name=_xfToken]").first()?.attr("value")
-        ) { "xfToken not found" }
-        val attachmentHash = requireNotNull(
-            document.select("input[name=attachment_hash]").first()?.attr("value")
-        ) { "attachmentHash not found" }
-        val attachmentHashCombined = requireNotNull(
-            document.select("input[name=attachment_hash_combined]").first()?.attr("value")
-        ) { "attachmentHashCombined not found" }
-        return@withContext HiddenInput(xfToken, attachmentHash, attachmentHashCombined)
-    }
-
-    private fun Map<String, String>.map2StringCookie(): String {
-        return entries.joinToString("; ") { (key, value) ->
-            "$key=${URLEncoder.encode(value, "UTF-8")}"
-        }
-    }
-
 }

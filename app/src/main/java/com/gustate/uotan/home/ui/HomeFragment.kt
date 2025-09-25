@@ -13,11 +13,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.gustate.uotan.R
-import com.gustate.uotan.SearchActivity
+import com.gustate.uotan.search.ui.SearchActivity
 import com.gustate.uotan.databinding.FragmentHomeBinding
 import com.gustate.uotan.home.ui.adapter.HomeViewPagerAdapter
 import com.gustate.uotan.ui.activity.PostArticleActivity
-import com.gustate.uotan.utils.Utils.Companion.getThemeColor
+import com.gustate.uotan.utils.Utils.dpToPx
+import com.gustate.uotan.utils.Utils.getThemeColor
+import net.center.blurview.ShapeBlurView
+import net.center.blurview.enu.BlurMode
+import kotlin.math.roundToInt
 
 class HomeFragment : Fragment() {
 
@@ -52,8 +56,9 @@ class HomeFragment : Fragment() {
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             // Phone
-            binding.layoutHeaderBar?.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-                topMargin = systemBars.top
+            binding.layoutSearch.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                if (binding.layoutSearch.tag == "phone")
+                    topMargin = systemBars.top + 6f.dpToPx(requireContext()).roundToInt()
             }
             // Pad
             binding.layoutBottomBar?.updateLayoutParams<ViewGroup.MarginLayoutParams> {
@@ -63,7 +68,13 @@ class HomeFragment : Fragment() {
         }
         obversePager()
         val blurOverlay = (128 shl 24) or (getThemeColor(requireContext(), R.attr.colorBackground) and 0x00FFFFFF)
-        binding.blurHeaderBar?.setupWith(binding.root)?.setOverlayColor(blurOverlay)?.setBlurRadius(18f)?.setBlurEnabled(true)?.setBlurAutoUpdate(false)?.setFrameClearDrawable(activity?.window?.decorView?.background)
+        binding.blurHeaderBar?.refreshView(
+            ShapeBlurView
+                .build(requireContext())
+                .setBlurMode(BlurMode.MODE_RECTANGLE)
+                .setBlurRadius(25f.dpToPx(requireContext()))
+                .setOverlayColor(blurOverlay)
+        )
         binding.pagerHome.adapter = HomeViewPagerAdapter(this)
         binding.pagerHome.registerOnPageChangeCallback(object : OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {

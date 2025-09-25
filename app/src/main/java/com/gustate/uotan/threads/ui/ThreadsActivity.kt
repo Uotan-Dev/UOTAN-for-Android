@@ -32,14 +32,14 @@ import com.gustate.uotan.article.HtmlParse
 import com.gustate.uotan.article.imageviewer.ImageLoader
 import com.gustate.uotan.article.imageviewer.ImageTransformer
 import com.gustate.uotan.databinding.ActivityThreadsBinding
-import com.gustate.uotan.gustatex.dialog.InfoDialog
+import com.gustate.uotan.dialog.InfoDialog
 import com.gustate.uotan.threads.data.model.ThreadPhoto
-import com.gustate.uotan.ui.activity.UserActivity
-import com.gustate.uotan.utils.Helpers.Companion.avatarOptions
-import com.gustate.uotan.utils.Utils.Companion.baseUrl
-import com.gustate.uotan.utils.Utils.Companion.dpToPx
-import com.gustate.uotan.utils.Utils.Companion.errorDialog
-import com.gustate.uotan.utils.Utils.Companion.getThemeColor
+import com.gustate.uotan.user.ui.UserActivity
+import com.gustate.uotan.utils.Helpers.avatarOptions
+import com.gustate.uotan.utils.Utils.baseUrl
+import com.gustate.uotan.utils.Utils.dpToPx
+import com.gustate.uotan.utils.Utils.errorDialog
+import com.gustate.uotan.utils.Utils.getThemeColor
 import com.gustate.uotan.utils.data.model.Attachment
 import com.kongzue.dialogx.dialogs.BottomDialog
 import com.kongzue.dialogx.dialogs.WaitDialog
@@ -78,7 +78,6 @@ class ThreadsActivity : BaseActivity() {
                 showPictureViewer(id.toLong(), url)
             }
         }
-        Config.VIEWER_BACKGROUND_COLOR = 0
         binding.rvContent.adapter = contentAdapter
         binding.rvContent.layoutManager = LinearLayoutManager(this)
         setSystemBarsInsets()
@@ -132,7 +131,7 @@ class ThreadsActivity : BaseActivity() {
                 Intent(
                     this,
                     UserActivity::class.java
-                ).putExtra("url", viewModel.threadPost.value?.user?.viewURL?.replace(baseUrl, ""))
+                ).putExtra("url", viewModel.threadPost.value?.user?.view_url?.replace(baseUrl, ""))
             )
         }
         viewModel.postsReply.observe(this) {
@@ -313,18 +312,18 @@ class ThreadsActivity : BaseActivity() {
      * @param title 文章标题
      */
     private fun updateThreadsContent() {
-        viewModel.threadPost.observe(this) {
+        viewModel.threadPost.observe(this) { it ->
             // 标题栏更新
             // 作者信息（Phone 与 Pad 的共有内容）
             Glide.with(this)
-                .load(it.user.avatarUrls.o)
+                .load(it.user.avatar_urls.o)
                 .apply(avatarOptions)
                 .into(binding.imgAvatar)
             binding.tvUsername.text = it.username
             // 作者信息（仅有 Pad 有的内容）
             binding.imgArticleAvatar?.let { view ->
                 Glide.with(this)
-                    .load(it.user.avatarUrls.o)
+                    .load(it.user.avatar_urls.o)
                     .apply(avatarOptions)
                     .into(view)
             }
@@ -479,8 +478,8 @@ class ThreadsActivity : BaseActivity() {
         binding.btnShare.setOnClickListener {
             val share = Intent.createChooser(
                 Intent().apply {
-                    setAction(Intent.ACTION_SEND)
-                    setType("text/plain")
+                    action = Intent.ACTION_SEND
+                    type = "text/plain"
                     putExtra(
                         Intent.EXTRA_TEXT,
                         "【${viewModel.threadTitle.value} - ${getString(R.string.app_name)}】 ${baseUrl + url}"

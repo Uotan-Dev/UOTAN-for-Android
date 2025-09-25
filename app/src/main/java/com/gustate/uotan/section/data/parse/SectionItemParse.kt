@@ -2,12 +2,13 @@ package com.gustate.uotan.section.data.parse
 
 import com.gustate.uotan.section.data.model.Categories
 import com.gustate.uotan.section.data.model.SectionItem
-import com.gustate.uotan.utils.Utils.Companion.baseUrl
-import com.gustate.uotan.utils.Utils.Companion.Cookies
-import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
-import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
+import com.gustate.uotan.utils.Utils.baseUrl
+import com.gustate.uotan.utils.Utils.TIMEOUT_MS
+import com.gustate.uotan.utils.Utils.USER_AGENT
+import com.gustate.uotan.utils.network.HttpClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.Request
 import org.jsoup.Jsoup
 import org.jsoup.select.Elements
 
@@ -24,12 +25,13 @@ class SectionItemParse {
     ) = withContext(Dispatchers.IO) {
         try {
             // 获取版块页面 Document
-            val document = Jsoup
-                .connect("$baseUrl/forums/")
-                .timeout(TIMEOUT_MS)
-                .userAgent(USER_AGENT)
-                .cookies(Cookies)
-                .get()
+            val client = HttpClient.getClient()
+            val request = Request.Builder()
+                .url("$baseUrl/forums/")
+                .header("User-Agent", USER_AGENT)
+                .build()
+            val response = client.newCall(request).execute()
+            val document = Jsoup.parse(response.body.string())
             // 爬取并选择每一个版块大类（例：小米手机（类名）包含小米15（子板块名））
             val categoryList = document
                 .select("div.block.block--category.block--category")
@@ -99,12 +101,13 @@ class SectionItemParse {
     ) = withContext(Dispatchers.IO) {
         try {
             // 获取版块页面 Document
-            val document = Jsoup
-                .connect(baseUrl + section)
-                .userAgent(USER_AGENT)
-                .timeout(TIMEOUT_MS)
-                .cookies(Cookies)
-                .get()
+            val client = HttpClient.getClient()
+            val request = Request.Builder()
+                .url(baseUrl + section)
+                .header("User-Agent", USER_AGENT)
+                .build()
+            val response = client.newCall(request).execute()
+            val document = Jsoup.parse(response.body.string())
             val itemElements = document
                 .getElementsByClass("block-body")
                 .first()

@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SearchActivity">
+    tools:context=".search.ui.SearchActivity">
 
     <com.scwang.smart.refresh.layout.SmartRefreshLayout
         android:id="@+id/srlRoot"
@@ -50,7 +50,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvSearchHistory" />
 
-                <TextView
+                <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
                     android:id="@+id/btnClear"
                     android:layout_width="0dp"
                     android:layout_height="48dp"
@@ -58,14 +58,25 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/uotan_btn_tonal"
-                    android:fontFamily="sans-serif-medium"
-                    android:gravity="center"
-                    android:text="@string/clear_search_history"
-                    android:textColor="?attr/colorOnFilledTonalButton"
-                    android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+                    app:layout_constraintTop_toBottomOf="@+id/recyclerView"
+                    app:scl_corner_radius="@dimen/normal_corner_radius"
+                    app:scl_smoothness_radius="@dimen/normal_smoothness">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="@string/clear_search_history"
+                        android:textColor="?attr/colorOnFilledTonalButton"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
     </com.scwang.smart.refresh.layout.SmartRefreshLayout>
@@ -107,7 +118,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/statusBarView">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
             android:id="@+id/btn_reply"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -120,9 +131,11 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btnSearch"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:scl_corner_radius="@dimen/option_corner_radius"
+            app:scl_smoothness_radius="@dimen/normal_smoothness">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
 
         <EditText
             android:id="@+id/etSearch"
@@ -131,7 +144,7 @@
             android:background="@android:color/transparent"
             android:clickable="true"
             android:ems="10"
-            android:fontFamily="@font/mi_sans_medium"
+            android:fontFamily="sans-serif-medium"
             android:hint="@string/search_all"
             android:inputType="text"
             android:paddingStart="42dp"
@@ -154,25 +167,35 @@
             app:layout_constraintStart_toStartOf="@+id/btn_reply"
             app:layout_constraintTop_toTopOf="@+id/btn_reply" />
 
-        <TextView
+        <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
             android:id="@+id/btnSearch"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="6dp"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/uotan_btn_filled"
-            android:fontFamily="sans-serif-medium"
-            android:gravity="center"
-            android:paddingStart="24dp"
-            android:paddingEnd="24dp"
-            android:text="@string/search"
-            android:textColor="?attr/colorOnFilledButton"
-            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:scl_corner_radius="@dimen/option_corner_radius"
+            app:scl_smoothness_radius="@dimen/normal_smoothness">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:text="@string/search"
+                android:textColor="?attr/colorOnFilledButton"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

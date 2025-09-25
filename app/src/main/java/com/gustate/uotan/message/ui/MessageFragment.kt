@@ -14,8 +14,8 @@ import com.gustate.uotan.R
 import com.gustate.uotan.anim.TitleAnim
 import com.gustate.uotan.databinding.FragmentNoticeBinding
 import com.gustate.uotan.message.ui.adapter.MessagePagerAdapter
-import com.gustate.uotan.utils.Utils.Companion.dpToPx
-import com.gustate.uotan.utils.Utils.Companion.getThemeColor
+import com.gustate.uotan.utils.Utils.dpToPx
+import com.gustate.uotan.utils.Utils.getThemeColor
 import kotlin.math.roundToInt
 
 class MessageFragment : Fragment() {

@@ -24,8 +24,8 @@ import com.gustate.uotan.section.ui.adapter.SectionArticleListAdapter
 import com.gustate.uotan.section.ui.adapter.SectionExpandableArticleListAdapter
 import com.gustate.uotan.threads.ui.ThreadsActivity
 import com.gustate.uotan.utils.Utils
-import com.gustate.uotan.utils.Utils.Companion.dpToPx
-import com.gustate.uotan.utils.Utils.Companion.errorDialog
+import com.gustate.uotan.utils.Utils.dpToPx
+import com.gustate.uotan.utils.Utils.errorDialog
 import kotlin.math.roundToInt
 
 class SectionDataActivity : BaseActivity() {
@@ -96,7 +96,7 @@ class SectionDataActivity : BaseActivity() {
         binding.imgNonePost.isGone = true
         binding.tvNonePost.isGone = true
         Glide.with(this)
-            .load(Utils.Companion.baseUrl + ico)
+            .load(Utils.baseUrl + ico)
             .error(R.drawable.ic_uo)
             .into(binding.imgCover)
         observerList()

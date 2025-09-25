@@ -1,11 +1,11 @@
 package com.gustate.uotan.utils.parse.search
 
-import com.gustate.uotan.utils.Utils.Companion.baseUrl
-import com.gustate.uotan.utils.Utils.Companion.Cookies
-import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
-import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
+import com.gustate.uotan.utils.Utils.baseUrl
+import com.gustate.uotan.utils.Utils.USER_AGENT
+import com.gustate.uotan.utils.network.HttpClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.Request
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 
@@ -47,30 +47,33 @@ class SearchParse {
         }
 
         private suspend fun getDocument(url: String) = withContext(Dispatchers.IO) {
-            val document = Jsoup
-                .connect(url)
-                .userAgent(USER_AGENT)
-                .timeout(TIMEOUT_MS)
-                .cookies(Cookies)
-                .get()
+            val client = HttpClient.getClient()
+            val request = Request.Builder()
+                .url(url)
+                .header("User-Agent", USER_AGENT)
+                .build()
+            val response = client.newCall(request).execute()
+            val document = Jsoup.parse(response.body.string())
             return@withContext document
         }
 
         private suspend fun getDocument(search: String, page: String, isMePage: Boolean): Document = withContext(Dispatchers.IO) {
             return@withContext if (isMePage) {
-                Jsoup
-                    .connect("$baseUrl/search/$search/?page=$page")
-                    .userAgent(USER_AGENT)
-                    .timeout(TIMEOUT_MS)
-                    .cookies(Cookies)
-                    .get()
+                val client = HttpClient.getClient()
+                val request = Request.Builder()
+                    .url("$baseUrl/search/$search/?page=$page")
+                    .header("User-Agent", USER_AGENT)
+                    .build()
+                val response = client.newCall(request).execute()
+                Jsoup.parse(response.body.string())
             } else {
-                Jsoup
-                    .connect("$baseUrl/search/${(10000..99999).random()}/?page=$page&q=$search&t=post&o=relevance")
-                    .userAgent(USER_AGENT)
-                    .timeout(TIMEOUT_MS)
-                    .cookies(Cookies)
-                    .get()
+                val client = HttpClient.getClient()
+                val request = Request.Builder()
+                    .url("$baseUrl/search/${(10000..99999).random()}/?page=$page&q=$search&t=post&o=relevance")
+                    .header("User-Agent", USER_AGENT)
+                    .build()
+                val response = client.newCall(request).execute()
+                Jsoup.parse(response.body.string())
             }
         }
 

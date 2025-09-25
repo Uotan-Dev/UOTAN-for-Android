@@ -7,20 +7,22 @@
     android:layout_height="match_parent"
     android:background="@android:color/transparent">
 
-    <com.gustate.uotan.view.smooth.SmoothCornerLayout
+    <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
         android:id="@+id/scl_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
         android:layout_marginEnd="48dp"
         android:background="@drawable/uotan_bkg_option"
-        app:scl_corner_radius="@dimen/dialog_corner_radius"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.499"
         app:scl_border_color="?attr/colorCardNormal"
         app:scl_border_width="1dp"
+        app:scl_corner_radius="@dimen/dialog_corner_radius"
         app:scl_smoothness_radius="@dimen/normal_smoothness">
 
         <net.center.blurview.ShapeBlurView
@@ -35,14 +37,16 @@
 
         <TextView
             android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="26dp"
             android:layout_marginTop="24dp"
+            android:layout_marginEnd="26dp"
             android:fontFamily="sans-serif-medium"
             android:text="@string/title"
             android:textColor="?attr/colorOnBackgroundPrimary"
             android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -127,6 +131,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.cardview.widget.CardView>
-    </com.gustate.uotan.view.smooth.SmoothCornerLayout>
+    </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

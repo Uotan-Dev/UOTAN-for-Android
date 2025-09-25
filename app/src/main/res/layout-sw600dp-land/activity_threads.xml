@@ -201,7 +201,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <com.gustate.uotan.view.smooth.SmoothCornerLayout
+                    <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
                         android:id="@+id/article_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -216,7 +216,7 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:scl_smoothness_radius="@dimen/normal_smoothness">
 
-                        <com.gustate.uotan.view.smooth.SmoothCornerLayout
+                        <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
                             android:id="@+id/cardJingTie"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -227,7 +227,7 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/rv_content"
                             app:scl_corner_radius="@dimen/normal_corner_radius"
-                            app:scl_smoothness_radius="@dimen/normal_corner_radius">
+                            app:scl_smoothness_radius="@dimen/normal_smoothness">
 
                             <TextView
                                 android:id="@+id/tvJingTie"
@@ -244,9 +244,9 @@
                                 android:textSize="14sp"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
-                        </com.gustate.uotan.view.smooth.SmoothCornerLayout>
+                        </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
 
-                        <com.gustate.uotan.view.smooth.SmoothCornerLayout
+                        <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
                             android:id="@+id/btn_follow"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -276,7 +276,7 @@
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
 
-                        </com.gustate.uotan.view.smooth.SmoothCornerLayout>
+                        </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
 
                         <ImageView
                             android:id="@+id/loading_follow"
@@ -378,14 +378,14 @@
                                 app:layout_constraintStart_toEndOf="@+id/img_article_avatar"
                                 app:layout_constraintTop_toTopOf="parent" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
-                    </com.gustate.uotan.view.smooth.SmoothCornerLayout>
+                    </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.core.widget.NestedScrollView>
 
         </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 
-        <com.gustate.uotan.view.smooth.SmoothCornerLayout
+        <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
             android:id="@+id/btn_reply"
             android:layout_width="0dp"
             android:layout_height="60dp"
@@ -425,7 +425,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-        </com.gustate.uotan.view.smooth.SmoothCornerLayout>
+        </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -447,7 +447,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.gustate.uotan.view.smooth.SmoothCornerLayout
+                <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
                     android:id="@+id/cardPostLocked"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -477,7 +477,7 @@
                         android:textSize="16sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
-                </com.gustate.uotan.view.smooth.SmoothCornerLayout>
+                </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
 
                 <TextView
                     android:id="@+id/tv_posts"

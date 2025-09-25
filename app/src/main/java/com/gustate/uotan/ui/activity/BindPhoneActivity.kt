@@ -20,13 +20,13 @@ import androidx.lifecycle.lifecycleScope
 import com.gustate.uotan.BaseActivity
 import com.gustate.uotan.R
 import com.gustate.uotan.databinding.ActivityBindPhoneBinding
-import com.gustate.uotan.gustatex.dialog.LoadingDialog
+import com.gustate.uotan.dialog.LoadingDialog
 import com.gustate.uotan.main.ui.MainActivity
-import com.gustate.uotan.utils.Utils.Companion.baseUrl
-import com.gustate.uotan.utils.Utils.Companion.Cookies
-import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
-import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
-import com.gustate.uotan.utils.Utils.Companion.openImmersion
+import com.gustate.uotan.utils.Utils.baseUrl
+import com.gustate.uotan.utils.Utils.TIMEOUT_MS
+import com.gustate.uotan.utils.Utils.USER_AGENT
+import com.gustate.uotan.utils.Utils.openImmersion
+import com.gustate.uotan.utils.network.HttpClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -157,7 +157,7 @@ class BindPhoneActivity : BaseActivity() {
         // 允许第三方 Cookies
         cookieManager.setAcceptThirdPartyCookies(binding.webView, true)
         // 设置自定义 Cookies
-        setCookiesForDomain(Cookies)
+        setCookiesForDomain(HttpClient.getAllCookies())
         // 加载验证页面
         binding.webView.loadUrl(url)
 
@@ -338,7 +338,7 @@ class BindPhoneActivity : BaseActivity() {
         val response = Jsoup.connect(baseUrl)
             .userAgent(USER_AGENT)
             .timeout(TIMEOUT_MS)
-            .cookies(Cookies)
+            .cookies(HttpClient.getAllCookies())
             .execute()
         val document = response
             .parse()

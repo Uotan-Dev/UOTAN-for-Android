@@ -6,441 +6,368 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToPadding="true"
-    tools:context=".ui.activity.AboutActivity">
+    tools:context=".settings.ui.about.AboutActivity">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/rootLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+    <com.gustate.uotan.ui.view.effect.BgEffectView
+        android:id="@+id/bkg_effect"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:statusBarBackground="@android:color/transparent">
-
-        <com.scwang.smart.refresh.layout.SmartRefreshLayout
-            android:id="@+id/srlRoot"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="-116dp"
-            android:clipToPadding="false"
-            android:paddingTop="116dp"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:srlEnablePureScrollMode="true">
-
-            <androidx.core.widget.NestedScrollView
-                android:id="@+id/nsv_resource"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fillViewport="true"
-                android:scrollbarThumbVertical="@drawable/gustatex_scrollbar_thumb_vertical"
-                android:scrollbars="vertical"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/rootView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <com.gustate.uotan.view.smooth.SmoothCornerLayout
-                        android:id="@+id/appInfoCard"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_marginStart="12dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="12dp"
-                        android:background="@drawable/uotan_bkg_option_normal"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:scl_corner_radius="@dimen/option_corner_radius"
-                        app:scl_smoothness_radius="@dimen/normal_smoothness">
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/appInfo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="24dp"
-                            android:layout_marginEnd="16dp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                            <ImageView
-                                android:id="@+id/uo"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:srcCompat="@drawable/ic_uo" />
-
-                            <ImageView
-                                android:id="@+id/tan"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="2dp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toEndOf="@+id/uo"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:srcCompat="@drawable/ic_tan" />
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-                        <TextView
-                            android:id="@+id/appInfoVerName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="16dp"
-                            android:fontFamily="sans-serif-medium"
-                            android:text="@string/version_name"
-                            android:textColor="?attr/colorOnCardPrimary"
-                            android:textSize="14sp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/appInfoVerNameText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:text="@string/version_name"
-                            android:textColor="?attr/colorOnCardSecondary"
-                            android:textSize="12sp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/appInfoVerName"
-                            tools:ignore="TextContrastCheck" />
-
-                        <TextView
-                            android:id="@+id/appInfoVerCode"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="8dp"
-                            android:fontFamily="sans-serif-medium"
-                            android:text="@string/version_code"
-                            android:textColor="?attr/colorOnCardPrimary"
-                            android:textSize="14sp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/appInfoVerNameText" />
-
-                        <TextView
-                            android:id="@+id/appInfoVerCodeText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:text="@string/version_code"
-                            android:textColor="?attr/colorOnCardSecondary"
-                            android:textSize="12sp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/appInfoVerCode"
-                            tools:ignore="TextContrastCheck" />
-
-                        <TextView
-                            android:id="@+id/textView2"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginEnd="16dp"
-                            android:layout_marginBottom="16dp"
-                            android:fontFamily="sans-serif-medium"
-                            android:text="@string/uotan_describe"
-                            android:textColor="?attr/colorOnCardPrimary"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/appInfoVerCodeText" />
-
-                    </com.gustate.uotan.view.smooth.SmoothCornerLayout>
-
-                    <TextView
-                        android:id="@+id/coreTeamTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="28dp"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginEnd="28dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="@string/core_team"
-                        android:textColor="?attr/colorOnBackgroundTertiary"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/appInfoCard"
-                        tools:ignore="TextContrastCheck" />
-
-                    <com.gustate.uotan.view.smooth.SmoothCornerLayout
-                        android:id="@+id/coreTeamCard"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="12dp"
-                        android:background="@drawable/uotan_bkg_option_normal"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/coreTeamTitle"
-                        app:scl_corner_radius="@dimen/option_corner_radius"
-                        app:scl_smoothness_radius="@dimen/normal_smoothness">
-
-                        <com.gustate.uotan.view.option.OptionUserView
-                            android:id="@+id/coreteam1"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:optionAvatar_user="@drawable/avatar_coreteam_01"
-                            app:optionDescribe_user="@string/coreteam_describe_01"
-                            app:optionTitle_user="@string/coreteam_01" />
-
-                        <com.gustate.uotan.view.option.OptionUserView
-                            android:id="@+id/coreteam2"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/coreteam1"
-                            app:optionAvatar_user="@drawable/avatar_coreteam_02"
-                            app:optionDescribe_user="@string/coreteam_describe_02"
-                            app:optionTitle_user="@string/coreteam_02" />
-
-                        <com.gustate.uotan.view.option.OptionUserView
-                            android:id="@+id/coreteam3"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/coreteam2"
-                            app:optionAvatar_user="@drawable/avatar_coreteam_03"
-                            app:optionDescribe_user="@string/coreteam_describe_03"
-                            app:optionTitle_user="@string/coreteam_03" />
-
-                        <com.gustate.uotan.view.option.OptionUserView
-                            android:id="@+id/coreteam4"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/coreteam3"
-                            app:optionAvatar_user="@drawable/avatar_coreteam_04"
-                            app:optionDescribe_user="@string/coreteam_describe_04"
-                            app:optionTitle_user="@string/coreteam_04" />
-
-                        <com.gustate.uotan.view.option.OptionUserView
-                            android:id="@+id/coreteam5"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/coreteam4"
-                            app:optionAvatar_user="@drawable/avatar_coreteam_05"
-                            app:optionDescribe_user="@string/coreteam_describe_05"
-                            app:optionTitle_user="@string/coreteam_05" />
-
-                        <com.gustate.uotan.view.option.OptionUserView
-                            android:id="@+id/coreteam6"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/coreteam5"
-                            app:optionAvatar_user="@drawable/avatar_coreteam_06"
-                            app:optionDescribe_user="@string/coreteam_describe_06"
-                            app:optionTitle_user="@string/coreteam_06" />
-
-                        <com.gustate.uotan.view.option.OptionUserView
-                            android:id="@+id/coreteam7"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/coreteam6"
-                            app:optionAvatar_user="@drawable/avatar_coreteam_07"
-                            app:optionDescribe_user="@string/coreteam_describe_07"
-                            app:optionTitle_user="@string/coreteam_07" />
-
-                        <com.gustate.uotan.view.option.OptionUserView
-                            android:id="@+id/coreteam8"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/coreteam7"
-                            app:optionAvatar_user="@drawable/avatar_coreteam_08"
-                            app:optionDescribe_user="@string/coreteam_describe_08"
-                            app:optionTitle_user="@string/coreteam_08" />
-                    </com.gustate.uotan.view.smooth.SmoothCornerLayout>
-
-                    <TextView
-                        android:id="@+id/specialThanksTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="28dp"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginEnd="28dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="@string/special_thanks"
-                        android:textColor="?attr/colorOnBackgroundTertiary"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/coreTeamCard"
-                        tools:ignore="TextContrastCheck" />
-
-                    <com.gustate.uotan.view.smooth.SmoothCornerLayout
-                        android:id="@+id/specialThanksCard"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="12dp"
-                        android:background="@drawable/uotan_bkg_option_normal"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/specialThanksTitle"
-                        app:scl_corner_radius="@dimen/option_corner_radius"
-                        app:scl_smoothness_radius="@dimen/normal_smoothness">
-
-                        <com.gustate.uotan.view.option.OptionUserView
-                            android:id="@+id/specialthanks1"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:optionAvatar_user="@drawable/avatar_specialthanks_01"
-                            app:optionDescribe_user="@string/specialthanks_describe_01"
-                            app:optionTitle_user="@string/specialthanks_01" />
-
-                        <com.gustate.uotan.view.option.OptionUserView
-                            android:id="@+id/specialthanks2"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/specialthanks1"
-                            app:optionAvatar_user="@drawable/avatar_specialthanks_02"
-                            app:optionDescribe_user="@string/specialthanks_describe_02"
-                            app:optionTitle_user="@string/specialthanks_02" />
-                    </com.gustate.uotan.view.smooth.SmoothCornerLayout>
-
-                    <TextView
-                        android:id="@+id/openSourceTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="28dp"
-                        android:layout_marginTop="15dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="@string/open_source_address"
-                        android:textColor="?attr/colorOnBackgroundTertiary"
-                        android:textSize="14sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/specialThanksCard"
-                        tools:ignore="TextContrastCheck" />
-
-                    <com.gustate.uotan.view.option.OptionTitleAndDescribeView
-                        android:id="@+id/openSourceCard"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="12dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/openSourceTitle"
-                        app:optionDescribe_tiltleAndDescribe="@string/open_source_address_link"
-                        app:optionTitle_tiltleAndDescribe="@string/github_name" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.core.widget.NestedScrollView>
-        </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/headerBarBlurLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:id="@+id/layout_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="160dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <view
-                android:id="@+id/headerBarBlur"
-                class="net.center.blurview.ShapeBlurView"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:blur_overlay_color="@android:color/transparent"
-                app:blur_radius="25dp"
+            <ImageView
+                android:id="@+id/ic_uo"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:adjustViewBounds="true"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_uo" />
 
-            <View
-                android:id="@+id/headerBarCover"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:alpha="0.6"
-                android:background="?attr/colorBackground"
+            <ImageView
+                android:id="@+id/ic_tan"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:layout_marginStart="4dp"
+                android:adjustViewBounds="true"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <View
-                android:id="@+id/headerBarBlurContent"
-                android:layout_width="0dp"
-                android:layout_height="60dp"
-                android:layout_marginTop="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
+                app:layout_constraintStart_toEndOf="@+id/ic_uo"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_tan" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appBarLayout"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tv_version"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@android:color/transparent"
-            app:liftOnScrollColor="@android:color/transparent"
-            app:statusBarForeground="@android:color/transparent">
+            android:layout_marginTop="28dp"
+            android:fontFamily="sans-serif-light"
+            android:text="@string/version_name"
+            android:textColor="?attr/colorOnCardPrimary"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_icon" />
+    </com.gustate.uotan.ui.view.effect.BgEffectView>
 
-            <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:id="@+id/collapsingToolbar"
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:id="@+id/srlRoot"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srlEnablePureScrollMode="true">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nsv_root"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:fillViewport="true"
+            android:overScrollMode="never"
+            android:scrollbarThumbVertical="@drawable/gustatex_scrollbar_thumb_vertical"
+            android:scrollbars="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/rootView"
                 android:layout_width="match_parent"
-                android:layout_height="116dp"
-                android:background="@android:color/transparent"
-                android:fitsSystemWindows="true"
-                app:collapsedTitleGravity="start"
-                app:collapsedTitleTextAppearance="@style/CollapsedTitleStyle"
-                app:collapsedTitleTextColor="?attr/colorOnBackgroundPrimary"
-                app:contentScrim="@android:color/transparent"
-                app:expandedTitleMarginStart="16dp"
-                app:expandedTitleTextAppearance="@style/ExpendedTitleStyle"
-                app:expandedTitleTextColor="?attr/colorOnBackgroundPrimary"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-                app:statusBarScrim="@android:color/transparent"
-                app:title="@string/about"
-                app:titleCollapseMode="scale"
-                app:titleEnabled="true"
-                app:toolbarId="@id/toolBar">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="300dp">
 
-                <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolBar"
+                <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+                    android:id="@+id/layout_info"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:background="@android:color/transparent"
-                    android:fitsSystemWindows="true"
-                    app:contentInsetStartWithNavigation="12dp"
-                    app:layout_collapseMode="pin"
-                    app:navigationIcon="@drawable/ic_back" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@drawable/uotan_bkg_option"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:scl_corner_radius="@dimen/option_corner_radius"
+                    app:scl_smoothness_radius="@dimen/normal_smoothness">
 
-            </com.google.android.material.appbar.CollapsingToolbarLayout>
+                    <com.gustate.uotan.ui.view.option.OptionDetailView
+                        android:id="@+id/odv_version"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/gustatex_btn_none_bkg_normal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:odv_arrow_gone="true"
+                        app:odv_detail="@string/num_zero"
+                        app:odv_title="@string/version_code" />
 
-        </com.google.android.material.appbar.AppBarLayout>
+                    <com.gustate.uotan.ui.view.option.OptionDetailView
+                        android:id="@+id/odv_web"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/gustatex_btn_none_bkg"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/odv_version"
+                        app:odv_detail="@string/app_name"
+                        app:odv_title="@string/official_website" />
+                </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+                <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+                    android:id="@+id/layout_app"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@drawable/uotan_bkg_option_normal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_info"
+                    app:scl_corner_radius="@dimen/option_corner_radius"
+                    app:scl_smoothness_radius="@dimen/normal_smoothness">
+
+                    <TextView
+                        android:id="@+id/tv_app"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:fontFamily="sans-serif-light"
+                        android:text="@string/uotan_describe"
+                        android:textColor="?attr/colorOnCardPrimary"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+
+                <TextView
+                    android:id="@+id/tv_core"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="28dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="28dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/core_team"
+                    android:textColor="?attr/colorOnBackgroundTertiary"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_app"
+                    tools:ignore="TextContrastCheck" />
+
+                <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+                    android:id="@+id/scl_core"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@drawable/uotan_bkg_option_normal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_core"
+                    app:scl_corner_radius="@dimen/option_corner_radius"
+                    app:scl_smoothness_radius="@dimen/normal_smoothness">
+
+                    <LinearLayout
+                        android:id="@+id/layout_core"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <com.gustate.uotan.ui.view.option.OptionUserView
+                            android:id="@+id/ouv_mhym"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:ouv_avatar_assets="file:///android_asset/core/avatar_mhym.jpg"
+                            app:ouv_describe="@string/core_describe_mhym"
+                            app:ouv_title="@string/core_mhym" />
+
+                        <com.gustate.uotan.ui.view.option.OptionUserView
+                            android:id="@+id/ouv_ln"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:ouv_avatar_assets="file:///android_asset/core/avatar_ln.jpg"
+                            app:ouv_describe="@string/core_describe_ln"
+                            app:ouv_title="@string/core_ln" />
+
+                        <com.gustate.uotan.ui.view.option.OptionUserView
+                            android:id="@+id/ouv_mjw"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:ouv_avatar_assets="file:///android_asset/core/avatar_mjw.jpg"
+                            app:ouv_describe="@string/core_describe_mjw"
+                            app:ouv_title="@string/core_mjw" />
+
+                        <com.gustate.uotan.ui.view.option.OptionUserView
+                            android:id="@+id/ouv_yuzh"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:ouv_avatar_assets="file:///android_asset/core/avatar_yuzh.png"
+                            app:ouv_describe="@string/core_describe_yuzh"
+                            app:ouv_title="@string/core_yuzh" />
+
+                        <com.gustate.uotan.ui.view.option.OptionUserView
+                            android:id="@+id/ouv_lemo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:ouv_avatar_assets="file:///android_asset/core/avatar_lemo.png"
+                            app:ouv_describe="@string/core_describe_lemo"
+                            app:ouv_title="@string/core_lemo" />
+
+                        <com.gustate.uotan.ui.view.option.OptionUserView
+                            android:id="@+id/ouv_xh"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:ouv_avatar_assets="file:///android_asset/core/avatar_xh.jpg"
+                            app:ouv_describe="@string/core_describe_xh"
+                            app:ouv_title="@string/core_xh" />
+
+                        <com.gustate.uotan.ui.view.option.OptionUserView
+                            android:id="@+id/ouv_zach"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:ouv_avatar_assets="file:///android_asset/core/avatar_zach.png"
+                            app:ouv_describe="@string/core_describe_zach"
+                            app:ouv_title="@string/core_zach" />
+
+                        <com.gustate.uotan.ui.view.option.OptionUserView
+                            android:id="@+id/ouv_hy"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:ouv_avatar_assets="file:///android_asset/core/avatar_hy.jpg"
+                            app:ouv_describe="@string/core_describe_hy"
+                            app:ouv_title="@string/core_hy" />
+                    </LinearLayout>
+                </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+
+                <TextView
+                    android:id="@+id/tv_thanks"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="28dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="28dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/special_thanks"
+                    android:textColor="?attr/colorOnBackgroundTertiary"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/scl_core"
+                    tools:ignore="TextContrastCheck" />
+
+                <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+                    android:id="@+id/scl_thanks"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@drawable/uotan_bkg_option_normal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_thanks"
+                    app:scl_corner_radius="@dimen/option_corner_radius"
+                    app:scl_smoothness_radius="@dimen/normal_smoothness">
+
+                    <LinearLayout
+                        android:id="@+id/layout_thanks"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <com.gustate.uotan.ui.view.option.OptionUserView
+                            android:id="@+id/ouv_rayzggz"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:ouv_avatar_assets="file:///android_asset/thanks/avatar_rayzggz.png"
+                            app:ouv_describe="@string/thanks_describe_rayzggz"
+                            app:ouv_title="@string/thanks_rayzggz" />
+
+                        <com.gustate.uotan.ui.view.option.OptionUserView
+                            android:id="@+id/ouv_gustate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:ouv_avatar_assets="file:///android_asset/thanks/avatar_gustate.jpg"
+                            app:ouv_describe="@string/thanks_describe_gustate"
+                            app:ouv_title="@string/thanks_gustate" />
+                    </LinearLayout>
+                </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+
+                <TextView
+                    android:id="@+id/tv_open"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="28dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="28dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/open_source_address"
+                    android:textColor="?attr/colorOnBackgroundTertiary"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/scl_thanks"
+                    tools:ignore="TextContrastCheck" />
+
+                <com.gustate.uotan.ui.view.option.OptionTitleAndDescribeView
+                    android:id="@+id/otdv_open"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="12dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_open"
+                    app:optionDescribe_tiltleAndDescribe="@string/open_source_address_link"
+                    app:optionTitle_tiltleAndDescribe="@string/github_name" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+
+    <com.gustate.appbar.classic.ClassicHeaderBar
+        android:id="@+id/layout_header_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:chb_bkg_blur_enable="true"
+        app:chb_bkg_blur_overlay="?attr/colorBackground"
+        app:chb_bkg_blur_overlay_alpha="0.6"
+        app:chb_bkg_blur_radius="25dp"
+        app:chb_header_bar_height="60dp"
+        app:chb_left_btn_enable="true"
+        app:chb_left_btn_margin_start="28dp"
+        app:chb_left_btn_src="@drawable/ic_back"
+        app:chb_left_btn_tint="?attr/colorOnBackgroundPrimary"
+        app:chb_system_bars_yield_enable="true"
+        app:chb_title="@string/about"
+        app:chb_title_color="?attr/colorOnBackgroundPrimary"
+        app:chb_title_gravity="chb_center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

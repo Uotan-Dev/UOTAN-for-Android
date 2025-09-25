@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.gustate.uotan.R
 import com.gustate.uotan.databinding.ItemResourceBinding
 import com.gustate.uotan.resource.data.model.ResourceItem
-import com.gustate.uotan.utils.Utils.Companion.baseUrl
+import com.gustate.uotan.utils.Utils.baseUrl
 
 /**
  * 资源列表适配器
@@ -24,7 +24,7 @@ class ResourceAdapter() : ListAdapter<ResourceItem, ResourceAdapter.ViewHolder>(
         override fun areItemsTheSame(
             oldItem: ResourceItem,
             newItem: ResourceItem
-        ) = oldItem.link == newItem.link
+        ) = oldItem == newItem
         override fun areContentsTheSame(
             oldItem: ResourceItem,
             newItem: ResourceItem

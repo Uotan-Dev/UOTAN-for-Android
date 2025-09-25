@@ -9,7 +9,7 @@ import androidx.core.view.updateLayoutParams
 import androidx.recyclerview.widget.RecyclerView
 import com.gustate.uotan.article.ContentBlock.TextBlock
 import com.gustate.uotan.R
-import com.gustate.uotan.utils.Utils.Companion.dpToPx
+import com.gustate.uotan.utils.Utils.dpToPx
 import kotlin.math.roundToInt
 
 class TextViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

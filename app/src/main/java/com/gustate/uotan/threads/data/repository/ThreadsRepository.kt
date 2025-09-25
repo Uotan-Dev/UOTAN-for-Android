@@ -1,20 +1,13 @@
 package com.gustate.uotan.threads.data.repository
 
-import com.google.gson.Gson
-import com.gustate.uotan.BuildConfig
 import com.gustate.uotan.threads.data.api.ThreadsApiService
 import com.gustate.uotan.threads.data.model.NoApiPostInfo
 import com.gustate.uotan.threads.data.model.Post
 import com.gustate.uotan.threads.data.model.PostList
-import com.gustate.uotan.threads.data.model.Thread
 import com.gustate.uotan.threads.data.model.post.PostResponse
 import com.gustate.uotan.threads.data.parse.ThreadsParse
-import com.gustate.uotan.utils.Utils.Companion.Cookies
-import com.gustate.uotan.utils.Utils.Companion.baseUrl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import okhttp3.OkHttpClient
-import okhttp3.Request
 
 class ThreadsRepository {
 

@@ -5,7 +5,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.gustate.uotan.home.ui.HomeFragment
 import com.gustate.uotan.section.ui.SectionFragment
 import com.gustate.uotan.resource.ui.ResFragment
-import com.gustate.uotan.fragment.user.MeFragment
+import com.gustate.uotan.user.ui.MeFragment
 import com.gustate.uotan.message.ui.MessageFragment
 
 class MainPagerAdapter(fragmentActivity: FragmentActivity):

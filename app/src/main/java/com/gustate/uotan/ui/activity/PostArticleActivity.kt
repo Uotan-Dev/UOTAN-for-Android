@@ -47,15 +47,15 @@ import androidx.loader.content.CursorLoader
 import com.gustate.uotan.BaseActivity
 import com.gustate.uotan.R
 import com.gustate.uotan.databinding.ActivityPostAritcleBinding
-import com.gustate.uotan.gustatex.dialog.LoadingDialog
-import com.gustate.uotan.gustatex.view.ScrollControllerListView
-import com.gustate.uotan.gustatex.view.SelectableEditText
-import com.gustate.uotan.utils.Utils.Companion.baseUrl
-import com.gustate.uotan.utils.Utils.Companion.Cookies
-import com.gustate.uotan.utils.Utils.Companion.REQUEST_CODE_PERMISSION
-import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
-import com.gustate.uotan.utils.Utils.Companion.dpToPx
-import com.gustate.uotan.utils.Utils.Companion.openImmersion
+import com.gustate.uotan.dialog.LoadingDialog
+import com.gustate.uotan.ui.view.scrollcontroller.ScrollControllerListView
+import com.gustate.uotan.ui.view.input.SelectableEditText
+import com.gustate.uotan.utils.Utils.baseUrl
+import com.gustate.uotan.utils.Utils.REQUEST_CODE_PERMISSION
+import com.gustate.uotan.utils.Utils.USER_AGENT
+import com.gustate.uotan.utils.Utils.dpToPx
+import com.gustate.uotan.utils.Utils.openImmersion
+import com.gustate.uotan.utils.network.HttpClient
 import com.kongzue.dialogx.dialogs.BottomDialog
 import com.kongzue.dialogx.interfaces.DialogLifecycleCallback
 import com.kongzue.dialogx.interfaces.OnBindView
@@ -63,7 +63,6 @@ import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.Response
@@ -158,7 +157,7 @@ class PostArticleActivity : BaseActivity() {
                 binding.webView.loadUrl(baseUrl + sectionUrl)
                 loadingDialog.show()
                 // 设置自定义 Cookies
-                setCookiesForDomain(baseUrl + sectionUrl, Cookies)
+                setCookiesForDomain(baseUrl + sectionUrl, HttpClient.getAllCookies())
                 binding.tvSection.text = sectionName
             }
         }
@@ -593,7 +592,7 @@ class PostArticleActivity : BaseActivity() {
     private val pickImageLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
         uri?.let {
             // 实例化 OkHttpClient
-            val client = OkHttpClient()
+            val client = HttpClient.getClient()
             // 将 URI 转换为 Bitmap
             val bitmap = uriToBitmap(it)
             // 获取文件路径

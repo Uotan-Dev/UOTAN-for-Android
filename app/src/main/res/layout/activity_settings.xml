@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    tools:context=".ui.activity.SettingsActivity">
+    tools:context=".settings.ui.SettingsActivity">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/rootLayout"
@@ -44,7 +44,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <com.gustate.uotan.view.smooth.SmoothCornerLayout
+                    <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
                         android:id="@+id/setAppLayout"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:scl_smoothness_radius="@dimen/normal_smoothness">
 
-                        <com.gustate.uotan.view.option.OptionView
+                        <com.gustate.uotan.ui.view.option.OptionView
                             android:id="@+id/aboutOption"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -68,7 +68,7 @@
                             app:optionIcon="@drawable/ic_option_myapp"
                             app:optionTitle="@string/about" />
 
-                        <com.gustate.uotan.view.option.OptionView
+                        <com.gustate.uotan.ui.view.option.OptionView
                             android:id="@+id/updaterOption"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -77,9 +77,9 @@
                             app:layout_constraintTop_toBottomOf="@id/aboutOption"
                             app:optionIcon="@drawable/ic_option_updater"
                             app:optionTitle="@string/updater" />
-                    </com.gustate.uotan.view.smooth.SmoothCornerLayout>
+                    </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
 
-                    <com.gustate.uotan.view.option.OptionView
+                    <com.gustate.uotan.ui.view.option.OptionView
                         android:id="@+id/setThemeOption"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -92,7 +92,7 @@
                         app:optionIcon="@drawable/ic_option_theme"
                         app:optionTitle="@string/theme" />
 
-                    <com.gustate.uotan.view.smooth.SmoothCornerLayout
+                    <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
                         android:id="@+id/setPageLayout"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -106,7 +106,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/setThemeOption"
                         app:scl_smoothness_radius="@dimen/normal_smoothness">
 
-                        <com.gustate.uotan.view.option.OptionView
+                        <com.gustate.uotan.ui.view.option.OptionView
                             android:id="@+id/setUserOption"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -116,7 +116,7 @@
                             app:optionIcon="@drawable/ic_option_service"
                             app:optionTitle="@string/user_settings" />
 
-                        <com.gustate.uotan.view.option.OptionView
+                        <com.gustate.uotan.ui.view.option.OptionView
                             android:id="@+id/domainOption"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -125,9 +125,9 @@
                             app:layout_constraintTop_toBottomOf="@+id/setUserOption"
                             app:optionIcon="@drawable/ic_option_search"
                             app:optionTitle="@string/domain_name_and_proxy" />
-                    </com.gustate.uotan.view.smooth.SmoothCornerLayout>
+                    </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
 
-                    <com.gustate.uotan.view.option.OptionView
+                    <com.gustate.uotan.ui.view.option.OptionView
                         android:id="@+id/privacyOption"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

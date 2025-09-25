@@ -15,8 +15,8 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager.VERTICAL
 import com.gustate.uotan.databinding.FragmentLatestBinding
 import com.gustate.uotan.home.ui.adapter.LatestAdapter
 import com.gustate.uotan.threads.ui.ThreadsActivity
-import com.gustate.uotan.utils.Utils.Companion.dpToPx
-import com.gustate.uotan.utils.Utils.Companion.errorDialog
+import com.gustate.uotan.utils.Utils.dpToPx
+import com.gustate.uotan.utils.Utils.errorDialog
 import kotlin.getValue
 import kotlin.math.roundToInt
 

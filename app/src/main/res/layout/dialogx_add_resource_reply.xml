@@ -78,22 +78,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/btnPost" />
 
-    <TextView
+    <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
         android:id="@+id/btnPost"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/uotan_btn_filled"
-        android:fontFamily="sans-serif-medium"
-        android:gravity="center"
-        android:paddingStart="36dp"
-        android:paddingEnd="36dp"
-        android:text="@string/post"
-        android:textColor="?attr/colorOnFilledButton"
-        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/edtContent"
-        app:layout_constraintTop_toBottomOf="@+id/edtContent" />
+        app:layout_constraintTop_toBottomOf="@+id/edtContent"
+        app:scl_corner_radius="@dimen/option_corner_radius"
+        app:scl_smoothness_radius="@dimen/normal_smoothness">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/uotan_btn_filled"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:paddingStart="36dp"
+            android:paddingEnd="36dp"
+            android:text="@string/post"
+            android:textColor="?attr/colorOnFilledButton"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

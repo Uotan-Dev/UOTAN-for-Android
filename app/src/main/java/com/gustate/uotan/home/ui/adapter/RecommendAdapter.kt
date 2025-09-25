@@ -33,8 +33,8 @@ class RecommendAdapter(): ListAdapter<RecommendItem, RecommendAdapter.ViewHolder
             .load(content.cover)
             .into(binding.imgCover)
         Glide.with(holder.itemView.context)
-            .load(Utils.Companion.idToAvatar(content.userId))
-            .apply(Helpers.Companion.avatarOptions)
+            .load(Utils.idToAvatar(content.userId))
+            .apply(Helpers.avatarOptions)
             .into(binding.imgAvatar)
         binding.tvUsername.text = content.author
         binding.tvTime.text = content.time

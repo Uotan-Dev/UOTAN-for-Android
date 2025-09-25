@@ -34,7 +34,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <com.gustate.uotan.view.option.OptionView
+                <com.gustate.uotan.ui.view.option.OptionView
                     android:id="@+id/optionView3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -44,7 +44,7 @@
                     app:optionIcon="@drawable/ic_option_at"
                     app:optionTitle="@string/at_my" />
 
-                <com.gustate.uotan.view.option.OptionView
+                <com.gustate.uotan.ui.view.option.OptionView
                     android:id="@+id/optionView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -54,7 +54,7 @@
                     app:optionIcon="@drawable/ic_option_like"
                     app:optionTitle="@string/received_likes" />
 
-                <com.gustate.uotan.view.option.OptionView
+                <com.gustate.uotan.ui.view.option.OptionView
                     android:id="@+id/optionView2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -64,7 +64,7 @@
                     app:optionIcon="@drawable/ic_option_follow"
                     app:optionTitle="@string/follow_me" />
 
-                <com.gustate.uotan.view.option.OptionView
+                <com.gustate.uotan.ui.view.option.OptionView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:layout_constraintEnd_toEndOf="parent"

@@ -16,124 +16,115 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <eightbitlab.com.blurview.BlurView
+    <net.center.blurview.ShapeBlurView
         android:id="@+id/blur_header_bar"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:fadeHeight="8dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="-6dp"
+        app:layout_constraintBottom_toBottomOf="@+id/layout_tabs"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_header_bar"
-            android:layout_width="match_parent"
+    <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+        android:id="@+id/layout_search"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/uotan_bkg_option"
+        android:tag="phone"
+        app:layout_constraintEnd_toStartOf="@+id/layout_post"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:scl_corner_radius="@dimen/normal_corner_radius"
+        app:scl_smoothness_radius="@dimen/normal_smoothness">
+
+        <ImageView
+            android:id="@+id/ico_search"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/ic_search"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/hint_search"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
+            android:layout_marginStart="10dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/search_all"
+            android:textColor="?attr/colorOnCardSecondary"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ico_search"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <com.gustate.uotan.view.smooth.SmoothCornerLayout
-                android:id="@+id/layout_search"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/uotan_bkg_option"
-                app:layout_constraintEnd_toStartOf="@+id/layout_post"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:scl_corner_radius="@dimen/normal_corner_radius"
-                app:scl_smoothness_radius="@dimen/normal_smoothness">
+    </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
 
-                <ImageView
-                    android:id="@+id/ico_search"
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:layout_marginStart="16dp"
-                    android:src="@drawable/ic_search"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+    <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+        android:id="@+id/layout_post"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/uotan_bkg_option"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/layout_search"
+        app:scl_corner_radius="@dimen/normal_corner_radius"
+        app:scl_smoothness_radius="@dimen/normal_smoothness">
 
-                <TextView
-                    android:id="@+id/hint_search"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:fontFamily="sans-serif-medium"
-                    android:text="@string/search_all"
-                    android:textColor="?attr/colorOnCardSecondary"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/ico_search"
-                    app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/ico_post"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_new"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            </com.gustate.uotan.view.smooth.SmoothCornerLayout>
+    </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
 
-            <com.gustate.uotan.view.smooth.SmoothCornerLayout
-                android:id="@+id/layout_post"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/uotan_bkg_option"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:scl_corner_radius="@dimen/normal_corner_radius"
-                app:scl_smoothness_radius="@dimen/normal_smoothness">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_tabs"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginTop="6dp"
+        android:tag="phone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layout_search">
 
-                <ImageView
-                    android:id="@+id/ico_post"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_new"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/tab_latest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:fontFamily="sans-serif"
+            android:text="@string/latest"
+            android:textColor="?attr/colorOnBackgroundSecondary"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            </com.gustate.uotan.view.smooth.SmoothCornerLayout>
+        <TextView
+            android:id="@+id/tab_recommend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/recommend"
+            android:textColor="?attr/colorOnBackgroundPrimary"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tab_latest"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/layout_tabs"
-                android:layout_width="match_parent"
-                android:layout_height="36dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginBottom="6dp"
-                android:tag="phone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layout_search">
-
-                <TextView
-                    android:id="@+id/tab_latest"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="28dp"
-                    android:fontFamily="sans-serif"
-                    android:text="@string/latest"
-                    android:textColor="?attr/colorOnBackgroundSecondary"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tab_recommend"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:fontFamily="sans-serif-medium"
-                    android:text="@string/recommend"
-                    android:textColor="?attr/colorOnBackgroundPrimary"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/tab_latest"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </eightbitlab.com.blurview.BlurView>
 </androidx.constraintlayout.widget.ConstraintLayout>

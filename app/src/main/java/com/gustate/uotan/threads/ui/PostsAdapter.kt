@@ -22,9 +22,7 @@ import com.gustate.uotan.databinding.ItemPostReplyBinding
 import com.gustate.uotan.threads.data.model.Post
 import com.gustate.uotan.threads.data.model.ThreadPhoto
 import com.gustate.uotan.threads.data.model.post.ReplyPost
-import com.gustate.uotan.utils.Helpers.Companion.avatarOptions
-import com.gustate.uotan.utils.Utils.Companion.htmlToSpan
-import com.gustate.uotan.utils.data.model.Attachment
+import com.gustate.uotan.utils.Helpers.avatarOptions
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -64,9 +62,11 @@ class PostsAdapter : ListAdapter<Post, PostsAdapter.ViewHolder>(DiffCallback()) 
     ) {
         val post = getItem(position)
         val binding = holder.binding
+        val context = holder.itemView.context
+        val contentAdapter = ContentAdapter(isReply = true)
         // 头像
         Glide.with(holder.itemView.context)
-            .load(post.user.avatarUrls.o)
+            .load(post.user.avatar_urls.l)
             .apply(avatarOptions)
             .into(binding.imgAvatar)
         binding.tvUsername.text = post.username
@@ -86,7 +86,38 @@ class PostsAdapter : ListAdapter<Post, PostsAdapter.ViewHolder>(DiffCallback()) 
         holder.replyAdapter.submitList(replies)
         binding.navReply.isGone = replies.isEmpty()
         binding.rvReply.isGone = replies.isEmpty()
-        htmlToSpan(binding.tvContent, messageHtml)
+        val contentBlocks = HtmlParse.parse(post.messageParsed)
+        contentAdapter.updateContent(contentBlocks)
+        val pictureList = mutableListOf<Photo>()
+        contentBlocks.forEachIndexed { index, src ->
+            if (src is ContentBlock.ImageBlock) {
+                pictureList.add(ThreadPhoto(src.src, index.toLong()))
+            }
+        }
+        contentAdapter.onImageClick = { id, url ->
+            showPictureViewer(context, url, id.toLong(), pictureList)
+        }
+    }
+
+    /**
+     * 启动图片查看器
+     * @param position 图片索引 用于绑定动画
+     * @param url 图片链接
+     */
+    private fun showPictureViewer(
+        context: Context,
+        url: String,
+        position: Long,
+        pictureList: MutableList<Photo>
+    ) {
+        val clickedData: Photo = ThreadPhoto(url, position)
+        val builder = ImageViewerBuilder(
+            context = context,
+            dataProvider = SimpleDataProvider(clickedData, pictureList),        // 一次性全量加载
+            imageLoader = ImageLoader(),                                        // 实现对数据源的加载
+            transformer = ImageTransformer(),                                   // 设置过渡动画的配对
+        )
+        builder.show()
     }
     // 回复
     fun addNewReply(rv: RecyclerView, post: Post) {
@@ -99,7 +130,7 @@ class PostsAdapter : ListAdapter<Post, PostsAdapter.ViewHolder>(DiffCallback()) 
     }
 
     fun setRepliesForPost(postId: Int, replies: List<ReplyPost>?) {
-        replies?.let {
+        replies?.let { it ->
             repliesMap[postId] = it
             // 查找该帖子在列表中的位置并刷新
             val position = currentList.indexOfFirst {

@@ -3,30 +3,33 @@ package com.gustate.uotan
 import android.content.Intent
 import android.os.Bundle
 import android.view.ViewGroup
-import androidx.activity.enableEdgeToEdge
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.gustate.uotan.ui.activity.PolicyActivity
+import androidx.core.view.updateLayoutParams
+import com.gustate.uotan.settings.ui.PolicyActivity
 import com.gustate.uotan.databinding.ActivityAgreementPolicyBinding
-import com.gustate.uotan.utils.Utils.Companion.baseUrl
-import com.gustate.uotan.utils.Utils.Companion.openImmersion
+import com.gustate.uotan.utils.Utils.baseUrl
+import com.gustate.uotan.utils.Utils.dpToPx
+import kotlin.math.roundToInt
 
 class AgreementPolicyActivity : BaseActivity() {
     private lateinit var binding: ActivityAgreementPolicyBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAgreementPolicyBinding.inflate(layoutInflater)
-        enableEdgeToEdge()
-        setContentView(binding.main)
-        openImmersion(window)
-        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { _, insets ->
+        setContentView(binding.root)
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            binding.statusBarView.layoutParams.height = systemBars.top
-            binding.statusBarBlurView.layoutParams.height = systemBars.top
-            val headerBarMargin = binding.headerBar.layoutParams  as ViewGroup.MarginLayoutParams
-            val headerBarBlurLayoutMargin = binding.headerBarBlurLayout.layoutParams as ViewGroup.MarginLayoutParams
-            headerBarMargin.topMargin = - systemBars.top
-            headerBarBlurLayoutMargin.topMargin = - systemBars.top
+            binding.headerBarBlurContent
+                .updateLayoutParams<ViewGroup.MarginLayoutParams> { topMargin = systemBars.top }
+            binding.appBarLayout
+                .updateLayoutParams<ViewGroup.MarginLayoutParams> { topMargin = systemBars.top }
+            binding.srlRoot.setPadding(
+                0,
+                116f.dpToPx(this).roundToInt(),
+                0,
+                (systemBars.top + systemBars.bottom)
+            )
             insets
         }
         val btnList = listOf(
@@ -72,6 +75,9 @@ class AgreementPolicyActivity : BaseActivity() {
                 }
                 startActivity(intent)
             }
+        }
+        binding.toolBar.setNavigationOnClickListener {
+            finish()
         }
     }
 }

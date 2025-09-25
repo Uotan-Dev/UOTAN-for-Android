@@ -23,16 +23,18 @@ import com.bumptech.glide.Glide
 import com.gustate.uotan.BaseActivity
 import com.gustate.uotan.R
 import com.gustate.uotan.databinding.ActivitySelectSectionBinding
-import com.gustate.uotan.gustatex.dialog.LoadingDialog
-import com.gustate.uotan.utils.Utils.Companion.baseUrl
-import com.gustate.uotan.utils.Utils.Companion.Cookies
-import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
-import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
-import com.gustate.uotan.utils.Utils.Companion.dpToPx
-import com.gustate.uotan.utils.Utils.Companion.openImmersion
+import com.gustate.uotan.dialog.LoadingDialog
+import com.gustate.uotan.utils.Utils
+import com.gustate.uotan.utils.Utils.baseUrl
+import com.gustate.uotan.utils.Utils.USER_AGENT
+import com.gustate.uotan.utils.Utils.dpToPx
+import com.gustate.uotan.utils.Utils.openImmersion
+import com.gustate.uotan.utils.Utils.showToast
+import com.gustate.uotan.utils.network.HttpClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import okhttp3.Request
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
 import kotlin.math.roundToInt
@@ -141,6 +143,11 @@ class SelectSectionActivity : BaseActivity() {
         /** 变量设置 **/
         // 实例化 Loading Dialog
         loadingDialog = LoadingDialog(this)
+
+        if (!Utils.isLogin) {
+            showToast(this, R.string.no_login)
+            finish()
+        }
 
         /** 基础设置 **/
         // recyclerView 设置
@@ -257,11 +264,13 @@ class SelectSectionActivity : BaseActivity() {
         // 获取当前页面的版块列表
         val sectionsList = when(section) {
             "software" -> {
-                Jsoup.connect("$baseUrl/pages/postpage/")
-                    .cookies(Cookies)
-                    .timeout(TIMEOUT_MS)
-                    .userAgent(USER_AGENT)
-                    .get()
+                val client = HttpClient.getClient()
+                val request = Request.Builder()
+                    .url("$baseUrl/pages/postpage/")
+                    .header("User-Agent", USER_AGENT)
+                    .build()
+                val response = client.newCall(request).execute()
+                Jsoup.parse(response.body.string())
                     .getElementsByClass("fullContent wear")
                     .first()
                     ?.getElementsByTag("li")
@@ -272,21 +281,25 @@ class SelectSectionActivity : BaseActivity() {
                     }
             }
             "forum" -> {
-                Jsoup.connect("$baseUrl/pages/postpage/")
-                    .cookies(Cookies)
-                    .timeout(TIMEOUT_MS)
-                    .userAgent(USER_AGENT)
-                    .get()
+                val client = HttpClient.getClient()
+                val request = Request.Builder()
+                    .url("$baseUrl/pages/postpage/")
+                    .header("User-Agent", USER_AGENT)
+                    .build()
+                val response = client.newCall(request).execute()
+                Jsoup.parse(response.body.string())
                     .getElementsByClass("fullContent forum")
                     .first()
                     ?.getElementsByTag("li")
             }
             else -> {
-                Jsoup.connect("$baseUrl/pages/$section/")
-                    .cookies(Cookies)
-                    .timeout(TIMEOUT_MS)
-                    .userAgent(USER_AGENT)
-                    .get()
+                val client = HttpClient.getClient()
+                val request = Request.Builder()
+                    .url("$baseUrl/pages/$section/")
+                    .header("User-Agent", USER_AGENT)
+                    .build()
+                val response = client.newCall(request).execute()
+                Jsoup.parse(response.body.string())
                     .getElementsByClass("mainContent")
                     .first()
                     ?.getElementsByTag("li")

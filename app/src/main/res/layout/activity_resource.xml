@@ -14,7 +14,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.gustate.uotan.view.smooth.SmoothCornerLayout
+        <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
             android:id="@+id/layout_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -25,7 +25,7 @@
             app:scl_corner_radius="@dimen/option_corner_radius"
             app:scl_smoothness_radius="@dimen/normal_smoothness">
 
-            <com.gustate.uotan.view.smooth.SmoothCornerLayout
+            <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
                 android:id="@+id/scl_cover"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="ImageContrastCheck"
                     tools:srcCompat="@tools:sample/backgrounds/scenic" />
-            </com.gustate.uotan.view.smooth.SmoothCornerLayout>
+            </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
 
             <TextView
                 android:id="@+id/tv_title"
@@ -175,7 +175,7 @@
                 app:layout_constraintTop_toTopOf="@+id/lbl_last"
                 tools:ignore="HardcodedText" />
 
-            <com.gustate.uotan.view.smooth.SmoothCornerLayout
+            <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
                 android:id="@+id/btn_download"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
@@ -205,82 +205,71 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-            </com.gustate.uotan.view.smooth.SmoothCornerLayout>
+            </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
 
-        </com.gustate.uotan.view.smooth.SmoothCornerLayout>
+        </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
 
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/nsv_resource"
+        <com.lihang.ShadowLayout
+            android:id="@+id/shadow_resource"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:elevation="15dp"
-            android:fillViewport="true"
-            android:scrollbarThumbVertical="@drawable/gustatex_scrollbar_thumb_vertical"
-            android:scrollbars="vertical"
-            app:behavior_hideable="false"
-            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+            app:clickable="false"
+            app:hl_cornerRadius="@dimen/option_corner_radius"
+            app:hl_layoutBackground="@android:color/transparent"
+            app:hl_shadowColor="@color/black5"
+            app:hl_shadowHiddenBottom="true"
+            app:hl_shadowHiddenLeft="true"
+            app:hl_shadowHiddenRight="true"
+            app:hl_shadowLimit="10dp"
+            app:hl_shadowOffsetY="48dp"
+            app:layout_behavior="com.imxie.exvpbs.ViewPagerBottomSheetBehavior">
 
-            <com.lihang.ShadowLayout
-                android:id="@+id/shadow_resource"
+
+            <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+                android:id="@+id/rootView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:clickable="false"
-                app:hl_cornerRadius="@dimen/option_corner_radius"
-                app:hl_layoutBackground="@android:color/transparent"
-                app:hl_shadowColor="@color/black5"
-                app:hl_shadowHiddenBottom="true"
-                app:hl_shadowHiddenLeft="true"
-                app:hl_shadowHiddenRight="true"
-                app:hl_shadowLimit="20dp"
-                app:hl_shadowOffsetY="-6dp">
+                android:layout_marginTop="12dp"
+                android:background="@drawable/uotan_bkg_option"
+                app:scl_corner_radius_tl="@dimen/option_corner_radius"
+                app:scl_corner_radius_tr="@dimen/option_corner_radius"
+                app:scl_smoothness_radius="@dimen/normal_smoothness">
 
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/img_tab"
+                    android:layout_width="60dp"
+                    android:layout_height="3dp"
+                    android:layout_marginTop="10dp"
+                    app:cardBackgroundColor="?attr/colorCardPress"
+                    app:cardCornerRadius="99dp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                <com.gustate.uotan.view.smooth.SmoothCornerLayout
-                    android:id="@+id/rootView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/uotan_bkg_option"
-                    app:scl_corner_radius_tl="@dimen/option_corner_radius"
-                    app:scl_corner_radius_tr="@dimen/option_corner_radius"
-                    app:scl_smoothness_radius="@dimen/normal_smoothness">
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tab_res"
+                    style="@style/GustateX.ResTabStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/img_tab"
+                    app:tabGravity="start"
+                    app:tabUnboundedRipple="false" />
 
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/img_tab"
-                        android:layout_width="60dp"
-                        android:layout_height="3dp"
-                        android:layout_marginTop="10dp"
-                        app:cardBackgroundColor="?attr/colorCardPress"
-                        app:cardCornerRadius="99dp"
-                        app:cardElevation="0dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/pager_res"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tab_res" />
 
-                    <com.google.android.material.tabs.TabLayout
-                        android:id="@+id/tab_res"
-                        style="@style/GustateX.ResTabStyle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="6dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/img_tab"
-                        app:tabGravity="start"
-                        app:tabUnboundedRipple="false" />
+            </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
 
-                    <androidx.viewpager2.widget.ViewPager2
-                        android:id="@+id/pager_res"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tab_res" />
-
-                </com.gustate.uotan.view.smooth.SmoothCornerLayout>
-
-            </com.lihang.ShadowLayout>
-        </androidx.core.widget.NestedScrollView>
+        </com.lihang.ShadowLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
@@ -373,7 +362,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.gustate.uotan.view.smooth.SmoothCornerLayout
+        <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
             android:id="@+id/btn_follow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -396,14 +385,14 @@
                 android:fontFamily="sans-serif-medium"
                 android:gravity="center"
                 android:text="@string/follow"
-                android:textColor="@color/white"
+                android:textColor="?attr/colorOnFilledButton"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-        </com.gustate.uotan.view.smooth.SmoothCornerLayout>
+        </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
 
         <ImageView
             android:id="@+id/loading_follow"
@@ -464,7 +453,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <com.gustate.uotan.view.smooth.SmoothCornerLayout
+        <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
             android:id="@+id/btn_reply"
             android:layout_width="0dp"
             android:layout_height="48dp"
@@ -489,7 +478,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-        </com.gustate.uotan.view.smooth.SmoothCornerLayout>
+        </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
 
         <ImageButton
             android:id="@+id/btn_react"

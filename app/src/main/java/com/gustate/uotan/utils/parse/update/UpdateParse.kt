@@ -5,12 +5,12 @@ import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import com.google.gson.reflect.TypeToken
 import com.gustate.uotan.utils.Utils
+import com.gustate.uotan.utils.network.HttpClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
 import okhttp3.Call
 import okhttp3.Callback
-import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
 import java.io.IOException
@@ -75,7 +75,7 @@ class UpdateParse {
 
         suspend fun fetchUpdateLog(): VersionInfo = withContext(Dispatchers.IO) {
             try {
-                val client = OkHttpClient()
+                val client = HttpClient.getClient()
                 val request = Request.Builder()
                     .url("https://gitee.com/XiaoMeng22333/uotan-for-android/raw/master/update.json")
                     .build()

@@ -25,7 +25,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <com.gustate.uotan.view.smooth.SmoothCornerLayout
+        <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
             android:id="@+id/layout_tabs"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
@@ -75,9 +75,9 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tab_latest"
                 app:layout_constraintTop_toTopOf="parent" />
-        </com.gustate.uotan.view.smooth.SmoothCornerLayout>
+        </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
 
-        <com.gustate.uotan.view.smooth.SmoothCornerLayout
+        <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
             android:id="@+id/layout_search"
             android:layout_width="360dp"
             android:layout_height="60dp"
@@ -124,9 +124,9 @@
                 app:layout_constraintStart_toEndOf="@+id/ico_search"
                 app:layout_constraintTop_toTopOf="parent" />
 
-        </com.gustate.uotan.view.smooth.SmoothCornerLayout>
+        </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
 
-        <com.gustate.uotan.view.smooth.SmoothCornerLayout
+        <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
             android:id="@+id/layout_post"
             android:layout_width="60dp"
             android:layout_height="60dp"
@@ -161,7 +161,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-        </com.gustate.uotan.view.smooth.SmoothCornerLayout>
+        </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

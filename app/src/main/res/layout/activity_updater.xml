@@ -83,28 +83,36 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
 
-                    <TextView
-                        android:id="@+id/btnNewVer"
+                    <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+                        android:id="@+id/btn_new_ver"
                         android:layout_width="wrap_content"
-                        android:layout_height="42dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="28dp"
-                        android:background="@drawable/uotan_btn_tonal"
-                        android:fontFamily="sans-serif-medium"
-                        android:gravity="center"
-                        android:paddingStart="24dp"
-                        android:paddingEnd="24dp"
-                        android:text="@string/discover_new_version"
-                        android:textColor="?attr/colorOnFilledTonalButton"
-                        android:textSize="16sp"
                         android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/versionName" />
+                        app:layout_constraintTop_toBottomOf="@+id/versionName">
+
+                        <TextView
+                            android:id="@+id/tv_new_ver"
+                            android:layout_width="wrap_content"
+                            android:layout_height="42dp"
+                            android:background="@drawable/uotan_btn_tonal"
+                            android:fontFamily="sans-serif-medium"
+                            android:gravity="center"
+                            android:paddingStart="24dp"
+                            android:paddingEnd="24dp"
+                            android:text="@string/discover_new_version"
+                            android:textColor="?attr/colorOnFilledTonalButton"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
 
                     <View
                         android:id="@+id/divider"
                         android:layout_width="0dp"
-                        android:layout_height="1dp"
+                        android:layout_height="0.6dp"
                         android:layout_marginStart="28dp"
                         android:layout_marginTop="36dp"
                         android:layout_marginEnd="28dp"
@@ -112,7 +120,7 @@
                         android:background="?attr/colorOnBackgroundSecondary"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/btnNewVer" />
+                        app:layout_constraintTop_toBottomOf="@+id/btn_new_ver" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerView"
@@ -246,21 +254,33 @@
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-    <TextView
-        android:id="@+id/chkUpdate"
+    <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+        android:id="@+id/chk_update"
         android:layout_width="0dp"
-        android:layout_height="55dp"
+        android:layout_height="52dp"
         android:layout_marginStart="28dp"
         android:layout_marginEnd="28dp"
         android:layout_marginBottom="28dp"
         android:background="@drawable/uotan_btn_filled"
-        android:fontFamily="sans-serif-medium"
-        android:gravity="center"
-        android:text="@string/check_for_updates"
-        android:textColor="?attr/colorOnFilledButton"
-        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:scl_corner_radius="@dimen/option_corner_radius"
+        app:scl_smoothness_radius="0.74">
+
+        <TextView
+            android:id="@+id/tv_update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:text="@string/check_for_updates"
+            android:textColor="?attr/colorOnFilledButton"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -39,7 +39,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
                         android:id="@+id/btnSection"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -47,7 +47,8 @@
                         android:layout_marginTop="10dp"
                         android:background="@drawable/uotan_btn_tonal"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:scl_corner_radius="@dimen/normal_corner_radius">
 
                         <ImageView
                             android:id="@+id/imgSection"
@@ -75,9 +76,9 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/imgSection"
                             app:layout_constraintTop_toTopOf="parent" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
                         android:id="@+id/btnPrefix"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -85,7 +86,8 @@
                         android:layout_marginTop="10dp"
                         android:background="@drawable/uotan_btn_tonal"
                         app:layout_constraintStart_toEndOf="@+id/btnSection"
-                        app:layout_constraintTop_toTopOf="parent">
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:scl_corner_radius="@dimen/normal_corner_radius">
 
                         <ImageView
                             android:id="@+id/imgPrefix"
@@ -113,9 +115,9 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/imgPrefix"
                             app:layout_constraintTop_toTopOf="parent" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
 
-                    <com.gustate.uotan.gustatex.view.SelectableEditText
+                    <com.gustate.uotan.ui.view.input.SelectableEditText
                         android:id="@+id/etTitle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -136,7 +138,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/btnSection" />
 
-                    <com.gustate.uotan.gustatex.view.SelectableEditText
+                    <com.gustate.uotan.ui.view.input.SelectableEditText
                         android:id="@+id/etContent"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -159,24 +161,36 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/etTitle" />
 
-                    <TextView
-                        android:id="@+id/btnPost"
+                    <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+                        android:id="@+id/scl_post"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
-                        android:layout_marginTop="10dp"
                         android:layout_marginEnd="16dp"
-                        android:background="@drawable/uotan_btn_filled"
-                        android:focusable="true"
-                        android:fontFamily="sans-serif-medium"
-                        android:gravity="center"
-                        android:paddingStart="24dp"
-                        android:paddingEnd="24dp"
-                        android:text="@string/post"
-                        android:textColor="?attr/colorOnFilledButton"
-                        android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="@+id/btnPrefix"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="@+id/btnPrefix"
+                        app:scl_corner_radius="@dimen/normal_corner_radius">
+
+                        <TextView
+                            android:id="@+id/btnPost"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:background="@drawable/uotan_btn_filled"
+                            android:focusable="true"
+                            android:fontFamily="sans-serif-medium"
+                            android:gravity="center"
+                            android:paddingStart="24dp"
+                            android:paddingEnd="24dp"
+                            android:text="@string/post"
+                            android:textColor="?attr/colorOnFilledButton"
+                            android:textSize="14sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+
+
 
                     <TextView
                         android:id="@+id/tvBB"

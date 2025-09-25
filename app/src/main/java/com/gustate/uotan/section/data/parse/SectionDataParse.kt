@@ -2,12 +2,12 @@ package com.gustate.uotan.section.data.parse
 
 import com.gustate.uotan.section.data.model.SectionData
 import com.gustate.uotan.section.data.model.SectionDataItem
-import com.gustate.uotan.utils.Utils.Companion.baseUrl
-import com.gustate.uotan.utils.Utils.Companion.Cookies
-import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
-import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
+import com.gustate.uotan.utils.Utils.baseUrl
+import com.gustate.uotan.utils.Utils.USER_AGENT
+import com.gustate.uotan.utils.network.HttpClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.Request
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
 
@@ -18,12 +18,13 @@ class SectionDataParse {
         onException: (Exception) -> Unit
     ) = withContext(Dispatchers.IO) {
         try {
-            val document = Jsoup
-                .connect(baseUrl + url)
-                .cookies(Cookies)
-                .userAgent(USER_AGENT)
-                .timeout(TIMEOUT_MS)
-                .get()
+            val client = HttpClient.getClient()
+            val request = Request.Builder()
+                .url(baseUrl + url)
+                .header("User-Agent", USER_AGENT)
+                .build()
+            val response = client.newCall(request).execute()
+            val document = Jsoup.parse(response.body.string())
             val totalPage = document
                 .getElementsByClass("pageNav-main")
                 .first()

@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.bumptech.glide.Glide
 import com.gustate.uotan.databinding.ItemThreadBinding
 import com.gustate.uotan.home.data.model.LatestItem
-import com.gustate.uotan.utils.Helpers.Companion.avatarOptions
-import com.gustate.uotan.utils.Utils.Companion.dpToPx
-import com.gustate.uotan.utils.Utils.Companion.idToAvatar
+import com.gustate.uotan.utils.Helpers.avatarOptions
+import com.gustate.uotan.utils.Utils.dpToPx
+import com.gustate.uotan.utils.Utils.idToAvatar
 import kotlin.math.roundToInt
 
 class LatestAdapter(): Adapter<LatestAdapter.ViewHolder>() {

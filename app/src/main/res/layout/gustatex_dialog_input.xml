@@ -7,139 +7,178 @@
     android:layout_height="match_parent"
     android:background="@android:color/transparent">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/dialogView"
+    <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginStart="48dp"
         android:layout_marginEnd="48dp"
-        app:cardBackgroundColor="@android:color/transparent"
-        app:cardCornerRadius="36dp"
-        app:cardElevation="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:scl_border_color="?attr/colorBackground"
+        app:scl_border_width="0.6dp"
+        app:scl_corner_radius="@dimen/dialog_corner_radius"
+        app:scl_smoothness_radius="@dimen/normal_smoothness">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <net.center.blurview.ShapeBlurView
+            android:id="@+id/s2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:blur_radius="25dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <net.center.blurview.ShapeBlurView
-                android:id="@+id/s2"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:blur_radius="25dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <View
+            android:id="@+id/headerBarCover3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:alpha="0.8"
+            android:background="?attr/colorCardNormal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <View
-                android:id="@+id/headerBarCover3"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:alpha="0.8"
-                android:background="?attr/colorCardNormal"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="26dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/title"
+            android:textColor="?attr/colorOnBackgroundPrimary"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_describe"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="26dp"
+            android:text="@string/describe"
+            android:textColor="?attr/colorOnBackgroundSecondary"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            tools:ignore="TextContrastCheck" />
+
+        <EditText
+            android:id="@+id/etContent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="18dp"
+            android:background="@drawable/gustatex_dialog_edittext_background"
+            android:fontFamily="@font/mi_sans_medium"
+            android:gravity="bottom"
+            android:hint="@string/edittext_hint_default"
+            android:inputType="text"
+            android:maxLines="1"
+            android:padding="15dp"
+            android:singleLine="true"
+            android:text=""
+            android:textAllCaps="false"
+            android:textColor="?attr/colorOnCardPrimary"
+            android:textColorHint="?attr/colorOnCardSecondary"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_describe"
+            tools:ignore="Autofill,TextContrastCheck,VisualLintTextFieldSize" />
+
+        <EditText
+            android:id="@+id/etContent2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="18dp"
+            android:background="@drawable/gustatex_dialog_edittext_background"
+            android:fontFamily="@font/mi_sans_medium"
+            android:gravity="bottom"
+            android:hint="@string/edittext_hint_default"
+            android:inputType="text"
+            android:maxLines="1"
+            android:padding="15dp"
+            android:singleLine="true"
+            android:text=""
+            android:textAllCaps="false"
+            android:textColor="?attr/colorOnCardPrimary"
+            android:textColorHint="?attr/colorOnCardSecondary"
+            android:textSize="16sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etContent"
+            tools:ignore="Autofill,TextContrastCheck,VisualLintTextFieldSize" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/btn_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="18dp"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="99dp"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_ok"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/etContent2">
 
             <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="26dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="26dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/title"
-                android:textColor="?attr/colorOnBackgroundPrimary"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tv_describe"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="26dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="26dp"
-                android:text="@string/describe"
-                android:textColor="?attr/colorOnBackgroundSecondary"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_title"
-                tools:ignore="TextContrastCheck" />
-
-            <EditText
-                android:id="@+id/etContent"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="18dp"
-                android:background="@drawable/gustatex_dialog_edittext_background"
-                android:fontFamily="@font/mi_sans_medium"
-                android:gravity="bottom"
-                android:hint="@string/edittext_hint_default"
-                android:inputType="text"
-                android:maxLines="1"
-                android:padding="15dp"
-                android:singleLine="true"
-                android:text=""
-                android:textAllCaps="false"
-                android:textColor="?attr/colorOnCardPrimary"
-                android:textColorHint="?attr/colorOnCardSecondary"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_describe"
-                tools:ignore="Autofill,TextContrastCheck,VisualLintTextFieldSize" />
-
-            <TextView
-                android:id="@+id/btn_cancel"
-                android:layout_width="0dp"
+                android:id="@+id/tv_cancel"
+                android:layout_width="match_parent"
                 android:layout_height="42dp"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="4dp"
-                android:layout_marginBottom="18dp"
                 android:background="@drawable/uotan_btn_tonal"
                 android:fontFamily="sans-serif-medium"
                 android:gravity="center"
                 android:text="@string/cancel"
                 android:textColor="?attr/colorOnFilledTonalButton"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/btn_ok"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/etContent" />
+                android:textSize="14sp" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/btn_ok"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="18dp"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="99dp"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_cancel"
+            app:layout_constraintTop_toTopOf="@+id/btn_cancel">
 
             <TextView
-                android:id="@+id/btn_ok"
-                android:layout_width="0dp"
+                android:id="@+id/tv_ok"
+                android:layout_width="match_parent"
                 android:layout_height="42dp"
-                android:layout_marginStart="4dp"
-                android:layout_marginEnd="18dp"
-                android:layout_marginBottom="18dp"
                 android:background="@drawable/uotan_btn_filled"
                 android:fontFamily="sans-serif-medium"
                 android:gravity="center"
                 android:text="@string/ok"
                 android:textColor="?attr/colorOnFilledButton"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/btn_cancel"
-                app:layout_constraintTop_toTopOf="@+id/btn_cancel"
-                tools:ignore="TextContrastCheck" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                android:textSize="14sp" />
 
-    </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>
+    </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -212,32 +212,37 @@
                             tools:ignore="SmallSp" />
                     </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/tab_follow"
+                    <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+                        android:id="@+id/scl_follow"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="20dp"
-                        android:background="@drawable/uotan_btn_filled"
-                        android:fontFamily="sans-serif-medium"
-                        android:gravity="center"
-                        android:paddingLeft="20dp"
-                        android:paddingTop="10dp"
-                        android:paddingRight="20dp"
-                        android:paddingBottom="10dp"
-                        android:text="@string/follow"
-                        android:textColor="?attr/colorOnFilledButton"
-                        android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/linearLayout2">
+                        app:layout_constraintTop_toTopOf="@+id/linearLayout2"
+                        app:scl_corner_radius="@dimen/option_corner_radius">
 
-                    </TextView>
+                        <TextView
+                            android:id="@+id/tab_follow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/uotan_btn_filled"
+                            android:fontFamily="sans-serif-medium"
+                            android:gravity="center"
+                            android:paddingLeft="20dp"
+                            android:paddingTop="10dp"
+                            android:paddingRight="20dp"
+                            android:paddingBottom="10dp"
+                            android:text="@string/follow"
+                            android:textColor="?attr/colorOnFilledButton"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
+                    </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
             </com.google.android.material.appbar.CollapsingToolbarLayout>
-
         </com.google.android.material.appbar.AppBarLayout>
 
         <com.scwang.smart.refresh.layout.SmartRefreshLayout
@@ -260,8 +265,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <com.gustate.uotan.view.smooth.SmoothCornerLayout
-                        android:id="@+id/resCard"
+                    <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+                        android:id="@+id/scl_res"
                         android:layout_width="0dp"
                         android:layout_height="70dp"
                         android:layout_marginStart="12dp"
@@ -305,7 +310,7 @@
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/resIcon" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
-                    </com.gustate.uotan.view.smooth.SmoothCornerLayout>
+                    </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerView"
@@ -316,7 +321,7 @@
                         android:paddingEnd="7dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/resCard" />
+                        app:layout_constraintTop_toBottomOf="@+id/scl_res" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.core.widget.NestedScrollView>
@@ -364,26 +369,33 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/headerFollow"
+            <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+                android:id="@+id/srl_follow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
-                android:background="@drawable/uotan_btn_filled"
-                android:fontFamily="sans-serif-medium"
-                android:gravity="center"
-                android:paddingLeft="20dp"
-                android:paddingTop="10dp"
-                android:paddingRight="20dp"
-                android:paddingBottom="10dp"
-                android:text="@string/follow"
-                android:textColor="?attr/colorOnFilledButton"
-                android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                app:scl_corner_radius="@dimen/option_corner_radius">
 
-            </TextView>
+                <TextView
+                    android:id="@+id/headerFollow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/uotan_btn_filled"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/follow"
+                    android:textColor="?attr/colorOnFilledButton"
+                    android:textSize="12sp" />
+
+            </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
 
             <ImageView
                 android:id="@+id/headerBack"
@@ -420,6 +432,5 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

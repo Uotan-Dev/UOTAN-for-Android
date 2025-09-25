@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.gustate.uotan.view.smooth.SmoothCornerLayout
+    <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
         android:id="@+id/layout_item"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -21,7 +21,7 @@
         app:scl_corner_radius="14dp"
         app:scl_smoothness_radius="0.618">
 
-        <com.gustate.uotan.view.smooth.SmoothCornerLayout
+        <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
             android:id="@+id/card_cover"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@tools:sample/backgrounds/scenic" />
-        </com.gustate.uotan.view.smooth.SmoothCornerLayout>
+        </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_user"
@@ -192,6 +192,6 @@
             app:layout_constraintStart_toEndOf="@+id/ico_comment_count"
             app:layout_constraintTop_toTopOf="@+id/ico_comment_count" />
 
-    </com.gustate.uotan.view.smooth.SmoothCornerLayout>
+    </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

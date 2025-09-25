@@ -9,7 +9,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.net.toUri
 import com.gustate.uotan.resource.ui.details.ResourceActivity
-import com.gustate.uotan.utils.Utils.Companion.baseUrl
+import com.gustate.uotan.utils.Utils.baseUrl
 
 class UotanLinkSpan(private val url: String) : ClickableSpan() {
 

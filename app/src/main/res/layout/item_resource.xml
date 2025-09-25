@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.gustate.uotan.view.smooth.SmoothCornerLayout
+    <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
         android:id="@+id/layout_item"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:scl_smoothness_radius="@dimen/normal_smoothness">
 
-        <com.gustate.uotan.view.smooth.SmoothCornerLayout
+        <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
             android:id="@+id/scl_cover"
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -37,9 +37,11 @@
                 android:id="@+id/img_cover"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:srcCompat="@drawable/avatar_specialthanks_02" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/avatar_account" />
 
-        </com.gustate.uotan.view.smooth.SmoothCornerLayout>
+        </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
@@ -90,6 +92,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/gustatex_arrow_right" />
 
-    </com.gustate.uotan.view.smooth.SmoothCornerLayout>
+    </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

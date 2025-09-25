@@ -1,6 +1,5 @@
 package com.gustate.uotan.settings.ui
 
-import android.app.Activity
 import android.content.ComponentName
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -14,8 +13,8 @@ import androidx.core.view.updateLayoutParams
 import com.gustate.uotan.BaseActivity
 import com.gustate.uotan.R
 import com.gustate.uotan.databinding.ActivityDomainBinding
-import com.gustate.uotan.gustatex.dialog.InfoDialog
-import com.gustate.uotan.gustatex.dialog.InputDialog
+import com.gustate.uotan.dialog.InfoDialog
+import com.gustate.uotan.dialog.InputDialog
 import com.gustate.uotan.settings.data.SettingModel.Companion.DOMAIN_CUSTOM_ENABLED_KEY
 import com.gustate.uotan.settings.data.SettingModel.Companion.DOMAIN_CUSTOM_VALUE_KEY
 import com.gustate.uotan.settings.data.SettingModel.Companion.SSL_AUTH_DISABLE_KEY
@@ -52,7 +51,7 @@ class DomainActivity : BaseActivity() {
                 .withOnCancel {
                     inputDialog.dismiss()
                 }
-                .withOnConfirm {
+                .withOnConfirm { it, b ->
                     viewModel.updateSettingValue(DOMAIN_CUSTOM_VALUE_KEY, it)
                     inputDialog.dismiss()
                     restart()

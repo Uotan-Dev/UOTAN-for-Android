@@ -12,7 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gustate.uotan.databinding.FragmentSubNoticeBinding
 import com.gustate.uotan.message.ui.adapter.MessageRecyclerAdapter
-import com.gustate.uotan.utils.Utils.Companion.dpToPx
+import com.gustate.uotan.utils.Utils.dpToPx
 import kotlin.math.roundToInt
 
 class SubMessageFragment : Fragment() {

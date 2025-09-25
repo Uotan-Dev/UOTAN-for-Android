@@ -14,7 +14,7 @@ import com.gustate.uotan.R
 import com.gustate.uotan.databinding.RecyclerCategoriesItemBinding
 import com.gustate.uotan.section.data.model.Categories
 import com.gustate.uotan.section.data.model.SectionItem
-import com.gustate.uotan.utils.Utils.Companion.getThemeColor
+import com.gustate.uotan.utils.Utils.getThemeColor
 
 class CategoriesAdapter(private val context: Context) :
     ListAdapter<Categories, CategoriesAdapter.ViewHolder>(DiffCallback()) {

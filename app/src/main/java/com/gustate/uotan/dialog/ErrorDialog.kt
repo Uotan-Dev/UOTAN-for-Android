@@ -4,9 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.widget.Toast
 import com.gustate.uotan.R
-import com.gustate.uotan.gustatex.dialog.InfoDialog
 import com.gustate.uotan.settings.ui.DomainActivity
-import net.center.blurview.ShapeBlurView
 import javax.net.ssl.SSLHandshakeException
 
 class ErrorDialog(private val context: Context) {

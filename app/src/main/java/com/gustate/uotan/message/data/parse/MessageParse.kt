@@ -2,22 +2,24 @@ package com.gustate.uotan.message.data.parse
 
 import com.gustate.uotan.message.data.model.AllMessage
 import com.gustate.uotan.message.data.model.LikeMessage
-import com.gustate.uotan.utils.Utils.Companion.Cookies
-import com.gustate.uotan.utils.Utils.Companion.TIMEOUT_MS
-import com.gustate.uotan.utils.Utils.Companion.USER_AGENT
+import com.gustate.uotan.utils.Utils.USER_AGENT
+import com.gustate.uotan.utils.Utils.baseUrl
+import com.gustate.uotan.utils.network.HttpClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.Request
 import org.jsoup.Jsoup
 
 class MessageParse {
     suspend fun parseAllMessage(): MutableList<AllMessage> = withContext(Dispatchers.IO) {
         val result = mutableListOf<AllMessage>()
-        val document = Jsoup
-            .connect("https://www.uotan.cn/account/alerts")
-            .userAgent(USER_AGENT)
-            .cookies(Cookies)
-            .timeout(TIMEOUT_MS)
-            .get()
+        val client = HttpClient.getClient()
+        val request = Request.Builder()
+            .url("$baseUrl/account/alerts")
+            .header("User-Agent", USER_AGENT)
+            .build()
+        val response = client.newCall(request).execute()
+        val document = Jsoup.parse(response.body.string())
         val container = document.select("div.notappalerts ol.listPlain")
         container.select("li.alert").forEach { element ->
             // 头像处理
@@ -139,14 +141,16 @@ class MessageParse {
         }
         return@withContext result
     }
+
     suspend fun parseLikeMessage(): MutableList<LikeMessage> = withContext(Dispatchers.IO) {
         val result = mutableListOf<LikeMessage>()
-        val document = Jsoup
-            .connect("https://www.uotan.cn/account/alerts")
-            .userAgent(USER_AGENT)
-            .cookies(Cookies)
-            .timeout(TIMEOUT_MS)
-            .get()
+        val client = HttpClient.getClient()
+        val request = Request.Builder()
+            .url("$baseUrl/account/alerts")
+            .header("User-Agent", USER_AGENT)
+            .build()
+        val response = client.newCall(request).execute()
+        val document = Jsoup.parse(response.body.string())
         val container = document.select("div.notappalerts ol.listPlain")
         container.select("li.alert").forEach { element ->
             // 头像处理

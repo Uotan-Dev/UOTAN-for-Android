@@ -5,18 +5,18 @@ import com.gustate.uotan.BuildConfig
 import com.gustate.uotan.threads.data.model.Post
 import com.gustate.uotan.threads.data.model.PostList
 import com.gustate.uotan.threads.data.model.post.PostResponse
-import com.gustate.uotan.utils.Utils.Companion.Cookies
-import com.gustate.uotan.utils.Utils.Companion.baseUrl
+import com.gustate.uotan.utils.Utils.baseUrl
+import com.gustate.uotan.utils.network.HttpClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.MultipartBody
-import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONObject
 
 class ThreadsApiService {
 
-    private val okHttpClient = OkHttpClient()
+    private val client = HttpClient.getClient()
+    private val cookies = HttpClient.getAllCookies()
 
     suspend fun getThreadsAllPosts(
         threadId: String, page: Int,
@@ -24,15 +24,13 @@ class ThreadsApiService {
         onException: (Exception) -> Unit
     ) = withContext(Dispatchers.IO) {
         try {
-            val client = OkHttpClient.Builder()
-                .build()
             val request = Request.Builder()
                 .url("$baseUrl/api$threadId" + "posts?page=$page")
                 .addHeader("User-Agent", "UotanApp/1.0")
                 .addHeader("XF-Api-Key", BuildConfig.xfApiKey)
-                .addHeader("XF-Api-User", Cookies["xf_user"] ?: "")
+                .addHeader("XF-Api-User", cookies["xf_user"] ?: "")
                 .build()
-            val json = client.newCall(request).execute().body?.string()
+            val json = client.newCall(request).execute().body.string()
             val threadsAndPosts = Gson().fromJson(json, PostList::class.java)
             withContext(Dispatchers.Main) {
                 onSuccess(threadsAndPosts)
@@ -52,15 +50,13 @@ class ThreadsApiService {
         try {
             val replyPostList = mutableListOf<PostResponse>()
             postList.forEach { post ->
-                val client = OkHttpClient.Builder()
-                    .build()
                 val request = Request.Builder()
                     .url("$baseUrl/api/posts/${post.postID}")
                     .addHeader("User-Agent", "UotanApp/1.0")
                     .addHeader("XF-Api-Key", BuildConfig.xfApiKey)
-                    .addHeader("XF-Api-User", Cookies["xf_user"] ?: "")
+                    .addHeader("XF-Api-User", cookies["xf_user"] ?: "")
                     .build()
-                val json = client.newCall(request).execute().body?.string()
+                val json = client.newCall(request).execute().body.string()
                 val postResponse = Gson().fromJson(json, PostResponse::class.java)
                 replyPostList.add(postResponse)
             }
@@ -68,10 +64,9 @@ class ThreadsApiService {
                 onSuccess(replyPostList)
             }
         } catch (throwable: Throwable) {
-            throw throwable
-            /*withContext(Dispatchers.Main) {
+            withContext(Dispatchers.Main) {
                 onThrowable(throwable)
-            }*/
+            }
         }
     }
 
@@ -102,19 +97,19 @@ class ThreadsApiService {
             val request = Request.Builder()
                 .url("$baseUrl/api/posts/$postsId/react")
                 .addHeader("XF-Api-Key", BuildConfig.xfApiKey)
-                .addHeader("XF-Api-User", Cookies["xf_user"] ?:"")
+                .addHeader("XF-Api-User", cookies["xf_user"] ?:"")
                 .post(requestBody)
                 .build()
-            okHttpClient.newCall(request).execute().use { response ->
-                val responseBody = response.body?.string()
+            client.newCall(request).execute().use { response ->
+                val responseBody = response.body.string()
                 if (!response.isSuccessful) {
-                    onFailure(response.code, response.body?.string() ?: "")
+                    onFailure(response.code, response.body.string())
                     return@withContext
                 }
-                responseBody?.let {
+                responseBody.let {
                     val json = JSONObject(it)
                     when {
-                        json.getBoolean("success") == true -> {
+                        json.getBoolean("success") -> {
                             // 操作成功
                             val action = json.getString("action")
                             withContext(Dispatchers.Main) {
@@ -124,7 +119,7 @@ class ThreadsApiService {
                         else -> {
                             // API返回业务错误
                             withContext(Dispatchers.Main) {
-                                onFailure(response.code, response.body?.string() ?:"")
+                                onFailure(response.code, response.body.string())
                             }
                         }
                     }
@@ -170,19 +165,19 @@ class ThreadsApiService {
             val request = Request.Builder()
                 .url("$baseUrl/api/posts")
                 .addHeader("XF-Api-Key", BuildConfig.xfApiKey)
-                .addHeader("XF-Api-User", Cookies["xf_user"] ?:"")
+                .addHeader("XF-Api-User", cookies["xf_user"] ?:"")
                 .post(requestBody)
                 .build()
 
-            okHttpClient.newCall(request).execute().use { response ->
-                val responseBody = response.body?.string()
+            client.newCall(request).execute().use { response ->
+                val responseBody = response.body.string()
                 if (!response.isSuccessful) {
                     withContext(Dispatchers.Main) {
-                        onFailure(response.code, response.body?.string() ?: "")
+                        onFailure(response.code, response.body.string())
                     }
                     return@withContext
                 }
-                responseBody?.let {
+                responseBody.let {
                     val postJson = JSONObject(it).getString("post")
                     val newPost = Gson().fromJson(postJson, Post::class.java)
                     // API返回业务

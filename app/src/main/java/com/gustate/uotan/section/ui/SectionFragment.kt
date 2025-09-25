@@ -19,8 +19,8 @@ import com.gustate.uotan.databinding.FragmentSectionBinding
 import com.gustate.uotan.section.data.model.Categories
 import com.gustate.uotan.section.ui.adapter.CategoriesAdapter
 import com.gustate.uotan.section.ui.adapter.SectionAdapter
-import com.gustate.uotan.utils.Utils.Companion.dpToPx
-import com.gustate.uotan.utils.Utils.Companion.errorDialog
+import com.gustate.uotan.utils.Utils.dpToPx
+import com.gustate.uotan.utils.Utils.errorDialog
 import kotlin.math.roundToInt
 
 class SectionFragment : Fragment() {
