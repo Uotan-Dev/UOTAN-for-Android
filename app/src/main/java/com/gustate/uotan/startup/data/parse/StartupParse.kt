@@ -47,7 +47,22 @@ class StartupParse {
                     return@withContext Result.success(StartupTypeData())
                 }
             } catch (e: Exception) {
-                return@withContext Result.failure(e)
+                throw e
+                //return@withContext Result.failure(e)
             }
         }
 }
+
+fun main() {
+    val x = 2
+    // 这里的变量 fx 先存储 f(x) 的结果
+    val fx = f(x)
+    // 接下来我们把 fx 传入 g, 也就是函数 g 里面的 x
+    println(g(fx))
+    // 我们也可以这么写，这不就和数学一样了嘛！
+    println(g(f(x)))
+}
+
+// 所以本质上这两个函数是两个不同的加工厂
+fun f(x: Int) = x * x - x
+fun g(x: Int) = 2 * x + 1

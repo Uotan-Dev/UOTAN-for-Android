@@ -158,7 +158,7 @@ open class SmoothCornerLayout @JvmOverloads constructor(
     }
 
     /**
-     * 创建平滑路径（优化后的实现）
+     * 创建平滑路径
      */
     private fun createSmoothPath(
         path: Path,

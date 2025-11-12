@@ -8,6 +8,20 @@ import androidx.compose.ui.unit.sp
 import com.gustate.uotan.ui.theme.uotanColors
 
 @Composable
+fun collapsedHeaderTextStyle() = TextStyle(
+    color = MaterialTheme.uotanColors.onBackgroundPrimary,
+    fontSize = 18.sp,
+    fontWeight = FontWeight.W600
+)
+
+@Composable
+fun expandedHeaderTextStyle() = TextStyle(
+    color = MaterialTheme.uotanColors.onBackgroundPrimary,
+    fontSize = 28.sp,
+    fontWeight = FontWeight.W800
+)
+
+@Composable
 fun buttonBasicTextStyle() = TextStyle(
     fontSize = 16.sp,
     fontWeight = FontWeight.W600
@@ -18,4 +32,11 @@ fun inputTextStyle() = TextStyle(
     color = MaterialTheme.uotanColors.onCardPrimary,
     fontSize = 16.sp,
     fontWeight = FontWeight.W600
+)
+
+@Composable
+fun describeTextStyle() = TextStyle(
+    color = MaterialTheme.uotanColors.onBackgroundSecondary,
+    fontSize = 12.sp,
+    fontWeight = FontWeight.W400
 )

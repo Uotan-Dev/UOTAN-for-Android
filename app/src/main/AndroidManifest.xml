@@ -18,7 +18,8 @@
     <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.VIBRATE" />
-
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.POST_PROMOTED_NOTIFICATIONS" />
     <application
         android:name=".UotanApplication"
         android:allowBackup="true"
@@ -28,6 +29,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Base.Theme.Uotan">
+
+        <!-- MIUI/HyperOS 卸载挽留 -->
+        <meta-data
+            android:name="app_description_title"
+            android:resource="@string/uninstall_title"/>
+        <meta-data
+            android:name="app_description_content"
+            android:resource="@string/uotan_describe" />
+
         <activity
             android:name=".welcome.ui.WelcomeActivity"
             android:exported="false" />
@@ -54,6 +64,12 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <!-- 桌面 Shortcuts -->
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
+
         </activity>
         <activity
             android:name=".main.ui.MainActivity"

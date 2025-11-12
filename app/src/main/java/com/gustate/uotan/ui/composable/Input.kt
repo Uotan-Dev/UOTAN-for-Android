@@ -15,6 +15,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.rounded.Clear
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -108,7 +109,7 @@ fun Input(
                 // 存在焦点 且 有输入内容时. 显示叉号
                 if(hasFocus && value.isNotEmpty()) {
                     Image(
-                        imageVector = Icons.Filled.Clear, // 清除图标
+                        imageVector = Icons.Rounded.Clear, // 清除图标
                         contentDescription = null,
                         modifier = Modifier.clickable { onValueChange("") }
                     )

@@ -1,6 +1,5 @@
 package com.gustate.uotan.user.login.data
 
-import android.util.Log
 import com.gustate.uotan.utils.Utils
 import com.gustate.uotan.utils.Utils.baseUrl
 import com.gustate.uotan.utils.network.HttpClient

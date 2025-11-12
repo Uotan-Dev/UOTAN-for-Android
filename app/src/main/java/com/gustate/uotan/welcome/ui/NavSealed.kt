@@ -1,12 +1,23 @@
 package com.gustate.uotan.welcome.ui
 
-sealed class NavSealed(val route: String) {
-    object Sealed : NavSealed("welcome")
-    object Login : NavSealed("login")
-    //object Re : WelcomeNav("profile")
+import kotlinx.serialization.Serializable
 
-    /* 带参数的路由也可以很好地管理
-    object UserDetail : Screen("user_detail/{userId}") {
-        fun createRoute(userId: String) = "user_detail/$userId"
-    }*/
+@Serializable
+sealed class NavSealed(val route: String) {
+
+    @Serializable
+    object Sealed : NavSealed("welcome")
+
+    @Serializable
+    object Login : NavSealed("login")
+
+    @Serializable
+    object QQLogin : NavSealed("login/qq")
+
+    @Serializable
+    object WeiboLogin : NavSealed("login/weibo")
+
+    @Serializable
+    object XiaomiLogin : NavSealed("login/xiaomi")
+
 }

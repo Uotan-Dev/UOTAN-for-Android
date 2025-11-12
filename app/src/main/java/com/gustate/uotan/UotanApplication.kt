@@ -1,6 +1,7 @@
 package com.gustate.uotan
 
 import android.app.Application
+import android.webkit.WebView
 import com.google.android.material.color.DynamicColors
 import com.gustate.uotan.utils.Utils.getThemeColor
 import com.gustate.uotan.utils.network.HttpClient
@@ -58,6 +59,7 @@ class UotanApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        WebView.setWebContentsDebuggingEnabled(true)
         HttpClient.initialize(this)
         val fetchConfiguration = FetchConfiguration.Builder(this)
             .enableLogging(true)

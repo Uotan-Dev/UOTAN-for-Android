@@ -86,6 +86,8 @@ class PostsAdapter : ListAdapter<Post, PostsAdapter.ViewHolder>(DiffCallback()) 
         holder.replyAdapter.submitList(replies)
         binding.navReply.isGone = replies.isEmpty()
         binding.rvReply.isGone = replies.isEmpty()
+        binding.rvContent.layoutManager = LinearLayoutManager(context)
+        binding.rvContent.adapter = contentAdapter
         val contentBlocks = HtmlParse.parse(post.messageParsed)
         contentAdapter.updateContent(contentBlocks)
         val pictureList = mutableListOf<Photo>()

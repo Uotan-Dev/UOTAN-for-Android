@@ -1,11 +1,11 @@
 package com.gustate.uotan.utils.network
 
 import android.content.Context
-import com.franmontiel.persistentcookiejar.PersistentCookieJar
-import com.franmontiel.persistentcookiejar.cache.SetCookieCache
-import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
 import com.gustate.uotan.utils.Utils.TIMEOUT_MS
 import com.gustate.uotan.utils.Utils.baseUrl
+import com.gustate.uotan.utils.network.cookiejar.PersistentCookieJar
+import com.gustate.uotan.utils.network.cookiejar.cache.SetCookieCache
+import com.gustate.uotan.utils.network.cookiejar.persistence.SharedPrefsCookiePersistor
 import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit

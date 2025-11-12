@@ -253,4 +253,7 @@
     <string name="help">帮助</string>
     <string name="work_order">工单</string>
     <string name="res">资源</string>
+    <string name="thread_live_update_notification">主题实况通知</string>
+    <string name="uninstall_title">真的要卸载柚坛社区喵？</string>
+    <string name="uninstall">卸载</string>
 </resources>

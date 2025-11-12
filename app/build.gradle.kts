@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.devtools.ksp)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.hilt)
+    alias(libs.plugins.serialization)
 }
 
 android {
@@ -65,9 +66,11 @@ dependencies {
     implementation(libs.androidx.startup.runtime)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.cardview)
+    implementation(libs.material3)
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
-    //compose
+
+    // compose
     // 使用 BOM (Bill of Materials) 统一管理 Compose 库版本
     val composeBom = platform("androidx.compose:compose-bom:2025.08.00")
     implementation(composeBom)
@@ -82,6 +85,7 @@ dependencies {
 
     // Material Design 依赖 (选择其一)
     implementation(libs.androidx.material3) // Material Design 3
+    implementation(libs.androidx.material.icons.extended)
 
     // 可选功能依赖
     implementation(libs.androidx.lifecycle.viewmodel.compose) // ViewModel 集成
@@ -102,6 +106,11 @@ dependencies {
 
     // Jsoup (https://github.com/jhy/jsoup)
     implementation(libs.jsoup)
+
+    implementation(libs.compose.webview)
+
+    implementation(libs.androidliquidglass)
+
 
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.androidx.activity)
@@ -146,14 +155,12 @@ dependencies {
 
     implementation(libs.shadowlayout)
 
-    implementation(libs.persistentcookiejar)
-
-    implementation(libs.exviewpagerbottomsheet)
-
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
 
     implementation(libs.coil.compose)
+
+    implementation(libs.exviewpagerbottomsheet)
 
     /**
      * JiaGuZhuangZhi Libraries

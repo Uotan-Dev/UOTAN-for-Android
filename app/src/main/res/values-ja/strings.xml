@@ -253,4 +253,7 @@
     <string name="help">ヘルプ</string>
     <string name="work_order">製造オーダ</string>
     <string name="res">リソース</string>
+    <string name="thread_live_update_notification">スレッド ライブ更新通知</string>
+    <string name="uninstall_title">本当にUOTANをアンインストールするにゃ？</string>
+    <string name="uninstall">アンインストール</string>
 </resources>

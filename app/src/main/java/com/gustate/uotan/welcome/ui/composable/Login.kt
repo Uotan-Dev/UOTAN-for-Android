@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -23,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
@@ -30,12 +33,10 @@ import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.gustate.uotan.R
 import com.gustate.uotan.settings.ui.PolicyActivity
 import com.gustate.uotan.ui.composable.Input
@@ -44,27 +45,35 @@ import com.gustate.uotan.ui.theme.button.filledButtonColors
 import com.gustate.uotan.ui.theme.text.buttonBasicTextStyle
 import com.gustate.uotan.ui.theme.uotanColors
 import com.gustate.uotan.user.login.ui.LoginState
-import com.gustate.uotan.user.login.viewmodel.LoginViewModel
+import com.gustate.uotan.welcome.ui.LoginViewModel
 import com.gustate.uotan.utils.Utils.baseUrl
 import com.gustate.uotan.utils.Utils.showToast
 import com.kyant.capsule.ContinuousRoundedRectangle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.gustate.uotan.dialog.LoadingDialog
 import com.gustate.uotan.main.ui.MainActivity
 import com.gustate.uotan.ui.composable.Logo
+import com.gustate.uotan.ui.composable.liquid.RoundedIconButton
 import com.gustate.uotan.ui.composable.pwKeyboardOptions
+import com.gustate.uotan.ui.theme.text.describeTextStyle
 import com.gustate.uotan.utils.Utils.errorDialog
+import com.gustate.uotan.welcome.ui.NavSealed
+import com.kyant.backdrop.backdrops.rememberLayerBackdrop
 
 @Composable
 fun LoginForm(
+    navController: NavController,
     onLoginClick: (String, String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
+    val backdrop = rememberLayerBackdrop()
     var account by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var isAgree by remember { mutableStateOf(false) }
     Column(
         modifier = modifier
+            .verticalScroll(rememberScrollState())
             .fillMaxWidth()
             .padding(horizontal = 30.dp),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -183,6 +192,49 @@ fun LoginForm(
                 style = buttonBasicTextStyle()
             )
         }
+        Row(modifier = Modifier.padding(top = 84.dp)) {
+            RoundedIconButton(
+                modifier = Modifier.padding(horizontal = 8.dp),
+                backdrop = backdrop,
+                painter = painterResource(R.drawable.ic_qq),
+                onClick = {
+                    if (!isAgree) {
+                        showToast(context, R.string.allow_arguments)
+                        return@RoundedIconButton
+                    }
+                    navController.navigate(NavSealed.QQLogin.route)
+                }
+            )
+            RoundedIconButton(
+                modifier = Modifier.padding(horizontal = 8.dp),
+                backdrop = backdrop,
+                painter = painterResource(R.drawable.ic_xiaomi),
+                onClick = {
+                    if (!isAgree) {
+                        showToast(context, R.string.allow_arguments)
+                        return@RoundedIconButton
+                    }
+                    navController.navigate(NavSealed.XiaomiLogin.route)
+                }
+            )
+            RoundedIconButton(
+                modifier = Modifier.padding(horizontal = 8.dp),
+                backdrop = backdrop,
+                painter = painterResource(R.drawable.ic_weibo),
+                onClick = {
+                    if (!isAgree) {
+                        showToast(context, R.string.allow_arguments)
+                        return@RoundedIconButton
+                    }
+                    navController.navigate(NavSealed.WeiboLogin.route)
+                }
+            )
+        }
+        Text(
+            text = "第三方账号登录",
+            style = describeTextStyle(),
+            modifier = Modifier.padding(top = 12.dp)
+        )
     }
 }
 
@@ -249,10 +301,14 @@ fun LoginScreen(navController: NavController) {
                 .padding(top = 48.dp, bottom = 60.dp)
         )
         LoginForm(
+            navController,
             { account, password ->
                 viewModel.login(account, password)
             }
         )
+    }
+    if (loginState is LoginState.Loading) {
+        LoadingDialog(context).show()
     }
     if (loginState is LoginState.Success) {
         showToast(context, R.string.login_successful)
@@ -261,11 +317,4 @@ fun LoginScreen(navController: NavController) {
     if (loginState is LoginState.Error) {
         errorDialog(context, stringResource(R.string.error), (loginState as LoginState.Error).message)
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun LoginScreenPreview() {
-    val navController = rememberNavController()
-    LoginScreen(navController)
 }

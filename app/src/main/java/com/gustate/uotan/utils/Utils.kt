@@ -9,6 +9,7 @@ import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Environment
+import android.util.Log
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Toast
@@ -51,6 +52,7 @@ object Utils {
         get() {
             val cookieJar = HttpClient.getCookieJar()
             val cookies = cookieJar.loadForRequest(baseUrl.toHttpUrl())
+            Log.e("cookies", HttpClient.getAllCookies().toString())
             val hasSession = cookies.any { it.name == "xf_user" }
             field = hasSession
             return field

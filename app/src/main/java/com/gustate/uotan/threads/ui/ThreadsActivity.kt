@@ -1,16 +1,19 @@
 package com.gustate.uotan.threads.ui
 
+import android.annotation.SuppressLint
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color.TRANSPARENT
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
@@ -64,6 +67,7 @@ class ThreadsActivity : BaseActivity() {
     private val loadingAnim = LoadingAnim()
 
     private val viewModel: ThreadsViewModel by viewModels()
+    @SuppressLint("ServiceCast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityThreadsBinding.inflate(layoutInflater)
@@ -78,6 +82,9 @@ class ThreadsActivity : BaseActivity() {
                 showPictureViewer(id.toLong(), url)
             }
         }
+        val notificationManager =
+           getSystemService(Context.NOTIFICATION_SERVICE) as android.app.NotificationManager
+        NotificationManager.initialize(this.applicationContext, notificationManager)
         binding.rvContent.adapter = contentAdapter
         binding.rvContent.layoutManager = LinearLayoutManager(this)
         setSystemBarsInsets()
@@ -408,6 +415,7 @@ class ThreadsActivity : BaseActivity() {
         }
         viewModel.threadTitle.observe(this) {
             binding.tvTitle.text = it
+            NotificationManager.postNotification(it ?:"文章")
         }
     }
 

@@ -271,4 +271,7 @@
     <string name="help">Help</string>
     <string name="work_order">Work Order</string>
     <string name="res">Resource</string>
+    <string name="thread_live_update_notification">Thread Live Update Notification</string>
+    <string name="uninstall_title">Do you really want to uninstall UOTAN Meow?</string>
+    <string name="uninstall">Uninstall</string>
 </resources>

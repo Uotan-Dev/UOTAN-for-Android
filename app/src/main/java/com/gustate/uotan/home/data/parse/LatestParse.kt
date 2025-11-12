@@ -46,9 +46,11 @@ class LatestParse {
                     coverElement!!
                         .getElementsByTag("img")
                         .attr("src")
-                    != "https://www.uotan.cn/img/forums/%E5%B8%96%E5%AD%90.png"
+                    != "/img/forums/%E5%B8%96%E5%AD%90.png"
                     && coverElement.getElementsByTag("img").attr("src")
                     != ""
+                    && coverElement.getElementsByTag("img").attr("src")
+                    != "$baseUrl/img/forums/%E5%B8%96%E5%AD%90.png"
                 ) {
                     baseUrl + coverElement.getElementsByTag("img").attr("src")
                 } else {

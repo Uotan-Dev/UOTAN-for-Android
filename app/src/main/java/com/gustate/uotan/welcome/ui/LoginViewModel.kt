@@ -1,30 +1,24 @@
-package com.gustate.uotan.user.login.viewmodel
+package com.gustate.uotan.welcome.ui
 
 import android.app.Application
-import android.content.Context
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.gustate.uotan.user.data.parse.MeParse
 import com.gustate.uotan.user.login.data.LoginRepository
 import com.gustate.uotan.user.login.ui.LoginState
+import com.gustate.uotan.utils.Utils
+import com.gustate.uotan.utils.room.User
+import com.gustate.uotan.utils.room.UserDatabase
+import com.gustate.uotan.utils.room.UserRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import androidx.core.content.edit
-import com.gustate.uotan.user.data.parse.MeParse
-import com.gustate.uotan.utils.Utils.baseUrl
-import com.gustate.uotan.utils.Utils.saveToExternalPrivateDir
-import com.gustate.uotan.utils.network.HttpClient
-import com.gustate.uotan.utils.room.User
-import com.gustate.uotan.utils.room.UserDatabase
-import com.gustate.uotan.utils.room.UserRepository
-import kotlinx.coroutines.delay
 
 class LoginViewModel(private val context: Application) : AndroidViewModel(context) {
     private val loginRepository = LoginRepository()
     private val userRepository =
-        UserRepository(UserDatabase.getDatabase(context).userDao())
+        UserRepository(UserDatabase.Companion.getDatabase(context).userDao())
     private val mp = MeParse()
 
     // 使用 MutableStateFlow 来保存状态，外部只读使用 asStateFlow()
@@ -45,27 +39,8 @@ class LoginViewModel(private val context: Application) : AndroidViewModel(contex
                         // 需要两步验证
                         _uiState.value = LoginState.TwoFactorRequired(data.url, data.xfToken)
                     } else {
-                        delay(100)
                         // 登录成功
-                        val userData = mp.fetchMeData()
-                        // 缓存基本信息链接
-                        userRepository.insert(
-                            User(
-                                0, userData.userName, userData.cover,
-                                userData.avatar, userData.signature, userData.auth,
-                                userData.postCount, userData.resCount, userData.userId,
-                                userData.points, userData.uCoin, userData.ipAddress
-                            )
-                        )
-                        // 缓存头像文件
-                        saveToExternalPrivateDir(context,
-                            baseUrl + userData.avatar, "user/", "avatar.jpg")
-                        // 缓存封面文件
-                        saveToExternalPrivateDir(context,
-                            baseUrl + userData.cover, "user/", "cover.jpg")
-                        val preferences = context.getSharedPreferences("auth", Context.MODE_PRIVATE)
-                        preferences.edit { putBoolean("isLoggedIn", true) }
-                        _uiState.value = LoginState.Success
+                        loadUserInfo { _uiState.value = LoginState.Success }
                     }
                 }
                 else -> {
@@ -74,6 +49,33 @@ class LoginViewModel(private val context: Application) : AndroidViewModel(contex
                     _uiState.value = LoginState.Error(exception?.message ?: "登录失败")
                 }
             }
+        }
+    }
+
+    fun loadUserInfo(onSuccess: () -> Unit) {
+        viewModelScope.launch {
+            val userData = mp.fetchMeData()
+            // 缓存基本信息链接
+            userRepository.insert(
+                User(
+                    0, userData.userName, userData.cover,
+                    userData.avatar, userData.signature, userData.auth,
+                    userData.postCount, userData.resCount,
+                    userData.userId, userData.points, userData.uCoin,
+                    userData.ipAddress
+                )
+            )
+            // 缓存头像文件
+            Utils.saveToExternalPrivateDir(
+                context,
+                Utils.baseUrl + userData.avatar, "user/", "avatar.jpg"
+            )
+            // 缓存封面文件
+            Utils.saveToExternalPrivateDir(
+                context,
+                Utils.baseUrl + userData.cover, "user/", "cover.jpg"
+            )
+            onSuccess()
         }
     }
 
