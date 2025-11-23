@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isGone
 import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
@@ -21,7 +22,9 @@ import com.gustate.uotan.utils.Utils.dpToPx
 import com.gustate.uotan.utils.Utils.errorDialog
 import com.gustate.uotan.utils.Utils.getThemeColor
 import com.gustate.uotan.utils.Utils.idToAvatar
+import com.gustate.uotan.utils.mode.AppMode
 import com.gustate.uotan.utils.room.UserViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
@@ -29,6 +32,7 @@ import kotlin.math.roundToInt
  * 主页面 (Activity)
  */
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity() {
 
     /** 可变变量 **/
@@ -37,7 +41,7 @@ class MainActivity : BaseActivity() {
     // 延迟初始化 MainPagerAdapter
     private lateinit var adapter: MainPagerAdapter
     // 取 MainViewModel
-    private val viewModel: MainViewModel by viewModels()
+    private val viewModel by viewModels<MainViewModel>()
     private val userViewModel by viewModels<UserViewModel>()
 
     /**
@@ -46,48 +50,42 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // 实例化 binding
+        // 窗口基础设置
         binding = ActivityMainBinding.inflate(layoutInflater)
-        // 绑定视图
         setContentView(binding.main)
-        // 基础设置
+        setUXMode()
         setWindow()
 
-        // 底栏按钮默认颜色
-        val navNormalColor = getThemeColor(this, R.attr.colorOnBackgroundSecondary)
-        // 底栏按钮选择颜色
-        val navSelectedColor = getThemeColor(this, R.attr.colorOnBackgroundPrimary)
+        // 底栏按钮颜色
+        val navNormalColor = getThemeColor(
+            context = this, attr = R.attr.colorOnBackgroundSecondary)
+        val navSelectedColor = getThemeColor(
+            context = this, attr = R.attr.colorOnBackgroundPrimary)
 
-        /** 设置适配器 **/
-        // 实例化 MainViewPagerAdapter()
+        // 配置 Pager
         adapter = MainPagerAdapter(this)
         binding.pagerMain.adapter = adapter
         binding.pagerMain.isSaveEnabled = false
-
-        /** 设置组件 **/
-        // 关闭 viewPager 用户滑动
         binding.pagerMain.isUserInputEnabled = false
 
         binding.imgAvatar?.let {
             lifecycleScope.launch {
                 val userInfo = userViewModel.getUser()
-                Glide.with(this@MainActivity).load(idToAvatar(userInfo?.userId?:"0")).apply(avatarOptions).into(it)
+                Glide.with(this@MainActivity)
+                    .load(idToAvatar(userInfo?.userId?:"0"))
+                    .apply(avatarOptions)
+                    .into(it)
                 binding.tvUsername?.text = userInfo?.userName?: ""
             }
         }
 
         binding.btnSettings?.setOnClickListener {
             startActivity(
-                Intent(
-                    this,
-                    SettingsActivity::class.java
-                )
-            )
+                Intent(this, SettingsActivity::class.java))
         }
-
-
+        
         viewModel.loadInitial(
-            { },
+            {},
             { errorDialog(this, "ERROR", it.message) }
         )
 
@@ -127,12 +125,21 @@ class MainActivity : BaseActivity() {
 
         listOf(binding.tabHome, binding.tabSection, binding.tabMessage, binding.tabRes,
             binding.tabMine).forEachIndexed { index, layout ->
-                layout?.setOnClickListener { viewModel.pager(index) }
+                layout?.setOnClickListener { viewModel.pager(page = index) }
         }
 
         listOf(binding.homeTabPad, binding.plateTabPad, binding.noticeTabPad, binding.resTabPad,
             binding.mineTabPad).forEachIndexed { index, layout ->
-                layout?.setOnClickListener { viewModel.pager(index) }
+                layout?.setOnClickListener { viewModel.pager(page = index) }
+        }
+    }
+
+    private fun setUXMode() {
+        viewModel.appMode.observe(this) { mode ->
+            val isBasicMode = mode == AppMode.BASIC
+            binding.tabSection?.isGone = isBasicMode
+            binding.tabMessage?.isGone = isBasicMode
+            binding.tabRes?.isGone = isBasicMode
         }
     }
 
@@ -144,22 +151,21 @@ class MainActivity : BaseActivity() {
         enableEdgeToEdge()
         // 针对部分系统的系统栏沉浸
         Utils.openImmersion(window)
-        // 使用 ViewCompat 的回调函数
         ViewCompat.setOnApplyWindowInsetsListener(binding.main) { _, insets ->
-            // 获取系统栏高度 (包含 top, bottom, left 和 right)
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             // Pad
             binding.imgUotan?.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-                topMargin = systemBars.top + 36f.dpToPx(this@MainActivity).roundToInt()
+                topMargin =
+                    systemBars.top + 36f.dpToPx(this@MainActivity).roundToInt()
             }
             binding.mineTabPad?.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-                bottomMargin = systemBars.bottom + 6f.dpToPx(this@MainActivity).roundToInt()
+                bottomMargin =
+                    systemBars.bottom + 6f.dpToPx(this@MainActivity).roundToInt()
             }
             // Phone
             binding.layoutNavBar?.updateLayoutParams<ViewGroup.MarginLayoutParams> {
                 bottomMargin = systemBars.bottom
             }
-            // 返回 insets
             insets
         }
     }
