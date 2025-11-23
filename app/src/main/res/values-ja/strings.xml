@@ -256,4 +256,7 @@
     <string name="thread_live_update_notification">スレッド ライブ更新通知</string>
     <string name="uninstall_title">本当にUOTANをアンインストールするにゃ？</string>
     <string name="uninstall">アンインストール</string>
+    <string name="agreement_notice">%1$s、%2$s、および%3$sをよくお読みください。内容に同意いただける場合は、「同意する」をタップしてフルサービスをご利用ください。または、「基本閲覧モード」を選択し、追加の権限を許可せずに公開コンテンツのみをご利用いただけます。\n18歳未満の方は、法定代理人（保護者など）と一緒に本内容をご確認の上、その同意を得てからご利用ください。</string>
+    <string name="agree">同意</string>
+    <string name="basic_browsing_mode">ベースパターン</string>
 </resources>

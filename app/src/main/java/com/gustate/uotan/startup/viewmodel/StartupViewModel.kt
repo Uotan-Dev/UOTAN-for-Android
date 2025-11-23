@@ -27,6 +27,7 @@ import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
 
 class StartupViewModel(context: Application): AndroidViewModel(context) {
+
     private val sr = SettingsRepository(context)
     private val sp = StartupParse()
     private val _countdown = MutableStateFlow(5)

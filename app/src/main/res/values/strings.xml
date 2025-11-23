@@ -274,4 +274,7 @@
     <string name="thread_live_update_notification">Thread Live Update Notification</string>
     <string name="uninstall_title">Do you really want to uninstall UOTAN Meow?</string>
     <string name="uninstall">Uninstall</string>
+    <string name="agreement_notice">Please carefully read %1$s, %2$s, and %3$s. If you agree with their contents, tap \\\"Agree\\\" to continue using the full service. Alternatively, you may choose \\\"Basic Browsing Mode\\\" to access only public content without granting additional permissions.\nIf you are under 18 years of age, please read this with your legal guardian and obtain their consent before using the service.</string>
+    <string name="agree">Agree</string>
+    <string name="basic_browsing_mode">Basic Mode</string>
 </resources>

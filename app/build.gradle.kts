@@ -103,6 +103,7 @@ dependencies {
     implementation(libs.shapeblurview)
     // HazeBlur (https://github.com/chrisbanes/haze Apache-2.0)
     implementation(libs.haze)
+    implementation(libs.haze.materials)
 
     // Jsoup (https://github.com/jhy/jsoup)
     implementation(libs.jsoup)
@@ -157,6 +158,7 @@ dependencies {
 
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
+    implementation(libs.hilt.lifecycle.viewmodel.compose)
 
     implementation(libs.coil.compose)
 

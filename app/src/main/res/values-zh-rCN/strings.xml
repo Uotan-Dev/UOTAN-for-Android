@@ -256,4 +256,7 @@
     <string name="thread_live_update_notification">主题实况通知</string>
     <string name="uninstall_title">真的要卸载柚坛社区喵？</string>
     <string name="uninstall">卸载</string>
+    <string name="agreement_notice">请仔细阅读%1$s、%2$s与%3$s。若您认可其内容，请点击“同意”以继续使用完整服务；亦可选择“基础浏览模式”，仅获取公开内容，无需授权额外权限。\n若您未满十八周岁，请在法定监护人陪同下阅读并征得其同意后使用。</string>
+    <string name="agree">同意</string>
+    <string name="basic_browsing_mode">基础模式</string>
 </resources>

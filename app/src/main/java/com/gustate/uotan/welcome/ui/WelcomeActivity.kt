@@ -6,7 +6,9 @@ import com.gustate.uotan.BaseActivity
 import com.gustate.uotan.databinding.ActivityWelcomeBinding
 import com.gustate.uotan.ui.theme.UotanTheme
 import com.gustate.uotan.welcome.ui.composable.WelcomeNavHost
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class WelcomeActivity : BaseActivity() {
     private lateinit var binding: ActivityWelcomeBinding
     override fun onCreate(savedInstanceState: Bundle?) {

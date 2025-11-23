@@ -13,7 +13,7 @@ flexboxVersion = "3.0.0"
 glide = "5.0.4"
 gson = "2.13.1"
 gustateAppbar = "v1.1.0"
-haze = "1.6.7"
+haze = "1.7.0"
 imageviewer = "2.1.23"
 lifecycleViewmodelCompose = "2.9.3"
 loggingInterceptor = "5.1.0"
@@ -49,6 +49,7 @@ volley = "1.2.1"
 firebaseMessagingKtx = "24.1.2"
 cardview = "1.0.0"
 hilt = "2.57.1"
+hilt-compose = "1.3.0"
 material3 = "1.4.0"
 serialization = "1.9.0"
 
@@ -87,8 +88,10 @@ google-flexbox = { module = "com.google.android.flexbox:flexbox", version.ref = 
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 gustate-appbar = { module = "com.github.JiaGuZhuangZhi:Gustate-AppBar", version.ref = "gustateAppbar" }
 haze = { module = "dev.chrisbanes.haze:haze", version.ref = "haze" }
+haze-materials = { module = "dev.chrisbanes.haze:haze-materials", version.ref = "haze" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
+hilt-lifecycle-viewmodel-compose = { module = "androidx.hilt:hilt-lifecycle-viewmodel-compose", version.ref = "hilt-compose" }
 imageviewer = { module = "com.github.iielse:imageviewer", version.ref = "imageviewer" }
 jsoup = { module = "org.jsoup:jsoup", version.ref = "jsoup" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }

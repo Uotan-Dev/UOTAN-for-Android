@@ -1,5 +1,6 @@
 package com.gustate.uotan.welcome.ui.composable
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -313,6 +314,7 @@ fun LoginScreen(navController: NavController) {
     if (loginState is LoginState.Success) {
         showToast(context, R.string.login_successful)
         context.startActivity(Intent(context, MainActivity::class.java))
+        (context as Activity).finish()
     }
     if (loginState is LoginState.Error) {
         errorDialog(context, stringResource(R.string.error), (loginState as LoginState.Error).message)
