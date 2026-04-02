@@ -56,7 +56,7 @@
                     app:layout_constraintStart_toStartOf="@+id/tv_title"
                     app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
-                <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+                <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
                     android:id="@+id/cardJingTie"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -84,7 +84,7 @@
                         android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
-                </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+                </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
                 <TextView
                     android:id="@+id/tv_posts"
@@ -111,7 +111,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cardPostLocked" />
 
-                <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+                <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
                     android:id="@+id/cardPostLocked"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -142,7 +142,7 @@
                         android:visibility="gone"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
-                </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+                </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
@@ -251,7 +251,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+        <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
             android:id="@+id/btn_follow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -281,7 +281,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-        </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+        </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
         <ImageView
             android:id="@+id/loading_follow"
@@ -342,7 +342,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+        <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
             android:id="@+id/btn_reply"
             android:layout_width="0dp"
             android:layout_height="48dp"
@@ -367,7 +367,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-        </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+        </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
         <ImageButton
             android:id="@+id/btn_react"

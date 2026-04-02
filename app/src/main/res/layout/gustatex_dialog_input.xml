@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/transparent">
 
-    <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+    <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -179,6 +179,6 @@
                 android:textSize="14sp" />
 
         </androidx.cardview.widget.CardView>
-    </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+    </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

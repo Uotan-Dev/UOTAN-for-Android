@@ -14,7 +14,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+        <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
             android:id="@+id/layout_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -25,7 +25,7 @@
             app:scl_corner_radius="@dimen/option_corner_radius"
             app:scl_smoothness_radius="@dimen/normal_smoothness">
 
-            <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+            <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
                 android:id="@+id/scl_cover"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="ImageContrastCheck"
                     tools:srcCompat="@tools:sample/backgrounds/scenic" />
-            </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+            </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
             <TextView
                 android:id="@+id/tv_title"
@@ -175,7 +175,7 @@
                 app:layout_constraintTop_toTopOf="@+id/lbl_last"
                 tools:ignore="HardcodedText" />
 
-            <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+            <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
                 android:id="@+id/btn_download"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
@@ -205,9 +205,9 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-            </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+            </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
-        </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+        </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
         <com.lihang.ShadowLayout
             android:id="@+id/shadow_resource"
@@ -225,7 +225,7 @@
             app:layout_behavior="com.imxie.exvpbs.ViewPagerBottomSheetBehavior">
 
 
-            <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+            <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
                 android:id="@+id/rootView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -267,7 +267,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tab_res" />
 
-            </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+            </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
         </com.lihang.ShadowLayout>
 
@@ -362,7 +362,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+        <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
             android:id="@+id/btn_follow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -392,7 +392,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-        </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+        </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
         <ImageView
             android:id="@+id/loading_follow"
@@ -453,7 +453,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+        <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
             android:id="@+id/btn_reply"
             android:layout_width="0dp"
             android:layout_height="48dp"
@@ -478,7 +478,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-        </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+        </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
         <ImageButton
             android:id="@+id/btn_react"

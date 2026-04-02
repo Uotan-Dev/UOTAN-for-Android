@@ -35,7 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+                <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
                     android:id="@+id/bigTitleLayout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+                    <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
                         android:id="@+id/btn_follow"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -73,9 +73,9 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                    </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+                    </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
-                    <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+                    <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
                         android:id="@+id/scl_cover"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
@@ -96,7 +96,7 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             tools:srcCompat="@tools:sample/avatars" />
-                    </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+                    </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
                     <TextView
                         android:id="@+id/tvBigTitle"
@@ -157,7 +157,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent" />
 
-                </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+                </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerView"

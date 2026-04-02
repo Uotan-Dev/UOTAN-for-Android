@@ -75,7 +75,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvPrice" />
 
-    <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+    <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
         android:id="@+id/btnDonate"
         android:layout_width="0dp"
         android:layout_height="50dp"
@@ -102,5 +102,5 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-    </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+    </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

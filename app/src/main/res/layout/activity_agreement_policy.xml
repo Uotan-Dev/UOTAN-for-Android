@@ -51,7 +51,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+                <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
                     android:id="@+id/cardRulesProtocols"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
                     app:scl_corner_radius="@dimen/option_corner_radius"
                     app:scl_smoothness_radius="@dimen/normal_smoothness">
 
-                    <com.gustate.uotan.ui.view.option.OptionOnlyTitleView
+                    <com.uotan.forum.ui.view.option.OptionOnlyTitleView
                         android:id="@+id/btnPointsRule"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -73,7 +73,7 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:optionTitle_onlyTitle="@string/points_rule" />
 
-                    <com.gustate.uotan.ui.view.option.OptionOnlyTitleView
+                    <com.uotan.forum.ui.view.option.OptionOnlyTitleView
                         android:id="@+id/btnUserAgreement"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -81,7 +81,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/btnPointsRule"
                         app:optionTitle_onlyTitle="@string/user_agreement" />
 
-                    <com.gustate.uotan.ui.view.option.OptionOnlyTitleView
+                    <com.uotan.forum.ui.view.option.OptionOnlyTitleView
                         android:id="@+id/btnServiceAgreement"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -89,14 +89,14 @@
                         app:layout_constraintTop_toBottomOf="@+id/btnUserAgreement"
                         app:optionTitle_onlyTitle="@string/service_agreement" />
 
-                    <com.gustate.uotan.ui.view.option.OptionOnlyTitleView
+                    <com.uotan.forum.ui.view.option.OptionOnlyTitleView
                         android:id="@+id/btnAuthAgreement"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/btnServiceAgreement"
                         app:optionTitle_onlyTitle="@string/authorization_agreement" />
-                </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+                </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
                 <TextView
                     android:id="@+id/tvLegalNotice"
@@ -111,7 +111,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cardRulesProtocols" />
 
-                <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+                <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
                     android:id="@+id/cardLegalNotice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -125,7 +125,7 @@
                     app:scl_corner_radius="@dimen/option_corner_radius"
                     app:scl_smoothness_radius="@dimen/normal_smoothness">
 
-                    <com.gustate.uotan.ui.view.option.OptionOnlyTitleView
+                    <com.uotan.forum.ui.view.option.OptionOnlyTitleView
                         android:id="@+id/btnPrivacyPolicy"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -133,7 +133,7 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:optionTitle_onlyTitle="@string/privacy_policy" />
 
-                    <com.gustate.uotan.ui.view.option.OptionOnlyTitleView
+                    <com.uotan.forum.ui.view.option.OptionOnlyTitleView
                         android:id="@+id/btnDisclaimers"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -141,14 +141,14 @@
                         app:layout_constraintTop_toBottomOf="@+id/btnPrivacyPolicy"
                         app:optionTitle_onlyTitle="@string/disclaimers" />
 
-                    <com.gustate.uotan.ui.view.option.OptionOnlyTitleView
+                    <com.uotan.forum.ui.view.option.OptionOnlyTitleView
                         android:id="@+id/btnCookieTermsOfUse"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/btnDisclaimers"
                         app:optionTitle_onlyTitle="@string/cookie_terms_of_use" />
-                </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+                </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
                 <TextView
                     android:id="@+id/beian"
@@ -159,7 +159,7 @@
                     android:layout_marginEnd="28dp"
                     android:fontFamily="sans-serif-medium"
                     android:gravity="center"
-                    android:text="@string/beian"
+                    android:text="@string/registration"
                     android:textColor="?attr/colorOnBackgroundSecondary"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"

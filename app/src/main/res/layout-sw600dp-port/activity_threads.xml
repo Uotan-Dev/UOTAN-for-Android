@@ -200,7 +200,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+                    <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
                         android:id="@+id/cardPostLocked"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -230,9 +230,9 @@
                             android:textSize="16sp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
-                    </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+                    </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
-                    <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+                    <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
                         android:id="@+id/article_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -281,7 +281,7 @@
                                 app:layout_constraintTop_toTopOf="parent" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+                        <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
                             android:id="@+id/cardJingTie"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -309,7 +309,7 @@
                                 android:textSize="14sp"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
-                        </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+                        </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
                         <TextView
                             android:id="@+id/tv_title"
@@ -366,7 +366,7 @@
                             app:layout_constraintStart_toEndOf="@+id/tv_time"
                             tools:ignore="SmallSp,TextContrastCheck" />
 
-                        <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+                        <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
                             android:id="@+id/btn_follow"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -396,7 +396,7 @@
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
 
-                        </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+                        </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
                         <ImageView
                             android:id="@+id/loading_follow"
@@ -408,7 +408,7 @@
                             app:layout_constraintStart_toStartOf="@+id/btn_follow"
                             app:layout_constraintTop_toTopOf="@+id/btn_follow"
                             app:srcCompat="@drawable/ic_loading" />
-                    </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+                    </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
                     <TextView
                         android:id="@+id/tv_posts"
@@ -439,7 +439,7 @@
             </androidx.core.widget.NestedScrollView>
         </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 
-        <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+        <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
             android:id="@+id/btn_reply"
             android:layout_width="0dp"
             android:layout_height="60dp"
@@ -479,7 +479,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-        </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+        </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

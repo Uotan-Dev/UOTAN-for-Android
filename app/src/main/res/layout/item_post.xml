@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+    <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
         android:id="@+id/item_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -114,7 +114,7 @@
             android:layout_marginBottom="4dp"
             android:background="@drawable/uotan_btn_filled_normal"
             app:layout_constraintBottom_toBottomOf="@+id/rv_reply"
-            app:layout_constraintStart_toStartOf="@+id/tv_content"
+            app:layout_constraintStart_toStartOf="@+id/rv_content"
             app:layout_constraintTop_toTopOf="@+id/rv_reply" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -124,10 +124,10 @@
             android:layout_marginStart="2dp"
             android:layout_marginTop="8dp"
             android:nestedScrollingEnabled="false"
-            app:layout_constraintEnd_toEndOf="@+id/tv_content"
+            app:layout_constraintEnd_toEndOf="@+id/rv_content"
             app:layout_constraintStart_toEndOf="@+id/nav_reply"
-            app:layout_constraintTop_toBottomOf="@+id/tv_content" />
+            app:layout_constraintTop_toBottomOf="@+id/rv_content" />
 
-    </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+    </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

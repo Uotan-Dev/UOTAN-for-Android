@@ -40,7 +40,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.gustate.uotan.ui.view.scrollcontroller.DialogRecyclerView
+    <com.uotan.forum.ui.view.scrollcontroller.DialogRecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="580dp"

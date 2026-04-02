@@ -1,0 +1,94 @@
+package com.uotan.forum.utils.parse.user
+
+import android.content.Context
+import com.uotan.forum.utils.Utils.baseUrl
+import com.uotan.forum.utils.Utils.USER_AGENT
+import com.uotan.forum.utils.network.HttpClient
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import okhttp3.Request
+import org.jsoup.Jsoup
+
+/**
+ * 隐私政策更新数据类 (DataClass)
+ * JiaGuZhuangZhi Miles
+ * Gustate 02/24/2025
+ * I Love Jiang’Xun
+ */
+
+data class PolicyUpdateInfo(
+    val updateTime: String,
+    val type: Int,
+    val content: String
+)
+
+/**
+ * 隐私政策更新解析类 (ParseUtils)
+ * JiaGuZhuangZhi Miles
+ * Gustate 02/24/2025
+ * I Love Jiang’Xun
+ */
+
+class PolicyParse {
+
+    // 伴生对象
+    companion object {
+
+        /**
+         * 读新版隐私政策
+         */
+        suspend fun readPolicy(context: Context): PolicyUpdateInfo = withContext(Dispatchers.IO) {
+
+            val client = HttpClient.getClient()
+            val request = Request.Builder()
+                .url(baseUrl)
+                .header("User-Agent", USER_AGENT)
+                .build()
+            val response = client.newCall(request).execute()
+            val document = Jsoup.parse(response.body.string())
+
+            /** 获取隐私政策更新时间 **/
+            // 获取根 Element
+            val rootElement = document
+                .getElementsByClass("p-body")
+                .first()
+            // 获取时间 Element
+            val timeElement = rootElement
+                ?.getElementsByClass("blockMessage blockMessage--iconic blockMessage--important")
+                ?.first()
+            // 获取时间内容
+            val time = timeElement
+                ?.getElementsByTag("time")
+                ?.first()
+                ?.attr("data-date-string")
+                ?: ""
+
+            val titleText = document
+                .select("#main-header > div > div > div > h1")
+                .first()
+                ?.text()
+                ?: ""
+
+            val type = when (titleText) {
+                "隐私政策" -> 1
+                "服务协议" -> 2
+                else -> 3
+            }
+
+            /** 获取隐私政策更新内容 **/
+            val content = if (type == 1) {
+                document
+                    .select("#yesSideBar > div > div > div.block > div > div > div")
+                    .html()
+            } else {
+                document
+                    .select("#yesSideBar > div > div > div.block > div > div")
+                    .html()
+            }
+
+            /** 返回值 **/
+            return@withContext PolicyUpdateInfo(time, type, content)
+
+        }
+    }
+}

@@ -76,7 +76,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_back" />
 
-        <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+        <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
             android:id="@+id/btn_reply"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -93,7 +93,7 @@
             app:scl_corner_radius="@dimen/option_corner_radius"
             app:scl_smoothness_radius="@dimen/normal_smoothness">
 
-        </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+        </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
         <TextView
             android:id="@+id/etSearch"

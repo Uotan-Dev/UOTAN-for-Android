@@ -38,7 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+                <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
                     android:id="@+id/scl_profile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -68,7 +68,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
-                </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+                </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
                 <TextView
                     android:id="@+id/tv_base_profile"
@@ -85,7 +85,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/scl_profile" />
 
-                <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+                <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
                     android:id="@+id/scl_base_profile"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -99,7 +99,7 @@
                     app:scl_corner_radius="@dimen/option_corner_radius"
                     app:scl_smoothness_radius="@dimen/normal_smoothness">
 
-                    <com.gustate.uotan.ui.view.option.OptionDetailView
+                    <com.uotan.forum.ui.view.option.OptionDetailView
                         android:id="@+id/odv_avatar"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -116,9 +116,9 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:srcCompat="@drawable/avatar_account" />
-                    </com.gustate.uotan.ui.view.option.OptionDetailView>
+                    </com.uotan.forum.ui.view.option.OptionDetailView>
 
-                    <com.gustate.uotan.ui.view.option.OptionDetailView
+                    <com.uotan.forum.ui.view.option.OptionDetailView
                         android:id="@+id/odv_username"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -127,9 +127,9 @@
                         app:odv_detail="@string/app_name"
                         app:odv_title="@string/user_name">
 
-                    </com.gustate.uotan.ui.view.option.OptionDetailView>
+                    </com.uotan.forum.ui.view.option.OptionDetailView>
 
-                    <com.gustate.uotan.ui.view.option.OptionDetailView
+                    <com.uotan.forum.ui.view.option.OptionDetailView
                         android:id="@+id/odv_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -138,9 +138,9 @@
                         app:odv_detail="@string/email_address"
                         app:odv_title="@string/email_address" />
 
-                </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+                </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
-                <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+                <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
                     android:id="@+id/btn_logout"
                     android:layout_width="0dp"
                     android:layout_height="56dp"
@@ -166,7 +166,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
-                </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+                </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>

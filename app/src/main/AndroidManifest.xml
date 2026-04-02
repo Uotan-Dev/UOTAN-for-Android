@@ -40,14 +40,6 @@
         android:supportsRtl="true"
         android:theme="@style/Base.Theme.Uotan">
 
-        <!-- MIUI/HyperOS 卸载挽留 -->
-        <meta-data
-            android:name="app_description_title"
-            android:resource="@string/uninstall_title"/>
-        <meta-data
-            android:name="app_description_content"
-            android:resource="@string/uotan_describe" />
-
         <activity
             android:name=".welcome.ui.WelcomeActivity"
             android:exported="false" />
@@ -142,11 +134,11 @@
 
         <provider
             android:name="androidx.startup.InitializationProvider"
-            android:authorities="com.gustate.uotan.androidx-startup"
+            android:authorities="com.uotan.forum.androidx-startup"
             android:exported="false"
             tools:node="merge">
             <meta-data
-                android:name="com.gustate.uotan.ui.activity.SplitInitializer"
+                android:name="com.uotan.forum.ui.activity.SplitInitializer"
                 android:value="androidx.startup" />
         </provider>
         <provider

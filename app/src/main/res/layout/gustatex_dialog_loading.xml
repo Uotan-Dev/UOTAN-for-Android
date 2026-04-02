@@ -18,7 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+        <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
             android:id="@+id/loadingCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
                 android:layout_height="120dp"
                 android:scaleType="centerCrop"
                 app:srcCompat="@drawable/loading" />
-        </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+        </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

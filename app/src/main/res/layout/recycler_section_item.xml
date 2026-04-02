@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+    <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
         android:id="@+id/layout_item"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -58,5 +58,5 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/gustatex_arrow_right" />
-    </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+    </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

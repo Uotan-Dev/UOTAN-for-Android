@@ -38,7 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+                <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
                     android:id="@+id/scl_monet"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
                         app:track="@drawable/gustatex_switch_track"
                         app:trackTint="@null" />
 
-                </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+                </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
     </com.scwang.smart.refresh.layout.SmartRefreshLayout>

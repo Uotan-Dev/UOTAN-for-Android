@@ -8,8 +8,8 @@
         android:shortcutShortLabel="@string/search">
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetClass="com.gustate.uotan.search.ui.SearchActivity"
-            android:targetPackage="com.gustate.uotan" />
+            android:targetClass="com.uotan.forum.search.ui.SearchActivity"
+            android:targetPackage="com.uotan.forum" />
         <categories android:name="android.shortcut.conversation" />
         <capability-binding android:key="actions.intent.CREATE_MESSAGE" />
     </shortcut>
@@ -21,8 +21,8 @@
         android:shortcutShortLabel="@string/me">
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetClass="com.gustate.uotan.main.ui.MainActivity"
-            android:targetPackage="com.gustate.uotan" />
+            android:targetClass="com.uotan.forum.main.ui.MainActivity"
+            android:targetPackage="com.uotan.forum" />
         <categories android:name="android.shortcut.conversation" />
         <capability-binding android:key="actions.intent.CREATE_MESSAGE" />
     </shortcut>
@@ -34,8 +34,8 @@
         android:shortcutShortLabel="@string/uninstall">
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetClass="com.gustate.uotan.main.ui.MainActivity"
-            android:targetPackage="com.gustate.uotan" />
+            android:targetClass="com.uotan.forum.main.ui.MainActivity"
+            android:targetPackage="com.uotan.forum" />
         <categories android:name="android.shortcut.conversation" />
         <capability-binding android:key="actions.intent.CREATE_MESSAGE" />
     </shortcut>-->

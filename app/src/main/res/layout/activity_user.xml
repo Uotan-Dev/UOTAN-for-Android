@@ -212,7 +212,7 @@
                             tools:ignore="SmallSp" />
                     </LinearLayout>
 
-                    <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+                    <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
                         android:id="@+id/scl_follow"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -240,7 +240,7 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                    </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+                    </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
@@ -265,7 +265,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+                    <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
                         android:id="@+id/scl_res"
                         android:layout_width="0dp"
                         android:layout_height="70dp"
@@ -310,7 +310,7 @@
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/resIcon" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
-                    </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+                    </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerView"
@@ -369,7 +369,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+            <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
                 android:id="@+id/srl_follow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -395,7 +395,7 @@
                     android:textColor="?attr/colorOnFilledButton"
                     android:textSize="12sp" />
 
-            </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+            </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
             <ImageView
                 android:id="@+id/headerBack"

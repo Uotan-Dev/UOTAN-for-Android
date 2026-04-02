@@ -74,7 +74,7 @@
                             app:layout_constraintTop_toTopOf="parent"
                             tools:ignore="UseSwitchCompatOrMaterialXml,TouchTargetSizeCheck" />
 
-                        <com.gustate.uotan.ui.view.option.OptionTitleAndDescribeView
+                        <com.uotan.forum.ui.view.option.OptionTitleAndDescribeView
                             android:id="@+id/ddd"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

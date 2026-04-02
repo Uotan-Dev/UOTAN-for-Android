@@ -8,7 +8,7 @@
     android:clipToPadding="true"
     tools:context=".settings.ui.about.AboutActivity">
 
-    <com.gustate.uotan.ui.view.effect.BgEffectView
+    <com.uotan.forum.ui.view.effect.BgEffectView
         android:id="@+id/bkg_effect"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -59,7 +59,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layout_icon" />
-    </com.gustate.uotan.ui.view.effect.BgEffectView>
+    </com.uotan.forum.ui.view.effect.BgEffectView>
 
     <com.scwang.smart.refresh.layout.SmartRefreshLayout
         android:id="@+id/srlRoot"
@@ -90,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="300dp">
 
-                <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+                <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
                     android:id="@+id/layout_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -103,7 +103,7 @@
                     app:scl_corner_radius="@dimen/option_corner_radius"
                     app:scl_smoothness_radius="@dimen/normal_smoothness">
 
-                    <com.gustate.uotan.ui.view.option.OptionDetailView
+                    <com.uotan.forum.ui.view.option.OptionDetailView
                         android:id="@+id/odv_version"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -115,7 +115,7 @@
                         app:odv_detail="@string/num_zero"
                         app:odv_title="@string/version_code" />
 
-                    <com.gustate.uotan.ui.view.option.OptionDetailView
+                    <com.uotan.forum.ui.view.option.OptionDetailView
                         android:id="@+id/odv_web"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -125,9 +125,9 @@
                         app:layout_constraintTop_toBottomOf="@+id/odv_version"
                         app:odv_detail="@string/app_name"
                         app:odv_title="@string/official_website" />
-                </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+                </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
-                <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+                <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
                     android:id="@+id/layout_app"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -155,7 +155,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+                </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
                 <TextView
                     android:id="@+id/tv_core"
@@ -173,7 +173,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/layout_app"
                     tools:ignore="TextContrastCheck" />
 
-                <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+                <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
                     android:id="@+id/scl_core"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -195,7 +195,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
-                        <com.gustate.uotan.ui.view.option.OptionUserView
+                        <com.uotan.forum.ui.view.option.OptionUserView
                             android:id="@+id/ouv_mhym"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -203,7 +203,7 @@
                             app:ouv_describe="@string/core_describe_mhym"
                             app:ouv_title="@string/core_mhym" />
 
-                        <com.gustate.uotan.ui.view.option.OptionUserView
+                        <com.uotan.forum.ui.view.option.OptionUserView
                             android:id="@+id/ouv_ln"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -211,7 +211,7 @@
                             app:ouv_describe="@string/core_describe_ln"
                             app:ouv_title="@string/core_ln" />
 
-                        <com.gustate.uotan.ui.view.option.OptionUserView
+                        <com.uotan.forum.ui.view.option.OptionUserView
                             android:id="@+id/ouv_mjw"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -219,7 +219,7 @@
                             app:ouv_describe="@string/core_describe_mjw"
                             app:ouv_title="@string/core_mjw" />
 
-                        <com.gustate.uotan.ui.view.option.OptionUserView
+                        <com.uotan.forum.ui.view.option.OptionUserView
                             android:id="@+id/ouv_yuzh"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -227,7 +227,7 @@
                             app:ouv_describe="@string/core_describe_yuzh"
                             app:ouv_title="@string/core_yuzh" />
 
-                        <com.gustate.uotan.ui.view.option.OptionUserView
+                        <com.uotan.forum.ui.view.option.OptionUserView
                             android:id="@+id/ouv_lemo"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -235,7 +235,7 @@
                             app:ouv_describe="@string/core_describe_lemo"
                             app:ouv_title="@string/core_lemo" />
 
-                        <com.gustate.uotan.ui.view.option.OptionUserView
+                        <com.uotan.forum.ui.view.option.OptionUserView
                             android:id="@+id/ouv_xh"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -243,7 +243,7 @@
                             app:ouv_describe="@string/core_describe_xh"
                             app:ouv_title="@string/core_xh" />
 
-                        <com.gustate.uotan.ui.view.option.OptionUserView
+                        <com.uotan.forum.ui.view.option.OptionUserView
                             android:id="@+id/ouv_zach"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -251,7 +251,7 @@
                             app:ouv_describe="@string/core_describe_zach"
                             app:ouv_title="@string/core_zach" />
 
-                        <com.gustate.uotan.ui.view.option.OptionUserView
+                        <com.uotan.forum.ui.view.option.OptionUserView
                             android:id="@+id/ouv_hy"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -259,7 +259,7 @@
                             app:ouv_describe="@string/core_describe_hy"
                             app:ouv_title="@string/core_hy" />
                     </LinearLayout>
-                </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+                </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
                 <TextView
                     android:id="@+id/tv_thanks"
@@ -277,7 +277,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/scl_core"
                     tools:ignore="TextContrastCheck" />
 
-                <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+                <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
                     android:id="@+id/scl_thanks"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -299,7 +299,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
-                        <com.gustate.uotan.ui.view.option.OptionUserView
+                        <com.uotan.forum.ui.view.option.OptionUserView
                             android:id="@+id/ouv_rayzggz"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -307,7 +307,7 @@
                             app:ouv_describe="@string/thanks_describe_rayzggz"
                             app:ouv_title="@string/thanks_rayzggz" />
 
-                        <com.gustate.uotan.ui.view.option.OptionUserView
+                        <com.uotan.forum.ui.view.option.OptionUserView
                             android:id="@+id/ouv_gustate"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -315,7 +315,7 @@
                             app:ouv_describe="@string/thanks_describe_gustate"
                             app:ouv_title="@string/thanks_gustate" />
                     </LinearLayout>
-                </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+                </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
                 <TextView
                     android:id="@+id/tv_open"
@@ -333,7 +333,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/scl_thanks"
                     tools:ignore="TextContrastCheck" />
 
-                <com.gustate.uotan.ui.view.option.OptionTitleAndDescribeView
+                <com.uotan.forum.ui.view.option.OptionTitleAndDescribeView
                     android:id="@+id/otdv_open"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

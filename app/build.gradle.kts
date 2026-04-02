@@ -10,10 +10,10 @@ plugins {
 }
 
 android {
-    namespace = "com.gustate.uotan"
+    namespace = "com.uotan.forum"
     compileSdk = 36
     defaultConfig {
-        applicationId = "com.gustate.uotan"
+        applicationId = "com.uotan.forum"
         minSdk = 28
         targetSdk = 36
         versionCode = 1040

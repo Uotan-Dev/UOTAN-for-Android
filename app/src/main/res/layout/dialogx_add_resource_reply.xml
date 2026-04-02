@@ -78,7 +78,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/btnPost" />
 
-    <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+    <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
         android:id="@+id/btnPost"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
@@ -104,5 +104,5 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-    </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+    </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -33,7 +33,7 @@
             app:layout_constraintTop_toTopOf="@+id/img_uotan"
             app:srcCompat="@drawable/ic_settings" />
 
-        <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+        <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
             android:id="@+id/home_tab_pad"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -71,9 +71,9 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/img_home_pad"
                 app:layout_constraintTop_toTopOf="parent" />
-        </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+        </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
-        <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+        <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
             android:id="@+id/plate_tab_pad"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -111,9 +111,9 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/img_plate_pad"
                 app:layout_constraintTop_toTopOf="parent" />
-        </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+        </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
-        <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+        <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
             android:id="@+id/notice_tab_pad"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -151,9 +151,9 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/img_notice_pad"
                 app:layout_constraintTop_toTopOf="parent" />
-        </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+        </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
-        <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+        <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
             android:id="@+id/res_tab_pad"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -192,9 +192,9 @@
                 app:layout_constraintStart_toEndOf="@+id/img_res_pad"
                 app:layout_constraintTop_toTopOf="parent" />
 
-        </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+        </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
-        <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+        <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
             android:id="@+id/mine_tab_pad"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -232,7 +232,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/img_avatar"
                 app:layout_constraintTop_toTopOf="parent" />
-        </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+        </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

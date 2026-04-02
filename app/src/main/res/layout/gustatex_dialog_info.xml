@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/transparent">
 
-    <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+    <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
         android:id="@+id/scl_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -131,6 +131,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.cardview.widget.CardView>
-    </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+    </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

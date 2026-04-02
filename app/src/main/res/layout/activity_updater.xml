@@ -83,7 +83,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
 
-                    <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+                    <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
                         android:id="@+id/btn_new_ver"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -107,7 +107,7 @@
                             android:textSize="16sp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
-                    </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+                    </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
                     <View
                         android:id="@+id/divider"
@@ -254,7 +254,7 @@
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-    <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+    <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
         android:id="@+id/chk_update"
         android:layout_width="0dp"
         android:layout_height="52dp"
@@ -281,6 +281,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-    </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+    </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

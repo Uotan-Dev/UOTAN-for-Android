@@ -39,7 +39,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+                    <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
                         android:id="@+id/btnSection"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -76,9 +76,9 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/imgSection"
                             app:layout_constraintTop_toTopOf="parent" />
-                    </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+                    </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
-                    <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+                    <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
                         android:id="@+id/btnPrefix"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -115,9 +115,9 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/imgPrefix"
                             app:layout_constraintTop_toTopOf="parent" />
-                    </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+                    </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
-                    <com.gustate.uotan.ui.view.input.SelectableEditText
+                    <com.uotan.forum.ui.view.input.SelectableEditText
                         android:id="@+id/etTitle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -138,7 +138,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/btnSection" />
 
-                    <com.gustate.uotan.ui.view.input.SelectableEditText
+                    <com.uotan.forum.ui.view.input.SelectableEditText
                         android:id="@+id/etContent"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -161,7 +161,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/etTitle" />
 
-                    <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+                    <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
                         android:id="@+id/scl_post"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
@@ -188,7 +188,7 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                    </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+                    </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
 
 

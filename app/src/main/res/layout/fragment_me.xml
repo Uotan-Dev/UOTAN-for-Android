@@ -160,7 +160,7 @@
                         app:layout_constraintStart_toEndOf="@+id/authIcon"
                         app:layout_constraintTop_toTopOf="@+id/authIcon" />
 
-                    <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+                    <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
                         android:id="@+id/btn_clock_in"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
@@ -189,7 +189,7 @@
                             app:layout_constraintTop_toTopOf="parent">
 
                         </TextView>
-                    </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+                    </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
                     <LinearLayout
                         android:id="@+id/linearLayout"
@@ -293,7 +293,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/img_tab2">
 
-                        <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+                        <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
                             android:id="@+id/scl_collect"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
@@ -336,9 +336,9 @@
                                     app:layout_constraintTop_toBottomOf="@+id/collectIcon" />
 
                             </androidx.constraintlayout.widget.ConstraintLayout>
-                        </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+                        </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
-                        <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+                        <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
                             android:id="@+id/scl_res"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
@@ -382,9 +382,9 @@
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toBottomOf="@+id/resIcon" />
                             </androidx.constraintlayout.widget.ConstraintLayout>
-                        </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+                        </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
-                        <com.gustate.uotan.ui.view.smooth.SmoothCornerLayout
+                        <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
                             android:id="@+id/scl_asset"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
@@ -456,7 +456,7 @@
                                     app:layout_constraintTop_toTopOf="@+id/uCoinsIcon" />
 
                             </androidx.constraintlayout.widget.ConstraintLayout>
-                        </com.gustate.uotan.ui.view.smooth.SmoothCornerLayout>
+                        </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
                     </LinearLayout>
 
                     <ImageView
