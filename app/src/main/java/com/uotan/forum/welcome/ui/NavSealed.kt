@@ -6,18 +6,21 @@ import kotlinx.serialization.Serializable
 sealed class NavSealed(val route: String) {
 
     @Serializable
-    object Sealed : NavSealed("welcome")
+    object Sealed : NavSealed(route = "welcome")
 
     @Serializable
-    object Login : NavSealed("login")
+    object Login : NavSealed(route = "login")
 
     @Serializable
-    object QQLogin : NavSealed("login/qq")
+    object LoginTwoStep: NavSealed(route = "login/two_step")
 
     @Serializable
-    object WeiboLogin : NavSealed("login/weibo")
+    object QQLogin : NavSealed(route = "login/qq")
 
     @Serializable
-    object XiaomiLogin : NavSealed("login/xiaomi")
+    object WeiboLogin : NavSealed(route = "login/weibo")
+
+    @Serializable
+    object XiaomiLogin : NavSealed(route = "login/xiaomi")
 
 }

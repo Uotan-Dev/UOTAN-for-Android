@@ -18,6 +18,7 @@ package com.uotan.forum.utils.network.cookiejar.persistence
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 import okhttp3.Cookie
 import androidx.core.content.edit
 
@@ -58,6 +59,9 @@ class SharedPrefsCookiePersistor private constructor(
     }
 
     override fun clear() {
-        sharedPreferences.edit { clear() }
+        sharedPreferences.edit(true) {
+            //Log.e("删除", "111")
+            clear()
+        }
     }
 }

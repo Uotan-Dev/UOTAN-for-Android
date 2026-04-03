@@ -27,13 +27,13 @@ import com.github.iielse.imageviewer.core.SimpleDataProvider
 import com.github.iielse.imageviewer.utils.Config
 import com.uotan.forum.BaseActivity
 import com.uotan.forum.R
-import com.uotan.forum.anim.LoadingAnim
+import com.uotan.forum.ui.anim.LoadingAnim
 import com.uotan.forum.article.ContentAdapter
 import com.uotan.forum.article.HtmlParse
 import com.uotan.forum.article.imageviewer.ImageLoader
 import com.uotan.forum.article.imageviewer.ImageTransformer
 import com.uotan.forum.databinding.ActivityThreadsBinding
-import com.uotan.forum.dialog.InfoDialog
+import com.uotan.forum.ui.dialog.InfoDialog
 import com.uotan.forum.threads.data.model.ThreadPhoto
 import com.uotan.forum.user.ui.UserActivity
 import com.uotan.forum.utils.Helpers.avatarOptions

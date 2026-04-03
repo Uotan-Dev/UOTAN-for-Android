@@ -472,7 +472,6 @@ class ResourceArticleParse {
     ) = withContext(Dispatchers.IO) {
         try {
             val client = HttpClient.getClient()
-            Log.e("e", url)
             val request = Request.Builder()
                 .url(baseUrl + url)
                 .header("User-Agent", USER_AGENT)
@@ -486,7 +485,6 @@ class ResourceArticleParse {
                 ?.first()
                 ?.text()
                 ?: ""
-            Log.e("e", followContent+ "111")
             val isFollow = followContent == "已关注"
             withContext(Dispatchers.Main) {
                 onSuccess(isFollow)

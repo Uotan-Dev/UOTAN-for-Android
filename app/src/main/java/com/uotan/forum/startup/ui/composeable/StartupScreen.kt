@@ -3,6 +3,7 @@ package com.uotan.forum.startup.ui.composeable
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -34,11 +36,12 @@ import com.uotan.forum.startup.ui.StartupState
 import com.uotan.forum.startup.viewmodel.StartupViewModel
 import com.uotan.forum.ui.activity.BindPhoneActivity
 import com.uotan.forum.ui.activity.UpdatePolicyActivity
-import com.uotan.forum.ui.composable.Logo
 import com.uotan.forum.ui.theme.button.filledTonalButtonColors
 import com.uotan.forum.utils.Utils.baseUrl
 import com.uotan.forum.utils.Utils.showToast
 import com.kyant.capsule.ContinuousRoundedRectangle
+import com.uotan.forum.ui.composable.UotanLogo
+import com.uotan.forum.ui.theme.uotanColors
 
 @Preview
 @Composable
@@ -50,6 +53,7 @@ fun StartupScreen() {
     var isStarting by remember { mutableStateOf(false) }
     Column(
         modifier = Modifier
+            .background(color = MaterialTheme.uotanColors.background)
             .fillMaxSize()
             .statusBarsPadding()
             .navigationBarsPadding(),
@@ -71,9 +75,11 @@ fun StartupScreen() {
                 Text(text = stringResource(R.string.skip))
             }
         }
-        Logo(modifier = Modifier
-            .padding(bottom = 60.dp)
-            .height(22.dp))
+        UotanLogo(
+            modifier = Modifier
+                .padding(bottom = 60.dp)
+                .height(height = 22.dp)
+        )
     }
     LaunchedEffect(countDown, startupState) {
         // 当倒计时结束或状态变为非Loading/Idle时，尝试启动
@@ -86,11 +92,10 @@ fun StartupScreen() {
     }
 }
 
-
-private fun startApp(context: Context, startupState: StartupState) {
+fun startApp(context: Context, startupState: StartupState) {
     when(startupState) {
         is StartupState.Loading -> {
-            showToast(context, "客服娘正在加紧获取您的登录信息")
+            showToast(context = context, resId = R.string.fetching_startup_info)
         }
         is StartupState.Success -> {
             context.startActivity(Intent(context, MainActivity::class.java))
@@ -113,7 +118,7 @@ private fun startApp(context: Context, startupState: StartupState) {
             showToast(context, R.string.intent_error)
         }
         is StartupState.Idle -> {
-            showToast(context, "客服娘正在加紧获取您的登录信息")
+            showToast(context = context, resId = R.string.fetching_startup_info)
         }
     }
 }

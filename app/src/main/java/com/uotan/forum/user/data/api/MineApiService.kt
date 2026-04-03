@@ -27,13 +27,11 @@ class MineApiService {
             val json = client.newCall(request).execute().body.string()
             val user = Gson().fromJson(json, MeModel::class.java)
 
-            Log.e("e", json)
             withContext(Dispatchers.Main) {
                 onSuccess(user)
             }
         } catch (e: Exception) {
             withContext(Dispatchers.Main) {
-                Log.e("e", e.message ?:"")
                 onException(e)
             }
         }

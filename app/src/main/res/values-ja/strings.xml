@@ -60,12 +60,20 @@
     <string name="unknown">不明</string>
     <string name="ip_location">IP 属地</string>
     <string name="login_successful">ログイン成功にゃ~</string>
-    <string name="two_step_verification_toast">メールボックスに1回限りのコードを送信するための2ステップの認証を開始しました</string>
     <string name="login_failed">ログインに失敗しました</string>
-    <string name="two_step_hint">私たちはすでに service@uotan.cn 6ビットの使い捨てコードを含む電子メールアドレスを送信しました。使い捨てコードを入力して続行してください。</string>
+    <string name="third_party_login">サードパーティのアカウントログイン</string>
+
+    <!-- 两步验证相关 -->
+    <string name="two_step_hint_email">私たちはすでに service@uotan.cn 6ビットの使い捨てコードを含む電子メールアドレスを送信しました。使い捨てコードを入力して続行してください。</string>
+    <string name="two_step_hint_totp">お客様のアカウントでは2段階認証が有効になっております。続行するには、認証アプリケーションで生成された6桁のワンタイムパスワードを入力してください。</string>
+    <string name="two_step_hint_backup">二段階認証の設定時に、自動的に10個の9桁の二段階認証バックアップコードを生成します。各コードは1回のみ使用可能ですので、任意のコードを入力して続行してください。完了後、アカウント所有者宛にメールを送信し、当該アカウントで二段階認証バックアップコードが使用されたことを通知します。</string>
     <string name="one_time_code">使い捨てコード</string>
+    <string name="backup_code">バックアップコード</string>
     <string name="code_format_doesnt_match">1 回限りのコードフォーマットが一致しません</string>
     <string name="code_incorrect">使い捨てコードが正しくありません</string>
+    <string name="auth_app_unavailable">私の認証アプリケーションが利用できません</string>
+    <string name="continue_auth_app">二段階認証のために引き続き認証アプリケーションを使用する</string>
+
     <string name="received_likes">受け取ったいいね</string>
     <string name="follow_me">私の</string>
     <string name="system_message">システムメッセージ</string>
@@ -259,4 +267,5 @@
     <string name="agreement_notice">%1$s、%2$s、および%3$sをよくお読みください。内容に同意いただける場合は、「同意する」をタップしてフルサービスをご利用ください。または、「基本閲覧モード」を選択し、追加の権限を許可せずに公開コンテンツのみをご利用いただけます。\n18歳未満の方は、法定代理人（保護者など）と一緒に本内容をご確認の上、その同意を得てからご利用ください。</string>
     <string name="agree">同意</string>
     <string name="basic_browsing_mode">ベースパターン</string>
+    <string name="fetching_startup_info">カスタマー娘が一生懸命ログイン情報を取りに行っています</string>
 </resources>

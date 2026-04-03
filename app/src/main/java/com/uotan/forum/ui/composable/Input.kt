@@ -1,20 +1,17 @@
 package com.uotan.forum.ui.composable
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Clear
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -36,7 +33,6 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.uotan.forum.ui.theme.text.inputTextStyle
-
 import com.uotan.forum.ui.theme.uotanColors
 import com.kyant.capsule.ContinuousRoundedRectangle
 
@@ -52,6 +48,8 @@ fun Input(
     hint: String,
     hintColor: Color = MaterialTheme.uotanColors.onCardSecondary,
     startIcon: Painter? = null,
+    endIcon: Painter? = null,
+    onEndIconClick: () -> Unit = {},
     iconMargin: Dp = 16.dp,
     contentMargin: Dp = 12.dp,
     enabled: Boolean = true,
@@ -60,14 +58,15 @@ fun Input(
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     visualTransformation: VisualTransformation = VisualTransformation.None,
-    cursorBrush: Brush = SolidColor(MaterialTheme.uotanColors.onFilledTonalButton)
+    cursorBrush: Brush = SolidColor(value = MaterialTheme.uotanColors.onFilledTonalButton)
 ) {
-    // 是否有焦点（控制右侧按钮）
-    var hasFocus by remember { mutableStateOf(false) }
+// 是否有焦点 (控制右侧按钮)
+    var hasFocus by remember { mutableStateOf(value = false) }
     BasicTextField(
         value = value,
         onValueChange = onValueChange,
-        modifier = modifier.onFocusChanged { hasFocus = it.isFocused },
+        modifier = modifier
+            .onFocusChanged { hasFocus = it.isFocused },
         singleLine = true,
         enabled = enabled,
         readOnly = readOnly,
@@ -77,43 +76,68 @@ fun Input(
         visualTransformation = visualTransformation,
         cursorBrush = cursorBrush,
         decorationBox = @Composable { innerTextField ->
+            val showStartIcon = startIcon != null
+            val showEndIcon = hasFocus && value.isNotEmpty() && endIcon != null
             Row(
-                modifier = Modifier.fillMaxWidth()
-                    .height(60.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(height = 60.dp)
                     .background(
                         color = MaterialTheme.uotanColors.card,
-                        shape = ContinuousRoundedRectangle(16.dp)
-                    ).border(
+                        shape = ContinuousRoundedRectangle(size = 16.dp)
+                    )
+                    .border(
                         width = if (hasFocus) 2.dp else 0.dp,
-                        color = if (hasFocus) MaterialTheme.uotanColors.onFilledTonalButton
-                        else Color.Transparent,
-                        shape = ContinuousRoundedRectangle(16.dp)
+                        color =
+                            if (hasFocus) MaterialTheme.uotanColors.onFilledTonalButton
+                            else Color.Transparent,
+                        shape = ContinuousRoundedRectangle(size = 16.dp)
+                    )
+                    .padding(
+                        start =
+                            if(showStartIcon) iconMargin else 0.dp,
+                        end =
+                            if(showEndIcon) iconMargin - 8.dp else 0.dp
                     ),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 // 左侧 Icon
-                if(startIcon != null){
-                    Spacer(modifier = Modifier.width(iconMargin))
-                    Image(painter = startIcon, contentDescription = null)
-                }
-                Spacer(modifier = Modifier.width(contentMargin))
-                Box(modifier = Modifier.weight(1f)){
+                if(showStartIcon)
+                    Icon(
+                        painter = startIcon,
+                        tint = inputTextStyle().color,
+                        contentDescription = null
+                    )
+                Box(
+                    modifier = Modifier
+                        .weight(weight = 1f)
+                        .padding(horizontal = contentMargin)
+                ){
                     // 当空字符时, 显示hint
                     if(value.isEmpty())
-                        Text(text = hint, color = hintColor, style = textStyle)
+                        Text(
+                            text = hint,
+                            color = hintColor,
+                            style = textStyle
+                        )
                     // 原本输入框的内容
                     innerTextField()
                 }
-                Spacer(modifier = Modifier.width(contentMargin))
-                // 存在焦点 且 有输入内容时. 显示叉号
-                if(hasFocus && value.isNotEmpty()) {
-                    Image(
-                        imageVector = Icons.Rounded.Clear, // 清除图标
-                        contentDescription = null,
-                        modifier = Modifier.clickable { onValueChange("") }
-                    )
-                }
-                Spacer(modifier = Modifier.width(iconMargin))
+                // 存在焦点 且 有输入内容时 且 有资源传入 显示右侧按钮
+                if(showEndIcon)
+                    IconButton(
+                        onClick = onEndIconClick,
+                        modifier = Modifier
+                            .onFocusChanged {
+                                hasFocus = true
+                            }
+                    ) {
+                        Icon(
+                            painter = endIcon,
+                            contentDescription = null,
+                            tint = inputTextStyle().color
+                        )
+                    }
             }
         }
     )
@@ -123,4 +147,5 @@ fun pwKeyboardOptions() = KeyboardOptions.Default.copy(
     capitalization = KeyboardCapitalization.None,
     keyboardType = KeyboardType.Password
 )
+
 

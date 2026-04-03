@@ -61,12 +61,20 @@
     <string name="unknown">Unknown</string>
     <string name="ip_location">IP location</string>
     <string name="login_successful">Login successful</string>
-    <string name="two_step_verification_toast">You have enabled two-step verification and a one-time code has been sent to your email</string>
     <string name="login_failed">Login failed</string>
-    <string name="two_step_hint">We have already used service@uotan.cn I have sent an email to your email address containing a six digit one-time code. Please enter a one-time code to continue.</string>
+    <string name="third_party_login">Third party account login</string>
+
+    <!-- 两步验证相关 -->
+    <string name="two_step_hint_email">We have already used service@uotan.cn I have emailed your email address containing a six digit one-time code. Please enter a one-time code to continue.</string>
+    <string name="two_step_hint_totp">Your account has enabled two-step verification. Please enter the six-digit one-time password generated in the authenticator app to continue.</string>
+    <string name="two_step_hint_backup">When you set up two-step verification, we will automatically generate ten nine-digit two-step verification backup codes for you. Each two-step verification backup code can only be used once. Please enter any one of the two-step verification backup codes to continue. After completion, we will email inform the account owner that the account has been used with a two-step verification backup code.</string>
     <string name="one_time_code">One time code</string>
+    <string name="backup_code">Backup code</string>
     <string name="code_format_doesnt_match">One time code format does not match</string>
     <string name="code_incorrect">The one-time code is incorrect</string>
+    <string name="auth_app_unavailable">My authenticator app is unavailable</string>
+    <string name="continue_auth_app">Continue to use the authenticator app for two-step verification</string>
+
     <string name="received_likes">Received likes</string>
     <string name="follow_me">Follow me</string>
     <string name="system_message">System message</string>
@@ -277,4 +285,5 @@
     <string name="agreement_notice">Please carefully read %1$s, %2$s, and %3$s. If you agree with their contents, tap \\\"Agree\\\" to continue using the full service. Alternatively, you may choose \\\"Basic Browsing Mode\\\" to access only public content without granting additional permissions.\nIf you are under 18 years of age, please read this with your legal guardian and obtain their consent before using the service.</string>
     <string name="agree">Agree</string>
     <string name="basic_browsing_mode">Basic Mode</string>
+    <string name="fetching_startup_info">Our support lady is busily fetching your login details for you</string>
 </resources>

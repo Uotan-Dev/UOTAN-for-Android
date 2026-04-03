@@ -13,7 +13,6 @@ import com.uotan.forum.utils.Utils.baseUrl
 class UotanLinkSpan(private val url: String) : ClickableSpan() {
 
     override fun onClick(widget: View) {
-        Log.e("e", url)
         val context = widget.context
         if (url.startsWith(baseUrl)) {
             val shortUrl = url.replace(baseUrl, "")
@@ -24,7 +23,6 @@ class UotanLinkSpan(private val url: String) : ClickableSpan() {
                     context.startActivity(intent)
                 }
             }
-            Toast.makeText(widget.context, "isUotanLink", Toast.LENGTH_SHORT).show()
         } else {
             // 默认使用浏览器打开
             val intent = Intent(Intent.ACTION_VIEW, url.toUri())

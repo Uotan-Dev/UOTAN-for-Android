@@ -20,13 +20,13 @@ import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayoutMediator
 import com.uotan.forum.BaseActivity
 import com.uotan.forum.R
-import com.uotan.forum.anim.LoadingAnim
+import com.uotan.forum.ui.anim.LoadingAnim
 import com.uotan.forum.databinding.ActivityResourceBinding
 import com.uotan.forum.databinding.DialogxAddResourceReplyBinding
 import com.uotan.forum.databinding.DialogxArticleMoreBinding
 import com.uotan.forum.databinding.DialogxDonationDownloadBinding
 import com.uotan.forum.databinding.DialogxSelectDownloadTypeBinding
-import com.uotan.forum.dialog.LoadingDialog
+import com.uotan.forum.ui.dialog.LoadingDialog
 import com.uotan.forum.resource.data.model.PurchaseData
 import com.uotan.forum.resource.ui.details.adapter.ResPagerAdapter
 import com.uotan.forum.resource.ui.details.model.ResourceBuyNavEvent

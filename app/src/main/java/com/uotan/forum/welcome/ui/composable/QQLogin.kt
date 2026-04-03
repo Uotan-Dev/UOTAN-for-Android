@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -18,6 +19,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
@@ -35,12 +37,17 @@ import com.kevinnzou.web.rememberWebViewNavigator
 import com.kevinnzou.web.rememberWebViewState
 import com.kyant.backdrop.backdrops.layerBackdrop
 import com.kyant.backdrop.backdrops.rememberLayerBackdrop
+import com.uotan.forum.welcome.ui.NavSealed
+import com.uotan.forum.welcome.ui.model.LoginEffect
 import dev.chrisbanes.haze.hazeSource
 import dev.chrisbanes.haze.rememberHazeState
 
 @SuppressLint("SetJavaScriptEnabled")
 @Composable
-fun WebViewLoginScreen(navController: NavController, loginType: LoginSealed) {
+fun WebViewLoginScreen(
+    navController: NavController,
+    loginType: LoginSealed
+) {
 
     val context = LocalContext.current
     val viewModel: LoginViewModel = viewModel()
@@ -52,6 +59,7 @@ fun WebViewLoginScreen(navController: NavController, loginType: LoginSealed) {
     var webViewRef by remember { mutableStateOf<WebView?>(null) }
     val hazeState = rememberHazeState()
     val backdrop = rememberLayerBackdrop()
+    val startupState by viewModel.startupUiState.collectAsState()
 
     LaunchedEffect(webViewRef) {
         webViewRef?.let { webView ->
@@ -68,13 +76,7 @@ fun WebViewLoginScreen(navController: NavController, loginType: LoginSealed) {
             if (!handled && isLoginSuccessUrl(currentUrl)) {
                 handled = true
                 cookieManager.syncWebViewCookiesToJar(baseUrl)
-                viewModel.loadUserInfo {
-                    showToast(context, R.string.login_successful)
-                    context.startActivity(
-                        Intent(context, MainActivity::class.java))
-                    (context as Activity).finish()
-                    return@loadUserInfo
-                }
+                viewModel.thirdPartyLoginSuccess()
             }
         }
         when (val state = webViewState.loadingState) {
@@ -150,11 +152,21 @@ fun WebViewLoginScreen(navController: NavController, loginType: LoginSealed) {
         modifier = Modifier,
         hazeState = hazeState,
         backdrop = backdrop,
-        title = "第三方登录",
+        title = stringResource(id = R.string.third_party_login),
         enableLeftButton = true,
         onLeftButtonClick = {
             navController.popBackStack()
         }
+    )
+
+    HandleLoginEffect(
+        viewModel = viewModel,
+        navController = navController
+    )
+    HandleStartupEffect(
+        context = context,
+        uiState = startupState,
+        hazeState = hazeState
     )
 }
 

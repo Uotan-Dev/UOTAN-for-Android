@@ -8,7 +8,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.uotan.forum.BaseActivity
 import com.uotan.forum.databinding.ActivitySearchResultBinding
-import com.uotan.forum.dialog.LoadingDialog
+import com.uotan.forum.ui.dialog.LoadingDialog
 import com.uotan.forum.search.ui.adapter.SearchAdapter
 import com.uotan.forum.threads.ui.ThreadsActivity
 import com.uotan.forum.utils.Utils.dpToPx

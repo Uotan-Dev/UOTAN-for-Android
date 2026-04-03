@@ -17,7 +17,7 @@ import androidx.annotation.StringRes
 import androidx.core.net.toUri
 import com.uotan.forum.UotanApplication
 import com.uotan.forum.R
-import com.uotan.forum.dialog.InfoDialog
+import com.uotan.forum.ui.dialog.InfoDialog
 import com.uotan.forum.utils.network.HttpClient
 import com.tonyodev.fetch2.Fetch
 import com.tonyodev.fetch2.NetworkType

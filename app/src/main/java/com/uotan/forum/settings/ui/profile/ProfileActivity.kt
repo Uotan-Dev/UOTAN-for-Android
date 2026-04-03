@@ -20,9 +20,9 @@ import com.bumptech.glide.Glide
 import com.uotan.forum.BaseActivity
 import com.uotan.forum.R
 import com.uotan.forum.databinding.ActivityProfileBinding
-import com.uotan.forum.dialog.InfoDialog
-import com.uotan.forum.dialog.InputDialog
-import com.uotan.forum.dialog.LoadingDialog
+import com.uotan.forum.ui.dialog.InfoDialog
+import com.uotan.forum.ui.dialog.InputDialog
+import com.uotan.forum.ui.dialog.LoadingDialog
 import com.uotan.forum.utils.Helpers.avatarOptions
 import com.uotan.forum.utils.PermissionUtils
 import com.uotan.forum.utils.Utils.dpToPx
@@ -220,8 +220,8 @@ class ProfileActivity : BaseActivity(), PermissionUtils.PermissionCallback {
                 infoDialog.cancel()
             }
             infoDialog.withOnConfirm {
+                HttpClient.clearCookies()
                 lifecycleScope.launch {
-                    HttpClient.clearCookies()
                     userViewModel.delete(userViewModel.getUser()!!)
                     withContext(Dispatchers.Main) {
                         infoDialog.cancel()

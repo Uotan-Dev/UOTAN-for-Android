@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
         android:id="@+id/layout_item"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,7 +17,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:scl_corner_radius="@dimen/fab_margin"
+        app:scl_smoothness_radius="@dimen/normal_smoothness">
 
         <ImageView
             android:id="@+id/img_avatar"
@@ -72,6 +74,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/img_avatar" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

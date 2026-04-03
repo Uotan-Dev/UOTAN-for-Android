@@ -77,7 +77,7 @@ class UpdateParse {
             try {
                 val client = HttpClient.getClient()
                 val request = Request.Builder()
-                    .url("https://gitee.com/XiaoMeng22333/uotan-for-android/raw/master/update.json")
+                    .url("https://raw.githubusercontent.com/Uotan-Dev/UOTAN-for-Android/refs/heads/main/update.json")
                     .build()
 
                 suspendCancellableCoroutine { continuation ->

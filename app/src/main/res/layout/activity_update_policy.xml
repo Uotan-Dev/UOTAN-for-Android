@@ -62,7 +62,7 @@
             android:id="@+id/back"
             android:layout_width="19dp"
             android:layout_height="14dp"
-            android:layout_marginStart="17dp"
+            android:layout_marginStart="28dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -138,7 +138,7 @@
             app:layout_constraintStart_toStartOf="@+id/last_updated_text"
             app:layout_constraintTop_toBottomOf="@+id/last_updated_text" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
             android:id="@+id/agreeButton"
             android:layout_width="120dp"
             android:layout_height="50dp"
@@ -148,7 +148,9 @@
             android:background="@drawable/uotan_btn_filled"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:scl_corner_radius="@dimen/normal_corner_radius"
+            app:scl_smoothness_radius="@dimen/normal_smoothness">
 
             <TextView
                 android:id="@+id/agreeText"
@@ -162,7 +164,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout

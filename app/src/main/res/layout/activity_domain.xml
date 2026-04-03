@@ -44,7 +44,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
                         android:id="@+id/constraintLayout"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -54,7 +54,9 @@
                         android:background="@drawable/uotan_bkg_option_normal"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:scl_corner_radius="@dimen/option_corner_radius"
+                        app:scl_smoothness_radius="@dimen/normal_smoothness">
 
                         <Switch
                             android:id="@+id/switchMonet2"
@@ -82,30 +84,41 @@
                             app:layout_constraintTop_toBottomOf="@+id/switchMonet2"
                             app:optionDescribe_tiltleAndDescribe="@string/github_name"
                             app:optionTitle_tiltleAndDescribe="@string/app_name" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
-                    <Switch
-                        android:id="@+id/switchMonet3"
+                    <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
+                        android:id="@+id/constraintLayout2"
                         android:layout_width="match_parent"
                         android:layout_height="56dp"
                         android:layout_marginStart="12dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="12dp"
                         android:background="@drawable/uotan_bkg_option"
-                        android:fontFamily="sans-serif-medium"
-                        android:paddingStart="16dp"
-                        android:paddingEnd="16dp"
-                        android:text="@string/disable_ssl_authentication"
-                        android:textColor="?attr/colorOnCardPrimary"
-                        android:textSize="18sp"
-                        android:thumb="@drawable/gustatex_switch_thumb"
-                        android:track="@drawable/gustatex_switch_track"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-                        tools:ignore="UseSwitchCompatOrMaterialXml,TouchTargetSizeCheck" />
+                        app:scl_corner_radius="@dimen/option_corner_radius"
+                        app:scl_smoothness_radius="@dimen/normal_smoothness">
 
+                        <Switch
+                            android:id="@+id/switchMonet3"
+                            android:layout_width="match_parent"
+                            android:layout_height="56dp"
+                            android:background="@drawable/uotan_bkg_option"
+                            android:fontFamily="sans-serif-medium"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:text="@string/disable_ssl_authentication"
+                            android:textColor="?attr/colorOnCardPrimary"
+                            android:textSize="18sp"
+                            android:thumb="@drawable/gustatex_switch_thumb"
+                            android:track="@drawable/gustatex_switch_track"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+                            tools:ignore="UseSwitchCompatOrMaterialXml,TouchTargetSizeCheck" />
+
+                    </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.core.widget.NestedScrollView>
         </com.scwang.smart.refresh.layout.SmartRefreshLayout>
@@ -165,11 +178,11 @@
                 android:background="@android:color/transparent"
                 android:baselineAligned="false"
                 android:fitsSystemWindows="true"
-                app:collapsedTitleGravity="start"
+                app:collapsedTitleGravity="center"
                 app:collapsedTitleTextAppearance="@style/CollapsedTitleStyle"
                 app:collapsedTitleTextColor="?attr/colorOnBackgroundPrimary"
                 app:contentScrim="@android:color/transparent"
-                app:expandedTitleMarginStart="16dp"
+                app:expandedTitleMarginStart="28dp"
                 app:expandedTitleTextAppearance="@style/ExpendedTitleStyle"
                 app:expandedTitleTextColor="?attr/colorOnBackgroundPrimary"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
@@ -185,6 +198,8 @@
                     android:layout_height="60dp"
                     android:background="@android:color/transparent"
                     android:fitsSystemWindows="true"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="66dp"
                     app:contentInsetStartWithNavigation="12dp"
                     app:layout_collapseMode="pin"
                     app:navigationIcon="@drawable/ic_back" />

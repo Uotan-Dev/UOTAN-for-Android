@@ -20,7 +20,7 @@ import androidx.lifecycle.lifecycleScope
 import com.uotan.forum.BaseActivity
 import com.uotan.forum.R
 import com.uotan.forum.databinding.ActivityBindPhoneBinding
-import com.uotan.forum.dialog.LoadingDialog
+import com.uotan.forum.ui.dialog.LoadingDialog
 import com.uotan.forum.main.ui.MainActivity
 import com.uotan.forum.utils.Utils.baseUrl
 import com.uotan.forum.utils.Utils.TIMEOUT_MS

@@ -13,8 +13,8 @@ import androidx.core.view.updateLayoutParams
 import com.uotan.forum.BaseActivity
 import com.uotan.forum.R
 import com.uotan.forum.databinding.ActivityDomainBinding
-import com.uotan.forum.dialog.InfoDialog
-import com.uotan.forum.dialog.InputDialog
+import com.uotan.forum.ui.dialog.InfoDialog
+import com.uotan.forum.ui.dialog.InputDialog
 import com.uotan.forum.settings.data.SettingModel.Companion.DOMAIN_CUSTOM_ENABLED_KEY
 import com.uotan.forum.settings.data.SettingModel.Companion.DOMAIN_CUSTOM_VALUE_KEY
 import com.uotan.forum.settings.data.SettingModel.Companion.SSL_AUTH_DISABLE_KEY

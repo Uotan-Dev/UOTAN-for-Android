@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">柚坛社区</string>
+    <string name="app_name">柚坛</string>
     <string name="next">下一步</string>
     <string name="title">标题</string>
     <string name="describe">简介</string>
@@ -60,12 +60,20 @@
     <string name="unknown">未知</string>
     <string name="ip_location">IP 属地</string>
     <string name="login_successful">登录成功喵~</string>
-    <string name="two_step_verification_toast">您开启了两步验证，已为您的邮箱发送一次性代码</string>
     <string name="login_failed">登录失败</string>
-    <string name="two_step_hint">我们已经用 service@uotan.cn 向您的电子邮件地址发送了一封包含六位一次性代码的电子邮件，请输入一次性代码继续。</string>
+    <string name="third_party_login">第三方账号登录</string>
+
+    <!-- 两步验证相关 -->
+    <string name="two_step_hint_email">我们已经用 service@uotan.cn 向您的电子邮件地址发送了一封包含六位一次性代码的电子邮件，请输入一次性代码继续。</string>
+    <string name="two_step_hint_totp">您的账号开启了两步验证，请输入身份验证器应用程序中生成的六位一次性密码以继续。</string>
+    <string name="two_step_hint_backup">在您进行两步验证设置时，我们为您自动生成十个九位两步验证备份代码，每个两步验证备份代码只能使用一次，请您输入任意一个两步验证备份代码以继续。完成后，我们将发送一封电子邮件告知账户所有者该账号被使用了两步验证备份代码。</string>
     <string name="one_time_code">一次性代码</string>
+    <string name="backup_code">备份代码</string>
     <string name="code_format_doesnt_match">一次性代码格式不符</string>
     <string name="code_incorrect">一次性代码不正确</string>
+    <string name="auth_app_unavailable">我的身份验证器应用程序不可用</string>
+    <string name="continue_auth_app">继续使用身份验证器应用程序进行两步验证</string>
+
     <string name="received_likes">收到的赞</string>
     <string name="follow_me">关注我的</string>
     <string name="system_message">系统消息</string>
@@ -240,7 +248,7 @@
     <string name="tip_pravicy">柚坛社区深知个人信息对您的重要性，我们一向庄严承诺保护使用我们的产品和服务柚坛社区之用户的个人信息及隐私安全。</string>
     <string name="basic_personal_information">基本个人信息</string>
     <string name="rename_user">更改用户名</string>
-    <string name="logout">退出登录</string>
+    <string name="logout">退出登录/撤销同意</string>
     <string name="error">错误</string>
     <string name="change_username_time">你一个月只能修改一次用户名</string>
     <string name="modified_successfully">修改成功</string>
@@ -259,4 +267,5 @@
     <string name="agreement_notice">请仔细阅读%1$s、%2$s与%3$s。若您认可其内容，请点击“同意”以继续使用完整服务；亦可选择“基础浏览模式”，仅获取公开内容，无需授权额外权限。\n若您未满十八周岁，请在法定监护人陪同下阅读并征得其同意后使用。</string>
     <string name="agree">同意</string>
     <string name="basic_browsing_mode">基础模式</string>
+    <string name="fetching_startup_info">客服娘正在加紧获取您的登录信息</string>
 </resources>

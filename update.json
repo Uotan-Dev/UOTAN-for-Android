@@ -1,10 +1,61 @@
 {
-  "latest_version_name": "1.0.4.0 Beta",
-  "latest_version_code": 1040,
-  "latest_version_download_url": "https://gitee.com/XiaoMeng22333/uotan-for-android/releases/download/1.0.4.0/UOTAN-app-release_1.0.4.0_Beta.apk",
+  "latest_version_name": "1.0.4.1 Beta",
+  "latest_version_code": 1041,
+  "latest_version_download_url": "https://gitee.com/XiaoMeng22333/uotan-for-android/releases/download/1.0.4.1/UOTAN-app-release_1.0.4.1_Beta.apk",
   "version_channel": "Beta",
   "versions":
   [
+    {
+      "version_name": "1.0.4.1",
+      "version_code": 1041,
+      "update_date": "2026-04-03",
+      "update_log": [
+        {
+          "type": "重要提示",
+          "content": "建议升级前清空应用数据，避免缓存数据导致异常问题"
+        },
+        {
+          "type": "界面",
+          "content": "优化 全局界面视觉风格统一性，整体设计更加贴近系统体验\n优化 多处组件圆角显示效果，提升视觉一致性\n修复 部分页面卡片、弹窗圆角丢失问题\n修复 列表项在特定情况下圆角裁切异常的问题\n优化 页面层级阴影与圆角配合关系\n优化 动态取色适配逻辑，提高界面一致性"
+        },
+        {
+          "type": "版块体验",
+          "content": "优化 版块详情页整体布局结构，提升信息层级清晰度\n优化 子版块列表展示逻辑，减少视觉干扰\n修复 子版块卡片圆角在滚动时丢失的问题\n修复 版块列表部分分割区域显示异常的问题"
+        },
+        {
+          "type": "账号与安全",
+          "content": "修复 手机号绑定失败的问题\n优化 手机号绑定流程交互体验\n优化 错误提示信息表达，更清晰直观"
+        },
+        {
+          "type": "两步验证",
+          "content": "修复 两步验证无法正常使用的问题\n新增 当所有验证方式不可用时，可使用备份代码登录\n优化 验证流程稳定性"
+        },
+        {
+          "type": "隐私与合规",
+          "content": "优化 隐私政策更新页面展示效果\n修正 软件互联网服务许可备案号显示"
+        },
+        {
+          "type": "网络与代理",
+          "content": "优化 域名与代理设置界面结构\n优化 布局逻辑，提高可读性与操作效率"
+        },
+        {
+          "type": "应用性能",
+          "content": "优化 安装包体积，大幅缩减资源占用\n优化 日志系统，移除冗余输出内容\n提升 应用整体运行效率"
+        },
+        {
+          "type": "问题修复",
+          "content": "修复 启动时商标无法正常取色的问题\n优化 部分错误弹窗语言表达"
+        },
+        {
+          "type": "已知问题",
+          "content": "第三方登录账号在启用两步验证时可能出现闪退问题"
+        },
+        {
+          "type": "致谢",
+          "content": "感谢参与测试的用户反馈，我们将持续优化体验与稳定性"
+        }
+      ]
+    },
     {
       "version_name": "1.0.4.0",
       "version_code": 1040,

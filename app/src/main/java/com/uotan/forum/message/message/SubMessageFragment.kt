@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.uotan.forum.databinding.FragmentSubNoticeBinding
 import com.uotan.forum.message.adapter.MessageRecyclerAdapter
 import com.uotan.forum.threads.ui.ThreadsActivity
+import com.uotan.forum.utils.Utils.baseUrl
 import com.uotan.forum.utils.Utils.dpToPx
 import kotlin.math.roundToInt
 
@@ -50,7 +51,7 @@ class SubMessageFragment : Fragment() {
                         requireContext(),
                         ThreadsActivity::class.java
                     ).apply {
-                        putExtra("url", it)
+                        putExtra("url", baseUrl + it)
                     }
                 )
             }

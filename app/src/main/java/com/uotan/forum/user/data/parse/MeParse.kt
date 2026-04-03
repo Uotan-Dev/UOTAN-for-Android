@@ -42,8 +42,6 @@ class MeParse {
         var devicePosition = 9
         var describePosition = 10
 
-        Log.e("e", formRows.toString())
-
         for (index in formRows.indices) {
             val title = formRows[index]
                 .getElementsByTag("dt")

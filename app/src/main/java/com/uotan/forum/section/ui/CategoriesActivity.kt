@@ -10,8 +10,10 @@ import androidx.core.view.updateLayoutParams
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.uotan.forum.BaseActivity
 import com.uotan.forum.databinding.ActivityCategoriesBinding
-import com.uotan.forum.dialog.ErrorDialog
+import com.uotan.forum.ui.dialog.ErrorDialog
 import com.uotan.forum.section.ui.adapter.SectionAdapter
+import com.uotan.forum.utils.Utils.dpToPx
+import kotlin.math.roundToInt
 
 class CategoriesActivity : BaseActivity() {
 
@@ -34,6 +36,12 @@ class CategoriesActivity : BaseActivity() {
             binding.contentHeaderBar.updateLayoutParams<ViewGroup.MarginLayoutParams> {
                 topMargin = systemBars.top
             }
+            binding.srlSection.setPadding(
+                0,
+                116f.dpToPx(this).roundToInt(),
+                0,
+                (systemBars.top + systemBars.bottom)
+            )
             insets
         }
         adapter = SectionAdapter().apply {

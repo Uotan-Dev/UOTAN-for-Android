@@ -18,7 +18,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.uotan.forum.R
-import com.uotan.forum.anim.TitleAnim
+import com.uotan.forum.ui.anim.TitleAnim
 import com.uotan.forum.databinding.FragmentMeBinding
 import com.uotan.forum.search.ui.adapter.SearchAdapter
 import com.uotan.forum.settings.ui.SettingsActivity
@@ -86,9 +86,16 @@ class MeFragment : Fragment() {
             }
             insets
         }
-        if (!Utils.isLogin) showToast(requireContext(), R.string.no_login)
-        initPage()
         setOnListener()
+        if (!Utils.isLogin) {
+            errorDialog(
+                requireContext(),
+                "您尚未登录",
+                "请重启软件后登录，谢谢喵；登录！谢谢喵！想去设置页面也可以点取消！"
+            )
+            return
+        }
+        initPage()
     }
 
     private fun initPage() {

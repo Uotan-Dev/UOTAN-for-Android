@@ -36,7 +36,7 @@
             android:id="@+id/back"
             android:layout_width="19dp"
             android:layout_height="14dp"
-            android:layout_marginStart="17dp"
+            android:layout_marginStart="28dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -87,22 +87,34 @@
         app:layout_constraintTop_toBottomOf="@+id/uotan"
         tools:ignore="VisualLintLongText" />
 
-    <TextView
+    <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
         android:id="@+id/areaText"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:layout_marginStart="30dp"
         android:background="@drawable/uotan_bkg_option_normal"
-        android:fontFamily="sans-serif-medium"
-        android:gravity="center"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:text="@string/p86"
-        android:textColor="?attr/colorOnCardPrimary"
-        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/phoneEdit"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/phoneEdit" />
+        app:layout_constraintTop_toTopOf="@+id/phoneEdit"
+        app:scl_corner_radius="@dimen/normal_corner_radius"
+        app:scl_smoothness_radius="@dimen/normal_smoothness">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/p86"
+            android:textColor="?attr/colorOnCardPrimary"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
+
 
     <EditText
         android:id="@+id/phoneEdit"
@@ -113,7 +125,7 @@
         android:layout_marginEnd="30dp"
         android:background="@drawable/gustatex_edittext_background"
         android:ems="10"
-        android:fontFamily="@font/mi_sans"
+        android:fontFamily="sans-serif-medium"
         android:gravity="center"
         android:hint="@string/phone_number"
         android:inputType="text"
@@ -135,7 +147,7 @@
         android:layout_marginEnd="30dp"
         android:background="@drawable/gustatex_edittext_background"
         android:ems="10"
-        android:fontFamily="@font/mi_sans"
+        android:fontFamily="sans-serif-medium"
         android:gravity="center"
         android:hint="@string/one_time_code"
         android:inputType="textPassword"
@@ -149,7 +161,7 @@
         app:layout_constraintTop_toBottomOf="@+id/phoneEdit"
         tools:ignore="Autofill,TextContrastCheck,VisualLintTextFieldSize" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
         android:id="@+id/sendButton"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
@@ -160,7 +172,9 @@
         android:background="@drawable/uotan_btn_filled"
         app:layout_constraintBottom_toBottomOf="@+id/codeEdit"
         app:layout_constraintEnd_toEndOf="@+id/codeEdit"
-        app:layout_constraintTop_toTopOf="@+id/codeEdit">
+        app:layout_constraintTop_toTopOf="@+id/codeEdit"
+        app:scl_corner_radius="@dimen/normal_corner_radius"
+        app:scl_smoothness_radius="@dimen/normal_smoothness">
 
         <TextView
             android:id="@+id/send"
@@ -177,9 +191,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="TextContrastCheck" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
         android:id="@+id/bindingButton"
         android:layout_width="0dp"
         android:layout_height="50dp"
@@ -190,7 +204,9 @@
         android:background="@drawable/uotan_btn_filled"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/codeEdit">
+        app:layout_constraintTop_toBottomOf="@+id/codeEdit"
+        app:scl_corner_radius="@dimen/normal_corner_radius"
+        app:scl_smoothness_radius="@dimen/normal_smoothness">
 
         <TextView
             android:id="@+id/binding"
@@ -205,7 +221,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="TextContrastCheck" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 
     <View
         android:id="@+id/gestureView"

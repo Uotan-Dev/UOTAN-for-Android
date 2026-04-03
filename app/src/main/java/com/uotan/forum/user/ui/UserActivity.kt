@@ -26,9 +26,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.uotan.forum.BaseActivity
 import com.uotan.forum.R
-import com.uotan.forum.anim.TitleAnim
+import com.uotan.forum.ui.anim.TitleAnim
 import com.uotan.forum.databinding.ActivityUserBinding
-import com.uotan.forum.dialog.LoadingDialog
+import com.uotan.forum.ui.dialog.LoadingDialog
 import com.uotan.forum.threads.ui.ThreadsActivity
 import com.uotan.forum.utils.Helpers.avatarOptions
 import com.uotan.forum.utils.Utils

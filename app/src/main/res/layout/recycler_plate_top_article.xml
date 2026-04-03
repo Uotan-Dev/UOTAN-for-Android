@@ -4,18 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.uotan.forum.ui.view.smooth.SmoothCornerLayout
         android:id="@+id/itemLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
-        android:layout_marginEnd="6dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="4dp"
         android:background="@drawable/uotan_bkg_option"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:scl_corner_radius="@dimen/normal_corner_radius"
+        app:scl_smoothness_radius="@dimen/normal_smoothness">
 
         <ImageView
             android:id="@+id/topIco"
@@ -55,5 +57,5 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/gustatex_arrow_right" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.uotan.forum.ui.view.smooth.SmoothCornerLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.uotan.forum.BaseActivity
 import com.uotan.forum.R
-import com.uotan.forum.anim.TitleAnim
+import com.uotan.forum.ui.anim.TitleAnim
 import com.uotan.forum.databinding.ActivityPlateBinding
 import com.uotan.forum.section.data.model.SectionDataItem
 import com.uotan.forum.section.ui.adapter.SectionArticleListAdapter
@@ -103,11 +103,11 @@ class SectionDataActivity : BaseActivity() {
         binding.btnExpand.setOnClickListener {
             val willExpand = !topAdapter.isExpanded
             topAdapter.setExpanded(willExpand)
-            binding.btnExpand.text = if (willExpand) getString(R.string.retract) else getString(R.string.expand)
+            binding.tvExpand.text = if (willExpand) getString(R.string.retract) else getString(R.string.expand)
         }
         viewModel.loadInitialData(
             url = url,
-            false,
+            isRefresh = false,
             onSuccess = {
                 loadingAnimator.cancel()
                 binding.imgLoading.isGone = true
@@ -118,12 +118,33 @@ class SectionDataActivity : BaseActivity() {
             }
         )
         binding.srlRoot.setOnRefreshListener {
-            viewModel.loadInitialData(url, true, {binding.srlRoot.finishRefresh()}, {errorDialog(this, "ERROR", it.message)})
+            viewModel.loadInitialData(
+                url = url,
+                isRefresh = true,
+                onSuccess = {
+                    binding.srlRoot.finishRefresh()
+                },
+                onException = {
+                    errorDialog(
+                        context = this,
+                        title = "ERROR",
+                        message = it.message
+                    )
+                }
+            )
         }
         binding.srlRoot.setOnLoadMoreListener {
             viewModel.loadMoreData(
-                {binding.srlRoot.finishLoadMore()},
-                {errorDialog(this, "ERROR", it.message)}
+                onSuccess = {
+                    binding.srlRoot.finishLoadMore()
+                },
+                onException = {
+                    errorDialog(
+                        context = this,
+                        title = "ERROR",
+                        message = it.message
+                    )
+                }
             )
         }
     }
@@ -131,16 +152,17 @@ class SectionDataActivity : BaseActivity() {
     private fun observerList() {
         viewModel.normalSectionDataList.observe(this) {
             adapter.submitList(it)
-            binding.recyclerView.isGone = it.first() == SectionDataItem("", "", "", "", "", "", "", "", "")
-            binding.imgNonePost.isGone = it.first() != SectionDataItem("", "", "", "", "", "", "", "", "")
-            binding.tvNonePost.isGone = it.first() != SectionDataItem("", "", "", "", "", "", "", "", "")
+            val nonePost = it.first() == SectionDataItem("", "", "", "", "", "", "", "", "")
+            binding.recyclerView.isGone = nonePost
+            binding.imgNonePost.isGone = !nonePost
+            binding.tvNonePost.isGone = !nonePost
         }
         viewModel.topSectionDataList.observe(this) {
             topAdapter.apply {
                 submitList(it.take(2))
                 fullList.addAll(it)
                 binding.btnExpand.isGone = it.size < 3
-                binding.btnExpand.text = getString(R.string.expand)
+                binding.tvExpand.text = getString(R.string.expand)
             }
         }
         viewModel.sectionDescribe.observe(this) {

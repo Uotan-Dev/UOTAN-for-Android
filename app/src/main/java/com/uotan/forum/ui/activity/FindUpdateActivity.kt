@@ -21,7 +21,7 @@ import com.uotan.forum.BaseActivity
 import com.uotan.forum.R
 import com.uotan.forum.ui.activity.UpdaterActivity.UpdateLogAdapter
 import com.uotan.forum.databinding.ActivityFindUpdateBinding
-import com.uotan.forum.dialog.InfoDialog
+import com.uotan.forum.ui.dialog.InfoDialog
 import com.uotan.forum.utils.Utils.downloadFile
 import com.uotan.forum.utils.Utils.dpToPx
 import com.uotan.forum.utils.parse.update.UpdateParse.Companion.fetchNewVersion

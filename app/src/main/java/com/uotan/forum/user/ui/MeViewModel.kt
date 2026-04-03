@@ -132,7 +132,7 @@ class MeViewModel(application: Application) : AndroidViewModel(application) {
     private suspend fun loadProfileCache(): User = withContext(Dispatchers.IO) {
         val myInfo = ur.getUser()
         if (myInfo == null)
-                throw NullPointerException("No Cache for Profile In Your Phone")
+                throw NullPointerException("你的登录状态不完整，请重新登录")
         return@withContext myInfo
     }
 

@@ -47,7 +47,7 @@ import androidx.loader.content.CursorLoader
 import com.uotan.forum.BaseActivity
 import com.uotan.forum.R
 import com.uotan.forum.databinding.ActivityPostAritcleBinding
-import com.uotan.forum.dialog.LoadingDialog
+import com.uotan.forum.ui.dialog.LoadingDialog
 import com.uotan.forum.ui.view.scrollcontroller.ScrollControllerListView
 import com.uotan.forum.ui.view.input.SelectableEditText
 import com.uotan.forum.utils.Utils.baseUrl

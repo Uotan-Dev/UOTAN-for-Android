@@ -16,8 +16,8 @@ android {
         applicationId = "com.uotan.forum"
         minSdk = 28
         targetSdk = 36
-        versionCode = 1040
-        versionName = "1.0.4.0"
+        versionCode = 1041
+        versionName = "1.0.4.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 

@@ -6,7 +6,7 @@ import com.uotan.forum.home.ui.HomeFragment
 import com.uotan.forum.section.ui.SectionFragment
 import com.uotan.forum.resource.ui.ResFragment
 import com.uotan.forum.user.ui.MeFragment
-import com.uotan.forum.ui.MessageFragment
+import com.uotan.forum.message.MessageFragment
 
 class MainPagerAdapter(fragmentActivity: FragmentActivity):
     FragmentStateAdapter(fragmentActivity){
